@@ -1,5 +1,5 @@
 <?php
-echo "<h1>Processing........</h1>";
+echo "<h1>Processing....</h1>";
 ini_set('max_execution_time', 0);
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
