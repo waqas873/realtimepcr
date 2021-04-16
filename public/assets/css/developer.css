@@ -1,0 +1,340 @@
+.no_padd{
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+.sidebar_icons{
+  margin-left: 10px;
+  margin-right: 11px;
+  width: 18px;
+}
+.slimScrollDiv{
+  height: none !important; 
+}
+.pformlabel{
+  text-align: right;
+  font-weight: 600;
+}
+.custom-control.custom-radio.custom-control-inline{
+  margin-left: 17px !important;
+}
+.inputs_with_bottom_border{
+  border-left: none !important; 
+  border-right: none !important; 
+  border-top: none !important; 
+}
+.patient_save_btn{
+  margin-left: 20px;
+  float: right;
+}
+.patient_reg_title{
+  margin-left: 13% !important;
+  font-size: 22px !important;
+  color: #1F54AA;
+}
+.dashboard-logo{
+  margin-left: 7%;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+.dashboard-heading h2{
+  color: white;
+  font-size: 30px;
+  text-align: center;
+  margin-top: 16px;
+}
+#addTests .modal-dialog{
+  max-width: 400px !important;
+}
+.select2-container--default .select2-selection--single{
+  border-left: none !important; 
+  border-right: none !important; 
+  border-top: none !important; 
+  height: 39px !important;
+}
+.select2.select2-container.select2-container--default{
+  width: 100% !important;
+}
+.save-tests{
+  width: 100% !important;
+}
+#addTests p{
+  font-size: 16px;
+}
+#addTests h5{
+  color: #1F54AA;
+}
+.all_errors {
+    color: red;
+}
+.patient-detail{
+  padding-top: 30px;
+}
+.patient-detail h1{
+  margin-bottom: 25px;
+  color: #1F54AA;
+}
+
+.cpanel h1{
+  margin: 15px;
+  color: #1F54AA;
+  font-size: 21px;
+}
+
+.toggle-off {
+    border: 1px solid #A9A1A1 !important;
+    border-radius: 18px !important;
+}
+.toggle.btn.btn-primary{
+    border-radius: 18px !important;
+    float: right;
+}
+.toggle-btn-text{
+    font-size: 16px;
+    font-weight: 500;
+    padding-right: 15px;
+    padding-top: 30px;
+    position: relative;
+    top: 4px;
+}
+.toggle-rows{
+  margin-bottom: 16px;
+}
+.toggle.btn.btn-default.off{
+  float: right;
+}
+.cpanel-pdl{
+  padding-left: 17px;
+}
+.ip_address {
+    font-size: 16px;
+    color: green;
+}
+.ip_address_btn{
+    float: right;
+    margin-top: -5px;
+}
+.categories{
+    margin-top: 20px;
+    margin-bottom: 23px;
+}
+.cpanel-btn{
+    color: #0080ff !important;
+    width: 124px;
+    float: right;
+    border: solid 1px #e5e5e5;
+}
+.cpanel-badges{
+    background-color: #e5e5e5 !important;
+    font-size: 14px;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+.ip_address_btn {
+    margin-right: 9%;
+}
+.add-tests{
+    width: 100%;
+    border: solid 2px #0080ff;
+    border-radius: 3px;
+    padding: 26px;
+    text-align: center;
+}
+#addTest {
+    font-size: 22px;
+    color: #0080ff;
+}
+.add-test-btn{
+  margin-bottom: 20px;
+  width: 128px;
+}
+.reporting_time{
+  font-size: 14px;
+}
+.add-test-content{
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+}
+.modal-dialog{
+  max-width: 670px !important;
+}
+.invoice_box1{
+  border:1px solid #EAEAEA;
+  min-height: 100px;
+  width: 100%;
+  float: right;
+  text-align: center;
+  padding-top: 5%;
+}
+.invoice_box1 h4{
+   color: #458CFF;
+}
+.invoice_box1 h6{
+   color: #458CFF;
+}
+.invoice_box2{
+  border:1px solid #EAEAEA;
+  min-height: 100px;
+  width:100%;
+  float: left;
+  text-align: center;
+  padding-top: 5%;
+}
+.invoice_box2 h4{
+   color: #FF8585;
+}
+.invoice_box2 h6{
+   color: #FF8585;
+}
+.invoice-inputs {
+    margin-top: 10px;
+}
+#add_profile_test{
+  margin-bottom: 17px;
+}
+#invoiceModal .modal-header{
+  border-bottom: none !important;
+}
+#invoiceModal .modal-body{
+  padding-top: 20px;
+}
+#invoiceModal .modal-dialog{
+  max-width: 800px !important;
+}
+#invoiceModal .modal-body .row{
+  margin-bottom: 15px !important;
+}
+.invr12 h1 , h3{
+  text-align: center;
+}
+.invr12 h3{
+  font-size: 15px;
+}
+.invoice_code{
+  width: 175px;
+  height: 175px;
+  float: right;
+  border-radius: 5px;
+}
+.invr13 h6{
+  font-size: 13px;
+  float: right;
+}
+.invr2{
+  margin: auto;
+  width: 95%;
+}
+.invr2 h6{
+  margin-top: 15px;
+}
+.invr-pname{
+  width: 100%;
+  border-bottom: 1px solid;
+  margin-top: 12px;
+  font-size: 16px;
+}
+.amp1 , .amp2{
+  text-align: right;
+}
+.amp2{
+  padding-right: 25px !important;
+  color: #5D7BFF;
+}
+.invr3 ul{
+  list-style-type: none;
+  padding-left: 7px !important;
+}
+.invr3 ul i{
+  margin-right: 7px;
+}
+.invr-footer{
+  background-color: black !important;
+  width: 100%;
+  margin: 0 auto;
+  font-size: 19px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+.invr-footer p{
+  color: white !important;
+  margin-top: 14px;
+}
+.inv_no{
+  width: 100%;
+  float: right;
+  background-color: white !important;
+  text-align: center;
+  padding-top: 2px;
+  border-radius: 5px;
+}
+
+.pay_invoice_box1{
+  border:1px solid #EAEAEA;
+  min-height: 100px;
+  width: 80%;
+  float: right;
+  text-align: center;
+  padding-top: 5%;
+}
+.pay_invoice_box1 h4{
+   color: #458CFF;
+}
+.pay_invoice_box1 h6{
+   color: #458CFF;
+}
+.pay_invoice_box2{
+  border:1px solid #EAEAEA;
+  min-height: 100px;
+  width: 80%;
+  float: left;
+  text-align: center;
+  padding-top: 5%;
+}
+
+.p3_stat_btm{
+  padding-top: 5px !important;
+  padding-bottom: 5px !important;
+}
+.ml22{
+  font-size: 17px !important;
+}
+
+.pay_invoice_box2 h4{
+   color: #FF8585;
+}
+.pay_invoice_box2 h6{
+   color: #FF8585;
+}
+.minus_amount{
+  color: #FF6565;
+}
+.plus_amount{
+  color: #3DB74D;
+}
+
+.invlogo1{
+  width: 100px !important;
+  height: 100px !important;
+  float: left !important;
+}
+.invlogo2{
+  width: 300px !important;
+  margin-top: 25px !important;
+  margin-left: 15px !important;
+}
+.invr3 {
+    margin-top: 70px;
+}
+
+.ptb_custom{
+  padding: 10px 0px !important;
+}
+.emdatefilter p{
+  font-weight: bold;
+  font-size: 16px;
+  margin-top: 5px;
+}
+.embsearch{
+  width: 100%;
+  height: 36px;
+}
