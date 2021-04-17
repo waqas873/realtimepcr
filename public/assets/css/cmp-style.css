@@ -143,6 +143,10 @@ border-radius: 10px;
     /* To Print Exact Colors and Graphics */
     body {-webkit-print-color-adjust: exact;}
 
+    #controlBox{
+        display: none;
+    }
+    
     /* Page Print Setup */
     .container{
         margin: 10px;

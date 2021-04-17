@@ -20,19 +20,19 @@
 
 
     <!-- <link rel="stylesheet" href="cmp-style.css"> -->
-<style type="text/css">
-.trh4{
-    text-align: left;
-    font-size: 22px; 
-    font-weight:700;
-}
-</style>
+    <style type="text/css">
+        .trh4 {
+            text-align: left;
+            font-size: 22px;
+            font-weight: 700;
+        }
+    </style>
 </head>
 
 <body>
-        <!-- Errors -->
-    
-<!--
+    <!-- Errors -->
+
+    <!--
 
     <div class="container" style="padding: 20px;" id="errPayment">
         <div class="component">
@@ -61,6 +61,40 @@
 
 
         -->
+    <div class="container controlBox" id="controlBox">
+        <div class="row component">
+
+            <div class="col-sm-4">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">Header &amp; Footer</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">Consultants</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">Comments</label>
+                </div>
+            </div>
+            <div class="col-sm-4">
+
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                    <label class="form-check-label" for="flexRadioDefault1">Multi Page Report</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked="">
+                    <label class="form-check-label" for="flexRadioDefault2">Single Page Report</label>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <button type="button" class="btn btn-light">Download PDF</button>
+                <button type="button" onclick="window.print()" class="btn btn-primary">Print Report</button>
+            </div>
+        </div>
+    </div>
 
     <div class="container" style="padding: 20px" ; id="print_section">
         <div class="row">
@@ -72,113 +106,111 @@
             </div>
             <div class="col-sm-4">
                 Sample Date : <b>
-                    <?php 
+                    <?php
                     //echo (!empty($result->patient->sample_date))?$result->patient->sample_date:'none';
-                    echo (!empty($result->created_at))?$result->created_at:'none'; 
-                ?>
+                    echo (!empty($result->created_at)) ? $result->created_at : 'none';
+                    ?>
                 </b>
 
             </div>
             <div class="col-sm-4">
                 Reporting Time:
-                <?php 
+                <?php
                 // $rdate = explode(' ', $result->patient->created_at);
                 // $days = $result->delivery_time." days";
                 // $date=date_create($rdate[0]);
                 // date_add($date,date_interval_create_from_date_string($days));
-                if($result->status==3 || $result->status==5){
-                    echo '<strong>'.$result->updated_at.'</strong>';
-                } 
-                else{
+                if ($result->status == 3 || $result->status == 5) {
+                    echo '<strong>' . $result->updated_at . '</strong>';
+                } else {
                     echo '<strong>Not Reported Yet</strong>';
                 }
-            ?>
+                ?>
 
             </div>
         </div>
 
         <!-- Image Header Section -->
-        <?php if(!empty($result->patient->image)){ ?>
+        <?php if (!empty($result->patient->image)) { ?>
 
-        <div class="row component" id="imgHeader">
-            <div class="col-sm-2">
-                <img src="https://pcr.realtimepcr.pk/assets/images/pcr-logo.png" alt="logo" class="header-logo" ;>
-            </div>
-            <div class="col-sm-4">
-                <h1 class="lab-name">
-                    REALTIME PCR
-                </h1>
-                <h6 class="lab-slogan">
-                    Diagnostic, Research & Reference Lab. Pvt. Ltd.
-                </h6>
-                <h6 class="lab-reg">ISO 9001-2015 Certified Laboratory</h6>
-            </div>
-            <div class="col-sm-2">
-                <div class="">
-                    <img class="iso-logo" src="https://pcr.realtimepcr.pk/assets/images/iso-logo.png" alt="">
+            <div class="row component" id="imgHeader">
+                <div class="col-sm-2">
+                    <img src="https://pcr.realtimepcr.pk/assets/images/pcr-logo.png" alt="logo" class="header-logo" ;>
+                </div>
+                <div class="col-sm-4">
+                    <h1 class="lab-name">
+                        REALTIME PCR
+                    </h1>
+                    <h6 class="lab-slogan">
+                        Diagnostic, Research & Reference Lab. Pvt. Ltd.
+                    </h6>
+                    <h6 class="lab-reg">ISO 9001-2015 Certified Laboratory</h6>
+                </div>
+                <div class="col-sm-2">
+                    <div class="">
+                        <img class="iso-logo" src="https://pcr.realtimepcr.pk/assets/images/iso-logo.png" alt="">
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="qr">
+                        <img class="user-img" style="width: 100%;" src="{{asset('assets/webcam/avatar/'.$result->patient->image)}}" alt="Patient Image">
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="qr">
+                        <?php
+                        $base_url = URL::to('/');
+                        //QR SERVER CODE
+                        $src = 'https://api.qrserver.com/v1/create-qr-code/?size=90x90&data=' . $base_url . '/track/' . $result->unique_id;
+                        //Google Chart QR code API
+                        //$src = 'https://chart.googleapis.com/chart?chs=125x125&cht=qr&chl='.$base_url.'/track/'.$result->unique_id;
+                        ?>
+                        <img src="<?php echo $src; ?>" alt="" title="" class="qr-img" />
+                    </div>
+                    <div class="qr-url">
+                        <?php echo $base_url . '/track/' . $result->unique_id; ?>
+                    </div>
                 </div>
             </div>
-            <div class="col-sm-2">
-                <div class="qr">
-                    <img class="user-img" style="width: 100%;"
-                        src="{{asset('assets/webcam/avatar/'.$result->patient->image)}}" alt="Patient Image">
-                </div>
-            </div>
-            <div class="col-sm-2">
-                <div class="qr">
-                    <?php
-                            $base_url = URL::to('/');
-                            //QR SERVER CODE
-                            $src = 'https://api.qrserver.com/v1/create-qr-code/?size=90x90&data='.$base_url.'/track/'.$result->unique_id;
-                            //Google Chart QR code API
-                            //$src = 'https://chart.googleapis.com/chart?chs=125x125&cht=qr&chl='.$base_url.'/track/'.$result->unique_id;
-                            ?>
-                    <img src="<?php echo $src;?>" alt="" title="" class="qr-img" />
-                </div>
-                <div class="qr-url">
-                    <?php echo $base_url.'/track/'.$result->unique_id;?>
-                </div>
-            </div>
-        </div>
         <?php } else { ?>
-        <!-- No Image Header -->
-        <div class="row component" id="noImgHeader">
-            <div class="col-sm-2">
-                <img src="https://pcr.realtimepcr.pk/assets/images/pcr-logo.png" alt="logo" class="header-logo" ;>
-            </div>
-            <div class="col-sm-6">
-                <h1 class="lab-name">
-                    REALTIME PCR
-                </h1>
-                <h6 class="lab-slogan">
-                    Diagnostic, Research & Reference Lab. Pvt. Ltd.
-                </h6>
-                <h6 class="lab-reg">ISO 9001-2015 Certified Laboratory</h6>
-            </div>
-            <div class="col-sm-2">
-                <div class="">
-                    <img class="iso-logo" src="https://pcr.realtimepcr.pk/assets/images/iso-logo.png" alt="">
+            <!-- No Image Header -->
+            <div class="row component" id="noImgHeader">
+                <div class="col-sm-2">
+                    <img src="https://pcr.realtimepcr.pk/assets/images/pcr-logo.png" alt="logo" class="header-logo" ;>
                 </div>
-            </div>
-            <div class="col-sm-2">
-                <div class="qr">
-                    <?php
-                            $base_url = URL::to('/');
-                            
-                            //QR SERVER CODE
-                            $src = 'https://api.qrserver.com/v1/create-qr-code/?size=90x90&data='.$base_url.'/track/'.$result->unique_id;
-                            
-                            //Google Chart QR code API
-                            //$src = 'https://chart.googleapis.com/chart?chs=125x125&cht=qr&chl='.$base_url.'/track/'.$result->unique_id;
-                            ?>
-                    <img src="<?php echo $src;?>" alt="" title="" class="qr-img" />
+                <div class="col-sm-6">
+                    <h1 class="lab-name">
+                        REALTIME PCR
+                    </h1>
+                    <h6 class="lab-slogan">
+                        Diagnostic, Research & Reference Lab. Pvt. Ltd.
+                    </h6>
+                    <h6 class="lab-reg">ISO 9001-2015 Certified Laboratory</h6>
+                </div>
+                <div class="col-sm-2">
+                    <div class="">
+                        <img class="iso-logo" src="https://pcr.realtimepcr.pk/assets/images/iso-logo.png" alt="">
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="qr">
+                        <?php
+                        $base_url = URL::to('/');
 
-                </div>
-                <div class="qr-url">
-                    <?php echo $base_url.'/track/'.$result->unique_id;?>
+                        //QR SERVER CODE
+                        $src = 'https://api.qrserver.com/v1/create-qr-code/?size=90x90&data=' . $base_url . '/track/' . $result->unique_id;
+
+                        //Google Chart QR code API
+                        //$src = 'https://chart.googleapis.com/chart?chs=125x125&cht=qr&chl='.$base_url.'/track/'.$result->unique_id;
+                        ?>
+                        <img src="<?php echo $src; ?>" alt="" title="" class="qr-img" />
+
+                    </div>
+                    <div class="qr-url">
+                        <?php echo $base_url . '/track/' . $result->unique_id; ?>
+                    </div>
                 </div>
             </div>
-        </div>
         <?php } ?>
 
         <!-- Patient Details Section  -->
@@ -193,9 +225,9 @@
                 <p>Name</h6>
                 <h6>
                     <strong>
-                        <?php echo (!empty($result->patient->name))?ucwords($result->patient->name):'None'; ?>
-                        <?php echo (!empty($result->patient->age))?$result->patient->age.' (Y)':''; ?> /
-                        <?php echo ($result->patient->sex==1)?'Male':'Female'; ?>
+                        <?php echo (!empty($result->patient->name)) ? ucwords($result->patient->name) : 'None'; ?>
+                        <?php echo (!empty($result->patient->age)) ? $result->patient->age . ' (Y)' : ''; ?> /
+                        <?php echo ($result->patient->sex == 1) ? 'Male' : 'Female'; ?>
                     </strong>
                 </h6>
 
@@ -204,7 +236,7 @@
                 <p> CNIC</p>
                 <h6>
                     <strong>
-                        <?php echo (!empty($result->patient->cnic))?$result->patient->cnic:'none'; ?>
+                        <?php echo (!empty($result->patient->cnic)) ? $result->patient->cnic : 'none'; ?>
                     </strong>
                 </h6>
             </div>
@@ -212,7 +244,7 @@
                 <p> Contact</p>
                 <h6>
                     <strong>
-                        <?php echo (!empty($result->patient->contact_no))?$result->patient->contact_no:''; ?>
+                        <?php echo (!empty($result->patient->contact_no)) ? $result->patient->contact_no : ''; ?>
                     </strong>
                 </h6>
             </div>
@@ -220,7 +252,7 @@
                 <p>Patient ID #</p>
                 <h6>
                     <b>
-                        <?php echo (!empty($result->patient->id))?$result->patient->id:'---'; ?>
+                        <?php echo (!empty($result->patient->id)) ? $result->patient->id : '---'; ?>
                     </b>
                 </h6>
             </div>
@@ -229,31 +261,31 @@
 
                     <?php
 
-                        $testResult = 'Awaiting Result';
-                        if($result->patient_tests[0]->status==1){
-                            $testResult = 'Detected';
-                        }
-                        if($result->patient_tests[0]->status==2){
-                            $testResult = 'Not Detected';
-                        }
-                        
-                        $reptime = 'Not Reported Yet';
-                        if($result->patient_tests[0]->status!=0){
-                            $reptime = $result->patient_tests[0]->updated_at;
-                        }
-                        $passno = (!empty($result->passenger->passport_no))?$result->passenger->passport_no:'Not Available';
-                        
-                        $qrr = ' Patient ID: '.$result->patient->id.'%0A Case Id: '.$result->unique_id.'%0A Patient Name: '.ucwords($result->patient->name).'%0A Reg Date: '.$result->created_at.'%0A Reporting time: '.$result->updated_at.'%0A Passport No: '.$passno.'%0A Result: '.$testResult.'';
-                      
-                      // QR Server API code 
+                    $testResult = 'Awaiting Result';
+                    if ($result->patient_tests[0]->status == 1) {
+                        $testResult = 'Detected';
+                    }
+                    if ($result->patient_tests[0]->status == 2) {
+                        $testResult = 'Not Detected';
+                    }
 
-                         $url = 'https://api.qrserver.com/v1/create-qr-code/?size=90x90&data='.$qrr.'&choe=UTF-8';
-                      
-                      //Google Chart QR code API
-                       // $url = 'https://chart.googleapis.com/chart?chs=125x125&cht=qr&chl='.$qrr.'&choe=UTF-8';
-                        ?>
+                    $reptime = 'Not Reported Yet';
+                    if ($result->patient_tests[0]->status != 0) {
+                        $reptime = $result->patient_tests[0]->updated_at;
+                    }
+                    $passno = (!empty($result->passenger->passport_no)) ? $result->passenger->passport_no : 'Not Available';
 
-                    <img class="qr-img" src="<?php echo $url;?>" />
+                    $qrr = ' Patient ID: ' . $result->patient->id . '%0A Case Id: ' . $result->unique_id . '%0A Patient Name: ' . ucwords($result->patient->name) . '%0A Reg Date: ' . $result->created_at . '%0A Reporting time: ' . $result->updated_at . '%0A Passport No: ' . $passno . '%0A Result: ' . $testResult . '';
+
+                    // QR Server API code 
+
+                    $url = 'https://api.qrserver.com/v1/create-qr-code/?size=90x90&data=' . $qrr . '&choe=UTF-8';
+
+                    //Google Chart QR code API
+                    // $url = 'https://chart.googleapis.com/chart?chs=125x125&cht=qr&chl='.$qrr.'&choe=UTF-8';
+                    ?>
+
+                    <img class="qr-img" src="<?php echo $url; ?>" />
                 </div>
             </div>
         </div>
@@ -266,7 +298,7 @@
                 <p class="nomgn">Passport#</p>
                 <h6>
                     <strong>
-                        <?php echo (!empty($result->passenger->passport_no))?$result->passenger->passport_no:'Not Available'; ?>
+                        <?php echo (!empty($result->passenger->passport_no)) ? $result->passenger->passport_no : 'Not Available'; ?>
                     </strong>
                 </h6>
             </div>
@@ -274,7 +306,7 @@
                 <p class="nomgn"> Flying to</p>
                 <h6>
                     <strong>
-                        <?php echo (!empty($result->passenger->country->name))?$result->passenger->country->name:'-- -- --'; ?>
+                        <?php echo (!empty($result->passenger->country->name)) ? $result->passenger->country->name : '-- -- --'; ?>
                     </strong>
                 </h6>
             </div>
@@ -282,7 +314,7 @@
                 <p class="nomgn"> Airline</p>
                 <h6>
                     <strong>
-                        <?php echo (!empty($result->passenger->airline))?$result->passenger->airline:'Not Available'; ?>
+                        <?php echo (!empty($result->passenger->airline)) ? $result->passenger->airline : 'Not Available'; ?>
                     </strong>
                 </h6>
             </div>
@@ -290,42 +322,42 @@
                 <p class="nomgn"> Flight Date & Time</p>
                 <h6>
                     <strong>
-                        <?php echo (!empty($result->passenger->flight_date))?$result->passenger->flight_date:'Not Available'; ?>
-                        <?php echo (!empty($result->passenger->flight_time))?$result->passenger->flight_time:''; ?>
+                        <?php echo (!empty($result->passenger->flight_date)) ? $result->passenger->flight_date : 'Not Available'; ?>
+                        <?php echo (!empty($result->passenger->flight_time)) ? $result->passenger->flight_time : ''; ?>
                     </strong>
                 </h6>
             </div>
 
             <?php if (!empty($result->passenger->flight_no)) { ?>
-            <div class="col-sm-2" id="b-ref">
-                <p class="nomgn">Flight No#</p>
-                <h6>
-                    <strong>
-                        {{$result->passenger->flight_no}}
-                    </strong>
-                </h6>
-            </div>
+                <div class="col-sm-2" id="b-ref">
+                    <p class="nomgn">Flight No#</p>
+                    <h6>
+                        <strong>
+                            {{$result->passenger->flight_no}}
+                        </strong>
+                    </h6>
+                </div>
             <?php } ?>
 
             <?php if (!empty($result->passenger->booking_ref_no)) { ?>
-            <div class="col-sm-2" id="b-ref">
-                <p class="nomgn">Booking Ref#</p>
-                <h6>
-                    <strong>
-                        {{$result->passenger->booking_ref_no}}
-                    </strong>
-                </h6>
-            </div>
+                <div class="col-sm-2" id="b-ref">
+                    <p class="nomgn">Booking Ref#</p>
+                    <h6>
+                        <strong>
+                            {{$result->passenger->booking_ref_no}}
+                        </strong>
+                    </h6>
+                </div>
             <?php } ?>
             <?php if (!empty($result->passenger->ticket_no)) { ?>
-            <div class="col-sm-2" id="b-ref">
-                <p class="nomgn">PNR/Ticket Number</p>
-                <h6>
-                    <strong>
-                        {{$result->passenger->ticket_no}}
-                    </strong>
-                </h6>
-            </div>
+                <div class="col-sm-2" id="b-ref">
+                    <p class="nomgn">PNR/Ticket Number</p>
+                    <h6>
+                        <strong>
+                            {{$result->passenger->ticket_no}}
+                        </strong>
+                    </h6>
+                </div>
             <?php } ?>
         </div>
         <hr>
@@ -333,206 +365,209 @@
             <h2>Test Reports</h2>
         </div>
 
-        <?php 
-        if(!empty($result->patient_tests)) {
+        <?php
+        if (!empty($result->patient_tests)) {
             foreach ($result->patient_tests as $pt) {
                 $ptr = $pt->patient_test_results;
         ?>
-        <div id="rep-type">
-            <div class="row component">
-                <div class="col-sm-12">
-                    <h3 class="TestDepartment">
-                        Department of
-                        <?php echo (!empty($pt->test->category->name))?$pt->test->category->name:'Department of Molecular Virology'; ?>
-                    </h3>
-                    <div class="chainReaction">
-                        <?php echo (!empty($pt->test->test_category->name))?$pt->test->test_category->name:'Qualitative Polymerase Chain Reaction'; ?>
-                    </div>
-                    <br>
-                    <div class="row">
-                        <!-- Test name -->
-                        <div class="col-sm-2">Test Name:</div>
-                        <div class="col-sm-10">
-                            <h6>
-                                <?php echo (!empty($pt->test->name))?$pt->test->name:'---'; ?>
-                            </h6>
-                        </div>
-                        <!-- Specimen -->
-                        <div class="col-sm-2">Specimen:</div>
-                        <div class="col-sm-10">
-                            <h6>
-
-                                <?php echo (!empty($pt->test->sample->name))?$pt->test->sample->name:'---'; ?>
-                            </h6>
-                        </div>
-                        <!-- Test Result -->
-
-                        <?php 
-                        if($pt->status==0) { ?>
-                        <div class="col-sm-2">Test Result</div>
-                        <div class="col-sm-10">
-                            <h4 class="trh4">
-                            <?php  
-                            $test_result = '<span style="color:#FF9800;">Awaiting Result</span>';
-                            echo $test_result; 
-                            ?>
-                            </h4>
-                        </div>
-                        <?php } ?>
-
-                        <?php 
-                        if($pt->status==1 || $pt->status==2) { ?>
-                        <div class="col-sm-2">Test Result</div>
-                        <div class="col-sm-10">
-                            <h4 class="trh4">
-                            <?php  
-                            if($pt->status==1){
-                                $test_result = '<span style="color:#DC4D41;"> Detected</span>';
-                            }
-                            if($pt->status==2){
-                                $test_result = '<span style="color:#7AB744;">Not Detected</span>';
-                            }
-                            echo $test_result; 
-                            ?>
-                            </h4>
-                        </div>
-                        <?php } ?>
-
-                        <?php if($pt->status==3) { ?>
-                        
-                        <?php if($ptr->type==1) { ?>
-                        <div class="col-sm-2">Test Result</div>
-                        <div class="col-sm-10">
-                            <h4 class="trh4">
-                            <?php  
-                            $color = ($ptr->dropdown_value=="Positive")?'#DC4D41':'#7AB744';
-                            echo '<span style="color:'.$color.';">'.$ptr->dropdown_value.'</span>';
-                            ?>
-                            </h4>
-                        </div>
-                        <?php } ?>
-                        <?php if($ptr->type==2) { ?>
-                        <div class="col-sm-2">Test Result</div>
-                        <div class="col-sm-10">
-                            <h4 class="trh4">
-                            <?php  
-                            $color = ($ptr->dropdown_value=="Detected")?'#DC4D41':'#7AB744';
-                            echo '<span style="color:'.$color.';">'.$ptr->dropdown_value.'</span>';
-                            ?>
-                            </h4>
-                        </div>
-                        <?php } ?>
-                        <?php if($ptr->type==3) { ?>
-                        <div class="col-sm-2">Test Result</div>
-                        <div class="col-sm-10">
-                            <h4 class="trh4">
-                            <?php  
-                            $color = ($ptr->dropdown_value=="Detected")?'#DC4D41':'#7AB744';
-                            echo '<span style="color:'.$color.';">'.$ptr->dropdown_value.'</span>';
-                            ?>
-                            </h4>
-                        </div>
-                        <div class="col-sm-2">Value</div>
-                        <div class="col-sm-10">"<?php echo $ptr->input_value;?>"</div>
-                        <?php } ?>
-                        <?php if($ptr->type==4) { ?>
-                        <!-- <div class="col-sm-2">Value</div>
-                        <div class="col-sm-10">"<?php echo $ptr->input_value;?>"</div> -->
-                        <div class="col-sm-2">Test Results</div>
-                        <div class="col-sm-10">
-                            <div class="component">
-                                <div class="table-responsive">
-                                    <table class="table mb-0 reports-table">
-                                        <tr>
-                                            <th>Parameter</th>
-                                            <th>Units</th>
-                                            <th>Normal Value</th>
-                                            <th>Result</th>
-                                        </tr>
-                                        <?php 
-                                        if(!empty($ptr->patient_medicine_results)) {
-                                        foreach ($ptr->patient_medicine_results as $ptrm) {
-                                        ?>
-                                        <tr>
-                                            <td><?php echo $ptrm->test_categories->name;?></td>
-                                            <td><?php echo $ptrm->test_categories->units;?></td>
-                                            <td><?php echo $ptrm->test_categories->normal_value;?></td>
-                                            <td><?php echo $ptrm->result;?></td>
-                                        </tr>
-                                        <?php } } ?>
-                                    </table>
+                <div id="rep-type">
+                    <div class="row component">
+                        <div class="col-sm-12">
+                            <h3 class="TestDepartment">
+                                Department of
+                                <?php echo (!empty($pt->test->category->name)) ? $pt->test->category->name : 'Department of Molecular Virology'; ?>
+                            </h3>
+                            <div class="chainReaction">
+                                <?php echo (!empty($pt->test->test_category->name)) ? $pt->test->test_category->name : 'Qualitative Polymerase Chain Reaction'; ?>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <!-- Test name -->
+                                <div class="col-sm-2">Test Name:</div>
+                                <div class="col-sm-10">
+                                    <h6>
+                                        <?php echo (!empty($pt->test->name)) ? $pt->test->name : '---'; ?>
+                                    </h6>
                                 </div>
+                                <!-- Specimen -->
+                                <div class="col-sm-2">Specimen:</div>
+                                <div class="col-sm-10">
+                                    <h6>
+
+                                        <?php echo (!empty($pt->test->sample->name)) ? $pt->test->sample->name : '---'; ?>
+                                    </h6>
+                                </div>
+                                <!-- Test Result -->
+
+                                <?php
+                                if ($pt->status == 0) { ?>
+                                    <div class="col-sm-2">Test Result</div>
+                                    <div class="col-sm-10">
+                                        <h4 class="trh4">
+                                            <?php
+                                            $test_result = '<span style="color:#FF9800;">Awaiting Result</span>';
+                                            echo $test_result;
+                                            ?>
+                                        </h4>
+                                    </div>
+                                <?php } ?>
+
+                                <?php
+                                if ($pt->status == 1 || $pt->status == 2) { ?>
+                                    <div class="col-sm-2">Test Result</div>
+                                    <div class="col-sm-10">
+                                        <h4 class="trh4">
+                                            <?php
+                                            if ($pt->status == 1) {
+                                                $test_result = '<span style="color:#DC4D41;"> Detected</span>';
+                                            }
+                                            if ($pt->status == 2) {
+                                                $test_result = '<span style="color:#7AB744;">Not Detected</span>';
+                                            }
+                                            echo $test_result;
+                                            ?>
+                                        </h4>
+                                    </div>
+                                <?php } ?>
+
+                                <?php if ($pt->status == 3) { ?>
+
+                                    <?php if ($ptr->type == 1) { ?>
+                                        <div class="col-sm-2">Test Result</div>
+                                        <div class="col-sm-10">
+                                            <h4 class="trh4">
+                                                <?php
+                                                $color = ($ptr->dropdown_value == "Positive") ? '#DC4D41' : '#7AB744';
+                                                echo '<span style="color:' . $color . ';">' . $ptr->dropdown_value . '</span>';
+                                                ?>
+                                            </h4>
+                                        </div>
+                                    <?php } ?>
+                                    <?php if ($ptr->type == 2) { ?>
+                                        <div class="col-sm-2">Test Result</div>
+                                        <div class="col-sm-10">
+                                            <h4 class="trh4">
+                                                <?php
+                                                $color = ($ptr->dropdown_value == "Detected") ? '#DC4D41' : '#7AB744';
+                                                echo '<span style="color:' . $color . ';">' . $ptr->dropdown_value . '</span>';
+                                                ?>
+                                            </h4>
+                                        </div>
+                                    <?php } ?>
+                                    <?php if ($ptr->type == 3) { ?>
+                                        <div class="col-sm-2">Test Result</div>
+                                        <div class="col-sm-10">
+                                            <h4 class="trh4">
+                                                <?php
+                                                $color = ($ptr->dropdown_value == "Detected") ? '#DC4D41' : '#7AB744';
+                                                echo '<span style="color:' . $color . ';">' . $ptr->dropdown_value . '</span>';
+                                                ?>
+                                            </h4>
+                                        </div>
+                                        <div class="col-sm-2">Value</div>
+                                        <div class="col-sm-10">"<?php echo $ptr->input_value; ?>"</div>
+                                    <?php } ?>
+                                    <?php if ($ptr->type == 4) { ?>
+                                        <!-- <div class="col-sm-2">Value</div>
+                        <div class="col-sm-10">"<?php echo $ptr->input_value; ?>"</div> -->
+                                        <div class="col-sm-2">Test Results</div>
+                                        <div class="col-sm-10">
+                                            <div class="component">
+                                                <div class="table-responsive">
+                                                    <table class="table mb-0 reports-table">
+                                                        <tr>
+                                                            <th>Parameter</th>
+                                                            <th>Units</th>
+                                                            <th>Normal Value</th>
+                                                            <th>Result</th>
+                                                        </tr>
+                                                        <?php
+                                                        if (!empty($ptr->patient_medicine_results)) {
+                                                            foreach ($ptr->patient_medicine_results as $ptrm) {
+                                                        ?>
+                                                                <tr>
+                                                                    <td><?php echo $ptrm->test_categories->name; ?></td>
+                                                                    <td><?php echo $ptrm->test_categories->units; ?></td>
+                                                                    <td><?php echo $ptrm->test_categories->normal_value; ?></td>
+                                                                    <td><?php echo $ptrm->result; ?></td>
+                                                                </tr>
+                                                        <?php }
+                                                        } ?>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php } ?>
+                                    <?php if ($ptr->type == 5) { ?>
+                                        <div class="col-sm-2">Test Result</div>
+                                        <div class="col-sm-10">
+                                            "<?php echo $ptr->dropdown_value; ?>"
+                                        </div>
+                                    <?php } ?>
+                                    <?php if ($ptr->type == 6) { ?>
+                                        <div class="col-sm-2">Specie</div>
+                                        <div class="col-sm-10"><b><?php echo $ptr->specie; ?></b></div>
+                                        <div class="col-sm-2">Duration</div>
+                                        <div class="col-sm-10"><b><?php echo $ptr->duration; ?></b></div>
+
+                                        <div class="col-sm-2">Test Results</div>
+                                        <div class="col-sm-10">
+                                            <div class="component">
+                                                <div class="table-responsive">
+                                                    <table class="table mb-0 reports-table">
+                                                        <tr>
+                                                            <th>Medicine</th>
+                                                            <th>Label</th>
+                                                            <th>Report</th>
+                                                        </tr>
+                                                        <?php
+                                                        if (!empty($ptr->patient_medicine_results)) {
+                                                            foreach ($ptr->patient_medicine_results as $ptrm) {
+                                                        ?>
+                                                                <tr>
+                                                                    <td><?php echo $ptrm->test_categories->name; ?></td>
+                                                                    <td><?php echo $ptrm->test_categories->medicine_label; ?></td>
+                                                                    <td><?php echo $ptrm->result; ?></td>
+                                                                </tr>
+                                                        <?php }
+                                                        } ?>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php } ?>
+
+                                <?php } ?>
+
                             </div>
                         </div>
-                        <?php } ?>
-                        <?php if($ptr->type==5) { ?>
-                        <div class="col-sm-2">Test Result</div>
-                        <div class="col-sm-10">
-                            "<?php  echo $ptr->dropdown_value;?>"
-                        </div>
-                        <?php } ?>
-                        <?php if($ptr->type==6) { ?>
-                        <div class="col-sm-2">Specie</div>
-                        <div class="col-sm-10"><b><?php  echo $ptr->specie;?></b></div>
-                        <div class="col-sm-2">Duration</div>
-                        <div class="col-sm-10"><b><?php  echo $ptr->duration;?></b></div>
-
-                        <div class="col-sm-2">Test Results</div>
-                        <div class="col-sm-10">
-                            <div class="component">
-                                <div class="table-responsive">
-                                    <table class="table mb-0 reports-table">
-                                        <tr>
-                                            <th>Medicine</th>
-                                            <th>Label</th>
-                                            <th>Report</th>
-                                        </tr>
-                                        <?php 
-                                        if(!empty($ptr->patient_medicine_results)) {
-                                        foreach ($ptr->patient_medicine_results as $ptrm) {
-                                        ?>
-                                        <tr>
-                                            <td><?php echo $ptrm->test_categories->name;?></td>
-                                            <td><?php echo $ptrm->test_categories->medicine_label;?></td>
-                                            <td><?php  echo $ptrm->result;?></td>
-                                        </tr>
-                                        <?php } } ?>
-                                    </table>
+                        <!-- Lab User Comments For the Specific Tests if Any -->
+                        <?php if (!empty($ptr->comments)) { ?>
+                            <div style="width: 100%;" id="LabCmnt">
+                                <hr>
+                                <div class="LabCmnts">
+                                    <b><i>Lab Technician Comments:</i></b>
+                                    <p style="margin: 0px;"><?php echo $ptr->comments; ?></p>
                                 </div>
                             </div>
-                        </div>
                         <?php } ?>
-
-                        <?php } ?>
-
+                    </div>
+                    <!-- Test Comments Component (Get from DB)-->
+                    <div class="TestCmnts-cmp" id="TestCmnts-cmp">
+                        <p class="TestCmnts">
+                            <?php if (!empty($pt->test->comments)) { ?>
+                                <b>Methodology:</b>
+                                <?php echo $pt->test->comments; ?>
+                                <br>
+                            <?php } ?>
+                            <b>Note:</b> Negative results do not exclude infection, might a person get infection after the test.
+                            Secondly, persons who are positive for Covid-19 RNA may be quarantined according to the
+                            WHO/NIH/Government Health policy.
+                        </p>
                     </div>
                 </div>
-                <!-- Lab User Comments For the Specific Tests if Any -->
-                <?php if(!empty($ptr->comments)) { ?>
-                <div style="width: 100%;" id="LabCmnt">
-                    <hr>
-                    <div class="LabCmnts">
-                        <b><i>Lab Technician Comments:</i></b>
-                        <p style="margin: 0px;"><?php echo $ptr->comments;?></p>
-                    </div>
-                </div>
-                <?php } ?>
-            </div>
-            <!-- Test Comments Component (Get from DB)-->
-            <div class="TestCmnts-cmp" id="TestCmnts-cmp">
-                <p class="TestCmnts">
-                    <?php if(!empty($pt->test->comments)) { ?>
-                    <b>Methodology:</b>
-                    <?php echo $pt->test->comments;?>
-                    <br>
-                    <?php } ?>
-                    <b>Note:</b> Negative results do not exclude infection, might a person get infection after the test.
-                    Secondly, persons who are positive for Covid-19 RNA may be quarantined according to the
-                    WHO/NIH/Government Health policy.
-                </p>
-            </div>
-        </div>
-        <?php } } ?>
+        <?php }
+        } ?>
 
         <!-- Electronic Verification -->
         <br>
@@ -548,12 +583,12 @@
             <div class="component nobdr">
                 <div class="row">
                     <div class="col-sm-3 docCard">
-                        
 
-                        <h5 style="display:inline;" >Dr. Sajid Ali
-                        <span class="badge badge-pill badge-default" style="background-color: #0080ff; color: #fff; font-size: 12px;">Chief
-                            Executive</span> 
-                        
+
+                        <h5 style="display:inline;">Dr. Sajid Ali
+                            <span class="badge badge-pill badge-default" style="background-color: #0080ff; color: #fff; font-size: 12px;">Chief
+                                Executive</span>
+
                         </h5>
 
                         <h6>(Ph.D Molecular Virology)</h6>
@@ -573,7 +608,7 @@
                         <h5>Dr. Shabbir Ahmad</h5>
 
                         <p>
-                            MBBS, M.Phill (Pathology), 
+                            MBBS, M.Phill (Pathology),
                             MPH (KMU-IPHSS),
                             MCPS Family Medicine,
                             Chemical Pathologist
@@ -624,21 +659,21 @@
         <div class="row f-br">
             <div class="col-sm-4">
                 Printed by:
-                <?php echo (!empty($logged_user->name))?$logged_user->name:''; ?>
+                <?php echo (!empty($logged_user->name)) ? $logged_user->name : ''; ?>
             </div>
             <div class="col-sm-4">
                 Processed by:
-                <?php  
-                    if(!empty($result->patient_tests[0]->processed->name)){
-                        echo $result->patient_tests[0]->processed->name;
-                    }
+                <?php
+                if (!empty($result->patient_tests[0]->processed->name)) {
+                    echo $result->patient_tests[0]->processed->name;
+                }
                 ?>
             </div>
             <div class="col-sm-4">
                 Print Date :
-                <?php  
-                    echo date('Y-m-d H:i:s');
-                  ?>
+                <?php
+                echo date('Y-m-d H:i:s');
+                ?>
             </div>
             <div class="copyright-footer">
                 <hr>

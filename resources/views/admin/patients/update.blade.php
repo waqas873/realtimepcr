@@ -141,15 +141,8 @@
             <div class="form-group row">
               <label for="sample_date" class="col-sm-2 col-form-label pformlabel">Patient Entry Date</label>
               <div class="col-sm-10">
-
-                <?php
-                $permissions = permissions();
-                if ($permissions['role'] == 1 || (!empty($permissions['patients_timing_change']))) {
-                ?>
                   <input type="text" class="form-control inputs_with_bottom_border" id="sample_date" name="sample_date" value="{{$result->sample_date}}">
-                <?php } ?>
-
-                <div class="all_errors" id="sample_date_error"></div>
+               <div class="all_errors" id="sample_date_error"></div>
               </div>
             </div>
           </div>
