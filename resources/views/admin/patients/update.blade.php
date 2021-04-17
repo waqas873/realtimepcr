@@ -143,16 +143,35 @@
               </div>
             </div>
           </div>
+
+          
+
+
           <div class="col-sm-6">
-            <div class="form-group row">
-              <label for="sample_date" class="col-sm-2 col-form-label pformlabel">Patient Entry Date</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control inputs_with_bottom_border" id="sample_date" name="sample_date"
+          
+             <div class="form-group row">
+                <label for="sample_date" class="col-sm-2 col-form-label pformlabel">Patient Entry Date</label>
+                <div class="col-sm-10">
+
+
+                <?php 
+            $permissions = permissions(); 
+            if($permissions['role']==1 || (!empty($permissions['patients_timing_change']))){
+            ?>
+
+
+                  <input type="text" class="form-control inputs_with_bottom_border" id="sample_date" name="sample_date"
                   value="{{$result->sample_date}}">
+                  <?php } ?>
                 <div class="all_errors" id="sample_date_error"></div>
               </div>
+              
             </div>
+
+            
           </div>
+
+          
         </div>
 
         <div class="form-group row" style="position:relative;top: -21px;left: -90px;">
@@ -261,6 +280,7 @@
             $permissions = permissions(); 
             if($permissions['role']==1 || (!empty($permissions['patients_timing_change']))){
             ?>
+
             <div class="form-group row">
               <label for="created_at" class="col-sm-2 col-form-label pformlabel">Invoice / Reg Date</label>
               <div class="col-sm-10">
@@ -277,7 +297,9 @@
                 <div class="all_errors psngr_err" id="reporting_time_error"></div>
               </div>
             </div>
+
             <?php } ?>
+
           </div>
         </div>
 
