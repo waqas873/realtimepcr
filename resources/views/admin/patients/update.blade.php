@@ -137,6 +137,10 @@
               </div>
             </div>
           </div>
+          <?php
+          $permissions = permissions();
+          if ($permissions['role'] == 1 || (!empty($permissions['patients_timing_change']))) {
+          ?>
           <div class="col-sm-6">
             <div class="form-group row">
               <label for="sample_date" class="col-sm-2 col-form-label pformlabel">Patient Entry Date</label>
@@ -146,6 +150,7 @@
               </div>
             </div>
           </div>
+          <?php } ?>
         </div>
 
         <div class="form-group row" style="position:relative;top: -21px;left: -90px;">
