@@ -83,13 +83,17 @@
             <?php
             $permissions = permissions();
             ?>
-
+            
+            <?php
+            if ($permissions['role'] == 1 || (!empty($permissions['dashboard_read']))) { ?>
             <li>
               <a href="" class="waves-effect">
                 <img src="{{asset('assets/icons/sidebar-icons/icon4.svg')}}" class="sidebar_icons">
                 <span> Dashboard </span>
               </a>
-            </li>
+            </li> 
+            <?php } ?>
+
             <?php
             if ($permissions['role'] == 1) { ?>
               <li>
@@ -109,7 +113,21 @@
               </li>
             <?php } ?>
 
-            <li>
+            <!-- <li> -->
+
+            <?php
+              $lbcp = false;
+              if($permissions['role'] == 1 || (!empty($permissions['labs_read']))){
+                $lbcp = true;
+              }
+              elseif ($permissions['role'] == 1 || (!empty($permissions['cp_read']))) {
+                 $lbcp = true;
+              } 
+              elseif ($permissions['role'] == 1 || (!empty($permissions['labs_and_cp_reports_read']))) {
+                 $lbcp = true;
+              }
+              if($lbcp == true){
+            ?>
 
             <li class="has_sub">
               <a href="javascript:void(0);" class="waves-effect"><img src="{{asset('assets/icons/sidebar-icons/icon8.svg')}}" class="sidebar_icons">
@@ -133,6 +151,7 @@
                 ?>
               </ul>
             </li>
+            <?php } ?>
 
             <!--    
     

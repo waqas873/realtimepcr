@@ -33,6 +33,10 @@
 </style>
 
 <div class="container-fluid">
+<?php
+$permissions = permissions();
+if($permissions['role'] == 1 || (!empty($permissions['dashboard_read']))){ 
+?>
 
 <div class="row">
 <div class="col-sm-12">
@@ -454,6 +458,8 @@
     </div>
   </div>
 </div>
+
+<?php } ?>
 
 </div><!-- container fluid -->
 

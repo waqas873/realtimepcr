@@ -56,6 +56,19 @@
           </div>
         </div>
       </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group row">
+            <label for="status" class="col-sm-2 col-form-label pformlabel">Status:</label>
+            <div class="col-sm-10">
+              <select class="form-control select2 inputs_with_bottom_border" name="status">
+                  <option value="1" <?php echo ($result->status==1)?'selected':'';?> >Active</option>
+                  <option value="0" <?php echo ($result->status==0)?'selected':'';?> >Inactive</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <?php 
         $prm = [];
@@ -450,6 +463,35 @@
                 <div class="custom-control custom-checkbox mr-sm-2">
                   <input type="checkbox" name="progress_report_read" class="custom-control-input" id="customControlAutosizing42" value="progress_report_read" <?php echo !empty($prm['progress_report_read'])?'checked':'';?> >
                   <label class="custom-control-label" for="customControlAutosizing42">Read Only</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group row">
+            <label for="patients" class="col-sm-2 col-form-label pformlabel">Invoices:</label>
+            <div class="col-sm-10">
+              <div class="col-auto my-1">
+                <div class="custom-control custom-checkbox mr-sm-2">
+                  <input type="checkbox" name="invoices_read" class="custom-control-input" id="customControlAutosizing43" value="invoices_read" <?php echo !empty($prm['invoices_read'])?'checked':'';?> >
+                  <label class="custom-control-label" for="customControlAutosizing43">Display</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group row">
+            <label for="patients" class="col-sm-2 col-form-label pformlabel">Dashboard:</label>
+            <div class="col-sm-10">
+              <div class="col-auto my-1">
+                <div class="custom-control custom-checkbox mr-sm-2">
+                  <input type="checkbox" name="dashboard_read" class="custom-control-input" id="customControlAutosizing44" value="dashboard_read" <?php echo !empty($prm['dashboard_read'])?'checked':'';?> >
+                  <label class="custom-control-label" for="customControlAutosizing44">Display</label>
                 </div>
               </div>
             </div>

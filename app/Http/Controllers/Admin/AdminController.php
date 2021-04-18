@@ -48,6 +48,7 @@ class AdminController extends Controller
     	$rules = [
 	        'name'=>'required|min:1',
 	        'contact_no'=>'required',
+            'status'=>'required',
 	        'email'=>'required|unique:users|email'
 	    ];
 	    if(!empty($formData['password'])){
@@ -66,6 +67,7 @@ class AdminController extends Controller
     		$admin->name = $formData['name'];
     		$admin->email = $formData['email'];
     		$admin->contact_no = $formData['contact_no'];
+            $admin->status = $formData['status'];
     		$admin->role = 7;
     		$admin->password = Hash::make(123456789);
             if(!empty($formData['password'])){
@@ -73,7 +75,7 @@ class AdminController extends Controller
             }
     		if($admin->save()){
     			$id = $admin->id;
-    			unset($formData['name'],$formData['email'],$formData['password'],$formData['contact_no']);
+    			unset($formData['name'],$formData['email'],$formData['password'],$formData['contact_no'],$formData['status']);
     			foreach($formData as $key => $value){
     				$save = [];
     				$save['user_id'] = $id;
@@ -110,7 +112,8 @@ class AdminController extends Controller
         $formData = $request->all();
         $rules = [
             'name'=>'required|min:1',
-            'contact_no'=>'required'
+            'contact_no'=>'required',
+            'status'=>'required'
         ];
         $messages = [];
         $attributes = [];
@@ -125,8 +128,9 @@ class AdminController extends Controller
             $admin = $admin->where('id',$id)->first();
             $admin->name = $formData['name'];
             $admin->contact_no = $formData['contact_no'];
+            $admin->status = $formData['status'];
 
-            unset($formData['_token'],$formData['id'],$formData['name'],$formData['contact_no']);
+            unset($formData['_token'],$formData['id'],$formData['name'],$formData['contact_no'],$formData['status']);
 
             if($admin->save()){
                 Admin_permission::where('user_id',$id)->delete();

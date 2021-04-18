@@ -78,6 +78,19 @@
           </div>
         </div>
       </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group row">
+            <label for="status" class="col-sm-2 col-form-label pformlabel">Status:</label>
+            <div class="col-sm-10">
+              <select class="form-control select2 inputs_with_bottom_border" name="status">
+                  <option value="1">Active</option>
+                  <option value="0">Inactive</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <div class="row">
         <div class="col-sm-6">
@@ -467,11 +480,38 @@
             </div>
           </div>
         </div>
+        <div class="col-sm-6">
+          <div class="form-group row">
+            <label for="patients" class="col-sm-2 col-form-label pformlabel">Invoices:</label>
+            <div class="col-sm-10">
+              <div class="col-auto my-1">
+                <div class="custom-control custom-checkbox mr-sm-2">
+                  <input type="checkbox" name="invoices_read" class="custom-control-input" id="customControlAutosizing43" value="invoices_read">
+                  <label class="custom-control-label" for="customControlAutosizing43">Display</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group row">
+            <label for="patients" class="col-sm-2 col-form-label pformlabel">Dashboard:</label>
+            <div class="col-sm-10">
+              <div class="col-auto my-1">
+                <div class="custom-control custom-checkbox mr-sm-2">
+                  <input type="checkbox" name="dashboard_read" class="custom-control-input" id="customControlAutosizing44" value="dashboard_read">
+                  <label class="custom-control-label" for="customControlAutosizing44">Display</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
 
-      
-      
       <div class="form-group row">
         <div class="col-sm-10 offset-sm-1">
             <button type="submit" class="btn btn-primary save_btn">Save Data</button>
