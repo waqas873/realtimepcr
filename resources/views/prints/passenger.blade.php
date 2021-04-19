@@ -20,13 +20,19 @@
 
 
     <!-- <link rel="stylesheet" href="cmp-style.css"> -->
-    <style type="text/css">
-        .trh4 {
-            text-align: left;
-            font-size: 22px;
-            font-weight: 700;
+
+    <script>
+        function checkFunction(x, y) {
+            var checkBox = document.getElementById(x);
+            var cmp = document.getElementById(y);
+            if (checkBox.checked disabled == true) {
+                cmp.style.display = "";
+            } else {
+                cmp.style.display = "none";
+            }
         }
-    </style>
+    </script>
+
 </head>
 
 <body>
@@ -64,28 +70,45 @@
     <div class="container controlBox" id="controlBox">
         <div class="row component">
 
-            <div class="col-sm-4">
+
+            <div class="col-sm-2">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label" for="flexCheckDefault">Header &amp; Footer</label>
+                    <input class="form-check-input" type="checkbox" value="" id="checkHF" onclick="checkFunction('checkHF','address-cmp'); checkFunction('checkHF','noImgHeader'); checkFunction('checkHF','imgHeader');" checked disabled>
+                    <label class="form-check-label" for="checkHF">Header &amp; Footer</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label" for="flexCheckDefault">Consultants</label>
+                    <input class="form-check-input" type="checkbox" value="" id="Consultants" onclick="checkFunction('Consultants','DocList');" checked disabled>
+                    <label class="form-check-label" for="Consultants">Consultants</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                    <label class="form-check-label" for="flexCheckDefault">Comments</label>
+                    <input class="form-check-input" type="checkbox" value="" id="checkComments" onclick="checkFunction('checkComments','TestCmnts-cmp'); checkFunction('checkComments','LabCmnt');" checked disabled>
+                    <label class="form-check-label" for="checkComments">Comments</label>
+
                 </div>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-3">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="overseas-cmp-check" onclick="checkFunction('overseas-cmp-check','overseas-cmp');" checked disabled>
+                    <label class="form-check-label" for="overseas-cmp-check">Overseas details</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="address-cmp-check" onclick="checkFunction('address-cmp-check','address-cmp');" checked disabled>
+                    <label class="form-check-label" for="address-cmp-check">Address</label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="everify-cmnt-check" onclick="checkFunction('everify-cmnt-check','everify-cmnt');" checked disabled>
+                    <label class="form-check-label" for="everify-cmnt-check">E-Veridication</label>
+
+                </div>
+            </div>
+            <div class="col-sm-3">
 
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
                     <label class="form-check-label" for="flexRadioDefault1">Multi Page Report</label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked="">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked disabled>
                     <label class="form-check-label" for="flexRadioDefault2">Single Page Report</label>
                 </div>
             </div>
@@ -97,7 +120,7 @@
     </div>
 
     <div class="container" style="padding: 20px" ; id="print_section">
-        <div class="row">
+        <div class="row component" style="padding: 5px;">
             <div class="col-sm-4">
                 Case ID: # <b>
 
@@ -371,25 +394,36 @@
                 $ptr = $pt->patient_test_results;
         ?>
                 <div id="rep-type">
-                    <div class="row component">
+                    <div class="row ">
                         <div class="col-sm-12">
                             <h3 class="TestDepartment">
                                 Department of
                                 <?php echo (!empty($pt->test->category->name)) ? $pt->test->category->name : 'Department of Molecular Virology'; ?>
                             </h3>
-                            <div class="chainReaction">
-                                <?php echo (!empty($pt->test->test_category->name)) ? $pt->test->test_category->name : 'Qualitative Polymerase Chain Reaction'; ?>
+                            <div id="sub-heading">
+
+                                <?php
+                                if ($pt->status == 2) { ?>
+                                    <div class="chainReaction">
+                                        <?php echo (!empty($pt->test->test_category->name)) ? $pt->test->test_category->name : 'Qualitative Polymerase Chain Reaction'; ?>
+                                    </div>
+                                    <br>
                             </div>
-                            <br>
-                            <div class="row">
-                                <!-- Test name -->
-                                <div class="col-sm-2">Test Name:</div>
-                                <div class="col-sm-10">
-                                    <h6>
-                                        <?php echo (!empty($pt->test->name)) ? $pt->test->name : '---'; ?>
-                                    </h6>
-                                </div>
-                                <!-- Specimen -->
+
+                        <?php } ?>
+                        <div class="row">
+                            <!-- Test name -->
+                            <div class="col-sm-2">Test Name:</div>
+                            <div class="col-sm-10">
+                                <h6>
+                                    <?php echo (!empty($pt->test->name)) ? $pt->test->name : '---'; ?>
+                                </h6>
+                            </div>
+                            <!-- Specimen -->
+
+                            <?php
+                            if ($pt->status == 2) { ?>
+
                                 <div class="col-sm-2">Specimen:</div>
                                 <div class="col-sm-10">
                                     <h6>
@@ -397,12 +431,16 @@
                                         <?php echo (!empty($pt->test->sample->name)) ? $pt->test->sample->name : '---'; ?>
                                     </h6>
                                 </div>
-                                <!-- Test Result -->
 
-                                <?php
-                                if ($pt->status == 0) { ?>
+                            <?php } ?>
+                            <!-- Test Result -->
+
+                            <?php
+                            if ($pt->status == 0) { ?>
+
+                                <div class="component nomgn pad5">
                                     <div class="col-sm-2">Test Result</div>
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-12">
                                         <h4 class="trh4">
                                             <?php
                                             $test_result = '<span style="color:#FF9800;">Awaiting Result</span>';
@@ -410,12 +448,16 @@
                                             ?>
                                         </h4>
                                     </div>
-                                <?php } ?>
+                                </div>
 
-                                <?php
-                                if ($pt->status == 1 || $pt->status == 2) { ?>
+                            <?php } ?>
+
+                            <?php
+                            if ($pt->status == 1 || $pt->status == 2) { ?>
+
+                                <div class="component nomgn pad5">
                                     <div class="col-sm-2">Test Result</div>
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-12">
                                         <h4 class="trh4">
                                             <?php
                                             if ($pt->status == 1) {
@@ -428,13 +470,16 @@
                                             ?>
                                         </h4>
                                     </div>
-                                <?php } ?>
+                                </div>
+                            <?php } ?>
 
-                                <?php if ($pt->status == 3) { ?>
+                            <?php if ($pt->status == 3) { ?>
 
-                                    <?php if ($ptr->type == 1) { ?>
+                                <?php if ($ptr->type == 1) { ?>
+
+                                    <div class="component nomgn pad5">
                                         <div class="col-sm-2">Test Result</div>
-                                        <div class="col-sm-10">
+                                        <div class="col-sm-12">
                                             <h4 class="trh4">
                                                 <?php
                                                 $color = ($ptr->dropdown_value == "Positive") ? '#DC4D41' : '#7AB744';
@@ -442,10 +487,12 @@
                                                 ?>
                                             </h4>
                                         </div>
-                                    <?php } ?>
-                                    <?php if ($ptr->type == 2) { ?>
+                                    </div>
+                                <?php } ?>
+                                <?php if ($ptr->type == 2) { ?>
+                                    <div class="component nomgn pad5">
                                         <div class="col-sm-2">Test Result</div>
-                                        <div class="col-sm-10">
+                                        <div class="col-sm-12">
                                             <h4 class="trh4">
                                                 <?php
                                                 $color = ($ptr->dropdown_value == "Detected") ? '#DC4D41' : '#7AB744';
@@ -453,10 +500,12 @@
                                                 ?>
                                             </h4>
                                         </div>
-                                    <?php } ?>
-                                    <?php if ($ptr->type == 3) { ?>
+                                    </div>
+                                <?php } ?>
+                                <?php if ($ptr->type == 3) { ?>
+                                    <div class="component nomgn pad5">
                                         <div class="col-sm-2">Test Result</div>
-                                        <div class="col-sm-10">
+                                        <div class="col-sm-12">
                                             <h4 class="trh4">
                                                 <?php
                                                 $color = ($ptr->dropdown_value == "Detected") ? '#DC4D41' : '#7AB744';
@@ -465,81 +514,102 @@
                                             </h4>
                                         </div>
                                         <div class="col-sm-2">Value</div>
-                                        <div class="col-sm-10">"<?php echo $ptr->input_value; ?>"</div>
-                                    <?php } ?>
-                                    <?php if ($ptr->type == 4) { ?>
-                                        <!-- <div class="col-sm-2">Value</div>
+                                        <div class="col-sm-12">"<?php echo $ptr->input_value; ?>"</div>
+                                    </div>
+                                <?php } ?>
+                                <?php if ($ptr->type == 4) { ?>
+                                    <!-- <div class="col-sm-2">Value</div>
                         <div class="col-sm-10">"<?php echo $ptr->input_value; ?>"</div> -->
+                                    <div class="component nomgn pad5">
                                         <div class="col-sm-2">Test Results</div>
-                                        <div class="col-sm-10">
-                                            <div class="component">
-                                                <div class="table-responsive">
-                                                    <table class="table mb-0 reports-table">
-                                                        <tr>
-                                                            <th>Parameter</th>
-                                                            <th>Units</th>
-                                                            <th>Normal Value</th>
-                                                            <th>Result</th>
-                                                        </tr>
-                                                        <?php
-                                                        if (!empty($ptr->patient_medicine_results)) {
-                                                            foreach ($ptr->patient_medicine_results as $ptrm) {
-                                                        ?>
-                                                                <tr>
-                                                                    <td><?php echo $ptrm->test_categories->name; ?></td>
-                                                                    <td><?php echo $ptrm->test_categories->units; ?></td>
-                                                                    <td><?php echo $ptrm->test_categories->normal_value; ?></td>
-                                                                    <td><?php echo $ptrm->result; ?></td>
-                                                                </tr>
-                                                        <?php }
-                                                        } ?>
-                                                    </table>
-                                                </div>
+                                        <div class="col-sm-12">
+
+                                            <div class="table-responsive">
+                                                <table class="table mb-0 reports-table">
+                                                    <tr>
+                                                        <th>Parameter</th>
+                                                        <th>Result</th>
+                                                        <th>Units</th>
+                                                        <th>Normal Value</th>
+
+                                                    </tr>
+                                                    <?php
+                                                    if (!empty($ptr->patient_medicine_results)) {
+                                                        foreach ($ptr->patient_medicine_results as $ptrm) {
+                                                    ?>
+                                                            <tr>
+                                                                <td>
+                                                                    <p class="tableText"><?php echo $ptrm->test_categories->name; ?></p>
+                                                                </td>
+                                                                <td>
+                                                                    <p class="tableText"><?php echo $ptrm->result; ?></p>
+                                                                </td>
+                                                                <td>
+                                                                    <p class="tableText"><?php echo $ptrm->test_categories->units; ?></p>
+                                                                </td>
+                                                                <td>
+                                                                    <p class="tableText"><?php echo $ptrm->test_categories->normal_value; ?></p>
+                                                                </td>
+
+                                                            </tr>
+                                                    <?php }
+                                                    } ?>
+                                                </table>
                                             </div>
                                         </div>
-                                    <?php } ?>
-                                    <?php if ($ptr->type == 5) { ?>
+                                    </div>
+                                <?php } ?>
+                                <?php if ($ptr->type == 5) { ?>
+                                    <div class="component nomgn pad5">
                                         <div class="col-sm-2">Test Result</div>
-                                        <div class="col-sm-10">
+                                        <div class="col-sm-12">
                                             "<?php echo $ptr->dropdown_value; ?>"
                                         </div>
-                                    <?php } ?>
-                                    <?php if ($ptr->type == 6) { ?>
+                                    </div>
+                                <?php } ?>
+                                <?php if ($ptr->type == 6) { ?>
+                                    <div class="component nomgn pad5">
                                         <div class="col-sm-2">Specie</div>
                                         <div class="col-sm-10"><b><?php echo $ptr->specie; ?></b></div>
                                         <div class="col-sm-2">Duration</div>
                                         <div class="col-sm-10"><b><?php echo $ptr->duration; ?></b></div>
 
                                         <div class="col-sm-2">Test Results</div>
-                                        <div class="col-sm-10">
-                                            <div class="component">
-                                                <div class="table-responsive">
-                                                    <table class="table mb-0 reports-table">
-                                                        <tr>
-                                                            <th>Medicine</th>
-                                                            <th>Label</th>
-                                                            <th>Report</th>
-                                                        </tr>
-                                                        <?php
-                                                        if (!empty($ptr->patient_medicine_results)) {
-                                                            foreach ($ptr->patient_medicine_results as $ptrm) {
-                                                        ?>
-                                                                <tr>
-                                                                    <td><?php echo $ptrm->test_categories->name; ?></td>
-                                                                    <td><?php echo $ptrm->test_categories->medicine_label; ?></td>
-                                                                    <td><?php echo $ptrm->result; ?></td>
-                                                                </tr>
-                                                        <?php }
-                                                        } ?>
-                                                    </table>
-                                                </div>
+                                        <div class="col-sm-12">
+
+                                            <div class="table-responsive">
+                                                <table class="table mb-0 reports-table">
+                                                    <tr>
+                                                        <th>Medicine</th>
+                                                        <th>Label</th>
+                                                        <th>Report</th>
+                                                    </tr>
+                                                    <?php
+                                                    if (!empty($ptr->patient_medicine_results)) {
+                                                        foreach ($ptr->patient_medicine_results as $ptrm) {
+                                                    ?>
+                                                            <tr>
+                                                                <td>
+                                                                    <p class="tableText"><?php echo $ptrm->test_categories->name; ?></p>
+                                                                </td>
+                                                                <td>
+                                                                    <p class="tableText"><?php echo $ptrm->test_categories->medicine_label; ?></p>
+                                                                </td>
+                                                                <td>
+                                                                    <p class="tableText"><?php echo $ptrm->result; ?></p>
+                                                                </td>
+                                                            </tr>
+                                                    <?php }
+                                                    } ?>
+                                                </table>
                                             </div>
                                         </div>
-                                    <?php } ?>
-
+                                    </div>
                                 <?php } ?>
 
-                            </div>
+                            <?php } ?>
+
+                        </div>
                         </div>
                         <!-- Lab User Comments For the Specific Tests if Any -->
                         <?php if (!empty($ptr->comments)) { ?>
@@ -571,7 +641,7 @@
 
         <!-- Electronic Verification -->
         <br>
-        <h4 class="everify-cmnt">*NOTE: This Report is generated by realtimepcr.pk Official Web-Application and it's
+        <h4 class="everify-cmnt" id="everify-cmnt">*NOTE: This Report is generated by realtimepcr.pk Official Web-Application and it's
             electronically VERIFIED,<br> NO Stamp or Signatures needed. you can verify the report by scanning the QR
             code.
         </h4>
@@ -579,7 +649,7 @@
 
         <!-- Doctors List -->
 
-        <div class="DocList">
+        <div class="DocList" id="DocList">
             <div class="component nobdr">
                 <div class="row">
                     <div class="col-sm-3 docCard">
@@ -656,7 +726,7 @@
         </div>
 
         <!-- Print Detials -->
-        <div class="row f-br">
+        <div class="row f-br component nomgn" style="padding: 5px;">
             <div class="col-sm-4">
                 Printed by:
                 <?php echo (!empty($logged_user->name)) ? $logged_user->name : ''; ?>
