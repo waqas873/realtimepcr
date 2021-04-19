@@ -146,4 +146,20 @@ class AdminController extends Controller
         echo json_encode($data);
     }
 
+    public function delete_admin($id = '0')
+    {
+        $permissions = permissions();
+        if($permissions['role']!=1){
+            return redirect('admin/home'); exit;
+        }
+        $data  = [];
+        $resutl = User::where('id',$id)->first();
+        if(empty($resutl)){
+            return redirect('admin/sub-admins')->with('error_message' , 'This admin does not exist.');
+        }
+        User::where('id',$id)->delete();
+        Admin_permission::where('user_id',$id)->delete();
+        return redirect('admin/sub-admins')->with('success_message' , 'Admin has been deleted successfully.');
+    }
+
 }

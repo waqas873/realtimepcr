@@ -67,7 +67,7 @@
                     <td>{{$value->name}}</td>
                     <td>{{$value->email}}</td>
                     <td>{{$value->contact_no}}</td>
-                    <td><a href="{{url('admin/update-admin/'.createBase64($value->id))}}">View</a> <!-- | <a href="{{url('admin/delete-test/'.$value->id)}}" class="delete_test"><i class="fa fa-trash"></i></a> --></td>
+                    <td><a href="{{url('admin/update-admin/'.createBase64($value->id))}}">View</a> | <a href="{{url('admin/delete-admin/'.$value->id)}}" class="delete_admin"><i class="fa fa-trash"></i></a></td>
                 </tr>
                 @endforeach
                 @endif

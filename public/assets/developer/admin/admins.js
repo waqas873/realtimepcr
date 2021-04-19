@@ -56,6 +56,23 @@ $(document).on('submit', '#updateForm', function (e) {
   });
 });
 
+$(document).on('click', '.delete_admin', function (e) {
+  e.preventDefault();
+  var d_url = $(this).attr('href');
+  swal({
+    title: "Are you sure?",
+    text: "If an admin is deleted than all its data will be deleted.Are you sure to do this?",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  })
+  .then((willDelete) => {
+    if(willDelete){
+      location.replace(d_url);
+    }
+  });
+});
+
 $('#datatable').DataTable();
 
 function errors(arr = ''){

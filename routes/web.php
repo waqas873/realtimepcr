@@ -66,6 +66,7 @@ Route::group(['middleware' => ['web','admin']], function()
         Route::get('/update-supplier/{id?}', 'Admin\SupplierController@update');
 
         Route::get('/patient-delete-permanently/{id?}', 'Admin\PatientController@delete_permanently');
+        Route::get('/delete-admin/{id?}', 'Admin\AdminController@delete_admin');
 
         Route::get('/deleted-patients', 'Admin\PatientController@patientsDeleted');
 
