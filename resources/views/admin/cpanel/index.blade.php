@@ -777,6 +777,8 @@
                 </div>
               </div>
             </div>
+            
+            <!--
             <div class="form-group row">
               <label for="product_id" class="col-sm-3 col-form-label pformlabel">Test Kit</label>
               <div class="col-sm-9">
@@ -792,7 +794,7 @@
                 </div>
               </div>
             </div>
-            
+            -->
             <div class="form-group row">
               <label for="price" class="col-sm-3 col-form-label pformlabel">Test Price</label>
               <div class="col-sm-9">
@@ -849,7 +851,7 @@
                 </div>
               </div>
             </div>
-<!--
+
             <div class="form-group row unitsNormal">
               <label for="units" class="col-sm-3 col-form-label pformlabel">Units</label>
               <div class="col-sm-9">
@@ -870,9 +872,18 @@
               </div>
             </div>
             
-            -->
+           
+            
+            <!--
+            <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="shc" onclick="myFunction()">
+                    <label class="form-check-label" for="shc">Sub Heading/Chain Reaction</label>
+                </div>
+            
+            
+            <!--
 
-             <div class="form-group row">
+             <div class="form-group row" id="sub-heading">
               <label for="email" class="col-sm-3 col-form-label pformlabel">Sub Heading / Chain Reaction</label>
              
               <div class="col-sm-9">
@@ -890,8 +901,8 @@
                 </div>
               </div>
             </div>
-            
-            <div class="form-group row">
+-->
+                        <div class="form-group row">
               <label for="email" class="col-sm-3 col-form-label pformlabel">Test Comments</label>
              <!--Getting Css File-->
              <link rel="stylesheet" href="https://pcr.realtimepcr.pk/assets/css/cmp-style.css">

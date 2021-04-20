@@ -79,19 +79,22 @@
               <a href="" class="logo"><img src="{{asset('assets/images/pcr-logo.png')}}" height="170" alt="logo" class="dashboard-logo">
               </a>
             </li>
-
+            <li style="text-align: center;border-radius: 5px;border: solid 1px #c3c3c3;margin: auto;width: 80%;" id="account_balance">
+              <h6>Account Balance: </h6>
+              <h5> <b style="color:#00c169">------</b></h5>
+            </li>
             <?php
             $permissions = permissions();
             ?>
-            
+
             <?php
             if ($permissions['role'] == 1 || (!empty($permissions['dashboard_read']))) { ?>
-            <li>
-              <a href="" class="waves-effect">
-                <img src="{{asset('assets/icons/sidebar-icons/icon4.svg')}}" class="sidebar_icons">
-                <span> Dashboard </span>
-              </a>
-            </li> 
+              <li>
+                <a href="" class="waves-effect">
+                  <img src="{{asset('assets/icons/sidebar-icons/icon4.svg')}}" class="sidebar_icons">
+                  <span> Dashboard </span>
+                </a>
+              </li>
             <?php } ?>
 
             <?php
@@ -116,41 +119,39 @@
             <!-- <li> -->
 
             <?php
-              $lbcp = false;
-              if($permissions['role'] == 1 || (!empty($permissions['labs_read']))){
-                $lbcp = true;
-              }
-              elseif ($permissions['role'] == 1 || (!empty($permissions['cp_read']))) {
-                 $lbcp = true;
-              } 
-              elseif ($permissions['role'] == 1 || (!empty($permissions['labs_and_cp_reports_read']))) {
-                 $lbcp = true;
-              }
-              if($lbcp == true){
+            $lbcp = false;
+            if ($permissions['role'] == 1 || (!empty($permissions['labs_read']))) {
+              $lbcp = true;
+            } elseif ($permissions['role'] == 1 || (!empty($permissions['cp_read']))) {
+              $lbcp = true;
+            } elseif ($permissions['role'] == 1 || (!empty($permissions['labs_and_cp_reports_read']))) {
+              $lbcp = true;
+            }
+            if ($lbcp == true) {
             ?>
 
-            <li class="has_sub">
-              <a href="javascript:void(0);" class="waves-effect"><img src="{{asset('assets/icons/sidebar-icons/icon8.svg')}}" class="sidebar_icons">
-                <span>Labs & CPs</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
-              <ul class="list-unstyled">
-                <?php
-                if ($permissions['role'] == 1 || (!empty($permissions['labs_read']))) { ?>
-                  <li><a href="{{url('admin/labs')}}">Official Labs List</a></li>
-                <?php
-                }
-                if ($permissions['role'] == 1 || (!empty($permissions['cp_read']))) {
-                ?>
-                  <li><a href="{{url('admin/collection-points')}}">Registered CPs List</a></li>
-                <?php
-                }
-                if ($permissions['role'] == 1 || (!empty($permissions['labs_and_cp_reports_read']))) {
-                ?>
-                  <li><a href="{{url('admin/reports')}}">Labs & CPs Reports</a></li>
-                <?php
-                }
-                ?>
-              </ul>
-            </li>
+              <li class="has_sub">
+                <a href="javascript:void(0);" class="waves-effect"><img src="{{asset('assets/icons/sidebar-icons/icon8.svg')}}" class="sidebar_icons">
+                  <span>Labs & CPs</span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                <ul class="list-unstyled">
+                  <?php
+                  if ($permissions['role'] == 1 || (!empty($permissions['labs_read']))) { ?>
+                    <li><a href="{{url('admin/labs')}}">Official Labs List</a></li>
+                  <?php
+                  }
+                  if ($permissions['role'] == 1 || (!empty($permissions['cp_read']))) {
+                  ?>
+                    <li><a href="{{url('admin/collection-points')}}">Registered CPs List</a></li>
+                  <?php
+                  }
+                  if ($permissions['role'] == 1 || (!empty($permissions['labs_and_cp_reports_read']))) {
+                  ?>
+                    <li><a href="{{url('admin/reports')}}">Labs & CPs Reports</a></li>
+                  <?php
+                  }
+                  ?>
+                </ul>
+              </li>
             <?php } ?>
 
             <!--    
@@ -174,12 +175,13 @@
                 <a href="javascript:void(0);" class="waves-effect"><img src="{{asset('assets/icons/sidebar-icons/icon8.svg')}}" class="sidebar_icons">
                   <span> Accounts </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                 <ul class="list-unstyled">
-                  <li><a href="{{url('admin/accounts/vouchers')}}">Vouchers</a></li>
+                  <li><a href="{{url('admin/accounts/transfers')}}">Transfers</a></li>
+                  <li><a href="{{url('admin/accounts/vouchers')}}">Vouchers / Invoices</a></li>
                   <li><a href="{{url('admin/accounts/cashbook')}}">CashBook</a></li>
                   <li><a href="javascript::">Trial Balance</a></li>
                   <li><a href="javascript::">Balance Sheet</a></li>
                   <li><a href="javascript::">Income Statment</a></li>
-                  <li><a href="javascript::">Profit and Loss</a></li>
+                  <!-- <li><a href="javascript::">Profit and Loss</a></li> -->
                   <li><a href="{{url('admin/accounts/ledgers')}}">Ledgers</a></li>
                 </ul>
               </li>
@@ -280,7 +282,7 @@
               <li>
                 <a href="{{url('admin/suppliers')}}" class="waves-effect">
                   <img src="{{asset('assets/icons/sidebar-icons/icon1.svg')}}" class="sidebar_icons">
-                  <span> Suppliers List </span>
+                  <span> Vendors List </span>
                 </a>
               </li>
             <?php }
@@ -370,7 +372,7 @@
                 </a>
 
                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated profile-dropdown">
-                  <a class="dropdown-item" href="{{url('user-update')}}"><i class="dripicons-user text-muted"></i> Profile</a>
+                  <a class="dropdown-item" href="{{url('user-update')}}"><i class="dripicons-user text-muted"></i> Profile</a></i>
                   <!-- <a class="dropdown-item" href="#"><i class="dripicons-wallet text-muted"></i> My Wallet</a>
 <a class="dropdown-item" href="#"><span class="badge badge-success float-right m-t-5">5</span><i class="dripicons-gear text-muted"></i> Settings</a>
 <a class="dropdown-item" href="#"><i class="dripicons-lock text-muted"></i> Lock screen</a> -->
@@ -411,8 +413,16 @@
     color: white;
 ">Search Patient</button>
 
+                <script>
+                  function editPatient() {
+                    var x = document.getElementById("edit_patient").value;
+                    var url = "https://pcr.realtimepcr.pk/admin/patient-update/";
+                    var link = url + x;
+                    window.open(link, "_blank");
 
-                <input type="text" id="search_patient_val" class="input-search" placeholder="Enter Patient ID" style="
+                  }
+                </script>
+                <input type="text" id="edit_patient" class="input-search" placeholder="Enter Patient ID" style="
     height: 35px;
     border-radius: 2px;
     border: none;
@@ -420,7 +430,7 @@
 ">
                 <button type="button" id="edit_patient" class="btn" style="
     color: white;
-">Edit Patient</button>
+" onclick="editPatient()">Edit Patient</button>
 
               </li>
 

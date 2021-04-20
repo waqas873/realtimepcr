@@ -105,7 +105,8 @@
                       <?php 
                       if($permissions['role']==1 || (!empty($permissions['labs_update']))){
                       ?>
-                      <a href="javascript::" class="">View</a>
+                      <a href="javascript::" class="">Edit </a>
+                      <a href="javascript::" class="">View Report</a>
                       <?php 
                       }
                       else{

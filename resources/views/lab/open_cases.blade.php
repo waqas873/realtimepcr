@@ -152,12 +152,13 @@
                         $datetime = strtotime($value->invoice->created_at);
                         if(strtotime("-6 hours") > $datetime){
                       ?>
+<!--                       
                   <a href="{{url('lab/detected/'.$value->id)}}"
                     class="btn btn-sm btn-success detected_or_not">Detected</a>
                   <a href="{{url('lab/not_detected/'.$value->id)}}" class="btn btn-sm btn-danger detected_or_not">Not
-                    Detected</a>
+                    Detected</a> -->
 
-                  <a href="{{$value->id}}" rel="{{!(empty($value->test->reporting_units->type))?$value->test->reporting_units->type:''}}" class="btn btn-outline-primary waves-effect waves-light submit_reports">Submit Reports</a>
+                  <a href="{{$value->id}}" rel="{{!(empty($value->test->reporting_units->type))?$value->test->reporting_units->type:''}}" class="btn btn-primary waves-effect waves-light submit_reports">Submit Reports</a>
 
                   <button type="button" class="btn btn-outline-danger waves-effect waves-light">Repeat Test</button>
 

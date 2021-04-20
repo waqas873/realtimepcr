@@ -95,7 +95,9 @@
                       {{$value->address}}  
                     </td>
                     <td>
-                      <a href="javascript::" class="">View</a> | 
+                    <a href="javascript::" class="">Ledger</a>|
+                    <a href="javascript::" class="">Edit </a>
+                      <a href="javascript::" class="">View Report</a> | 
                       <a href="{{url('admin/delete-cp/'.$value->id)}}" class="delete_cp"><i class="fa fa-trash"></i> </a>
                     </td>
                 </tr>
