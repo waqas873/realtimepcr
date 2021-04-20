@@ -18,6 +18,12 @@ class AccountsController extends Controller
         $this->date_time = date('Y:m:d H:i:s');
     }
 
+    public function transfers()
+    {
+        $data = [];
+        return view('admin.accounts.transfers',$data);
+    }
+
     public function cashbook()
     {
         $data = [];
@@ -34,6 +40,24 @@ class AccountsController extends Controller
     {
         $data = [];
         return view('admin.accounts.ledgers',$data);
+    }
+
+    public function trial_balance()
+    {
+        $data = [];
+        return view('admin.accounts.trial_balance',$data);
+    }
+
+    public function balance_sheet()
+    {
+        $data = [];
+        return view('admin.accounts.balance_sheet',$data);
+    }
+
+    public function income_statment()
+    {
+        $data = [];
+        return view('admin.accounts.income_statment',$data);
     }
 
 }

@@ -97,10 +97,14 @@ Route::group(['middleware' => ['web','admin']], function()
         Route::get('/reports/{date?}', 'Admin\ReportsController@index');
 
         Route::get('/invoice-detail/{id?}', 'Admin\InvoiceController@invoice_detail');
-
+        
+        Route::get('/accounts/transfers', 'Admin\AccountsController@transfers');
         Route::get('/accounts/cashbook', 'Admin\AccountsController@cashbook');
         Route::get('/accounts/vouchers', 'Admin\AccountsController@vouchers');
         Route::get('/accounts/ledgers', 'Admin\AccountsController@ledgers');
+        Route::get('/accounts/trial-balance', 'Admin\AccountsController@trial_balance');
+        Route::get('/accounts/balance-sheet', 'Admin\AccountsController@balance_sheet');
+        Route::get('/accounts/income-statment', 'Admin\AccountsController@income_statment');
 
         Route::get('/logs', 'Admin\LogsController@index');
         Route::post('/get-logs', 'Admin\LogsController@get_logs');

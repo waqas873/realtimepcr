@@ -259,7 +259,7 @@
             <!--Added by Raheel-->
             <?php
             $permissions = permissions();
-            if ($permissions['role'] == 1 || (!empty($permissions['patients_timing_change']))) {
+            if($permissions['role'] == 1 || (!empty($permissions['patients_timing_change']))) {
             ?>
               <div class="form-group row">
                 <label for="created_at" class="col-sm-2 col-form-label pformlabel">Invoice / Reg Date</label>

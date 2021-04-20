@@ -178,9 +178,9 @@
                   <li><a href="{{url('admin/accounts/transfers')}}">Transfers</a></li>
                   <li><a href="{{url('admin/accounts/vouchers')}}">Vouchers / Invoices</a></li>
                   <li><a href="{{url('admin/accounts/cashbook')}}">CashBook</a></li>
-                  <li><a href="javascript::">Trial Balance</a></li>
-                  <li><a href="javascript::">Balance Sheet</a></li>
-                  <li><a href="javascript::">Income Statment</a></li>
+                  <li><a href="{{url('admin/accounts/trial-balance')}}">Trial Balance</a></li>
+                  <li><a href="{{url('admin/accounts/balance-sheet')}}">Balance Sheet</a></li>
+                  <li><a href="{{url('admin/accounts/income-statment')}}">Income Statment</a></li>
                   <!-- <li><a href="javascript::">Profit and Loss</a></li> -->
                   <li><a href="{{url('admin/accounts/ledgers')}}">Ledgers</a></li>
                 </ul>

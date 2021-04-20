@@ -139,7 +139,9 @@ class PatientController extends Controller
                 $patient['reffered_by'] = $formData['reffered_by'];
                 $permissions = permissions();
                 if($permissions['role'] == 1 || (!empty($permissions['patients_timing_change']))){
-                $patient['sample_date'] = $formData['sample_date'];
+                    if(!empty($formData['sample_date'])){
+                        $patient['sample_date'] = $formData['sample_date'];
+                    }
                 }
 
                 $patient['updated_at'] = $this->date_time;

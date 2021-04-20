@@ -31,7 +31,7 @@
 <div class="page-title-box">
 <div class="row align-items-center">
     <div class="col-sm-5">
-        <h4 class="page-title m-0">Transfers</h4>
+        <h4 class="page-title m-0">Trial Balance</h4>
     </div>
     <!-- end col -->
 </div>
