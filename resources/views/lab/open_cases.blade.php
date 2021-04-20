@@ -145,7 +145,7 @@
                 <td>
                   <?php echo (!empty($value->patient->name))?$value->patient->name:'---'; ?>
                 </td>
-                <td>{{$value->test->name}}</td>
+                <td>{{(!empty($value->test->name))?$value->test->name:'-- --'}}</td>
                 <td>{{$value->created_at}}</td>
                 <td>
                   <?php 
