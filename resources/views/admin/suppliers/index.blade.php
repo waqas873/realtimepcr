@@ -105,7 +105,7 @@
                         <a href="javascript::" rel="{{$value->id}}" class="update_id">
                             <button class="dropdown-item" type="button">Edit</button>
                           </a>
-                          <a href="javascript::" class="">
+                          <a href="{{url('admin/supplier-view-profile/'.$value->id)}}" class="">
                             <button class="dropdown-item" type="button">view Profile</button>
                           </a>
                           <a href="javascript::" class="">

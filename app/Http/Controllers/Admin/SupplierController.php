@@ -32,6 +32,12 @@ class SupplierController extends Controller
         return view('admin.suppliers.index',$data);
     }
 
+    public function viewProfile($id = 0)
+    {
+        $data = [];
+        return view('admin.suppliers.view_profile',$data);
+    }
+
     public function process_add(Request $request)
     {
     	$data = [];

@@ -62,6 +62,7 @@ Route::group(['middleware' => ['web','admin']], function()
         Route::get('/product-delete/{id?}', 'Admin\ProductController@delete');
 
         Route::get('/suppliers', 'Admin\SupplierController@index');
+        Route::get('/supplier-view-profile/{id?}', 'Admin\SupplierController@viewProfile');
         Route::post('/add-supplier', 'Admin\SupplierController@process_add');
         Route::get('/update-supplier/{id?}', 'Admin\SupplierController@update');
 
@@ -81,8 +82,12 @@ Route::group(['middleware' => ['web','admin']], function()
         Route::post('/doctor-add', 'Admin\DoctorsController@process_add');
 
         Route::get('/labs', 'Admin\LabsController@index');
+        Route::get('/lab-entries-reports/{id?}', 'Admin\LabsController@entriesReports');
         Route::post('/add-lab', 'Admin\LabsController@process_add');
 
+        Route::get('/cp-entries-reports/{id?}', 'Admin\Collection_pointController@entriesReports');
+        Route::get('/cp-view-profile/{id?}', 'Admin\Collection_pointController@viewProfile');
+        Route::get('/cp-ledgers/{id?}', 'Admin\Collection_pointController@cpLedgers');
         Route::get('/collection-points', 'Admin\Collection_pointController@index');
         Route::post('/add-collection-point', 'Admin\Collection_pointController@process_add');
         Route::get('/delete-cp/{id?}', 'Admin\Collection_pointController@delete');
@@ -98,6 +103,7 @@ Route::group(['middleware' => ['web','admin']], function()
 
         Route::get('/invoice-detail/{id?}', 'Admin\InvoiceController@invoice_detail');
         
+        Route::get('/accounts/liabilities', 'Admin\AccountsController@liabilities');
         Route::get('/accounts/transfers', 'Admin\AccountsController@transfers');
         Route::get('/accounts/cashbook', 'Admin\AccountsController@cashbook');
         Route::get('/accounts/vouchers', 'Admin\AccountsController@vouchers');

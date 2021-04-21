@@ -176,7 +176,7 @@
                 <a href="javascript:void(0);" class="waves-effect"><img src="{{asset('assets/icons/sidebar-icons/icon8.svg')}}" class="sidebar_icons">
                   <span> Accounts </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                 <ul class="list-unstyled">
-                <li><a href="{{url('admin/accounts/')}}">Assets / Liabilities</a></li>
+                <li><a href="{{url('admin/accounts/liabilities')}}">Assets / Liabilities</a></li>
                   <li><a href="{{url('admin/accounts/transfers')}}">Transactions / Transfers</a></li>
                   <li><a href="{{url('admin/accounts/vouchers')}}">Vouchers / Invoices</a></li>
                   <li><a href="{{url('admin/accounts/cashbook')}}">CashBook</a></li>

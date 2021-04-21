@@ -101,13 +101,13 @@
                         <a href="javascript::" class="">
                           <button class="dropdown-item" type="button">Edit</button>
                         </a>
-                        <a href="javascript::" class="">
+                        <a href="{{url('admin/cp-entries-reports/'.$value->id)}}" class="">
                           <button class="dropdown-item" type="button">Entries Reports</button>
                         </a>
-                        <a href="javascript::" class="">
+                        <a href="{{url('admin/cp-view-profile/'.$value->id)}}" class="">
                           <button class="dropdown-item" type="button">View Profile</button>
                         </a>
-                        <a href="javascript::" class="">
+                        <a href="{{url('admin/cp-ledgers/'.$value->id)}}" class="">
                           <button class="dropdown-item" type="button">Ledgers</button>
                         </a>
                         <a href="{{url('admin/delete-cp/'.$value->id)}}" class="delete_cp">

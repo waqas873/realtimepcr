@@ -33,6 +33,12 @@ class LabsController extends Controller
         return view('admin.labs.index',$data);
     }
 
+    public function entriesReports($id = 0)
+    {
+        $data = [];
+        return view('admin.labs.entries_reports',$data);
+    }
+
     public function process_add(Request $request)
     {
         $data = [];

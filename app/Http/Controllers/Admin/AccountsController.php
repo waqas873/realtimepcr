@@ -60,4 +60,10 @@ class AccountsController extends Controller
         return view('admin.accounts.income_statment',$data);
     }
 
+    public function liabilities()
+    {
+        $data = [];
+        return view('admin.accounts.liabilities',$data);
+    }
+
 }

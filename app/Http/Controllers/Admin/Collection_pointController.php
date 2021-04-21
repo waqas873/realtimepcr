@@ -31,6 +31,24 @@ class Collection_pointController extends Controller
         return view('admin.collection_points.index',$data);
     }
 
+    public function entriesReports($id = 0)
+    {
+        $data = [];
+        return view('admin.collection_points.entries_reports',$data);
+    }
+
+    public function viewProfile($id = 0)
+    {
+        $data = [];
+        return view('admin.collection_points.view_profile',$data);
+    }
+
+    public function cpLedgers($id = 0)
+    {
+        $data = [];
+        return view('admin.collection_points.cp_ledgers',$data);
+    }
+
     public function process_add(Request $request)
     {
         $data = [];

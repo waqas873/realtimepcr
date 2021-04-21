@@ -113,7 +113,7 @@
                           <a href="javascript::" class="">
                             <button class="dropdown-item" type="button">Edit</button>
                           </a>
-                          <a href="javascript::" class="">
+                          <a href="{{url('admin/lab-entries-reports/'.$value->id)}}" class="">
                             <button class="dropdown-item" type="button">Entries Reports</button>
                           </a>
                           <a href="javascript::" class="">
