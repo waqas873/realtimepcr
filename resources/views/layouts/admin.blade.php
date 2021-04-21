@@ -22,6 +22,7 @@
   <link href="{{asset('assets/css/icons.css')}}" rel="stylesheet" type="text/css">
   <link href="{{asset('assets/css/style.css')}}" rel="stylesheet" type="text/css">
   <link href="{{asset('assets/developer/developer.css')}}" rel="stylesheet" type="text/css">
+  
 
   <link href="{{asset('assets/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
   <link href="{{asset('assets/select2/css/select2-bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
@@ -175,7 +176,8 @@
                 <a href="javascript:void(0);" class="waves-effect"><img src="{{asset('assets/icons/sidebar-icons/icon8.svg')}}" class="sidebar_icons">
                   <span> Accounts </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                 <ul class="list-unstyled">
-                  <li><a href="{{url('admin/accounts/transfers')}}">Transfers</a></li>
+                <li><a href="{{url('admin/accounts/')}}">Assets / Liabilities</a></li>
+                  <li><a href="{{url('admin/accounts/transfers')}}">Transactions / Transfers</a></li>
                   <li><a href="{{url('admin/accounts/vouchers')}}">Vouchers / Invoices</a></li>
                   <li><a href="{{url('admin/accounts/cashbook')}}">CashBook</a></li>
                   <li><a href="{{url('admin/accounts/trial-balance')}}">Trial Balance</a></li>

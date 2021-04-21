@@ -95,7 +95,26 @@
                     </td>
                     <td>
                       <?php if($permissions['role']==1 || (!empty($permissions['suppliers_read_write']))){ ?>
-                      <a href="javascript::" rel="{{$value->id}}" class="update_id">Edit</a> 
+
+                      <!-- <a href="javascript::" rel="{{$value->id}}" class="update_id">Edit</a>  -->
+
+
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                        <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-126px, 35px, 0px);">
+                        <a href="javascript::" rel="{{$value->id}}" class="update_id">
+                            <button class="dropdown-item" type="button">Edit</button>
+                          </a>
+                          <a href="javascript::" class="">
+                            <button class="dropdown-item" type="button">view Profile</button>
+                          </a>
+                          <a href="javascript::" class="">
+                            <button class="dropdown-item" type="button">Delete</button>
+                          </a>
+                        </div>
+                      </div>
+
+
                     <?php } else{echo "-- --";}?>
                       <!-- <a href=""><i class="fa fa-trash"></i> </a> -->
                     </td>
