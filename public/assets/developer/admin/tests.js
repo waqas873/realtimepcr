@@ -8,7 +8,7 @@ $('.unitsNormal').hide();
 $(document).on('change', '.reporting_unit_id', function (e) {
   var rui = $(this).val();
   $('.unitsNormal').hide();
-  if(rui==4){
+  if(rui==4 || rui==3){
     $('.unitsNormal').fadeIn();
   }
 });

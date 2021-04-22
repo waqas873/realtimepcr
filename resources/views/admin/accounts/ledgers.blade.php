@@ -39,165 +39,26 @@
 </div>
 <!-- end page-title-box -->
 </div>
-</div> 
-<!-- end page title -->
-
-<div class="row">
-<div class="col-sm-12">
-<div class="page-title-box">
-<div class="row align-items-center">
-    <div class="col-sm-12">
-        <div class="row emdatefilter">
-            <div class="col-sm-5">
-                <select class="form-control inputs_with_bottom_border select2" id="ledger_type">
-                    <option></option>
-                    <option value="sd">select 1</option>
-                    <option value="sd">select 1</option>
-                    <option value="sdf">select 1</option>
-                    <option value="sdfa">select 1</option>
-                </select>
-            </div>
-            <div class="col-sm-5">
-                <select class="form-control inputs_with_bottom_border select2" id="ledger_account">
-                    <option></option>
-                    <option value="sd">select 1</option>
-                    <option value="sd">select 1</option>
-                    <option value="sdf">select 1</option>
-                    <option value="sdfa">select 1</option>
-                </select>
-            </div>
-            <div class="col-sm-2">
-                <a href="javascript::" class="btn btn-success embsearch" id="by_date">Search</a>
-            </div>
-        </div>
-    </div>
-    <!-- end col -->
-</div>
-<!-- end row -->
-</div>
-<!-- end page-title-box -->
-</div>
-</div> 
-<!-- end page title -->
-
-
-<div class="row">
-<div class="col-sm-12">
-<div class="page-title-box">
-<div class="row align-items-center">
-    <div class="col-sm-5">
-    </div>
-    <div class="col-sm-7">
-        <div class="row emdatefilter">
-            <div class="col-sm-2 no_padd">
-                <p>Date Range</p>
-            </div>
-            <div class="col-sm-3 no_padd">
-                <input class="form-control inputs_with_bottom_border" type="date" id="from_date" name="from_date">
-            </div>
-            <div class="col-sm-1"><p>To</p></div>
-            <div class="col-sm-3 no_padd">
-                <input class="form-control inputs_with_bottom_border" type="date" id="to_date" name="to_date">
-            </div>
-            <div class="col-sm-3">
-                <a href="javascript::" class="btn btn-success embsearch" id="by_date">Search</a>
-            </div>
-        </div>
-    </div>
-    <!-- end col -->
-</div>
-<!-- end row -->
-</div>
-<!-- end page-title-box -->
-</div>
-</div> 
-<!-- end page title -->
-
-
-<div class="row">
-<div class="col-xl-12">
-<div class="card">
-<div class="card-body">
-    <!-- <h4 class="mt-0 header-title mb-4">Reports List</h4> -->
-    <div class="table-responsive">
-        <table class="table table-hover" id="cashbook_datatable">
-            <thead>
-              <tr>
-                  <th scope="col">Date</th>
-                  <th scope="col">V-ID</th>
-                  <th scope="col">Description</th>
-                  <th scope="col">Previous</th>
-                  <th scope="col">Debit</th>
-                  <th scope="col">Credit</th>
-                  <th scope="col">Balance</th>
-              </tr>
-            </thead>
-            <tbody>
-                <tr>
-                  <td scope="col">2020-06-22</td>
-                  <td scope="col">#080954</td>
-                  <td scope="col">Testing description</td>
-                  <td scope="col">Rs: 4555</td>
-                  <td scope="col">Rs: 3434</td>
-                  <td scope="col">Rs: 8766</td>
-                  <td scope="col">Rs: 543534</td>
-                </tr>
-                <tr>
-                  <td scope="col">2020-06-22</td>
-                  <td scope="col">#080954</td>
-                  <td scope="col">Testing description</td>
-                  <td scope="col">Rs: 4555</td>
-                  <td scope="col">Rs: 3434</td>
-                  <td scope="col">Rs: 8766</td>
-                  <td scope="col">Rs: 543534</td>
-                </tr>
-                <tr>
-                  <td scope="col">2020-06-22</td>
-                  <td scope="col">#080954</td>
-                  <td scope="col">Testing description</td>
-                  <td scope="col">Rs: 4555</td>
-                  <td scope="col">Rs: 3434</td>
-                  <td scope="col">Rs: 8766</td>
-                  <td scope="col">Rs: 543534</td>
-                </tr>
-                <tr>
-                  <td scope="col">2020-06-22</td>
-                  <td scope="col">#080954</td>
-                  <td scope="col">Testing description</td>
-                  <td scope="col">Rs: 4555</td>
-                  <td scope="col">Rs: 3434</td>
-                  <td scope="col">Rs: 8766</td>
-                  <td scope="col">Rs: 543534</td>
-                </tr>
-                <tr>
-                  <td scope="col">2020-06-22</td>
-                  <td scope="col">#080954</td>
-                  <td scope="col">Testing description</td>
-                  <td scope="col">Rs: 4555</td>
-                  <td scope="col">Rs: 3434</td>
-                  <td scope="col">Rs: 8766</td>
-                  <td scope="col">Rs: 543534</td>
-                </tr>
-                <tr>
-                  <td scope="col">2020-06-22</td>
-                  <td scope="col">#080954</td>
-                  <td scope="col">Testing description</td>
-                  <td scope="col">Rs: 4555</td>
-                  <td scope="col">Rs: 3434</td>
-                  <td scope="col">Rs: 8766</td>
-                  <td scope="col">Rs: 543534</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-</div>
-</div>
-</div>
-</div>
-<!-- end row -->
-
-</div><!-- container fluid -->
+</div> <div class="col-xl-12">
+    <div class="card m-b-30">
+      <div class="card-body">
+        <ul class="nav nav-tabs" role="tablist">
+          <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#CPprofile" role="tab"><span class="d-none d-md-block">CP Ledger</span><span class="d-block d-md-none"><i class="mdi mdi-home-variant h5"></i></span></a></li>
+          <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#cpReports" role="tab"><span class="d-none d-md-block">Lab Ledger</span><span class="d-block d-md-none"><i class="mdi mdi-account h5"></i></span></a></li>
+          <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#prizes" role="tab"><span class="d-none d-md-block">Airlines Ledger Prizes</span><span class="d-block d-md-none"><i class="mdi mdi-email h5"></i></span></a></li>
+          <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#CPLedgers" role="tab"><span class="d-none d-md-block">Embassies Ledger</span><span class="d-block d-md-none"><i class="mdi mdi-settings h5"></i></span></a></li>
+          <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Trx" role="tab"><span class="d-none d-md-block">Vendors Ledger</span><span class="d-block d-md-none"><i class="mdi mdi-settings h5"></i></span></a></li>
+        </ul><!-- Tab panes -->
+        <div class="tab-content">
+          <div class="tab-pane active p-3" id="CPprofile" role="tabpanel">
+          <div class="tab-pane active p-3" id="CPprofile" role="tabpanel">
+          <div class="tab-pane active p-3" id="CPprofile" role="tabpanel">
+          <div class="tab-pane active p-3" id="CPprofile" role="tabpanel">
+          <div class="tab-pane active p-3" id="CPprofile" role="tabpanel">
+              
+          
+          
+          <!-- container fluid -->
 
 <script src="{{asset('assets/developer/admin/accounts.js')}}"></script>
 

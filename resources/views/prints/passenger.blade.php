@@ -97,7 +97,7 @@
                 </div>
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="" id="everify-cmnt-check" onclick="checkFunction('everify-cmnt-check','everify-cmnt');" checked disabled>
-                    <label class="form-check-label" for="everify-cmnt-check">E-Veridication</label>
+                    <label class="form-check-label" for="everify-cmnt-check">E-Verification</label>
 
                 </div>
             </div>

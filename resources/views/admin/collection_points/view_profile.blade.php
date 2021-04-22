@@ -2,161 +2,237 @@
 @section('content')
 
 @if(session('success_message'))
-    <script type="text/javascript">
-        swal({
-          title: "Success",
-          text: "{{session('success_message')}}",
-          icon: "success",
-          button: "OK",
-        });
-    </script>
+<script type="text/javascript">
+  swal({
+    title: "Success",
+    text: "{{session('success_message')}}",
+    icon: "success",
+    button: "OK",
+  });
+</script>
 @endif
 
 @if(session('error_message'))
-    <script type="text/javascript">
-        swal({
-          title: "Warning",
-          text: "{{session('error_message')}}",
-          icon: "error",
-          button: "OK",
-        });
-    </script>
+<script type="text/javascript">
+  swal({
+    title: "Warning",
+    text: "{{session('error_message')}}",
+    icon: "error",
+    button: "OK",
+  });
+</script>
 @endif
 
 
 <div class="container-fluid">
 
-<div class="row">
-<div class="col-sm-12">
-<div class="page-title-box">
-<div class="row align-items-center">
-    <div class="col-sm-5">
-        <h4 class="page-title m-0">Collection Point Profile</h4>
-    </div>
-    <!-- end col -->
-</div>
-<!-- end row -->
-</div>
-<!-- end page-title-box -->
-</div>
-</div> 
-<!-- end page title -->
-
-<div class="row">
-<div class="col-sm-12">
-<div class="page-title-box">
-<div class="row align-items-center">
-    <div class="col-sm-5">
-    </div>
-    <!-- <div class="col-sm-7">
-        <div class="row emdatefilter">
-            <div class="col-sm-2 no_padd">
-                <p>Date Range</p>
-            </div>
-            <div class="col-sm-3 no_padd">
-                <input class="form-control inputs_with_bottom_border" type="date" id="from_date" name="from_date">
-            </div>
-            <div class="col-sm-1"><p>To</p></div>
-            <div class="col-sm-3 no_padd">
-                <input class="form-control inputs_with_bottom_border" type="date" id="to_date" name="to_date">
-            </div>
-            <div class="col-sm-3">
-                <a href="javascript::" class="btn btn-success embsearch" id="by_date">Search</a>
-            </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="page-title-box">
+        <div class="row align-items-center">
+          <div class="col-sm-5">
+            <h4 class="page-title m-0">Collection Point Profile</h4>
+          </div>
+          <!-- end col -->
         </div>
-    </div> -->
-    <!-- end col -->
-</div>
-<!-- end row -->
-</div>
-<!-- end page-title-box -->
-</div>
-</div> 
-<!-- end page title -->
-
-
-<div class="row">
-<div class="col-xl-12">
-<div class="card">
-<div class="card-body">
-    <!-- <h4 class="mt-0 header-title mb-4">Reports List</h4> -->
-    <div class="table-responsive">
-        <table class="table table-hover" id="cashbook_datatable">
-            <thead>
-              <tr>
-                  <th scope="col">Date</th>
-                  <th scope="col">V-ID</th>
-                  <th scope="col">Description</th>
-                  <th scope="col">Previous</th>
-                  <th scope="col">Debit</th>
-                  <th scope="col">Credit</th>
-                  <th scope="col">Balance</th>
-              </tr>
-            </thead>
-            <tbody>
-                <tr>
-                  <td scope="col">2020-06-22</td>
-                  <td scope="col">#080954</td>
-                  <td scope="col">Testing description</td>
-                  <td scope="col">Rs: 4555</td>
-                  <td scope="col">Rs: 3434</td>
-                  <td scope="col">Rs: 8766</td>
-                  <td scope="col">Rs: 543534</td>
-                </tr>
-                <tr>
-                  <td scope="col">2020-06-22</td>
-                  <td scope="col">#080954</td>
-                  <td scope="col">Testing description</td>
-                  <td scope="col">Rs: 4555</td>
-                  <td scope="col">Rs: 3434</td>
-                  <td scope="col">Rs: 8766</td>
-                  <td scope="col">Rs: 543534</td>
-                </tr>
-                <tr>
-                  <td scope="col">2020-06-22</td>
-                  <td scope="col">#080954</td>
-                  <td scope="col">Testing description</td>
-                  <td scope="col">Rs: 4555</td>
-                  <td scope="col">Rs: 3434</td>
-                  <td scope="col">Rs: 8766</td>
-                  <td scope="col">Rs: 543534</td>
-                </tr>
-                <tr>
-                  <td scope="col">2020-06-22</td>
-                  <td scope="col">#080954</td>
-                  <td scope="col">Testing description</td>
-                  <td scope="col">Rs: 4555</td>
-                  <td scope="col">Rs: 3434</td>
-                  <td scope="col">Rs: 8766</td>
-                  <td scope="col">Rs: 543534</td>
-                </tr>
-                <tr>
-                  <td scope="col">2020-06-22</td>
-                  <td scope="col">#080954</td>
-                  <td scope="col">Testing description</td>
-                  <td scope="col">Rs: 4555</td>
-                  <td scope="col">Rs: 3434</td>
-                  <td scope="col">Rs: 8766</td>
-                  <td scope="col">Rs: 543534</td>
-                </tr>
-                <tr>
-                  <td scope="col">2020-06-22</td>
-                  <td scope="col">#080954</td>
-                  <td scope="col">Testing description</td>
-                  <td scope="col">Rs: 4555</td>
-                  <td scope="col">Rs: 3434</td>
-                  <td scope="col">Rs: 8766</td>
-                  <td scope="col">Rs: 543534</td>
-                </tr>
-            </tbody>
-        </table>
+        <!-- end row -->
+      </div>
+      <!-- end page-title-box -->
     </div>
+  </div>
+  <!-- end page title -->
 
-</div>
-</div>
-</div>
-</div>
-<!-- end row -->
+  <div class="col-xl-12">
+    <div class="card m-b-30">
+      <div class="card-body">
+        <ul class="nav nav-tabs" role="tablist">
+          <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#CPprofile" role="tab"><span class="d-none d-md-block">CP Profile</span><span class="d-block d-md-none"><i class="mdi mdi-home-variant h5"></i></span></a></li>
+          <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#cpReports" role="tab"><span class="d-none d-md-block">Reports</span><span class="d-block d-md-none"><i class="mdi mdi-account h5"></i></span></a></li>
+          <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#prizes" role="tab"><span class="d-none d-md-block">Special Prizes</span><span class="d-block d-md-none"><i class="mdi mdi-email h5"></i></span></a></li>
+          <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#CPLedgers" role="tab"><span class="d-none d-md-block">Ledgers</span><span class="d-block d-md-none"><i class="mdi mdi-settings h5"></i></span></a></li>
+          <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Trx" role="tab"><span class="d-none d-md-block">Transactions</span><span class="d-block d-md-none"><i class="mdi mdi-settings h5"></i></span></a></li>
+        </ul><!-- Tab panes -->
+        <div class="tab-content">
+          <div class="tab-pane active p-3" id="CPprofile" role="tabpanel">
+            <div class="row">
+              <div class="col-sm-2">Collection Point Name :</div>
+              <div class="col-sm-10"><b>CP NAME HERE</b></div>
+              <div class="col-sm-2">Focal Person:</div>
+              <div class="col-sm-10"><b>----</b></div>
+              <div class="col-sm-2">Domain</div>
+              <div class="col-sm-10"><b>----</b></div>
+              <div class="col-sm-2">Contact: </div>
+              <div class="col-sm-10"><b>----</b></div>
+              <div class="col-sm-2">City:</div>
+              <div class="col-sm-10"><b>----</b></div>
+              <div class="col-sm-2">Address</div>
+              <div class="col-sm-10"><b>----</b></div>
+              <div class="col-sm-2">Registered Users:</div>
+              <div class="col-sm-8"><b>----</b></div>
+              <div class="col-sm-2"><button type="button" class="btn btn-light float-right">Edit Profile</button></div>
+
+            </div>
+            <hr>
+            <table class="table table-borderless">
+              <thead class="thead-dark">
+                <tr>
+                  <th>S.No</th>
+                  <th>Departments</th>
+                  <th>Discount Assigned</th>
+                  <th>Prioritize Custom Prizes</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>Molecular Virology</td>
+                  <td>50%</td>
+                  <td>YES</td>
+                  <td>EDIT</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+
+          <div class="tab-pane p-3" id="cpReports" role="tabpanel">
+
+            <!-- Staff Page Content Starts here   -->
+          SHOW the LAB Reports in this AREA, path: Admin\staff\patients.blade.php
+            <!-- Staff Page Content ENDs here   -->
+          </div>
+          <div class="tab-pane p-3" id="prizes" role="tabpanel">
+
+            <form>
+              <div class="col-sm-6">
+                <label for="">Select Test</label>
+                <input type="" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Select Test">
+              </div>
+              <br>
+              <div class="col-sm-6">
+                <label for="">Enter Discounted Prize</label>
+                <input type="" class="form-control" id="exampleInputPassword1" placeholder=" Discounted Prize">
+              </div>
+              <div class="col-sm-6" style="height: 100px;"> <br>
+                <button type="submit" class="btn btn-light" style="width: 100%;">Save Prize</button>
+
+              </div>
+
+            </form>
+
+            <div class="row">
+              <table class="table table-borderless">
+                <thead class="thead-dark">
+                  <tr>
+                    <th>S.No</th>
+                    <th>Test Name</th>
+                    <th>Department</th>
+                    <th>Actual Prize</th>
+                    <th>Discounted Prize</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>CBC</td>
+                    <td>Molecular Virology</td>
+                    <td>Rs: 500%</td>
+                    <td>Rs: 150</td>
+                    <td>EDIT</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="tab-pane p-3" id="CPLedgers" role="tabpanel">
+          Current User Ledger will be shown here
+          </div>
+          <div class="tab-pane p-3" id="Trx" role="tabpanel">
+
+            <style>
+              .data-card {
+                padding: 10px 20px;
+                border: solid 1px #e5e5e5;
+                margin: 5px;
+                border-radius: 5px;
+              }
+
+              .data-card h3 {
+                text-align: left;
+              }
+            </style>
+            <div class="row">
+              <div class="col-sm-2 data-card">
+                <h3 class="val-card">Rs:5000</h3>
+                <p>Total Discount</p>
+              </div>
+              <div class="col-sm-2 data-card">
+                <h3 class="val-card">25%</h3>
+                <p>Discount Ratio</p>
+              </div>
+              <div class="col-sm-2 data-card">
+                <h3 class="val-card" style="color: #00c169;">Rs:5000</h3>
+                <p>Amount Paid</p>
+              </div>
+              <div class="col-sm-2 data-card">
+                <h3 class="val-card" style="color: #ff000080;">Rs:5000</h3>
+                <p>Amount Payable</p>
+              </div>
+
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <button type="submit" class="btn btn-light float-right">Add Payment</button>
+              </div>
+
+            </div>
+            <br>
+            <div class="row">
+              <table class="table table-borderless">
+                <thead class="thead-dark">
+                  <tr>
+                    <th>S.No</th>
+                    <th>Date</th>
+                    <th>Invoice ID</th>
+                    <th>Description</th>
+                    <th>Payment Method</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>11-11-1111</td>
+                    <td>#225566</td>
+                    <td>Description</td>
+                    <td>Cash</td>
+                    <td>
+                      <div class="btn-group">
+                        <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                        <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-126px, 35px, 0px);">
+                          <a href="javascript::" class="">
+                            <button class="dropdown-item" type="button">Edit</button>
+                          </a>
+                          <a href="" class="">
+                            <button class="dropdown-item" type="button">Delete</button>
+                          </a>
+                        </div>
+                      </div>
+                    </td>
+
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end row -->
 
 </div><!-- container fluid -->
 
