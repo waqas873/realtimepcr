@@ -132,6 +132,10 @@ Route::group(['middleware' => ['web','admin']], function()
         Route::post('/add-admin', 'Admin\AdminController@processAdd');
         Route::get('/update-admin/{id?}', 'Admin\AdminController@update');
         Route::post('/update-admin', 'Admin\AdminController@processUpdate');
+
+        Route::post('/add-parameter', 'Admin\TestcategoriesController@processParameters');
+        Route::get('/update-parameter/{id?}', 'Admin\TestcategoriesController@updateParameter');
+
     });
 
 });

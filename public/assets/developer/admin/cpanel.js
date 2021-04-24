@@ -117,6 +117,64 @@ $(document).on('submit', '#testCategoryForm', function (e) {
   });
 });
 
+$(document).on('click', '#addParameter', function (e) {
+  $('.all_errors').empty();
+  $('#addParameterForm').trigger("reset");
+  $('#addParameterModal').modal("show");
+});
+$(document).on('submit', '#addParameterForm', function (e) {
+  e.preventDefault();
+  var obj = $(this);
+  $('.all_errors').empty();
+  var formData = obj.serializeArray();
+  var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+  formData.push({'name':'_token','value':CSRF_TOKEN});
+  $.ajax({
+      url: '/admin/add-parameter',
+      type: 'POST',
+      data: formData,
+      dataType: 'JSON',
+      success: function (data) {
+        if(data.response){
+          obj.trigger("reset");
+          $('#addParameterModal').modal('hide');
+          swal("Parameter saved successfully.")
+          .then((value) => {
+            location.reload();
+          });
+        }
+        else{
+          errors(data.errors);
+        }
+      }
+  });
+});
+$(document).on('click', '.update_parameter_id', function (e) {
+  var id = $(this).attr('rel');
+  $('.all_errors').empty();
+  $.ajax({
+      url: '/admin/update-parameter/'+id,
+      type: 'GET',
+      dataType: 'JSON',
+      success: function (data) {
+        if(data.response){
+          $('#addParameterForm').trigger("reset");
+          $('#parameter_id').val(data.result.id);
+          $('.name').val(data.result.name);
+          $('.normal_value').val(data.result.normal_value);
+          $('.units').val(data.result.units);
+          $('.status').val(data.result.status).change();
+          $('#addParameterModal').modal('show');
+        }
+      }
+  });
+});
+$('#parametersListing').DataTable({
+  "order": [
+      [0, 'sesc']
+  ],
+});
+
 function errors(arr = ''){
     $.each(arr, function( key, value ) {
         $('.'+key+'_error').html(value);

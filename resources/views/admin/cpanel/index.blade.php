@@ -242,9 +242,41 @@
                       Parameters will be Added Here
                     </div>
                     <div class="col-sm-2">
-                      <button class="btn btn-default cpanel-btn" data-toggle="modal" data-target="#addTestCategoryModal"
-                        type="button">Add Category</button>
+                      <button class="btn btn-default cpanel-btn"
+                        type="button" id="addParameter">Add Parameter</button>
                     </div>
+                  </div>
+                  <div class="table-responsive">
+                    <table id="parametersListing" class="table table-bordered dt-responsive nowrap"
+                      style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                      <thead>
+                        <tr>
+                          <th scope="col">Sr#</th>
+                          <th scope="col">Parameter Name</th>
+                          <th scope="col">Normal Value</th>
+                          <th scope="col">Units</th>
+                          <th scope="col">Status</th>
+                          <th scope="col">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @if(!empty($test_categories))
+                        @foreach($test_categories as $key=>$value)
+                        @if($value->type==4)
+                        <tr>
+                          <td><?php echo $key+1;?></td>
+                          <td>{{$value->name}}</td>
+                          <td>{{$value->normal_value}}</td>
+                          <td>{{$value->units}}</td>
+                          <td>{{($value->status==1)?'Active':'Inactive'}}</td>
+                          <td><a href="javascript::" class="update_parameter_id" rel="{{$value->id}}">View</a>
+                          </td>
+                        </tr>
+                        @endif
+                        @endforeach
+                        @endif
+                      </tbody>
+                    </table>
                   </div>
                   
               </div>
@@ -1077,6 +1109,78 @@ function check_in_array($test_id, $profile_tests , $profile_id){
     </div>
   </div>
   @endif
+
+
+<!-- Modal -->
+<div class="modal fade" id="addParameterModal" tabindex="-1" role="dialog" aria-labelledby="addTestModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content add-test-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addTestsLabel">Add Test</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="" method="post" id="addParameterForm">
+          @csrf
+
+          <input type="hidden" name="id" value="" id="parameter_id">
+
+          <div class="form-group row">
+            <label for="name" class="col-sm-3 col-form-label pformlabel">Parameter Name</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control inputs_with_bottom_border name" name="name"
+                placeholder="Enter test name">
+              <div class="all_errors name_error">
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="normal_value" class="col-sm-3 col-form-label pformlabel">Normal Value</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control inputs_with_bottom_border normal_value" name="normal_value"
+                placeholder="Enter normal value">
+              <div class="all_errors normal_value_error">
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="units" class="col-sm-3 col-form-label pformlabel">Units</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control inputs_with_bottom_border units" name="units"
+                placeholder="Enter units">
+              <div class="all_errors units_error">
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="status" class="col-sm-3 col-form-label pformlabel">Select Status</label>
+            <div class="col-sm-9">
+              <select class="form-control select2 inputs_with_bottom_border status" name="status"
+                >
+                <option value="1">Active</option>
+                <option value="0">Inactive</option>
+              </select>
+              <div class="all_errors status_error">
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-sm-9 offset-sm-3">
+              <button type="submit" class="btn btn-primary">Save Parameter</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
   <script src="{{asset('assets/developer/admin/cpanel.js')}}"></script>
   <script src="{{asset('assets/developer/admin/tests.js')}}"></script>
