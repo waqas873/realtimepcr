@@ -177,7 +177,7 @@
                   <span> Accounts </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                 <ul class="list-unstyled">
                 <li><a href="{{url('admin/accounts/liabilities')}}">Assets / Liabilities</a></li>
-                <li><a href="{{url('admin/accounts/liabilities')}}">Cash user Wallets</a></li>
+                <li><a href="{{url('admin/accounts/cash-user-wallets')}}">Cash user Wallets</a></li>
                   <li><a href="{{url('admin/accounts/transfers')}}">Transactions / Transfers</a></li>
                   <li><a href="{{url('admin/accounts/vouchers')}}">Vouchers / Invoices</a></li>
                   <li><a href="{{url('admin/accounts/cashbook')}}">CashBook</a></li>

@@ -36,6 +36,12 @@ class AccountsController extends Controller
         return view('admin.accounts.vouchers',$data);
     }
 
+    public function cashUserWallets()
+    {
+        $data = [];
+        return view('admin.accounts.cash_user_wallets',$data);
+    }
+
     public function ledgers()
     {
         $data = [];

@@ -72,6 +72,7 @@ Route::group(['middleware' => ['web','admin']], function()
         Route::get('/deleted-patients', 'Admin\PatientController@patientsDeleted');
 
         Route::get('/update-doctor/{update_id?}', 'Admin\DoctorsController@update');
+        Route::get('/doctor-profile/{id?}', 'Admin\DoctorsController@viewProfile');
 
         Route::get('/update-test-profile/{id?}', 'Admin\TestController@update_test_profile');
         Route::get('/delete-test/{test_id?}', 'Admin\TestController@delete');
@@ -93,6 +94,7 @@ Route::group(['middleware' => ['web','admin']], function()
         Route::get('/delete-cp/{id?}', 'Admin\Collection_pointController@delete');
 
         Route::get('/staff', 'Admin\StaffController@index');
+        Route::get('/staff-profile/{id?}', 'Admin\StaffController@viewProfile');
         Route::post('/add-lab-user', 'Admin\StaffController@process_lab_user');
         Route::post('/add-cp-user', 'Admin\StaffController@process_cp_user');
         Route::get('/staff-patients/{source?}/{id?}', 'Admin\StaffController@staff_patients');
@@ -104,6 +106,7 @@ Route::group(['middleware' => ['web','admin']], function()
         Route::get('/invoice-detail/{id?}', 'Admin\InvoiceController@invoice_detail');
         
         Route::get('/accounts/liabilities', 'Admin\AccountsController@liabilities');
+        Route::get('/accounts/cash-user-wallets', 'Admin\AccountsController@cashUserWallets');
         Route::get('/accounts/transfers', 'Admin\AccountsController@transfers');
         Route::get('/accounts/cashbook', 'Admin\AccountsController@cashbook');
         Route::get('/accounts/vouchers', 'Admin\AccountsController@vouchers');

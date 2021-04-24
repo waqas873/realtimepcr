@@ -53,15 +53,16 @@
                 @foreach($doctors as $key=>$value)
                 <tr>
                     <td>{{$counter}}</td>
-                    <td>{{$value->user->name}}</td>
-                    <td>{{$value->user->email}}</td>
+                    <td>{{(!empty($value->user->name))?$value->user->name:''}}</td>
+                    <td>{{(!empty($value->user->email))?$value->user->email:''}}</td>
                     <td>{{$value->hospital}}</td>
                     <td>{{$value->affiliate_share}}%</td>
                     <td>
                       <?php 
                       if($permissions['role']==1 || (!empty($permissions['doctors_read_write']))){
                       ?>
-                      <a href="javascript::" class="update_id" rel="{{$value->user->id}}">View</a>
+                      <a href="javascript::" class="update_id" rel="{{$value->user->id}}">View</a> | 
+                      <a href="{{url('admin/doctor-profile/'.$value->id)}}">Profile</a>
                       <?php } else {echo "-- -- ";} ?>
                        <!-- | <a href="{{url('admin/delete-test/'.$value->id)}}" class="delete_test"><i class="fa fa-trash"></i></a> --></td>
                 </tr>

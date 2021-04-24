@@ -67,10 +67,13 @@
 
 
         -->
+
+    <?php 
+    $auth = Auth::user();
+    if(!empty($auth->email)){
+    ?>
     <div class="container controlBox" id="controlBox">
         <div class="row component">
-
-
             <div class="col-sm-2">
                 <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="" id="checkHF" onclick="checkFunction('checkHF','address-cmp'); checkFunction('checkHF','noImgHeader'); checkFunction('checkHF','imgHeader');" checked disabled>
@@ -118,6 +121,8 @@
             </div>
         </div>
     </div>
+    <?php } ?>
+
 
     <div class="container" style="padding: 20px" ; id="print_section">
         <div class="row component" style="padding: 5px;">

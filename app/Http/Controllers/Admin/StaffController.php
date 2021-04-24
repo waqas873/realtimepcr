@@ -49,6 +49,12 @@ class StaffController extends Controller
         return view('admin.staff.index',$data);
     }
 
+    public function viewProfile($id = 0)
+    {
+        $data = [];
+        return view('admin.staff.view_profile',$data);
+    }
+
     public function staff_patients($labCp = '' , $id = 0)
     {
         $data = [];

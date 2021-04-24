@@ -29,6 +29,12 @@ class DoctorsController extends Controller
         return view('doctors.index',$data);
     }
 
+    public function viewProfile($id = 0)
+    {
+        $data = [];
+        return view('doctors.view_profile',$data);
+    }
+
     public function update($id='0')
     {
     	$data = [];
