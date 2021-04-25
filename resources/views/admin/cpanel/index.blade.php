@@ -303,7 +303,7 @@
         ?>
   
 
-    <div class="row">
+    <!--<div class="row">
       <div class="col-sm-12">
         <h1>Draft Tests List</h1>
         <div class="card m-b-30">
@@ -313,7 +313,7 @@
               <table id="datatable" class="table table-bordered dt-responsive nowrap"
                 style="border-collapse: collapse; border-spacing: 0; width: 100%;">
 
-                <!-- <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;"> -->
+                <!-- <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;"> //
 
                 <thead>
                   <tr>
@@ -325,7 +325,7 @@
                     <!-- <th scope="col">Reporting Time(hrs)</th>
                         <th scope="col">Sample</th>
                         <th scope="col">Reporting Units</th> 
-                        <th scope="col">Normal Value</th> -->
+                        <th scope="col">Normal Value</th> //
 
                     <th scope="col">Price</th>
                     <th scope="col">Action</th>
@@ -383,7 +383,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <div class="row">
       <div class="col-sm-12">

@@ -77,7 +77,7 @@
                 <div class="qr">
                     <?php
             				$base_url = URL::to('/');
-            				$src = 'https://api.qrserver.com/v1/create-qr-code/?size=125x125&data='.$base_url.'/track/'.$result->unique_id;
+            				$src = 'https://api.qrserver.com/v1/create-qr-code/?size=90x90&data='.$base_url.'/track/'.$result->unique_id;
 
             				?>
                     <img src="<?php echo $src;?>" alt="" title="" class="qr-img" />

@@ -25,197 +25,95 @@
 
 
 <div class="container-fluid">
+<style>
+        .data-card {
+            padding: 10px 20px;
+            border: solid 1px #e5e5e5;
+            margin: 5px;
+            border-radius: 5px;
+        }
+
+        .data-card h3 {
+            text-align: left;
+        }
+    </style>
+<!-- cash user wallets page -->
 
 <div class="row">
-<div class="col-sm-12">
-<div class="page-title-box">
-<div class="row align-items-center">
-    <div class="col-sm-5">
-        <h4 class="page-title m-0">Cash User Wallets</h4>
-    </div>
-    <!-- end col -->
-</div>
-<!-- end row -->
-</div>
-<!-- end page-title-box -->
-</div>
-</div> 
-<!-- end page title -->
-
-
-<div class="row">
-<div class="col-xl-3 col-md-6">
-<div class="card bg-primary mini-stat text-white">
-<div class="p-3 mini-stat-desc">
-    <div class="clearfix">
-        <h4 class="mb-3 mt-0 float-right">3445</h4>
-    </div>
-    <div>
-        <span class="ml-2 ml22">Previous</span>
-    </div>
-    
-</div>
-<div class="p-3 p3_stat_btm">
-    <div class="float-right">
-        <a href="#" class="text-white-50"><i class="mdi mdi-cube-outline h5"></i></a>
-    </div>
-</div>
-</div>
-</div>
-
-<div class="col-xl-3 col-md-6">
-<div class="card bg-info mini-stat text-white" style="background-color: orange !important;">
-<div class="p-3 mini-stat-desc">
-    <div class="clearfix">
-        <h4 class="mb-3 mt-0 float-right">2433</h4>
-    </div>
-    <div> <span class="ml-2 ml22">Debit</span>
-    </div>
-</div>
-<div class="p-3 p3_stat_btm">
-    <div class="float-right">
-        <a href="#" class="text-white-50"><i class="mdi mdi-buffer h5"></i></a>
-    </div>
-</div>
-</div>
-</div>
-<div class="col-xl-3 col-md-6">
-<div class="card bg-pink mini-stat text-white">
-<div class="p-3 mini-stat-desc">
-    <div class="clearfix">
-        <h4 class="mb-3 mt-0 float-right">23432</h4>
-    </div>
-    <div> <span class="ml-2 ml22">Credit</span>
-    </div>
-</div>
-<div class="p-3 p3_stat_btm">
-    <div class="float-right">
-        <a href="#" class="text-white-50"><i class="mdi mdi-tag-text-outline h5"></i></a>
-    </div>
-</div>
-</div>
-</div>
-
-</div>  
-<!-- end row -->
-
-<div class="row">
-<div class="col-sm-12">
-<div class="page-title-box">
-<div class="row align-items-center">
-    <div class="col-sm-5">
-    </div>
-    <!-- <div class="col-sm-7">
-        <div class="row emdatefilter">
-            <div class="col-sm-2 no_padd">
-                <p>Date Range</p>
+    <div class="col-sm-12">
+        <div class="page-title-box">
+            <div class="row align-items-center">
+                <div class="col-sm-5">
+                    <h4 class="page-title m-0">Cash User Wallets</h4>
+                </div>
+                <!-- end col -->
             </div>
-            <div class="col-sm-3 no_padd">
-                <input class="form-control inputs_with_bottom_border" type="date" id="from_date" name="from_date">
-            </div>
-            <div class="col-sm-1"><p>To</p></div>
-            <div class="col-sm-3 no_padd">
-                <input class="form-control inputs_with_bottom_border" type="date" id="to_date" name="to_date">
-            </div>
-            <div class="col-sm-3">
-                <a href="javascript::" class="btn btn-success embsearch" id="by_date">Search</a>
-            </div>
+            <!-- end row -->
         </div>
-    </div> -->
-    <!-- end col -->
+        <!-- end page-title-box -->
+    </div>
 </div>
-<!-- end row -->
-</div>
-<!-- end page-title-box -->
-</div>
-</div> 
 <!-- end page title -->
 
 
 <div class="row">
-<div class="col-xl-12">
-<div class="card">
-<div class="card-body">
-    <!-- <h4 class="mt-0 header-title mb-4">Reports List</h4> -->
-    <div class="table-responsive">
-        <table class="table table-hover" id="cashbook_datatable">
-            <thead>
-              <tr>
-                  <th scope="col">Date</th>
-                  <th scope="col">V-ID</th>
-                  <th scope="col">Description</th>
-                  <th scope="col">Previous</th>
-                  <th scope="col">Debit</th>
-                  <th scope="col">Credit</th>
-                  <th scope="col">Balance</th>
-              </tr>
-            </thead>
-            <tbody>
-                <tr>
-                  <td scope="col">2020-06-22</td>
-                  <td scope="col">#080954</td>
-                  <td scope="col">Testing description</td>
-                  <td scope="col">Rs: 4555</td>
-                  <td scope="col">Rs: 3434</td>
-                  <td scope="col">Rs: 8766</td>
-                  <td scope="col">Rs: 543534</td>
-                </tr>
-                <tr>
-                  <td scope="col">2020-06-22</td>
-                  <td scope="col">#080954</td>
-                  <td scope="col">Testing description</td>
-                  <td scope="col">Rs: 4555</td>
-                  <td scope="col">Rs: 3434</td>
-                  <td scope="col">Rs: 8766</td>
-                  <td scope="col">Rs: 543534</td>
-                </tr>
-                <tr>
-                  <td scope="col">2020-06-22</td>
-                  <td scope="col">#080954</td>
-                  <td scope="col">Testing description</td>
-                  <td scope="col">Rs: 4555</td>
-                  <td scope="col">Rs: 3434</td>
-                  <td scope="col">Rs: 8766</td>
-                  <td scope="col">Rs: 543534</td>
-                </tr>
-                <tr>
-                  <td scope="col">2020-06-22</td>
-                  <td scope="col">#080954</td>
-                  <td scope="col">Testing description</td>
-                  <td scope="col">Rs: 4555</td>
-                  <td scope="col">Rs: 3434</td>
-                  <td scope="col">Rs: 8766</td>
-                  <td scope="col">Rs: 543534</td>
-                </tr>
-                <tr>
-                  <td scope="col">2020-06-22</td>
-                  <td scope="col">#080954</td>
-                  <td scope="col">Testing description</td>
-                  <td scope="col">Rs: 4555</td>
-                  <td scope="col">Rs: 3434</td>
-                  <td scope="col">Rs: 8766</td>
-                  <td scope="col">Rs: 543534</td>
-                </tr>
-                <tr>
-                  <td scope="col">2020-06-22</td>
-                  <td scope="col">#080954</td>
-                  <td scope="col">Testing description</td>
-                  <td scope="col">Rs: 4555</td>
-                  <td scope="col">Rs: 3434</td>
-                  <td scope="col">Rs: 8766</td>
-                  <td scope="col">Rs: 543534</td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="col-sm-12">
+    <div class="card">
+
+        <div class="card-body">
+        <div class="row">
+                        <div class="col-3 data-card">
+                            <h3 class="val-card">Rs:50000</h3>
+                            <p>My Account Balance</p>
+                        </div>
+                        <div class="col-3 data-card">
+                            <h3 class="val-card">Rs:25000</h3>
+                            <p>Cash with Users</p>
+                        </div>
+                        
+                    </div>
+
+            <table class="table table-borderless">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>S.No</th>
+                        <th>Name</th>
+                        <th>User Type</th>
+                        <th>Associated LAB</th>
+                        <th>Total Cash</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>----</td>
+
+                        <td>User Name </td>
+                        <td>Admin / Receptionist</td>
+                        <td>RealtimePCR peshawar</td>
+                        <td>-------</td>
+                        <td>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                                <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-126px, 35px, 0px);">
+                                    <a href="javascript::" class="">
+                                        <button class="dropdown-item" type="button">Collect Cash</button>
+                                    </a>
+                                    <a href="" class="">
+                                        <button class="dropdown-item" type="button">Transfer Amount</button>
+                                    </a>
+                                </div>
+                            </div>
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
     </div>
-
+    </div>
 </div>
-</div>
-</div>
-</div>
-<!-- end row -->
-
-</div><!-- container fluid -->
 
 <script src="{{asset('assets/developer/admin/accounts.js')}}"></script>
 
