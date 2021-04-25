@@ -129,10 +129,9 @@ class CpanelController extends Controller
     {
         $data = [];
         $data['response'] = false;
-
         $formData = $request->all();
         $rules = [
-            'name'=>'required|min:1',
+            'name'=>'required',
             'type'=>'required'
         ];
         $messages = [];

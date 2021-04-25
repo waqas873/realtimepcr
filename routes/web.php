@@ -44,6 +44,7 @@ Route::group(['middleware' => ['web','admin']], function()
         Route::post('/add-test-category', 'Admin\CpanelController@processTestCategory');
         Route::get('/doctors', 'Admin\DoctorsController@index');
         Route::post('/add-category', 'Admin\CategoryController@process_add');
+        Route::post('/addCategory', 'Admin\CategoryController@processCategory');
         Route::post('/add-sample', 'Admin\SampleController@process_add');
         Route::post('/add-reporting-unit', 'Admin\ReportingUnitController@process_add');
 

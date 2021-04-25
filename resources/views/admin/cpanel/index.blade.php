@@ -120,8 +120,8 @@
                 @endif
               </div>
               <div class="col-sm-2">
-                <button class="btn btn-default cpanel-btn" data-toggle="modal" data-target="#addCategory"
-                  type="button">Add Category</button>
+                <button class="btn btn-default cpanel-btn"
+                  type="button" id="addCategory">Add Category</button>
               </div>
             </div>
             <hr>
@@ -645,6 +645,35 @@
     </div>
   </div>
 
+  <!-- Modal -->
+  <div class="modal fade" id="addCategoryModal" tabindex="-1" role="dialog" aria-labelledby="addTestsLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addCategoryLabel">Add Category</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="addCategoryForm" method="post">
+            @csrf
+            <div class="form-group">
+              <label for="add_category">Category Name</label>
+              <input type="text" class="form-control" name="name" placeholder="Enter category name">
+              <div class="all_errors name_error"></div>
+            </div>
+            <button type="submit" class="btn btn-primary">Save Category</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
     <!-- Modal -->
   <div class="modal fade" id="addTestCategoryModal" tabindex="-1" role="dialog" aria-labelledby="addTestsLabel"
     aria-hidden="true">
@@ -673,10 +702,10 @@
             <div class="form-group">
               <label for="add_category">Name</label>
               <input type="text" class="form-control" name="name" placeholder="Enter category name">
+              <div class="all_errors name_error"></div>
               <br>
               <label for="add_category">Medicine Label</label>
-              <input type="text" class="form-control" name="name" placeholder="Enter Medicine Label">
-              <div class="all_errors name_error"></div>
+              <input type="text" class="form-control" name="medicine_label" placeholder="Enter Medicine Label">
             </div>
             <button type="submit" class="btn btn-primary">Save Category</button>
           </form>

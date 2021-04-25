@@ -35,7 +35,29 @@ class CategoryController extends Controller
         if(!empty($result)){
             return redirect('admin/cpanel')->with('success_message','Category has been saved successfully.');
         }
-
         return redirect('admin/cpanel');
     }
+
+    public function processCategory(Request $request)
+    {
+        $data = [];
+        $data['response'] = false;
+        $formData = $request->all();
+        $rules = [
+            'name'=>'required|min:1'
+        ];
+        $messages = [];
+        $attributes = [];
+        $validator = Validator::make($formData,$rules,$messages,$attributes);
+        if($validator->fails()){
+            $data['errors'] = $validator->errors();
+        }
+        else{
+            unset($formData['_token']);
+            $result = Category::insert($formData);
+            $data['response'] = true;
+        }
+        echo json_encode($data);
+    }
+
 }
