@@ -230,7 +230,7 @@ $(document).on('click', '#search_report', function (e) {
   }
   var url = '<?php echo url('/');?>';
   var redirect_url = url+'/track/'+id;
-  window.location.replace(redirect_url);
+  window.open(redirect_url , "_blank");
 });
 
 $(document).on('click', '#search_patient', function (e) {
@@ -241,7 +241,7 @@ $(document).on('click', '#search_patient', function (e) {
   }
   var url = '<?php echo url('/');?>';
   var redirect_url = url+'/patient-detail/'+id+'/HbN';
-  window.location.replace(redirect_url);
+  window.open(redirect_url , "_blank");
 });
 
 });

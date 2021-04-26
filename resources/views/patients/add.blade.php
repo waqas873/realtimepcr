@@ -79,10 +79,10 @@
             </div>
           </div>
           <div class="form-group row">
-            <label for="age" class="col-sm-2 col-form-label pformlabel">Age</label>
+            <label for="dob" class="col-sm-2 col-form-label pformlabel">DOB</label>
             <div class="col-sm-8">
-              <input type="number" class="form-control inputs_with_bottom_border" id="age" value="{{ old('age') }}" name="age" placeholder="Enter Age">
-              <div class="all_errors" id="age_error">
+              <input type="date" class="form-control inputs_with_bottom_border" id="dob" value="{{ old('dob') }}" name="dob" placeholder="Enter dob">
+              <div class="all_errors" id="dob_error">
               </div>
             </div>
           </div>
@@ -122,7 +122,7 @@
                   <option value="">Select doctor</option>
                   @if(!empty($doctors))
                       @foreach($doctors as $record)
-                      <option value="{{$record->id}}">{{$record->name}}</option>
+                      <option value="{{$record->id}}">{{$record->name}} (Doctor)</option>
                       @endforeach
                   @endif
               </select>

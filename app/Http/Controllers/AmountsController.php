@@ -38,7 +38,7 @@ class AmountsController extends Controller
         $data['cash_in_hand'] = $this->cash_in_hand();
         $data['cash_recieved'] = Amount::where('user_id' , $user->id)->where('type', '=' ,1)->where('from_user', '>' ,0)->whereMonth('created_at', Carbon::now()->month)->sum('amount');
         $data['users'] = User::where(function($query){
-                $query->where('role' , '0')->orWhere('role' , 1);
+                $query->where('role' , '0')->orWhere('role' , 1)->orWhere('role' , 4)->orWhere('role' , 7);
             })->where('id','!=', $user->id)->get();
         $data['listing'] = Amount::where(function($query) use($user_id){
                 $query->where('user_id' , $user_id)->orWhere('from_user' , $user_id);

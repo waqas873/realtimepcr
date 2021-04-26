@@ -70,10 +70,10 @@
         <div class="row">
           <div class="col-sm-6">
             <div class="form-group row">
-              <label for="age" class="col-sm-2 col-form-label pformlabel">Age</label>
+              <label for="dob" class="col-sm-2 col-form-label pformlabel">DOB</label>
               <div class="col-sm-10">
-                <input type="number" class="form-control inputs_with_bottom_border" id="age" value="{{$result->age}}" name="age" placeholder="Enter Age">
-                <div class="all_errors" id="age_error">
+                <input type="date" class="form-control inputs_with_bottom_border" id="dob" value="{{$result->dob}}" name="dob" placeholder="Enter dob">
+                <div class="all_errors" id="dob_error">
                 </div>
               </div>
             </div>

@@ -254,7 +254,20 @@
                 <h6>
                     <strong>
                         <?php echo (!empty($result->patient->name)) ? ucwords($result->patient->name) : 'None'; ?>
-                        <?php echo (!empty($result->patient->age)) ? $result->patient->age . ' (Y)' : ''; ?> /
+                        <?php 
+                        if(!empty($result->patient->age)){
+                            echo $result->patient->age;
+                        }
+                        elseif(!empty($result->patient->dob)){
+                            $date11 = new DateTime($result->patient->dob);
+                            $now11 = new DateTime();
+                            $interval = $now11->diff($date11);
+                            echo $interval->y;
+                        }
+                        else{
+                            echo " ";
+                        }
+                        ?> /
                         <?php echo ($result->patient->sex == 1) ? 'Male' : 'Female'; ?>
                     </strong>
                 </h6>

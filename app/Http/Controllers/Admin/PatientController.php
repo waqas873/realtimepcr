@@ -132,7 +132,7 @@ class PatientController extends Controller
                 $patient = [];
                 $patient['name'] = $formData['name'];
                 $patient['cnic'] = $formData['cnic'];
-                $patient['age'] = $formData['age'];
+                $patient['dob'] = $formData['dob'];
                 $patient['sex'] = $formData['sex'];
                 $patient['contact_no'] = $formData['contact_no'];
                 $patient['email'] = $formData['email'];
@@ -340,7 +340,7 @@ class PatientController extends Controller
         $deleted->user_id = $patient->user_id;
         $deleted->name = $patient->name;
         $deleted->cnic = $patient->cnic;
-        $deleted->age = $patient->age;
+        $deleted->dob = $patient->dob;
         $deleted->sex = $patient->sex;
         $deleted->contact_no = $patient->contact_no;
         $deleted->email = $patient->email;
