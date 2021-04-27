@@ -160,7 +160,22 @@
 
                   <a href="{{$value->id}}" rel="{{!(empty($value->test->reporting_units->type))?$value->test->reporting_units->type:''}}" class="btn btn-primary waves-effect waves-light submit_reports">Submit Reports</a>
 
-                  <button type="button" class="btn btn-outline-danger waves-effect waves-light">Repeat Test</button>
+
+                  <div class="btn-group">
+                      <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                      <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-126px, 35px, 0px);">
+                        <a href="javascript::" class="">
+                          <button class="dropdown-item" type="button">Repeat Test</button>
+                        </a>
+                        <a href="javascript::" class="">
+                          <button class="dropdown-item" type="button">Submit Manual Report</button>
+                        </a>
+                        
+                                              </div>
+                    </div>
+
+
+            
 
                   <?php 
                         } else {
