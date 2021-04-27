@@ -128,13 +128,18 @@
                     <div class="col-sm-3">
                         <p>Repeated <b style="color: red;">- - - - </b> Times </p>
                     </div>
-
+                    
+                    <?php
+                    $auth = Auth::user();
+                    if (!empty($auth->role) && $auth->role==1) {
+                    ?>
                     <div class="col-sm-3" id="adminControlBox">
                         <p>Net Earnings : <b style="color: green;">Rs:- - - -</b></p>
                     </div>
                     <div class="col-sm-3" id="adminControlBox">
                         <p>Distributed Earning <b style="color: red;">Rs:- - - -</b> </p>
                     </div>
+                    <?php } ?>
                 </div>
             </div>
             </div>
