@@ -119,8 +119,7 @@
                     <button type="button" class="btn btn-light">Download PDF</button>
                     <button type="button" onclick="window.print()" class="btn btn-primary">Print Report</button>
                 </div>
-            </div>
-            <div  class="col-sm-12">
+                <div  class="col-sm-12">
                 <hr>
                 <div class="row">
                     <div class="col-sm-3">
@@ -138,6 +137,8 @@
                     </div>
                 </div>
             </div>
+            </div>
+            
         <?php } ?>
 
 
