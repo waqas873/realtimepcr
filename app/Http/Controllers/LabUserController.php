@@ -12,6 +12,7 @@ use App\Amount;
 use App\Cash;
 use App\Patient;
 use App\Patient_test;
+use App\Patient_tests_repeated;
 use App\Test_category;
 use App\Patient_test_result;
 use App\Patient_medicine_result;
@@ -300,6 +301,31 @@ class LabUserController extends Controller
             return redirect('lab/reports')->with('success_message' , 'Test has been revoked successfully');
         }
         return redirect('lab/reports')->with('error_message' , 'Invalid request to update test.');
+    }
+
+    public function repeat_test($id = 0)
+    {
+        $user = Auth::user();
+        $id = decodeBase64($id);
+        $result = Patient_test::find($id);
+        if(!empty($result)){
+            $ptr = new Patient_tests_repeated;
+            $update = ['status'=>0];
+            $result = $ptr->where('patient_test_id' , $id)->first();
+            if(!empty($result)){
+                $result->user_id = $user->id;
+                $result->no_of_repeat = $result->no_of_repeat+1;
+                $result->save();
+            }
+            else{
+                $ptr->user_id = $user->id;
+                $ptr->no_of_repeat = 1;
+                $ptr->patient_test_id = $id;
+                $ptr->save();
+            }
+            return redirect('lab/open-cases')->with('success_message' , 'Test has been repeated successfully');
+        }
+        return redirect('lab/reports')->with('error_message' , 'Invalid request to repeat test.');
     }
 
     public function invoice_update($invoice_id = 0)

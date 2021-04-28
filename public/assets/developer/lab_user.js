@@ -75,6 +75,23 @@ $(document).on('click', '.revoke', function (e) {
   });
 });
 
+$(document).on('click', '.repeat_test_id', function (e) {
+  e.preventDefault();
+  var url = $(this).attr('href');
+  swal({
+    title: "Are you sure?",
+    text: "To perform this action",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  })
+  .then((willDelete) => {
+    if (willDelete) {
+      location.replace(url);
+    }
+  });
+});
+
 $('#datatable').DataTable({
   "order": [
       [0, 'sesc']
