@@ -25,13 +25,14 @@
 
 <div class="container-fluid cpanel">
     
-    <?php 
-    $permissions = permissions();
-    if($permissions['role']==1 || (!empty($permissions['app_cpanel_permissions']))){
-    ?>
+    <?php
+  $permissions = permissions();
+  if ($permissions['role'] == 1 || (!empty($permissions['app_cpanel_permissions']))) {
+  ?>
+    <h1>Admin Control Cpanel</h1>
     <div class="row">
-      <div class="col-sm-9">
-        <h1>Admin Control Cpanel</h1>
+      <div class="col-sm-8">
+
         <div class="row toggle-rows cpanel-pdl">
           @if(!empty($admin_permissions))
           @foreach($admin_permissions as $key=>$value)
@@ -39,15 +40,25 @@
             <span class="toggle-btn-text">
               {{$value->name}}
             </span>
-            <input type="checkbox" class="toggle_btn change_permission" data-toggle="toggle" name="{{$value->id}}"
-              value="{{$value->status}}" <?php echo ($value->status==1)?'checked':'';?>>
+            <input type="checkbox" class="toggle_btn change_permission" data-toggle="toggle" name="{{$value->id}}" value="{{$value->status}}" <?php echo ($value->status == 1) ? 'checked' : ''; ?>>
           </div>
           @endforeach
           @endif
         </div>
       </div>
+      <div class="col-sm-4">
+        <p>Minimum Test Process Time (LabUser)</p>
+
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Enter value in Hours e.g: 6" aria-label="Enter Vlaue in hours" aria-describedby="basic-addon2">
+          <div class="input-group-append">
+            <span class="input-group-text" id="basic-addon2">hours</span>
+          </div>
+        </div>
+        <button type="button" class="btn btn-light btn-block">Save</button>
+      </div>
     </div>
-    <?php 
+  <?php
     } 
     if($permissions['role']==1 || (!empty($permissions['app_cpanel_accounts_list']))){
     ?>
@@ -1215,5 +1226,3 @@ function check_in_array($test_id, $profile_tests , $profile_id){
   <script src="{{asset('assets/developer/admin/tests.js')}}"></script>
 
   @endsection
-
-
