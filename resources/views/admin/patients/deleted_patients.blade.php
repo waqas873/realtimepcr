@@ -34,7 +34,7 @@
             <thead>
                 <tr>
                     <th scope="col">Patient Name</th>
-                    <th scope="col">Delete Date</th>
+                    <th scope="col">Date</th>
                     <th scope="col">Reason</th>
                     <th scope="col">Deleted By</th>
                     <th scope="col">Action</th>
@@ -51,6 +51,10 @@
 <!-- end row -->
 
 </div><!-- container fluid -->
+
+
+
+
 
 <!-- Modal -->
 <div class="modal fade" id="reasonModel" tabindex="-1" role="dialog" aria-labelledby="reasonLabel" aria-hidden="true">
