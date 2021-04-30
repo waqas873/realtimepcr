@@ -328,6 +328,80 @@ class LabUserController extends Controller
         return redirect('lab/reports')->with('error_message' , 'Invalid request to repeat test.');
     }
 
+    public function manual($id = 0)
+    {
+        $data = [];
+        $user = Auth::user();
+        $id = decodeBase64($id);
+        $result = Patient_test::find($id);
+        if(!empty($result)){
+            $unique_id = $result->invoice->unique_id;
+            $invoice = Invoice::where('unique_id',$unique_id)->first();
+            if(!empty($invoice)){
+                $data['result'] = $invoice;
+            }
+            $data['patient_test_id'] = $id;
+            return view('lab.manual' , $data);
+        }
+        return redirect('lab/reports')->with('error_message' , 'Invalid request to repeat test.');
+    }
+
+    public function manualProcess(Request $request)
+    {
+        $data = [];
+        $data['response'] = false;
+
+        $formData = $request->all();
+        $type = $formData['type'];
+
+        $rules = [];
+        $attributes = [];
+        if($type==1 || $type==2 || $type==3 || $type==5){
+            $rules['dropdown_value'] = 'required';
+            $attributes['dropdown_value'] = 'dropdown value';
+        }
+        if($type==3){
+            $rules['input_value'] = 'required';
+            $attributes['input_value'] = 'input value';
+        }
+        if($type==6){
+            $rules['specie'] = 'required';
+            $rules['duration'] = 'required';
+        }
+        $messages = [];
+        $validator = Validator::make($formData,$rules,$messages,$attributes);
+
+        if($validator->fails()){
+            $data['errors'] = $validator->errors();
+        }
+        else{
+            unset($formData['_token']);
+            $patient_test_id = $formData['patient_test_id'];
+
+            $user = Auth::user();
+            $result = Patient_test::where('status' , '0')->find($patient_test_id);
+            if(!empty($result)){
+                $update = ['status'=>3,'updated_at'=>$this->date_time,'processed_by'=>$user->id];
+                Patient_test::where('id' , $patient_test_id)->update($update);
+
+                $invoice_id = $result->invoice_id;
+                $this->invoice_update($invoice_id);
+
+                $msg = 'Test has been updated successfully.';
+                $sms_sent = $this->send_sms($patient_test_id);
+                if($sms_sent==true){
+                    $msg .= 'Message has been sent to patient.';
+                }
+                
+                Patient_test_result::where('patient_test_id',$patient_test_id)->delete(); 
+                $formData['user_id'] = $user->id;
+                Patient_test_result::insert($formData);
+                $data['response'] = true;
+            }
+        }
+        echo json_encode($data);
+    }
+
     public function invoice_update($invoice_id = 0)
     {
         $pt = Patient_test::where('invoice_id' , $invoice_id)->where('status' , 0)->get();

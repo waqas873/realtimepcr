@@ -164,11 +164,13 @@
                   <div class="btn-group">
                       <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                       <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-126px, 35px, 0px);">
-                        <?php $id = createBase64($value->id);?>
+                        <?php 
+                        $id = createBase64($value->id);
+                        ?>
                         <a href="{{url('lab/repeat-test/'.$id)}}" class="repeat_test_id">
                           <button class="dropdown-item" type="button">Repeat Test</button>
                         </a>
-                        <a href="javascript::" class="">
+                        <a href="{{url('lab/manual/'.$id)}}" class="">
                           <button class="dropdown-item" type="button">Submit Manual Report</button>
                         </a>
                         

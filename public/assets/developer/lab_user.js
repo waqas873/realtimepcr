@@ -92,6 +92,34 @@ $(document).on('click', '.repeat_test_id', function (e) {
   });
 });
 
+$(document).on('submit', '#manualReportForm', function (e) {
+  e.preventDefault();
+  var obj = $(this);
+  $('.all_errors').empty();
+  var formData = obj.serializeArray();
+  var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+  formData.push({'name':'_token','value':CSRF_TOKEN});
+  $.ajax({
+      url: '/lab/process-manual',
+      type: 'POST',
+      data: formData,
+      dataType: 'JSON',
+      success: function (data) {
+        if(data.response){
+          obj.trigger("reset");
+          $('#addTestModal').modal('hide');
+          swal("Data saved successfully.")
+          .then((value) => {
+            location.reload();
+          });
+        }
+        else{
+          errors(data.errors);
+        }
+      }
+  });
+});
+
 $('#datatable').DataTable({
   "order": [
       [0, 'sesc']
