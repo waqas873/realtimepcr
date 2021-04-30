@@ -107,10 +107,9 @@ $(document).on('submit', '#manualReportForm', function (e) {
       success: function (data) {
         if(data.response){
           obj.trigger("reset");
-          $('#addTestModal').modal('hide');
           swal("Data saved successfully.")
           .then((value) => {
-            location.reload();
+            window.location.replace(base_url+'/lab/open-cases');
           });
         }
         else{

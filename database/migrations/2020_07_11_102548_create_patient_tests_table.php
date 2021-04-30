@@ -23,6 +23,7 @@ class CreatePatientTestsTable extends Migration
             $table->tinyInteger('type')->default(1)->comment = '1 = simple test , 2 = covid test ';
             $table->tinyInteger('api_sent')->default(0)->comment = '0 = this is not an api deliver test , 1 = passenger detail is delivered to api  , 2 = Test results are sent to api';
             $table->tinyInteger('api_cancelled')->default(0);
+            $table->tinyInteger('is_manual')->default(0);
             $table->tinyInteger('status')->default('0')->comment = '0 = pending , 1 = detected for covid , 2 = not detected for covid';
             $table->integer('processed_by')->nullable();
             $table->timestamp('created_at')->useCurrent();

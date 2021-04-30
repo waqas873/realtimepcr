@@ -23,6 +23,7 @@ class CreatePatientTestResultsTable extends Migration
             $table->string('specie')->nullable();
             $table->string('duration')->nullable();
             $table->text('comments')->nullable();
+            $table->text('manual')->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
         });

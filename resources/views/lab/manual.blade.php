@@ -12,6 +12,13 @@
     <!-- <link rel="stylesheet" href="https://pcr.realtimepcr.pk/assets/css/cmp-style.css"> -->
     <!-- <link rel="stylesheet" href="cmp-style.css"> -->
 
+<script type="text/javascript">
+    var base_url = '<?php echo url('/'); ?>';
+</script>
+<script src="{{asset('assets/js/jquery.min.js')}}"></script>
+<script src="{{asset('assets/developer/lab_user.js')}}"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     <script src="https://cdn.tiny.cloud/1/v0u7jdmk1u47xhd7xzip7l7rzzz1x5y9hxaq7sk115kbjzlj/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 
     <script>
@@ -61,7 +68,7 @@ tinymce.init({
                 
                 <div class="form-group row">
                   <div class="col-sm-9 offset-sm-3">
-                      <button type="submit" class="btn btn-primary save_btn">Save Doctor</button>
+                      <button type="submit" class="btn btn-primary save_btn">Save Report</button>
                   </div>
                 </div>
             </form>
@@ -96,6 +103,7 @@ tinymce.init({
                         BS Bio-Tech, M.Phill Bio-Tech,Ph.D Bio-Tech
                     </p>
                 </div>
+
             </div>
         </div>
     </div>

@@ -352,32 +352,19 @@ class LabUserController extends Controller
         $data['response'] = false;
 
         $formData = $request->all();
-        $type = $formData['type'];
-
         $rules = [];
+        $rules['manual'] = 'required';
         $attributes = [];
-        if($type==1 || $type==2 || $type==3 || $type==5){
-            $rules['dropdown_value'] = 'required';
-            $attributes['dropdown_value'] = 'dropdown value';
-        }
-        if($type==3){
-            $rules['input_value'] = 'required';
-            $attributes['input_value'] = 'input value';
-        }
-        if($type==6){
-            $rules['specie'] = 'required';
-            $rules['duration'] = 'required';
-        }
+        $attributes['manual'] = 'report';
         $messages = [];
         $validator = Validator::make($formData,$rules,$messages,$attributes);
-
         if($validator->fails()){
             $data['errors'] = $validator->errors();
         }
         else{
             unset($formData['_token']);
+            //dd($formData , true);
             $patient_test_id = $formData['patient_test_id'];
-
             $user = Auth::user();
             $result = Patient_test::where('status' , '0')->find($patient_test_id);
             if(!empty($result)){
