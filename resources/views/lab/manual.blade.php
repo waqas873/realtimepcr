@@ -58,7 +58,7 @@ tinymce.init({
                 <input type="hidden" name="patient_test_id" value="{{$patient_test_id}}">
 
                 <div class="form-group row">
-                  <label for="name" class="col-sm-3 col-form-label pformlabel">Doctor Name</label>
+                  <label for="name" class="col-sm-3 col-form-label pformlabel">Report Details</label>
                   <div class="col-sm-9">
                     <textarea name="manual" class="form-control inputs_with_bottom_border"></textarea>
                     <div class="all_errors manual_error">
