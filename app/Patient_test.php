@@ -30,4 +30,10 @@ class Patient_test extends Model
     {
         return $this->hasOne('App\Patient_test_result');
     }
+
+    public function patient_tests_repeated()
+    {
+        return $this->hasOne('App\Patient_tests_repeated');
+    }
+
 }

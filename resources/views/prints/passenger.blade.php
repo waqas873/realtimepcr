@@ -59,7 +59,7 @@ Your Test is in Process.</h2>
 
 <?php
 $auth = Auth::user();
-if (!empty($auth->email)) {
+if (!empty($auth) && ($auth->role==1 || $auth->role==0 || $auth->role==7)) {
 ?>
 <div class="container controlBox" id="controlBox">
 <div class="row component">
@@ -110,22 +110,37 @@ if (!empty($auth->email)) {
 </div>
 </div>
 <div class="col-sm-4">
-<p id="pendingPayment">This patient has pending amount of <b style="color: red; font-size:20px"> Rs:2500 </b>
+<?php if(!empty($result->amount_remaining) && $result->amount_remaining > 0) { ?>
+<p id="pendingPayment">This patient has pending amount of <b style="color: red; font-size:20px"> Rs:<?php echo $result->amount_remaining;?> </b>
 <br>
 you're not allowed to print this report.
 <button type="button" class="btn btn-light">Make Payment</button>
-
 </p>
+<?php } else { ?>
 <button type="button" onclick="window.print()" class="btn btn-primary" id="clearedPayment">Print Report</button>
+<?php } ?>
 </div>
 <div class="col-sm-12">
 <hr>
 <div class="row">
+<?php 
+$total_attempts = count($result->patient_tests);
+$repeated = 0;
+if(!empty($result->patient_tests)){
+    foreach($result->patient_tests as $ptpt){
+        $ans = $ptpt->patient_tests_repeated;
+        if(!empty($ans)){
+            $total_attempts = $total_attempts+$ans->no_of_repeat;
+            $repeated = $repeated + $ans->no_of_repeat;
+        }
+    }
+}
+?>
 <div class="col-sm-3">
-<p>Total Attempts = <b style="color: #00aaff;">- - - - </b> </p>
+<p>Total Attempts = <b style="color: #00aaff;"><?php echo $total_attempts;?></b> </p>
 </div>
 <div class="col-sm-3">
-<p>Repeated <b style="color: red;">- - - - </b> Times </p>
+<p>Repeated <b style="color: red;"><?php echo $repeated;?> </b> Times </p>
 </div>
 
 <?php
@@ -143,7 +158,6 @@ if (!empty($auth->role) && $auth->role == 1) {
 </div>
 </div>
 </div>
-
 <?php } ?>
 
 
