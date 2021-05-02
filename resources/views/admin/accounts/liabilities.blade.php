@@ -32,6 +32,9 @@
                     <div class="col-sm-5">
                         <h4 class="page-title m-0">Assets / Liabilities</h4>
                     </div>
+                    <div class="col-sm-7">
+                        <button type="button" class="btn btn-light float-right" style="margin: 10px;" data-toggle="modal" data-target="#addModal">Add Assets & Liabilities</button>
+                    </div>
                     <!-- end col -->
                 </div>
                 <!-- end row -->
@@ -44,13 +47,17 @@
     <style>
         .data-card {
             padding: 10px 20px;
-            border: solid 1px #e5e5e5;
+            border: none;
             margin: 5px;
             border-radius: 5px;
         }
 
         .data-card h3 {
             text-align: left;
+        }
+
+        .row {
+            margin: auto;
         }
     </style>
 
@@ -75,13 +82,10 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-sm-12"><button type="button" class="btn btn-light float-right" style="margin: 10px;">Add Assets</button></div>
-                    </div>
-                    <div class="row">
                         <table class="table table-borderless">
                             <thead class="thead-dark">
                                 <tr>
-                                    <th>S.No</th>
+                                    <th>Type</th>
                                     <th>Asset Name</th>
                                     <th>Asset Value</th>
                                     <th>Action</th>
@@ -89,7 +93,7 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>----</td>
+                                    <td>Current</td>
                                     <td>-------</td>
                                     <td>-------</td>
 
@@ -136,13 +140,10 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-sm-12"><button type="button" class="btn btn-light float-right" style="margin: 10px;">Add Liability</button></div>
-                    </div>
-                    <div class="row">
                         <table class="table table-borderless">
                             <thead class="thead-dark">
                                 <tr>
-                                    <th>S.No</th>
+                                    <th>Type</th>
                                     <th>Liability Name</th>
                                     <th>Liability Value</th>
                                     <th>Action</th>
@@ -150,7 +151,7 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>----</td>
+                                    <td>Non-Current/td>
                                     <td>-------</td>
                                     <td>-------</td>
 
@@ -172,6 +173,67 @@
                             </tbody>
                         </table>
                     </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Add Assets Modal -->
+
+
+    <!-- Add Assets / Liabilities Modal -->
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Assets / Liabilities</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+
+                    <form>
+                        <div class="form-group">
+                            <label for="mainType">Select Main Type</label>
+                            <select class="form-control" id="mainType">
+                                <option>Assets</option>
+                                <option>Liabilities</option>
+                            </select>
+                            <small id="mainType" class="form-text text-muted">You can choose the main type e.g: Assets / Liabilities.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="subType">Select Sub Type</label>
+                            <select class="form-control" id="subType">
+                                <option>Current</option>
+                                <option>non-Current</option>
+                            </select>
+                            <small id="subType" class="form-text text-muted">You can choose the sub type e.g: current / Non-Current.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="assetName">Name</label>
+                            <input type="text" class="form-control" id="assetName" aria-describedby="assetName" placeholder="Enter Name">
+                            <small id="assetName" class="form-text text-muted">Enter name of the Asset OR Liability in this field.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="assetVal">Enter Value</label>
+                            <div class="input-group mb-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">Rs:</div>
+                                </div>
+                                <input type="text" class="form-control" id="assetVal" placeholder="Enter Value">
+                            </div>
+
+                            <small id="assetVal" class="form-text text-muted">Enter Value of the Asset OR Liability in PKR e.g: Rs:2500.</small>
+                        </div>
+
+
+                        <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+                    </form>
 
 
                 </div>

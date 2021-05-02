@@ -207,9 +207,11 @@
           @csrf
 
           <div class="form-group row">
-            <label for="title" class="col-sm-3 col-form-label pformlabel">Item</label>
+            <label for="title" class="col-sm-3 col-form-label pformlabel">Select Category</label>
             <div class="col-sm-9">
-              <input type="text" class="form-control inputs_with_bottom_border" id="title" name="title" placeholder="Enter item">
+              <!-- <input type="text" class="form-control inputs_with_bottom_border" id="title" name="title" placeholder="Enter item"> -->
+              <select name="" class="form-control" id="">Select Expense Category</select>
+              
               <div class="all_errors" id="title_error">
               </div>
             </div>
