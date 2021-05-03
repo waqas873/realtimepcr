@@ -99,7 +99,7 @@
 
             <?php if (\Session::get('role') == 5) { ?>
               <li>
-                <a href="{{url('patient-add')}}" class="waves-effect">
+                <a href="{{url('cp-admin')}}" class="waves-effect">
                   <img src="{{asset('assets/icons/sidebar-icons/icon3.svg')}}" class="sidebar_icons">
                   <span> CP Admin</span>
                 </a>

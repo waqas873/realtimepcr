@@ -170,6 +170,7 @@ Route::group(['middleware' => ['web','staff']], function()
 
 
     Route::get('/amounts', 'AmountsController@index');
+    Route::get('/cp-admin', 'Cp_adminController@transactions');
     Route::post('/add-expense', 'AmountsController@process_expense');
     Route::post('/transfer-amount', 'AmountsController@amount_transfer');
     Route::get('/cancel-transfer/{id?}', 'AmountsController@cancel_transfer');

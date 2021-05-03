@@ -66,7 +66,7 @@
         <div class="p-3 mini-stat-desc">
           <div class="clearfix">
             <h6 class="text-uppercase mt-0 float-left text-white-50">Tests</h6>
-            <h4 class="mb-3 mt-0 float-right">Show Re</h4>
+            <h4 class="mb-3 mt-0 float-right">{{$repeated_tests}}</h4>
           </div>
           <div> <span class="ml-2">Repeated Tests</span>
           </div>
@@ -80,7 +80,7 @@
         <div class="p-3 mini-stat-desc">
           <div class="clearfix">
             <h6 class="text-uppercase mt-0 float-left text-white-50">Tests</h6>
-            <h4 class="mb-3 mt-0 float-right">{{$performed}}</h4>
+            <h4 class="mb-3 mt-0 float-right">{{$repeat_ratio}}%</h4>
           </div>
           <div> <span class="ml-2">Repeat Ratio</span>
           </div>

@@ -203,16 +203,22 @@
         </button>
       </div>
       <div class="modal-body">
-        <form action="" method="post" id="expense-form">
+        <form action="" method="post" id="expenseForm">
           @csrf
 
           <div class="form-group row">
             <label for="title" class="col-sm-3 col-form-label pformlabel">Select Category</label>
             <div class="col-sm-9">
               <!-- <input type="text" class="form-control inputs_with_bottom_border" id="title" name="title" placeholder="Enter item"> -->
-              <select name="" class="form-control" id="">Select Expense Category</select>
-              
-              <div class="all_errors" id="title_error">
+              <select name="account_category_id" class="form-control select2">Select Expense Category
+              @if(!empty($expense_categories))
+              @foreach($expense_categories as $record)
+              <option value="">Select here</option>
+              <option value="{{$record->id}}">{{$record->name}}</option>
+              @endforeach
+              @endif
+              </select>
+              <div class="all_errors account_category_id_error">
               </div>
             </div>
           </div>
@@ -220,7 +226,7 @@
             <label for="amount" class="col-sm-3 col-form-label pformlabel">Amount Spent</label>
             <div class="col-sm-9">
               <input type="number" class="form-control inputs_with_bottom_border" id="amount" name="amount" placeholder="Enter amount">
-              <div class="all_errors" id="amount_error">
+              <div class="all_errors amount_error">
               </div>
             </div>
           </div>

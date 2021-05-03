@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Session;
 use App\Invoice;
 use App\Amount;
+use App\Account_category;
 use App\Cash;
 use App\User;
 use Carbon\Carbon;
@@ -43,6 +44,7 @@ class AmountsController extends Controller
         $data['listing'] = Amount::where(function($query) use($user_id){
                 $query->where('user_id' , $user_id)->orWhere('from_user' , $user_id);
             })->whereMonth('created_at', Carbon::now()->month)->orderBy('id' , 'DESC')->get();
+        $data['expense_categories'] = Account_category::where('type' , 1)->where('status', '=' ,1)->get();
         $data['login_user_id'] = $user->id;
     	return view('amounts.index',$data);
     }
@@ -55,17 +57,18 @@ class AmountsController extends Controller
 
         $formData = $request->all();
         $rules = [
-            'title'=>'required|min:1',
+            'account_category_id'=>'required',
             'amount'=>'required|min:1'
         ];
         //dd($formData);
         $messages = [];
-        $attributes = [];
+        $attributes = [
+            'account_category_id' => 'expense category'
+        ];
         $validator = Validator::make($formData,$rules,$messages,$attributes);
         if($validator->fails()){
             $errors = $validator->errors();
-            $data['title'] = $errors->first('title');
-            $data['amount'] = $errors->first('amount');
+            $data['errors'] = $errors;
         }
         else{
             $cash = $this->cash_in_hand();
@@ -78,7 +81,7 @@ class AmountsController extends Controller
 
                 $amount = new Amount;
                 $amount->user_id = $user->id;
-                $amount->title = $formData['title'];
+                $amount->account_category_id = $formData['account_category_id'];
                 $amount->amount = $formData['amount'];
                 $amount->description = $formData['description'];
                 $amount->type = 2;

@@ -16,6 +16,7 @@ class CreateAmountsTable extends Migration
         Schema::create('amounts', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id')->nullable();
+            $table->integer('account_category_id')->nullable();
             $table->string('title')->nullable();
             $table->integer('amount')->nullable();
             $table->integer('from_user')->nullable()->comment = 'from_user is user_id who transffered amount.';
