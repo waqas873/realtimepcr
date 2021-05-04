@@ -106,7 +106,7 @@ Route::group(['middleware' => ['web','admin']], function()
 
         Route::get('/invoice-detail/{id?}', 'Admin\InvoiceController@invoice_detail');
         
-        Route::get('/accounts/liabilities', 'Admin\AccountsController@liabilities');
+        Route::get('/accounts/liabilities', 'Admin\LiabilitiesController@liabilities');
         Route::get('/accounts/cash-user-wallets', 'Admin\AccountsController@cashUserWallets');
         Route::get('/accounts/transfers', 'Admin\AccountsController@transfers');
         Route::get('/accounts/cashbook', 'Admin\AccountsController@cashbook');
@@ -136,6 +136,10 @@ Route::group(['middleware' => ['web','admin']], function()
 
         Route::post('/add-parameter', 'Admin\TestcategoriesController@processParameters');
         Route::get('/update-parameter/{id?}', 'Admin\TestcategoriesController@updateParameter');
+
+        Route::post('/add-liability', 'Admin\LiabilitiesController@processAdd');
+        Route::get('/delete-liability/{id?}', 'Admin\LiabilitiesController@delete');
+        Route::get('/update-liablility/{id?}', 'Admin\LiabilitiesController@update');
 
     });
 
@@ -171,6 +175,7 @@ Route::group(['middleware' => ['web','staff']], function()
 
     Route::get('/amounts', 'AmountsController@index');
     Route::get('/cp-admin', 'Cp_adminController@transactions');
+    Route::post('/process-cp-admin', 'Cp_adminController@processCpAdmin');
     Route::post('/add-expense', 'AmountsController@process_expense');
     Route::post('/transfer-amount', 'AmountsController@amount_transfer');
     Route::get('/cancel-transfer/{id?}', 'AmountsController@cancel_transfer');

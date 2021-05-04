@@ -99,7 +99,7 @@
 
             <?php if (\Session::get('role') == 5) { ?>
               <li>
-                <a href="{{url('cp-admin')}}" class="waves-effect">
+                <a href="{{url('cp-admin')}}" class="waves-effect cpAdmin">
                   <img src="{{asset('assets/icons/sidebar-icons/icon3.svg')}}" class="sidebar_icons">
                   <span> CP Admin</span>
                 </a>
@@ -335,6 +335,7 @@
       });
     });
   </script>
+  <script src="{{asset('assets/developer/cp_admin.js')}}"></script>
 
 </body>
 

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use DB;
 use App\User;
+use App\Liability;
 
 class AccountsController extends Controller
 {
@@ -64,12 +65,6 @@ class AccountsController extends Controller
     {
         $data = [];
         return view('admin.accounts.income_statment',$data);
-    }
-
-    public function liabilities()
-    {
-        $data = [];
-        return view('admin.accounts.liabilities',$data);
     }
 
 }

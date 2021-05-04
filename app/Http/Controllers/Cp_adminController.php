@@ -30,10 +30,24 @@ class Cp_adminController extends Controller
 
     public function transactions()
     {
+    	if(empty(Session::get('cp-admin'))){
+    		return redirect('patients');
+    	}
         $data = [];
-        $user = Auth::user();
-        $user_id = $user->id;
     	return view('cp_admin.transactions',$data);
+    }
+
+    public function processCpAdmin(Request $request)
+    {
+        $data = [];
+        $data['response'] = false;
+        $formData = $request->all();
+        $password = $formData['password'];
+        if($password == "cp-023"){
+        	Session::put('cp-admin', true);
+            $data['response'] = true;
+        }
+        echo json_encode($data);
     }
 
 }
