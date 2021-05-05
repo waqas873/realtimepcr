@@ -70,4 +70,10 @@ class ReportsController extends Controller
         return view('admin.reports.index',$data);
     }
 
+    public function progressReports()
+    {
+        $data = [];
+        return view('admin.reports.progress_reports',$data);
+    }
+
 }

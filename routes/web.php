@@ -103,6 +103,7 @@ Route::group(['middleware' => ['web','admin']], function()
         Route::get('/delete-user/{id?}', 'Admin\StaffController@delete');
 
         Route::get('/reports/{date?}', 'Admin\ReportsController@index');
+        Route::get('/progress-reports', 'Admin\ReportsController@progressReports');
 
         Route::get('/invoice-detail/{id?}', 'Admin\InvoiceController@invoice_detail');
         
@@ -141,6 +142,15 @@ Route::group(['middleware' => ['web','admin']], function()
         Route::post('/add-liability', 'Admin\LiabilitiesController@processAdd');
         Route::get('/delete-liability/{id?}', 'Admin\LiabilitiesController@delete');
         Route::get('/update-liablility/{id?}', 'Admin\LiabilitiesController@update');
+
+        Route::get('/invoices', 'Admin\InvoiceController@index');
+
+        Route::get('/amounts', 'Admin\AmountsController@index');
+        Route::post('/add-expense', 'Admin\AmountsController@process_expense');
+        Route::post('/transfer-amount', 'Admin\AmountsController@amount_transfer');
+        Route::get('/cancel-transfer/{id?}', 'Admin\AmountsController@cancel_transfer');
+        Route::get('/accept-transfer/{id?}', 'Admin\AmountsController@accept_transfer');
+        Route::get('/reject-transfer/{id?}', 'Admin\AmountsController@reject_transfer');
 
     });
 

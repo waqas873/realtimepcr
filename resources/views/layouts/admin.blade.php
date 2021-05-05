@@ -178,7 +178,7 @@
                 <ul class="list-unstyled">
                 <li><a href="{{url('admin/accounts/liabilities')}}">Assets / Liabilities</a></li>
                 <li><a href="{{url('admin/accounts/cash-user-wallets')}}">Cash user Wallets</a></li>
-                  <li><a href="{{url('admin/accounts/transfers')}}">Transactions / Transfers</a></li>
+                  <li><a href="{{url('admin/amounts')}}">Transactions / Transfers</a></li>
                   <li><a href="{{url('admin/accounts/vouchers')}}">Vouchers / Invoices</a></li>
                   <li><a href="{{url('admin/accounts/cashbook')}}">CashBook</a></li>
                   <li><a href="{{url('admin/accounts/trial-balance')}}">Trial Balance</a></li>
@@ -223,7 +223,7 @@
             <?php
             if ($permissions['role'] == 1 || (!empty($permissions['invoices_read']))) { ?>
               <li>
-                <a href="" class="waves-effect">
+                <a href="{{url('admin/invoices')}}" class="waves-effect">
                   <img src="{{asset('assets/icons/sidebar-icons/icon2.svg')}}" class="sidebar_icons">
                   <span>Users Invoices</span>
                 </a>
@@ -292,7 +292,7 @@
             <?php }
             if ($permissions['role'] == 1 || (!empty($permissions['progress_report_read']))) { ?>
               <li>
-                <a href="" class="waves-effect">
+                <a href="{{url('admin/progress-reports')}}" class="waves-effect">
                   <img src="{{asset('assets/icons/sidebar-icons/icon6.svg')}}" class="sidebar_icons">
                   <span> Progress Report </span>
                 </a>

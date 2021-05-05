@@ -15,6 +15,12 @@ class InvoiceController extends Controller
         $this->middleware('auth');
     }
 
+    public function index()
+    {
+        $data = [];
+        return view('admin.invoices.index',$data);
+    }
+
     public function invoice_detail($unique_id = '0')
     {
         $data = [];
