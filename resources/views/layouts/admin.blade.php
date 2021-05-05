@@ -225,7 +225,7 @@
               <li>
                 <a href="" class="waves-effect">
                   <img src="{{asset('assets/icons/sidebar-icons/icon2.svg')}}" class="sidebar_icons">
-                  <span> Invoices </span>
+                  <span>Users Invoices</span>
                 </a>
               </li>
 

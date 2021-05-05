@@ -2,30 +2,30 @@
 @section('content')
 
 @if(session('success_message'))
-    <script type="text/javascript">
-        swal({
-          title: "Success",
-          text: "{{session('success_message')}}",
-          icon: "success",
-          button: "OK",
-        });
-    </script>
+<script type="text/javascript">
+  swal({
+    title: "Success",
+    text: "{{session('success_message')}}",
+    icon: "success",
+    button: "OK",
+  });
+</script>
 @endif
 
 @if(session('error_message'))
-    <script type="text/javascript">
-        swal({
-          title: "Warning",
-          text: "{{session('error_message')}}",
-          icon: "error",
-          button: "OK",
-        });
-    </script>
+<script type="text/javascript">
+  swal({
+    title: "Warning",
+    text: "{{session('error_message')}}",
+    icon: "error",
+    button: "OK",
+  });
+</script>
 @endif
 
 <div class="container-fluid cpanel">
-    
-    <?php
+
+  <?php
   $permissions = permissions();
   if ($permissions['role'] == 1 || (!empty($permissions['app_cpanel_permissions']))) {
   ?>
@@ -55,67 +55,77 @@
             <span class="input-group-text" id="basic-addon2">hours</span>
           </div>
         </div>
+        <br>
+
+
+        <p>Password for CP Admin Dashboard</p>
+
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Enter Password for CP Admin Page" aria-label="CPadminPass" aria-describedby="basic-addon2">
+          <div class="input-group-append">
+          </div>
+        </div>
         <button type="button" class="btn btn-light btn-block">Save</button>
+
+
       </div>
     </div>
   <?php
-    } 
-    if($permissions['role']==1 || (!empty($permissions['app_cpanel_accounts_list']))){
-    ?>
+  }
+  if ($permissions['role'] == 1 || (!empty($permissions['app_cpanel_accounts_list']))) {
+  ?>
     <div class="row">
       <div class="col-sm-12">
         <h1>Accounts list</h1>
         <div class="card">
           <div class="card-body">
-              <h5>Cash Payment / Categories</h5>
-              <div class="row categories">
-                <div class="col-sm-10">
-                  @if(!empty($account_categories))
-                  @foreach($account_categories as $record)
-                  @if($record->type==1)
-                  <span class="badge badge-default cpanel-badges">
-                    {{$record->name}} <i class="fa fa-tag" aria-hidden="true"></i>
-                  </span> &nbsp;
-                  @endif
-                  @endforeach
-                  @endif
-                </div>
-                <div class="col-sm-2">
-                  <button class="btn btn-default cpanel-btn" data-toggle="modal" data-target="#addAccountCategoryModal"
-                    type="button">Add Category</button>
-                </div>
+            <h5>Cash Payment / Categories</h5>
+            <div class="row categories">
+              <div class="col-sm-10">
+                @if(!empty($account_categories))
+                @foreach($account_categories as $record)
+                @if($record->type==1)
+                <span class="badge badge-default cpanel-badges">
+                  {{$record->name}} <i class="fa fa-tag" aria-hidden="true"></i>
+                </span> &nbsp;
+                @endif
+                @endforeach
+                @endif
               </div>
-              <hr>
-              <h5>Cash Received / Categories</h5>
-              <div class="row categories">
-                <div class="col-sm-10">
-                  @if(!empty($account_categories))
-                  @foreach($account_categories as $record)
-                  @if($record->type==2)
-                  <span class="badge badge-default cpanel-badges">
-                    {{$record->name}} <i class="fa fa-tag" aria-hidden="true"></i>
-                  </span> &nbsp;
-                  @endif
-                  @endforeach
-                  @endif
-                </div>
-                <div class="col-sm-2">
-                  <button class="btn btn-default cpanel-btn" data-toggle="modal" data-target="#addAccountCategoryModal"
-                    type="button">Add Category</button>
-                </div>
+              <div class="col-sm-2">
+                <button class="btn btn-default cpanel-btn" data-toggle="modal" data-target="#addAccountCategoryModal" type="button">Add Category</button>
               </div>
+            </div>
+            <hr>
+            <h5>Cash Received / Categories</h5>
+            <div class="row categories">
+              <div class="col-sm-10">
+                @if(!empty($account_categories))
+                @foreach($account_categories as $record)
+                @if($record->type==2)
+                <span class="badge badge-default cpanel-badges">
+                  {{$record->name}} <i class="fa fa-tag" aria-hidden="true"></i>
+                </span> &nbsp;
+                @endif
+                @endforeach
+                @endif
+              </div>
+              <div class="col-sm-2">
+                <button class="btn btn-default cpanel-btn" data-toggle="modal" data-target="#addAccountCategoryModal" type="button">Add Category</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <?php 
-    } 
-    ?>
-    <div class="row">
-      <div class="col-sm-12">
-        <?php 
-        if($permissions['role']==1 || (!empty($permissions['app_cpanel_lab_tests']))){
-        ?>
+  <?php
+  }
+  ?>
+  <div class="row">
+    <div class="col-sm-12">
+      <?php
+      if ($permissions['role'] == 1 || (!empty($permissions['app_cpanel_lab_tests']))) {
+      ?>
         <h1>Lab Tests</h1>
         <div class="card">
           <div class="card-body">
@@ -131,13 +141,13 @@
                 @endif
               </div>
               <div class="col-sm-2">
-                <button class="btn btn-default cpanel-btn"
-                  type="button" id="addCategory">Add Category</button>
+                <button class="btn btn-default cpanel-btn" type="button" id="addCategory">Add Category</button>
               </div>
             </div>
             <hr>
 
-            <h5>Sub Heading<h6>Chain Reaction / PCR / No PCR</h6></h5>
+            <h5>Sub Heading<h6>Chain Reaction / PCR / No PCR</h6>
+            </h5>
             <div class="row categories">
               <div class="col-sm-10">
                 @if(!empty($test_categories))
@@ -151,8 +161,7 @@
                 @endif
               </div>
               <div class="col-sm-2">
-                <button class="btn btn-default cpanel-btn" data-toggle="modal" data-target="#addTestCategoryModal"
-                  type="button">Add Category</button>
+                <button class="btn btn-default cpanel-btn" data-toggle="modal" data-target="#addTestCategoryModal" type="button">Add Category</button>
               </div>
             </div>
             <hr>
@@ -169,8 +178,7 @@
                 @endif
               </div>
               <div class="col-sm-2">
-                <button class="btn btn-default cpanel-btn" data-toggle="modal" data-target="#addSample"
-                  type="button">Add Sample</button>
+                <button class="btn btn-default cpanel-btn" data-toggle="modal" data-target="#addSample" type="button">Add Sample</button>
               </div>
             </div>
             <hr>
@@ -189,132 +197,127 @@
                 @endif
               </div>
               <div class="col-sm-2">
-                <button class="btn btn-default cpanel-btn" data-toggle="modal" data-target="#addReportingUnit"
-                  type="button">Add Unit</button>
+                <button class="btn btn-default cpanel-btn" data-toggle="modal" data-target="#addReportingUnit" type="button">Add Unit</button>
               </div>
             </div>
 
-            
+
 
           </div>
-          
+
         </div>
-        <?php 
-        } 
-        if($permissions['role']==1 || (!empty($permissions['app_cpanel_srr']))){
-        ?>
+      <?php
+      }
+      if ($permissions['role'] == 1 || (!empty($permissions['app_cpanel_srr']))) {
+      ?>
 
         <div class="row">
           <div class="col-sm-12">
             <h1>Special Reports Requirements</h1>
             <div class="card">
               <div class="card-body">
-                  <h5>Test Medicines</h5>
-                  <div class="row categories">
-                    <div class="col-sm-10">
+                <h5>Test Medicines</h5>
+                <div class="row categories">
+                  <div class="col-sm-10">
+                    @if(!empty($test_categories))
+                    @foreach($test_categories as $record)
+                    @if($record->type==2)
+                    <span class="badge badge-default cpanel-badges">
+                      {{$record->name}} <i class="fa fa-tag" aria-hidden="true"></i>
+                    </span> &nbsp;
+                    @endif
+                    @endforeach
+                    @endif
+                  </div>
+                  <div class="col-sm-2">
+                    <button class="btn btn-default cpanel-btn" data-toggle="modal" data-target="#addTestCategoryModal" type="button">Add Category</button>
+                  </div>
+                </div>
+                <hr>
+                <h5>Genotype Reports Categories</h5>
+                <div class="row categories">
+                  <div class="col-sm-10">
+                    @if(!empty($test_categories))
+                    @foreach($test_categories as $record)
+                    @if($record->type==3)
+                    <span class="badge badge-default cpanel-badges">
+                      {{$record->name}} <i class="fa fa-tag" aria-hidden="true"></i>
+                    </span> &nbsp;
+                    @endif
+                    @endforeach
+                    @endif
+                  </div>
+                  <div class="col-sm-2">
+                    <button class="btn btn-default cpanel-btn" data-toggle="modal" data-target="#addTestCategoryModal" type="button">Add Category</button>
+                  </div>
+                </div>
+                <hr>
+                <h5>Input Value Parameters</h5>
+                <div class="row categories">
+                  <div class="col-sm-10">
+                    Parameters will be Added Here
+                  </div>
+                  <div class="col-sm-2">
+                    <button class="btn btn-default cpanel-btn" type="button" id="addParameter">Add Parameter</button>
+                  </div>
+                </div>
+                <div class="table-responsive">
+                  <table id="parametersListing" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                    <thead>
+                      <tr>
+                        <th scope="col">Sr#</th>
+                        <th scope="col">Parameter Name</th>
+                        <th scope="col">Normal Value</th>
+                        <th scope="col">Units</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
                       @if(!empty($test_categories))
-                      @foreach($test_categories as $record)
-                      @if($record->type==2)
-                      <span class="badge badge-default cpanel-badges">
-                        {{$record->name}} <i class="fa fa-tag" aria-hidden="true"></i>
-                      </span> &nbsp;
+                      @foreach($test_categories as $key=>$value)
+                      @if($value->type==4)
+                      <tr>
+                        <td><?php echo $key + 1; ?></td>
+                        <td>{{$value->name}}</td>
+                        <td>{{$value->normal_value}}</td>
+                        <td>{{$value->units}}</td>
+                        <td>{{($value->status==1)?'Active':'Inactive'}}</td>
+                        <td><a href="javascript::" class="update_parameter_id" rel="{{$value->id}}">View</a>
+                        </td>
+                      </tr>
                       @endif
                       @endforeach
                       @endif
-                    </div>
-                    <div class="col-sm-2">
-                      <button class="btn btn-default cpanel-btn" data-toggle="modal" data-target="#addTestCategoryModal"
-                        type="button">Add Category</button>
-                    </div>
-                  </div>
-                  <hr>
-                  <h5>Genotype Reports Categories</h5>
-                  <div class="row categories">
-                    <div class="col-sm-10">
-                      @if(!empty($test_categories))
-                      @foreach($test_categories as $record)
-                      @if($record->type==3)
-                      <span class="badge badge-default cpanel-badges">
-                        {{$record->name}} <i class="fa fa-tag" aria-hidden="true"></i>
-                      </span> &nbsp;
-                      @endif
-                      @endforeach
-                      @endif
-                    </div>
-                    <div class="col-sm-2">
-                      <button class="btn btn-default cpanel-btn" data-toggle="modal" data-target="#addTestCategoryModal"
-                        type="button">Add Category</button>
-                    </div>
-                  </div>
-                  <hr>
-                  <h5>Input Value Parameters</h5>
-                  <div class="row categories">
-                    <div class="col-sm-10">
-                      Parameters will be Added Here
-                    </div>
-                    <div class="col-sm-2">
-                      <button class="btn btn-default cpanel-btn"
-                        type="button" id="addParameter">Add Parameter</button>
-                    </div>
-                  </div>
-                  <div class="table-responsive">
-                    <table id="parametersListing" class="table table-bordered dt-responsive nowrap"
-                      style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                      <thead>
-                        <tr>
-                          <th scope="col">Sr#</th>
-                          <th scope="col">Parameter Name</th>
-                          <th scope="col">Normal Value</th>
-                          <th scope="col">Units</th>
-                          <th scope="col">Status</th>
-                          <th scope="col">Action</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        @if(!empty($test_categories))
-                        @foreach($test_categories as $key=>$value)
-                        @if($value->type==4)
-                        <tr>
-                          <td><?php echo $key+1;?></td>
-                          <td>{{$value->name}}</td>
-                          <td>{{$value->normal_value}}</td>
-                          <td>{{$value->units}}</td>
-                          <td>{{($value->status==1)?'Active':'Inactive'}}</td>
-                          <td><a href="javascript::" class="update_parameter_id" rel="{{$value->id}}">View</a>
-                          </td>
-                        </tr>
-                        @endif
-                        @endforeach
-                        @endif
-                      </tbody>
-                    </table>
-                  </div>
-                  
+                    </tbody>
+                  </table>
+                </div>
+
               </div>
             </div>
           </div>
         </div>
-        <?php 
-        } 
-        ?>
+      <?php
+      }
+      ?>
 
-        <div class="card">
-        
-        <?php 
-        if($permissions['role']==1 || (!empty($permissions['app_cpanel_add_test']))){
+      <div class="card">
+
+        <?php
+        if ($permissions['role'] == 1 || (!empty($permissions['app_cpanel_add_test']))) {
         ?>
-        <div class="card-body">
-          <div class="add-tests">
-            <a href="javascript::" id="addTest">+ Add Test</a>
+          <div class="card-body">
+            <div class="add-tests">
+              <a href="javascript::" id="addTest">+ Add Test</a>
+            </div>
           </div>
-        </div>
-        <?php 
-        } 
-        if($permissions['role']==1 || (!empty($permissions['app_cpanel_read_test']))){
+        <?php
+        }
+        if ($permissions['role'] == 1 || (!empty($permissions['app_cpanel_read_test']))) {
         ?>
-  
 
-    <!--<div class="row">
+
+          <!--<div class="row">
       <div class="col-sm-12">
         <h1>Draft Tests List</h1>
         <div class="card m-b-30">
@@ -344,15 +347,15 @@
                 </thead>
                 <tbody>
                   @if(!empty($draft_tests))
-                  <?php $counter = count($draft_tests) ; ?>
+                  <?php $counter = count($draft_tests); ?>
                   @foreach($draft_tests as $key=>$record)
                   <tr>
                     <td>
-                      <?php echo $counter;?>
+                      <?php echo $counter; ?>
                     </td>
                     <td>{{$record->name}}</td>
                     <td>
-                      <?php echo ($record->registration_type==1)?'Local':(($record->registration_type==2)?'Oversease':'-- --');?>
+                      <?php echo ($record->registration_type == 1) ? 'Local' : (($record->registration_type == 2) ? 'Oversease' : '-- --'); ?>
                     </td>
                     <td>{{$record->category->name}}</td>
 
@@ -363,25 +366,23 @@
 
                     <td>Rs: {{$record->price}}</td>
                     <td>
-                      <?php 
-                      if($permissions['role']==1 || (!empty($permissions['app_cpanel_update_test']))){
+                      <?php
+                      if ($permissions['role'] == 1 || (!empty($permissions['app_cpanel_update_test']))) {
                       ?>
                       <a href="javascript::" class="test_id" rel="{{$record->id}}">View</a> |
-                      <?php 
-                      }
-                      else{
+                      <?php
+                      } else {
                         echo "-- -- | ";
-                      } 
-                      if($permissions['role']==1 || (!empty($permissions['app_cpanel_delete_test']))){
+                      }
+                      if ($permissions['role'] == 1 || (!empty($permissions['app_cpanel_delete_test']))) {
                       ?> 
                       <a
                         href="{{url('admin/delete-test/'.$record->id)}}" class="delete_test"><i
                           class="fa fa-trash"></i></a>
-                      <?php 
-                      }
-                      else{
+                      <?php
+                      } else {
                         echo "-- --";
-                      } 
+                      }
                       ?> 
                     </td>
                   </tr>
@@ -396,230 +397,217 @@
       </div>
     </div> -->
 
-    <div class="row">
-      <div class="col-sm-12">
-        <h1>Local Tests List</h1>
-        <div class="card m-b-30">
-          <div class="card-body">
-            <div class="table-responsive">
+          <div class="row">
+            <div class="col-sm-12">
+              <h1>Local Tests List</h1>
+              <div class="card m-b-30">
+                <div class="card-body">
+                  <div class="table-responsive">
 
-              <table id="datatable2" class="table table-bordered dt-responsive nowrap"
-                style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                    <table id="datatable2" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
 
-                <!-- <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;"> -->
+                      <!-- <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;"> -->
 
-                <thead>
-                  <tr>
-                    <th scope="col">Test ID</th>
-                    <th scope="col">Name/Parameters</th>
-                    <th scope="col">Registrtaion Type</th>
-                    <th scope="col">Category</th>
+                      <thead>
+                        <tr>
+                          <th scope="col">Test ID</th>
+                          <th scope="col">Name/Parameters</th>
+                          <th scope="col">Registrtaion Type</th>
+                          <th scope="col">Category</th>
 
-                    <!-- <th scope="col">Reporting Time(hrs)</th>
+                          <!-- <th scope="col">Reporting Time(hrs)</th>
                         <th scope="col">Sample</th>
                         <th scope="col">Reporting Units</th> 
                         <th scope="col">Normal Value</th> -->
 
-                    <th scope="col">Price</th>
-                    <th scope="col">Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @if(!empty($local_tests))
-                  <?php $counter = count($local_tests) ; ?>
-                  @foreach($local_tests as $key=>$record)
-                  <tr>
-                    <td>
-                      <?php echo $counter;?>
-                    </td>
-                    <td>{{$record->name}}</td>
-                    <td>
-                      <?php echo ($record->registration_type==1)?'Local':(($record->registration_type==2)?'Oversease':'-- --');?>
-                    </td>
-                    <td>{{$record->category->name}}</td>
+                          <th scope="col">Price</th>
+                          <th scope="col">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @if(!empty($local_tests))
+                        <?php $counter = count($local_tests); ?>
+                        @foreach($local_tests as $key=>$record)
+                        <tr>
+                          <td>
+                            <?php echo $counter; ?>
+                          </td>
+                          <td>{{$record->name}}</td>
+                          <td>
+                            <?php echo ($record->registration_type == 1) ? 'Local' : (($record->registration_type == 2) ? 'Oversease' : '-- --'); ?>
+                          </td>
+                          <td>{{$record->category->name}}</td>
 
-                    {{--<td>{{$record->reporting_hrs}}</td>
-                    <td>{{$record->sample->name}}</td>
-                    <td>{{$record->reporting_units->name}}</td>
-                    <td>{{$record->normal_value}}</td>--}}
+                          {{--<td>{{$record->reporting_hrs}}</td>
+                          <td>{{$record->sample->name}}</td>
+                          <td>{{$record->reporting_units->name}}</td>
+                          <td>{{$record->normal_value}}</td>--}}
 
-                    <td>Rs: {{$record->price}}</td>
-                    <td>
-                      <?php 
-                      if($permissions['role']==1 || (!empty($permissions['app_cpanel_update_test']))){
-                      ?>
-                      <a href="javascript::" class="test_id" rel="{{$record->id}}">View</a> |
-                      <?php 
-                      }
-                      else{
-                        echo "-- -- | ";
-                      } 
-                      if($permissions['role']==1 || (!empty($permissions['app_cpanel_delete_test']))){
-                      ?> 
-                      <a
-                        href="{{url('admin/delete-test/'.$record->id)}}" class="delete_test"><i
-                          class="fa fa-trash"></i></a>
-                      <?php 
-                      }
-                      else{
-                        echo "-- --";
-                      } 
-                      ?> 
-                    </td>
-                  </tr>
-                  <?php $counter--; ?>
-                  @endforeach
-                  @endif
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-sm-12">
-        <h1>Overseas Tests List</h1>
-        <div class="card m-b-30">
-          <div class="card-body">
-            <div class="table-responsive">
-
-              <table id="datatable3" class="table table-bordered dt-responsive nowrap"
-                style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-
-                <!-- <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;"> -->
-
-                <thead>
-                  <tr>
-                    <th scope="col">Test ID</th>
-                    <th scope="col">Name/Parameters</th>
-                    <th scope="col">Registrtaion Type</th>
-                    <th scope="col">Category</th>
-
-                    <!-- <th scope="col">Reporting Time(hrs)</th>
-                        <th scope="col">Sample</th>
-                        <th scope="col">Reporting Units</th> 
-                        <th scope="col">Normal Value</th> -->
-
-                    <th scope="col">Price</th>
-                    <th scope="col">Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @if(!empty($overseas_tests))
-                  <?php $counter = count($overseas_tests) ; ?>
-                  @foreach($overseas_tests as $key=>$record)
-                  <tr>
-                    <td>
-                      <?php echo $counter;?>
-                    </td>
-                    <td>{{$record->name}}</td>
-                    <td>
-                      <?php echo ($record->registration_type==1)?'Local':(($record->registration_type==2)?'Oversease':'-- --');?>
-                    </td>
-                    <td>{{$record->category->name}}</td>
-
-                    {{--<td>{{$record->reporting_hrs}}</td>
-                    <td>{{$record->sample->name}}</td>
-                    <td>{{$record->reporting_units->name}}</td>
-                    <td>{{$record->normal_value}}</td>--}}
-
-                    <td>Rs: {{$record->price}}</td>
-                    <td>
-                      <?php 
-                      if($permissions['role']==1 || (!empty($permissions['app_cpanel_update_test']))){
-                      ?>
-                      <a href="javascript::" class="test_id" rel="{{$record->id}}">View</a> |
-                      <?php 
-                      }
-                      else{
-                        echo "-- -- | ";
-                      } 
-                      if($permissions['role']==1 || (!empty($permissions['app_cpanel_delete_test']))){
-                      ?> 
-                      <a
-                        href="{{url('admin/delete-test/'.$record->id)}}" class="delete_test"><i
-                          class="fa fa-trash"></i></a>
-                      <?php 
-                      }
-                      else{
-                        echo "-- --";
-                      } 
-                      ?> 
-                    </td>
-                  </tr>
-                  <?php $counter--; ?>
-                  @endforeach
-                  @endif
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <?php 
-    } 
-    if($permissions['role']==1 || (!empty($permissions['app_cpanel_profile_tests']))){
-    ?>
-
-    <div class="row">
-      <div class="col-sm-12">
-        <h1>Profile Tests</h1>
-        <div class="card m-b-30">
-          <div class="card-body">
-            <div class="row">
-              <div class="col-sm-12">
-                <a href="javascript::" class="btn btn-info" id="add_profile_test">Add Profile</a>
+                          <td>Rs: {{$record->price}}</td>
+                          <td>
+                            <?php
+                            if ($permissions['role'] == 1 || (!empty($permissions['app_cpanel_update_test']))) {
+                            ?>
+                              <a href="javascript::" class="test_id" rel="{{$record->id}}">View</a> |
+                            <?php
+                            } else {
+                              echo "-- -- | ";
+                            }
+                            if ($permissions['role'] == 1 || (!empty($permissions['app_cpanel_delete_test']))) {
+                            ?>
+                              <a href="{{url('admin/delete-test/'.$record->id)}}" class="delete_test"><i class="fa fa-trash"></i></a>
+                            <?php
+                            } else {
+                              echo "-- --";
+                            }
+                            ?>
+                          </td>
+                        </tr>
+                        <?php $counter--; ?>
+                        @endforeach
+                        @endif
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="table-responsive">
-              <table id="profile_test_datatable" class="table table-bordered dt-responsive nowrap"
-                style="border-collapse: collapse; border-spacing: 0; width: 100%;">
-                <thead>
-                  <tr>
-                    <th scope="col">Sr#</th>
-                    <th scope="col">Profile Name</th>
-                    <th scope="col">Profile Price</th>
-                    <th scope="col">Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  @if(!empty($test_profiles))
-                  <?php $counter = count($test_profiles) ; ?>
-                  @foreach($test_profiles as $key=>$record)
-                  <tr>
-                    <td>
-                      <?php echo $counter;?>
-                    </td>
-                    <td>{{$record->name}}</td>
-                    <td>Rs: {{$record->price}}</td>
-                    <td><a href="{{url('/admin/cpanel/'.$record->id)}}" class="profile_id">View</a> | <a
-                        href="{{url('admin/delete-test-profile/'.$record->id)}}" class="delete_test_profile"><i
-                          class="fa fa-trash"></i></a></td>
-                  </tr>
-                  <?php $counter--; ?>
-                  @endforeach
-                  @endif
-                </tbody>
-              </table>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12">
+              <h1>Overseas Tests List</h1>
+              <div class="card m-b-30">
+                <div class="card-body">
+                  <div class="table-responsive">
+
+                    <table id="datatable3" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+
+                      <!-- <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;"> -->
+
+                      <thead>
+                        <tr>
+                          <th scope="col">Test ID</th>
+                          <th scope="col">Name/Parameters</th>
+                          <th scope="col">Registrtaion Type</th>
+                          <th scope="col">Category</th>
+
+                          <!-- <th scope="col">Reporting Time(hrs)</th>
+                        <th scope="col">Sample</th>
+                        <th scope="col">Reporting Units</th> 
+                        <th scope="col">Normal Value</th> -->
+
+                          <th scope="col">Price</th>
+                          <th scope="col">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @if(!empty($overseas_tests))
+                        <?php $counter = count($overseas_tests); ?>
+                        @foreach($overseas_tests as $key=>$record)
+                        <tr>
+                          <td>
+                            <?php echo $counter; ?>
+                          </td>
+                          <td>{{$record->name}}</td>
+                          <td>
+                            <?php echo ($record->registration_type == 1) ? 'Local' : (($record->registration_type == 2) ? 'Oversease' : '-- --'); ?>
+                          </td>
+                          <td>{{$record->category->name}}</td>
+
+                          {{--<td>{{$record->reporting_hrs}}</td>
+                          <td>{{$record->sample->name}}</td>
+                          <td>{{$record->reporting_units->name}}</td>
+                          <td>{{$record->normal_value}}</td>--}}
+
+                          <td>Rs: {{$record->price}}</td>
+                          <td>
+                            <?php
+                            if ($permissions['role'] == 1 || (!empty($permissions['app_cpanel_update_test']))) {
+                            ?>
+                              <a href="javascript::" class="test_id" rel="{{$record->id}}">View</a> |
+                            <?php
+                            } else {
+                              echo "-- -- | ";
+                            }
+                            if ($permissions['role'] == 1 || (!empty($permissions['app_cpanel_delete_test']))) {
+                            ?>
+                              <a href="{{url('admin/delete-test/'.$record->id)}}" class="delete_test"><i class="fa fa-trash"></i></a>
+                            <?php
+                            } else {
+                              echo "-- --";
+                            }
+                            ?>
+                          </td>
+                        </tr>
+                        <?php $counter--; ?>
+                        @endforeach
+                        @endif
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+        <?php
+        }
+        if ($permissions['role'] == 1 || (!empty($permissions['app_cpanel_profile_tests']))) {
+        ?>
+
+          <div class="row">
+            <div class="col-sm-12">
+              <h1>Profile Tests</h1>
+              <div class="card m-b-30">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <a href="javascript::" class="btn btn-info" id="add_profile_test">Add Profile</a>
+                    </div>
+                  </div>
+                  <div class="table-responsive">
+                    <table id="profile_test_datatable" class="table table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                      <thead>
+                        <tr>
+                          <th scope="col">Sr#</th>
+                          <th scope="col">Profile Name</th>
+                          <th scope="col">Profile Price</th>
+                          <th scope="col">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @if(!empty($test_profiles))
+                        <?php $counter = count($test_profiles); ?>
+                        @foreach($test_profiles as $key=>$record)
+                        <tr>
+                          <td>
+                            <?php echo $counter; ?>
+                          </td>
+                          <td>{{$record->name}}</td>
+                          <td>Rs: {{$record->price}}</td>
+                          <td><a href="{{url('/admin/cpanel/'.$record->id)}}" class="profile_id">View</a> | <a href="{{url('admin/delete-test-profile/'.$record->id)}}" class="delete_test_profile"><i class="fa fa-trash"></i></a></td>
+                        </tr>
+                        <?php $counter--; ?>
+                        @endforeach
+                        @endif
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <?php
+        }
+        ?>
+
       </div>
     </div>
-    <?php 
-    } 
-    ?>
-
-    </div></div>
 
   </div><!-- container fluid -->
 
   <!-- Modal -->
-  <div class="modal fade" id="addAccountCategoryModal" tabindex="-1" role="dialog" aria-labelledby="addTestsLabel"
-    aria-hidden="true">
+  <div class="modal fade" id="addAccountCategoryModal" tabindex="-1" role="dialog" aria-labelledby="addTestsLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -634,9 +622,9 @@
             <div class="form-group">
               <label for="add_category">Category Type</label>
               <select class="form-control select2 inputs_with_bottom_border" name="type">
-                  <option value="">Select Category Type</option>
-                  <option value="1">Cash Payment</option>
-                  <option value="2">Cash Recieved</option>
+                <option value="">Select Category Type</option>
+                <option value="1">Cash Payment</option>
+                <option value="2">Cash Recieved</option>
               </select>
               <div class="all_errors type_error">
               </div>
@@ -657,8 +645,7 @@
   </div>
 
   <!-- Modal -->
-  <div class="modal fade" id="addCategoryModal" tabindex="-1" role="dialog" aria-labelledby="addTestsLabel"
-    aria-hidden="true">
+  <div class="modal fade" id="addCategoryModal" tabindex="-1" role="dialog" aria-labelledby="addTestsLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -685,9 +672,8 @@
     </div>
   </div>
 
-    <!-- Modal -->
-  <div class="modal fade" id="addTestCategoryModal" tabindex="-1" role="dialog" aria-labelledby="addTestsLabel"
-    aria-hidden="true">
+  <!-- Modal -->
+  <div class="modal fade" id="addTestCategoryModal" tabindex="-1" role="dialog" aria-labelledby="addTestsLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -702,10 +688,10 @@
             <div class="form-group">
               <label for="add_category">Category Type</label>
               <select class="form-control select2 inputs_with_bottom_border" name="type">
-                  <option value="">Select Category Type</option>
-                  <option value="1">Chain Reaction / PCR / No PCR</option>
-                  <option value="2">Test Medicines</option>
-                  <option value="3">Genotype Reports Categories</option>
+                <option value="">Select Category Type</option>
+                <option value="1">Chain Reaction / PCR / No PCR</option>
+                <option value="2">Test Medicines</option>
+                <option value="3">Genotype Reports Categories</option>
               </select>
               <div class="all_errors type_error">
               </div>
@@ -756,8 +742,7 @@
   </div>
 
   <!-- Modal -->
-  <div class="modal fade" id="addReportingUnit" tabindex="-1" role="dialog" aria-labelledby="addTestsLabel"
-    aria-hidden="true">
+  <div class="modal fade" id="addReportingUnit" tabindex="-1" role="dialog" aria-labelledby="addTestsLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -771,8 +756,7 @@
             @csrf
             <div class="form-group">
               <label for="add_reporting_unit">Reporting Unit Name</label>
-              <input type="text" class="form-control" id="add_reporting_unit" name="name"
-                placeholder="Enter reporting unit">
+              <input type="text" class="form-control" id="add_reporting_unit" name="name" placeholder="Enter reporting unit">
             </div>
             <button type="submit" class="btn btn-primary">Save Reporting Unit</button>
           </form>
@@ -785,8 +769,7 @@
   </div>
 
   <!-- Modal -->
-  <div class="modal fade" id="addTestModal" tabindex="-1" role="dialog" aria-labelledby="addTestModalLabel"
-    aria-hidden="true">
+  <div class="modal fade" id="addTestModal" tabindex="-1" role="dialog" aria-labelledby="addTestModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content add-test-content">
         <div class="modal-header">
@@ -804,8 +787,7 @@
             <div class="form-group row">
               <label for="name" class="col-sm-3 col-form-label pformlabel">Test Name/Parameters</label>
               <div class="col-sm-9">
-                <input type="text" class="form-control inputs_with_bottom_border" id="name" name="name"
-                  placeholder="Enter test name">
+                <input type="text" class="form-control inputs_with_bottom_border" id="name" name="name" placeholder="Enter test name">
                 <div class="all_errors name_error">
                 </div>
               </div>
@@ -828,8 +810,7 @@
             <div class="form-group row">
               <label for="reporting_hrs" class="col-sm-3 col-form-label pformlabel">Reporting Time (hrs)</label>
               <div class="col-sm-9">
-                <input type="number" class="form-control inputs_with_bottom_border" id="reporting_hrs"
-                  value="{{ old('reporting_hrs') }}" name="reporting_hrs" placeholder="Enter reporting time">
+                <input type="number" class="form-control inputs_with_bottom_border" id="reporting_hrs" value="{{ old('reporting_hrs') }}" name="reporting_hrs" placeholder="Enter reporting time">
                 <div class="all_errors reporting_hrs_error">
                 </div>
               </div>
@@ -849,7 +830,7 @@
                 </div>
               </div>
             </div>
-            
+
             <!--
             <div class="form-group row">
               <label for="product_id" class="col-sm-3 col-form-label pformlabel">Test Kit</label>
@@ -870,14 +851,13 @@
             <div class="form-group row">
               <label for="price" class="col-sm-3 col-form-label pformlabel">Test Price</label>
               <div class="col-sm-9">
-                <input type="number" class="form-control inputs_with_bottom_border" id="price" name="price"
-                  placeholder="Enter test price">
+                <input type="number" class="form-control inputs_with_bottom_border" id="price" name="price" placeholder="Enter test price">
                 <div class="all_errors price_error">
                 </div>
               </div>
             </div>
-            
-           <!-- <fieldset class="form-group">
+
+            <!-- <fieldset class="form-group">
               <div class="row" style="margin-left: 42px;margin-top: 14px;">
                 <legend class="col-form-label col-sm-2 pt-0 pformlabel">Registration Type</legend>
                 <div class="custom-control custom-radio custom-control-inline">
@@ -906,7 +886,7 @@
                 <label class="custom-control-label" for="type2">Overseas</label>
               </div>
             </div>
-            
+
             <div class="form-group row">
               <label for="reporting_unit_id" class="col-sm-3 col-form-label pformlabel">Reporting Type</label>
               <div class="col-sm-9">
@@ -927,8 +907,7 @@
             <div class="form-group row unitsNormal">
               <label for="units" class="col-sm-3 col-form-label pformlabel">Units</label>
               <div class="col-sm-9">
-                <input type="text" class="form-control inputs_with_bottom_border" id="units" name="units"
-                  placeholder="Enter normal value">
+                <input type="text" class="form-control inputs_with_bottom_border" id="units" name="units" placeholder="Enter normal value">
                 <div class="all_errors units_error">
                 </div>
               </div>
@@ -937,15 +916,14 @@
             <div class="form-group row unitsNormal">
               <label for="normal_value" class="col-sm-3 col-form-label pformlabel">Normal Value</label>
               <div class="col-sm-9">
-                <input type="text" class="form-control inputs_with_bottom_border" id="normal_value" name="normal_value"
-                  placeholder="Enter normal value">
+                <input type="text" class="form-control inputs_with_bottom_border" id="normal_value" name="normal_value" placeholder="Enter normal value">
                 <div class="all_errors normal_value_error">
                 </div>
               </div>
             </div>
-            
-           
-            
+
+
+
             <!--
             <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="" id="shc" onclick="myFunction()">
@@ -974,17 +952,16 @@
               </div>
             </div>
 -->
-                        <div class="form-group row">
+            <div class="form-group row">
               <label for="email" class="col-sm-3 col-form-label pformlabel">Test Comments</label>
-             <!--Getting Css File-->
-             <link rel="stylesheet" href="https://pcr.realtimepcr.pk/assets/css/cmp-style.css">
+              <!--Getting Css File-->
+              <link rel="stylesheet" href="https://pcr.realtimepcr.pk/assets/css/cmp-style.css">
               <div class="col-sm-9">
-                <textarea class="component comments" name="comments" id="comments" cols="0" rows="5"
-                                placeholder="Type Comments Here (If Any) Leave Blank if there's No Comments"></textarea>
+                <textarea class="component comments" name="comments" id="comments" cols="0" rows="5" placeholder="Type Comments Here (If Any) Leave Blank if there's No Comments"></textarea>
                 <div class="all_errors comments_error">
                 </div>
               </div>
-              
+
             </div>
 
             <div class="form-group row">
@@ -1002,8 +979,7 @@
   </div>
 
   <!-- Modal -->
-  <div class="modal fade" id="addProfileTestModal" tabindex="-1" role="dialog"
-    aria-labelledby="addProfileTestModalLabel" aria-hidden="true">
+  <div class="modal fade" id="addProfileTestModal" tabindex="-1" role="dialog" aria-labelledby="addProfileTestModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content add-test-content">
         <div class="modal-header">
@@ -1021,8 +997,7 @@
             <div class="form-group row">
               <label for="profile_name" class="col-sm-3 col-form-label pformlabel">Profile Name</label>
               <div class="col-sm-9">
-                <input type="text" class="form-control inputs_with_bottom_border" id="profile_name" name="name"
-                  placeholder="Enter profile name">
+                <input type="text" class="form-control inputs_with_bottom_border" id="profile_name" name="name" placeholder="Enter profile name">
                 <div class="all_errors" id="profile_name_error">
                 </div>
               </div>
@@ -1030,8 +1005,7 @@
             <div class="form-group row">
               <label for="profile_price" class="col-sm-3 col-form-label pformlabel">Price</label>
               <div class="col-sm-9">
-                <input type="number" class="form-control inputs_with_bottom_border" id="profile_price" name="price"
-                  placeholder="Enter profile price">
+                <input type="number" class="form-control inputs_with_bottom_border" id="profile_price" name="price" placeholder="Enter profile price">
                 <div class="all_errors" id="profile_price_error">
                 </div>
               </div>
@@ -1039,8 +1013,7 @@
             <div class="form-group row">
               <label for="profile_tests" class="col-sm-3 col-form-label pformlabel">Select Tests</label>
               <div class="col-sm-9" id="">
-                <select class="form-control select2 inputs_with_bottom_border" id="profile_tests" name="tests[]"
-                  multiple="">
+                <select class="form-control select2 inputs_with_bottom_border" id="profile_tests" name="tests[]" multiple="">
                   @if(!empty($tests))
                   @foreach($tests as $record)
                   <option value="{{$record->id}}">{{$record->name}}</option>
@@ -1067,25 +1040,25 @@
   </div>
 
 
-  <?php 
-function check_in_array($test_id, $profile_tests , $profile_id){
-  foreach ($profile_tests as $record) {
-     if($record['test_profile_id']==$profile_id && $record['test_id']==$test_id)
-      return true;
+  <?php
+  function check_in_array($test_id, $profile_tests, $profile_id)
+  {
+    foreach ($profile_tests as $record) {
+      if ($record['test_profile_id'] == $profile_id && $record['test_id'] == $test_id)
+        return true;
+    }
+    return false;
   }
-  return false;
-}
-?>
+  ?>
 
   @if(!empty($tp))
   <script type="text/javascript">
-    $(document).ready(function () {
+    $(document).ready(function() {
       $('#updateProfileTestModal').modal('show');
     });
   </script>
   <!-- Modal -->
-  <div class="modal fade" id="updateProfileTestModal" tabindex="-1" role="dialog"
-    aria-labelledby="updateProfileTestModalLabel" aria-hidden="true">
+  <div class="modal fade" id="updateProfileTestModal" tabindex="-1" role="dialog" aria-labelledby="updateProfileTestModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content add-test-content">
         <div class="modal-header">
@@ -1098,13 +1071,12 @@ function check_in_array($test_id, $profile_tests , $profile_id){
           <form action="" method="post" id="update-profile-test-form">
             @csrf
 
-            <input type="hidden" name="id" value="<?php echo (!empty($tp))?$tp['id']:'' ;?>">
+            <input type="hidden" name="id" value="<?php echo (!empty($tp)) ? $tp['id'] : ''; ?>">
 
             <div class="form-group row">
               <label for="update_profile_name" class="col-sm-3 col-form-label pformlabel">Profile Name</label>
               <div class="col-sm-9">
-                <input type="text" class="form-control inputs_with_bottom_border" id="update_profile_name" name="name"
-                  placeholder="Enter profile name" value="<?php echo (!empty($tp))?$tp['name']:'' ;?>">
+                <input type="text" class="form-control inputs_with_bottom_border" id="update_profile_name" name="name" placeholder="Enter profile name" value="<?php echo (!empty($tp)) ? $tp['name'] : ''; ?>">
                 <div class="all_errors" id="update_profile_name_error">
                 </div>
               </div>
@@ -1112,8 +1084,7 @@ function check_in_array($test_id, $profile_tests , $profile_id){
             <div class="form-group row">
               <label for="update_profile_price" class="col-sm-3 col-form-label pformlabel">Price</label>
               <div class="col-sm-9">
-                <input type="number" class="form-control inputs_with_bottom_border" id="update_profile_price"
-                  name="price" value="<?php echo (!empty($tp))?$tp['price']:'' ;?>" placeholder="Enter profile price">
+                <input type="number" class="form-control inputs_with_bottom_border" id="update_profile_price" name="price" value="<?php echo (!empty($tp)) ? $tp['price'] : ''; ?>" placeholder="Enter profile price">
                 <div class="all_errors" id="update_profile_price_error">
                 </div>
               </div>
@@ -1121,12 +1092,14 @@ function check_in_array($test_id, $profile_tests , $profile_id){
             <div class="form-group row">
               <label for="update_profile_tests" class="col-sm-3 col-form-label pformlabel">Select Tests</label>
               <div class="col-sm-9" id="">
-                <select class="form-control select2 inputs_with_bottom_border" id="update_profile_tests" name="tests[]"
-                  multiple="">
+                <select class="form-control select2 inputs_with_bottom_border" id="update_profile_tests" name="tests[]" multiple="">
                   @if(!empty($tests))
                   @foreach($tests as $record)
-                  <option value="{{$record->id}}" <?php echo isset($profile_tests) && check_in_array($record['id'],
-                    $profile_tests , $tp['id'])? 'selected="selected"' : '' ; ?> >{{$record->name}}</option>
+                  <option value="{{$record->id}}" <?php echo isset($profile_tests) && check_in_array(
+                                                    $record['id'],
+                                                    $profile_tests,
+                                                    $tp['id']
+                                                  ) ? 'selected="selected"' : ''; ?>>{{$record->name}}</option>
                   @endforeach
                   @endif
                 </select>
@@ -1151,75 +1124,70 @@ function check_in_array($test_id, $profile_tests , $profile_id){
   @endif
 
 
-<!-- Modal -->
-<div class="modal fade" id="addParameterModal" tabindex="-1" role="dialog" aria-labelledby="addTestModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content add-test-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="addTestsLabel">Add Test</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form action="" method="post" id="addParameterForm">
-          @csrf
+  <!-- Modal -->
+  <div class="modal fade" id="addParameterModal" tabindex="-1" role="dialog" aria-labelledby="addTestModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content add-test-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addTestsLabel">Add Test</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="" method="post" id="addParameterForm">
+            @csrf
 
-          <input type="hidden" name="id" value="" id="parameter_id">
+            <input type="hidden" name="id" value="" id="parameter_id">
 
-          <div class="form-group row">
-            <label for="name" class="col-sm-3 col-form-label pformlabel">Parameter Name</label>
-            <div class="col-sm-9">
-              <input type="text" class="form-control inputs_with_bottom_border name" name="name"
-                placeholder="Enter test name">
-              <div class="all_errors name_error">
+            <div class="form-group row">
+              <label for="name" class="col-sm-3 col-form-label pformlabel">Parameter Name</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control inputs_with_bottom_border name" name="name" placeholder="Enter test name">
+                <div class="all_errors name_error">
+                </div>
               </div>
             </div>
-          </div>
-          <div class="form-group row">
-            <label for="normal_value" class="col-sm-3 col-form-label pformlabel">Normal Value</label>
-            <div class="col-sm-9">
-              <input type="text" class="form-control inputs_with_bottom_border normal_value" name="normal_value"
-                placeholder="Enter normal value">
-              <div class="all_errors normal_value_error">
+            <div class="form-group row">
+              <label for="normal_value" class="col-sm-3 col-form-label pformlabel">Normal Value</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control inputs_with_bottom_border normal_value" name="normal_value" placeholder="Enter normal value">
+                <div class="all_errors normal_value_error">
+                </div>
               </div>
             </div>
-          </div>
-          <div class="form-group row">
-            <label for="units" class="col-sm-3 col-form-label pformlabel">Units</label>
-            <div class="col-sm-9">
-              <input type="text" class="form-control inputs_with_bottom_border units" name="units"
-                placeholder="Enter units">
-              <div class="all_errors units_error">
+            <div class="form-group row">
+              <label for="units" class="col-sm-3 col-form-label pformlabel">Units</label>
+              <div class="col-sm-9">
+                <input type="text" class="form-control inputs_with_bottom_border units" name="units" placeholder="Enter units">
+                <div class="all_errors units_error">
+                </div>
               </div>
             </div>
-          </div>
-          <div class="form-group row">
-            <label for="status" class="col-sm-3 col-form-label pformlabel">Select Status</label>
-            <div class="col-sm-9">
-              <select class="form-control select2 inputs_with_bottom_border status" name="status"
-                >
-                <option value="1">Active</option>
-                <option value="0">Inactive</option>
-              </select>
-              <div class="all_errors status_error">
+            <div class="form-group row">
+              <label for="status" class="col-sm-3 col-form-label pformlabel">Select Status</label>
+              <div class="col-sm-9">
+                <select class="form-control select2 inputs_with_bottom_border status" name="status">
+                  <option value="1">Active</option>
+                  <option value="0">Inactive</option>
+                </select>
+                <div class="all_errors status_error">
+                </div>
               </div>
             </div>
-          </div>
-          <div class="form-group row">
-            <div class="col-sm-9 offset-sm-3">
-              <button type="submit" class="btn btn-primary">Save Parameter</button>
+            <div class="form-group row">
+              <div class="col-sm-9 offset-sm-3">
+                <button type="submit" class="btn btn-primary">Save Parameter</button>
+              </div>
             </div>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="submit" class="btn btn-primary" data-dismiss="modal">Close</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" data-dismiss="modal">Close</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
 
   <script src="{{asset('assets/developer/admin/cpanel.js')}}"></script>

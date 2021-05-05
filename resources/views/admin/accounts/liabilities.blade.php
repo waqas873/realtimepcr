@@ -58,6 +58,9 @@ text-align: left;
 .row {
 margin: auto;
 }
+.dataTables_wrapper.container-fluid {
+    width: 100%;
+}
 </style>
 
 <div class="row">

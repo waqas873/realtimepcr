@@ -399,7 +399,8 @@ Your Test is in Process.</h2>
                 <h6>
                     <strong>
                         <?php echo (!empty($result->passenger->flight_date)) ? $result->passenger->flight_date : 'Not Available'; ?>
-                        <?php echo (!empty($result->passenger->flight_time)) ? $result->passenger->flight_time : ''; ?>
+
+                         (<?php echo (!empty($result->passenger->flight_time)) ? $result->passenger->flight_time : ''; ?>) 
                     </strong>
                 </h6>
             </div>
