@@ -115,6 +115,7 @@ Route::group(['middleware' => ['web','admin']], function()
         Route::get('/accounts/trial-balance', 'Admin\AccountsController@trial_balance');
         Route::get('/accounts/balance-sheet', 'Admin\AccountsController@balance_sheet');
         Route::get('/accounts/income-statment', 'Admin\AccountsController@income_statment');
+        Route::post('/cash-user-transfer', 'Admin\AccountsController@cashUserTransfer');
 
         Route::get('/logs', 'Admin\LogsController@index');
         Route::post('/get-logs', 'Admin\LogsController@get_logs');

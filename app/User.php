@@ -68,4 +68,9 @@ class User extends Authenticatable
         return $this->hasMany('App\Admin_permission');
     }
 
+    public function cash()
+    {
+        return $this->hasOne('App\Cash');
+    }
+
 }

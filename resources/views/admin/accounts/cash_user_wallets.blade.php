@@ -63,17 +63,17 @@
         <div class="card-body">
         <div class="row">
                         <div class="col-3 data-card">
-                            <h3 class="val-card">Rs:50000</h3>
+                            <h3 class="val-card">Rs:{{$my_cash}}</h3>
                             <p>My Account Balance</p>
                         </div>
                         <div class="col-3 data-card">
-                            <h3 class="val-card">Rs:25000</h3>
+                            <h3 class="val-card">Rs:{{$users_cash}}</h3>
                             <p>Cash with Users</p>
                         </div>
                         
                     </div>
 
-            <table class="table table-borderless">
+            <table class="table table-borderless" id="cashUserWallets">
                 <thead class="thead-dark">
                     <tr>
                         <th>S.No</th>
@@ -85,34 +85,76 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @if(!empty($records))
+                    @foreach($records as $key=>$value)
                     <tr>
-                        <td>----</td>
-
-                        <td>User Name </td>
-                        <td>Admin / Receptionist</td>
-                        <td>RealtimePCR peshawar</td>
-                        <td>-------</td>
+                        <td>{{$key+1}}</td>
+                        <td>{{(!empty($value->name))?$value->name:'-- --'}}</td>
+                        <td>
+                            <?php
+                            $role = 'Receptionist';
+                            if($value->role==1){
+                                $role = 'Super Admin';
+                            }
+                            if($value->role==7){
+                                $role = 'Sub Admin';
+                            }
+                            echo $role;
+                            ?>
+                        </td>
+                        <td>{{(!empty($value->lab->name))?$value->lab->name:'-- --'}}</td>
+                        <td>Rs: {{(!empty($value->cash->cash_in_hand))?$value->cash->cash_in_hand:'0'}}</td>
                         <td>
                             <div class="btn-group">
                                 <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                                 <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-126px, 35px, 0px);">
-                                    <a href="javascript::" class="">
+                                    <a href="javascript::" class="transfer_cash" rel="{{$value->id}}" id="collect">
                                         <button class="dropdown-item" type="button">Collect Cash</button>
                                     </a>
-                                    <a href="" class="">
+                                    <a href="javascript::" class="transfer_cash" rel="{{$value->id}}" id="transfer">
                                         <button class="dropdown-item" type="button">Transfer Amount</button>
                                     </a>
                                 </div>
                             </div>
                         </td>
-
                     </tr>
+                    @endforeach
+                    @endif
                 </tbody>
             </table>
 
         </div>
     </div>
     </div>
+</div>
+
+<div class="modal fade" id="transferModal" tabindex="-1" role="dialog" aria-labelledby="transferModalLabel" aria-hidden="true">
+<div class="modal-dialog" role="document">
+<div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title" id="transferModalLabel">Transfer Amount</h5>
+<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+</div>
+<div class="modal-body">
+
+<form id="transferForm">
+@csrf
+
+<input type="hidden" name="action" class="action">
+<input type="hidden" name="id" class="user_id">
+
+<div class="form-group">
+<label for="amount">Amount</label>
+<input name="amount" type="number" class="form-control amount" id="amount" aria-describedby="amount" placeholder="Enter Amount">
+<div class="all_errors amount_error"></div>
+</div>
+<button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+</form>
+</div>
+</div>
+</div>
 </div>
 
 <script src="{{asset('assets/developer/admin/accounts.js')}}"></script>
