@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Hash;
 use DB;
 use App\User;
 use App\Collection_point;
+use App\Category;
+use App\Collection_point_category;
 use App\Airline;
 use App\Patient;
 
@@ -40,13 +42,43 @@ class Collection_pointController extends Controller
     public function viewProfile($id = 0)
     {
         $data = [];
-        return view('admin.collection_points.view_profile',$data);
+        $cp = new Collection_point;
+        $result = $cp->find($id);
+        if(!empty($result)){
+            $data['result'] = $result;
+            if(empty($result->cp_categories[0])){
+                $categories = Category::all();
+                if(!empty($categories)){
+                    foreach($categories as $key => $value){
+                        $save = new Collection_point_category;
+                        $save->user_id = Auth::user()->id;
+                        $save->collection_point_id = $id;
+                        $save->category_id = $value->id;
+                        $save->discount_percentage = 0;
+                        $save->save();
+                    }
+                }
+            }
+            return view('admin.collection_points.view_profile',$data);
+        }
     }
 
     public function cpLedgers($id = 0)
     {
         $data = [];
         return view('admin.collection_points.cp_ledgers',$data);
+    }
+
+    public function update($id='0')
+    {
+        $data = [];
+        $data['response'] = false;
+        $result = Collection_point::where('id',$id)->first();
+        if(!empty($result)){
+            $data['result'] = $result;
+            $data['response'] = true;
+        }
+        echo json_encode($data);
     }
 
     public function process_add(Request $request)
@@ -57,7 +89,8 @@ class Collection_pointController extends Controller
     	$formData = $request->all();
         //dd($formData,true);
     	$rules = [
-	        'name'=>'required|unique:collection_points|min:2',
+	        //'name'=>'required|unique:collection_points|min:2',
+            'name'=>'required|min:2',
 	        'domain' => 'required|min:1',
 	        'focal_person' => 'required|min:1',
 	        'contact_no'=>'required|min:10|max:17',
@@ -81,22 +114,65 @@ class Collection_pointController extends Controller
             $data['address'] = $errors->first('address');
         }
         else{
-            unset($formData['_token']);
+            $id = $formData['id'];
+            unset($formData['_token'],$formData['id']);
             //dd($formData);
             $user = Auth::user();
+            if(!empty($id)){
+                $result = Collection_point::where('id',$id)->update($formData);
+            }
+            else{
+                $save = new Collection_point;
+                $save->user_id = $user->id;
+                $save->name = $formData['name'];
+                $save->city = $formData['city'];
+                $save->domain = $formData['domain'];
+                $save->focal_person = $formData['focal_person'];
+                $save->contact_no = $formData['contact_no'];
+                $save->address = $formData['address'];
+                $save->created_at = $this->date_time;
+                $save->updated_at = $this->date_time;
+                $save->save();
+            }
+            $data['response'] = true;
+        }
+        echo json_encode($data);
+    }
 
-            $save = new Collection_point;
-            $save->user_id = $user->id;
-            $save->name = $formData['name'];
-            $save->city = $formData['city'];
-            $save->domain = $formData['domain'];
-            $save->focal_person = $formData['focal_person'];
-            $save->contact_no = $formData['contact_no'];
-            $save->address = $formData['address'];
+    public function updateCpCategory($id='0')
+    {
+        $data = [];
+        $data['response'] = false;
+        $result = Collection_point_category::find($id);
+        if(!empty($result)){
+            $data['result'] = $result;
+            $data['response'] = true;
+        }
+        echo json_encode($data);
+    }
 
-            $save->created_at = $this->date_time;
-            $save->updated_at = $this->date_time;
-            if($save->save()){
+    public function processUpdateCpCategory(Request $request)
+    {
+        $data = [];
+        $data['response'] = false;
+
+        $formData = $request->all();
+        $rules = [
+            'id'=>'required',
+            'discount_percentage' => 'required|min:1|max:3',
+            'custom_prizes' => 'required'
+        ];
+        $messages = [];
+        $attributes = [];
+        $validator = Validator::make($formData,$rules,$messages,$attributes);
+        if($validator->fails()){
+            $data['errors'] = $validator->errors();
+        }
+        else{
+            $id = $formData['id'];
+            unset($formData['_token'],$formData['id']);
+            if(!empty($id)){
+                $result = Collection_point_category::where('id',$id)->update($formData);
                 $data['response'] = true;
             }
         }

@@ -56,24 +56,22 @@
           <div class="tab-pane active p-3" id="CPprofile" role="tabpanel">
             <div class="row">
               <div class="col-sm-2">Collection Point Name :</div>
-              <div class="col-sm-10"><b>CP NAME HERE</b></div>
+              <div class="col-sm-10"><b>{{$result->name}}</b></div>
               <div class="col-sm-2">Focal Person:</div>
-              <div class="col-sm-10"><b>----</b></div>
+              <div class="col-sm-10"><b>{{$result->focal_person}}</b></div>
               <div class="col-sm-2">Domain</div>
-              <div class="col-sm-10"><b>----</b></div>
+              <div class="col-sm-10"><b>{{$result->domain}}</b></div>
               <div class="col-sm-2">Contact: </div>
-              <div class="col-sm-10"><b>----</b></div>
+              <div class="col-sm-10"><b>{{$result->contact_no}}</b></div>
               <div class="col-sm-2">City:</div>
-              <div class="col-sm-10"><b>----</b></div>
+              <div class="col-sm-10"><b>{{$result->city}}</b></div>
               <div class="col-sm-2">Address</div>
-              <div class="col-sm-10"><b>----</b></div>
+              <div class="col-sm-10"><b>{{$result->address}}</b></div>
               <div class="col-sm-2">Registered Users:</div>
-              <div class="col-sm-8"><b>----</b></div>
-              <div class="col-sm-2"><button type="button" class="btn btn-light float-right">Edit Profile</button></div>
-
+              <div class="col-sm-8"><b>{{$result->users->count()}}</b></div>
             </div>
             <hr>
-            <table class="table table-borderless">
+            <table class="table table-borderless" id="collection_point_categories">
               <thead class="thead-dark">
                 <tr>
                   <th>S.No</th>
@@ -84,13 +82,19 @@
                 </tr>
               </thead>
               <tbody>
+                @if(!empty($result->cp_categories))
+                @foreach($result->cp_categories as $key=>$value) 
                 <tr>
-                  <td>1</td>
-                  <td>Molecular Virology</td>
-                  <td>50%</td>
-                  <td>YES</td>
-                  <td>EDIT</td>
+                  <td>{{$key+1}}</td>
+                  <td>{{(!empty($value->category->name))?$value->category->name:''}}</td>
+                  <td>{{$value->discount_percentage}}%</td>
+                  <td>{{($value->custom_prizes==1)?'Yes':'No'}}</td>
+                  <td><a href="javascript::" rel="{{$value->id}}" class="cp_category_update_id">
+                        Edit
+                    </a></td>
                 </tr>
+                @endforeach
+                @endif
               </tbody>
             </table>
           </div>
@@ -236,6 +240,56 @@
 
 </div><!-- container fluid -->
 
-<script src="{{asset('assets/developer/admin/accounts.js')}}"></script>
+<!-- Modal -->
+<div class="modal fade" id="updateCpCategoryModal" tabindex="-1" role="dialog" aria-labelledby="updateCpCategoryLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateCpCategoryLabel">Update Collection Point Category</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="" id="updateCpCategoryForm" method="post">
+          @csrf
+
+          <input type="hidden" name="id" id="cp_category_id">
+
+          <div class="form-group row">
+            <label for="discount_percentage" class="col-sm-2 col-form-label pformlabel">Discount Assigned:</label>
+            <div class="col-sm-10">
+              <input type="number" class="form-control inputs_with_bottom_border discount_percentage" name="discount_percentage" placeholder="Enter discount percentage">
+              <div class="all_errors discount_percentage_error">
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="custom_prizes" class="col-sm-2 col-form-label pformlabel">Prioritize Custom Price:</label>
+            <div class="col-sm-10">
+              <select class="form-control select2 inputs_with_bottom_border custom_prizes" name="custom_prizes">
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+              </select>
+              <div class="all_errors custom_prizes_error">
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="name" class="col-sm-2 col-form-label pformlabel"></label>
+            <div class="col-sm-10">
+              <button type="submit" class="btn btn-primary">Save Data</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="{{asset('assets/developer/admin/collection_points.js')}}"></script>
 
 @endsection

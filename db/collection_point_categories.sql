@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 28, 2021 at 10:29 PM
+-- Generation Time: May 07, 2021 at 08:34 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.2
 
@@ -25,14 +25,16 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `patient_tests_repeated`
+-- Table structure for table `collection_point_categories`
 --
 
-CREATE TABLE `patient_tests_repeated` (
+CREATE TABLE `collection_point_categories` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `patient_test_id` int(11) DEFAULT NULL,
-  `user_id` int(11) DEFAULT NULL COMMENT 'who repeated this test',
-  `no_of_repeat` int(11) DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL COMMENT 'who created this',
+  `collection_point_id` int(11) DEFAULT NULL,
+  `category_id` int(11) DEFAULT NULL,
+  `discount_percentage` int(11) DEFAULT NULL,
+  `custom_prizes` tinyint(4) NOT NULL DEFAULT 1,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -42,9 +44,9 @@ CREATE TABLE `patient_tests_repeated` (
 --
 
 --
--- Indexes for table `patient_tests_repeated`
+-- Indexes for table `collection_point_categories`
 --
-ALTER TABLE `patient_tests_repeated`
+ALTER TABLE `collection_point_categories`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -52,10 +54,10 @@ ALTER TABLE `patient_tests_repeated`
 --
 
 --
--- AUTO_INCREMENT for table `patient_tests_repeated`
+-- AUTO_INCREMENT for table `collection_point_categories`
 --
-ALTER TABLE `patient_tests_repeated`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+ALTER TABLE `collection_point_categories`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -98,7 +98,7 @@
                     <div class="btn-group">
                       <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                       <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-126px, 35px, 0px);">
-                        <a href="javascript::" class="">
+                        <a href="javascript::" rel="{{$value->id}}" class="update_id">
                           <button class="dropdown-item" type="button">Edit</button>
                         </a>
                         <!-- <a href="{{url('admin/cp-entries-reports/'.$value->id)}}" class="">
@@ -144,6 +144,9 @@
       <div class="modal-body">
         <form action="" id="add-form" method="post">
           @csrf
+
+          <input type="hidden" name="id" id="cp_id">
+
           <div class="form-group row">
             <label for="name" class="col-sm-2 col-form-label pformlabel">Name:</label>
             <div class="col-sm-10">

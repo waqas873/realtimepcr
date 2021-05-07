@@ -10,4 +10,9 @@ class Collection_point extends Model
     {
         return $this->hasMany('App\User');
     }
+
+    public function cp_categories()
+    {
+        return $this->hasMany('App\Collection_point_category');
+    }
 }
