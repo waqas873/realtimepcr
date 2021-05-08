@@ -32,7 +32,7 @@
   }
 </style>
 
-<div class="container-fluid">
+<div class="container">
 <?php
 $permissions = permissions();
 if($permissions['role'] == 1 || (!empty($permissions['dashboard_read']))){ 

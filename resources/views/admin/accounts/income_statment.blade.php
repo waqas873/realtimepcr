@@ -2,218 +2,246 @@
 @section('content')
 
 @if(session('success_message'))
-    <script type="text/javascript">
-        swal({
-          title: "Success",
-          text: "{{session('success_message')}}",
-          icon: "success",
-          button: "OK",
-        });
-    </script>
+<script type="text/javascript">
+    swal({
+        title: "Success",
+        text: "{{session('success_message')}}",
+        icon: "success",
+        button: "OK",
+    });
+</script>
 @endif
 
 @if(session('error_message'))
-    <script type="text/javascript">
-        swal({
-          title: "Warning",
-          text: "{{session('error_message')}}",
-          icon: "error",
-          button: "OK",
-        });
-    </script>
+<script type="text/javascript">
+    swal({
+        title: "Warning",
+        text: "{{session('error_message')}}",
+        icon: "error",
+        button: "OK",
+    });
+</script>
 @endif
 
 
-<div class="container-fluid">
+<div class="container">
 
-<div class="row">
-<div class="col-sm-12">
-<div class="page-title-box">
-<div class="row align-items-center">
-    <div class="col-sm-5">
-        <h4 class="page-title m-0">Income Statment</h4>
-    </div>
-    <!-- end col -->
-</div>
-<!-- end row -->
-</div>
-<!-- end page-title-box -->
-</div>
-</div> 
-<!-- end page title -->
-
-
-<div class="row">
-<div class="col-xl-3 col-md-6">
-<div class="card bg-primary mini-stat text-white">
-<div class="p-3 mini-stat-desc">
-    <div class="clearfix">
-        <h4 class="mb-3 mt-0 float-right">3445</h4>
-    </div>
-    <div>
-        <span class="ml-2 ml22">Previous</span>
-    </div>
-    
-</div>
-<div class="p-3 p3_stat_btm">
-    <div class="float-right">
-        <a href="#" class="text-white-50"><i class="mdi mdi-cube-outline h5"></i></a>
-    </div>
-</div>
-</div>
-</div>
-
-<div class="col-xl-3 col-md-6">
-<div class="card bg-info mini-stat text-white" style="background-color: orange !important;">
-<div class="p-3 mini-stat-desc">
-    <div class="clearfix">
-        <h4 class="mb-3 mt-0 float-right">2433</h4>
-    </div>
-    <div> <span class="ml-2 ml22">Debit</span>
-    </div>
-</div>
-<div class="p-3 p3_stat_btm">
-    <div class="float-right">
-        <a href="#" class="text-white-50"><i class="mdi mdi-buffer h5"></i></a>
-    </div>
-</div>
-</div>
-</div>
-<div class="col-xl-3 col-md-6">
-<div class="card bg-pink mini-stat text-white">
-<div class="p-3 mini-stat-desc">
-    <div class="clearfix">
-        <h4 class="mb-3 mt-0 float-right">23432</h4>
-    </div>
-    <div> <span class="ml-2 ml22">Credit</span>
-    </div>
-</div>
-<div class="p-3 p3_stat_btm">
-    <div class="float-right">
-        <a href="#" class="text-white-50"><i class="mdi mdi-tag-text-outline h5"></i></a>
-    </div>
-</div>
-</div>
-</div>
-
-</div>  
-<!-- end row -->
-
-<div class="row">
-<div class="col-sm-12">
-<div class="page-title-box">
-<div class="row align-items-center">
-    <div class="col-sm-5">
-    </div>
-    <!-- <div class="col-sm-7">
-        <div class="row emdatefilter">
-            <div class="col-sm-2 no_padd">
-                <p>Date Range</p>
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="page-title-box">
+                <div class="row align-items-center">
+                    <div class="col-sm-5">
+                        <h4 class="page-title m-0">Income Statment</h4>
+                    </div>
+                    <!-- end col -->
+                </div>
+                <!-- end row -->
             </div>
-            <div class="col-sm-3 no_padd">
-                <input class="form-control inputs_with_bottom_border" type="date" id="from_date" name="from_date">
-            </div>
-            <div class="col-sm-1"><p>To</p></div>
-            <div class="col-sm-3 no_padd">
-                <input class="form-control inputs_with_bottom_border" type="date" id="to_date" name="to_date">
-            </div>
-            <div class="col-sm-3">
-                <a href="javascript::" class="btn btn-success embsearch" id="by_date">Search</a>
+            <!-- end page-title-box -->
+        </div>
+    </div>
+    <!-- end page title -->
+
+    <!-- <script>
+
+$(document).on('click', '#print_cntnt', function (e) {
+    var mywindow = window.open('', 'PRINT', 'height=700,width=1000');
+
+    mywindow.document.write('<html><head><title></title>');
+    mywindow.document.write('<link rel="stylesheet" href="http://pcr.realtimepcr.pk/assets/css/bootstrap.min.css">');
+    mywindow.document.write('<link rel="stylesheet" href="http://pcr.realtimepcr.pk/assets/css/developer.css">');
+    mywindow.document.write('<link rel="stylesheet" href="http://pcr.realtimepcr.pk/assets/css/cmp-style.css">');
+    mywindow.document.write('</head><body >');
+    mywindow.document.write(document.getElementById("print_section").innerHTML);
+    mywindow.document.write('</body></html>');
+
+    mywindow.document.close(); // necessary for IE >= 10
+    //mywindow.focus(); // necessary for IE >= 10*/
+
+    mywindow.print();
+    //mywindow.close();
+
+    return true;
+}); -->
+    </script>
+
+    <div class="row">
+
+        <div class="col-xl-12">
+            <div class="card" id="print_section">
+                <div class="card-body">
+
+
+                    <div class="row component nobdr">
+
+                        <div class="col-sm-3">
+                            <p>Date Filterd From</p>
+                            <h6><b>----</b></h6>
+                        </div>
+                        <div class="col-sm-3">
+                            <p>Date Filtered To</p>
+                            <h6><b>----</b></h6>
+                        </div>
+                        <div class="col-sm-3">
+                            <p>Print Date:</p>
+                            <h6>
+                                <b>
+                                    <?php
+                                    echo date('Y-m-d H:i:s');
+                                    ?>
+                                </b>
+                            </h6>
+                        </div>
+                        <div class="col-sm-3">
+                            <p>Printed BY:</p>
+                            <h6>
+
+                                <b>
+                                    ----
+                                </b>
+                            </h6>
+                        </div>
+                    </div>
+
+
+                    <div class="row component">
+                        <div class="col-sm-2">
+                            <img src="https://pcr.realtimepcr.pk/assets/images/pcr-logo.png" alt="logo" class="header-logo" ;>
+                        </div>
+                        <div class="col-sm-8">
+                            <h1 class="lab-name">
+                                REALTIME PCR
+                            </h1>
+                            <h6 class="lab-slogan">
+                                Diagnostic, Research & Reference Lab. Pvt. Ltd.
+                            </h6>
+                            <h6 class="lab-reg">ISO 9001-2015 Certified Laboratory</h6>
+                        </div>
+                        <div class="col-sm-2">
+                            <div class="">
+                                <img class="iso-logo" src="https://pcr.realtimepcr.pk/assets/images/iso-logo.png" alt="">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="page-title">
+                        <h2>INCOME STATEMENT</h2>
+                    </div>
+                    <style>
+                        th.w80p {
+                            width: 60%;
+                        }
+
+                        th.w10p {
+                            width: 10%;
+                        }
+
+                        .totalRowRed {
+                            color: #fff;
+                            background-color: #ff000070;
+                            font-weight: 600;
+                            font-size: 18px;
+                        }
+
+                        .totalRowCyan {
+                            color: #fff;
+                            background-color: #00aaff;
+                            font-weight: 600;
+                            font-size: 18px;
+                        }
+
+                        .totalRowGreen {
+                            color: #fff;
+                            background-color: #00c169;
+                            font-weight: 600;
+                            font-size: 18px;
+                        }
+                    </style>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="w80p">Description</th>
+                                <th class="w10p"></th>
+                                <th class="w10p"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Cash Sale</td>
+                                <td></td>
+                                <td>Rs:20000</td>
+                            </tr>
+                            <tr>
+                                <td>Credit Sale</td>
+                                <td>Rs:25000</td>
+                                <td></td>
+                            </tr>
+
+                            <!-- <tr>
+                                <td>Cash Received From Debtors</td>
+                                <td>- Rs: 15000</td>
+                                <td>Rs: 10000</td>
+                            </tr> -->
+
+                            <tr class="totalRowRed">
+                                <td>Total Sale for the Month</td>
+                                <td></td>
+                                <td>Rs: 30000</td>
+                            </tr>
+
+                            <tr>
+                                <td>Cost of Goods Sold</td>
+                                <td>- Rs: 25000</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Daily Expenses</td>
+                                <td>-RS 25000</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Total Direct Expenses</td>
+                                <td></td>
+                                <td>- Rs: 50000</td>
+                            </tr>
+
+                            <tr class="totalRowCyan">
+                                <td>Gross Profit</td>
+                                <td></td>
+                                <td> - Rs: 20000</td>
+                            </tr>
+
+
+                            <tr>
+                                <td>Category of the Expenses</td>
+                                <td>523652</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Category of the Expenses</td>
+                                <td>523652</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Category of the Expenses</td>
+                                <td>523652</td>
+                                <td></td>
+                            </tr>
+
+                            <tr class="totalRowGreen">
+                                <td>Total Sale for the Month</td>
+                                <td></td>
+                                <td>Rs : 255555</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
             </div>
         </div>
-    </div> -->
-    <!-- end col -->
-</div>
-<!-- end row -->
-</div>
-<!-- end page-title-box -->
-</div>
-</div> 
-<!-- end page title -->
-
-
-<div class="row">
-<div class="col-xl-12">
-<div class="card">
-<div class="card-body">
-    <!-- <h4 class="mt-0 header-title mb-4">Reports List</h4> -->
-    <div class="table-responsive">
-        <table class="table table-hover" id="cashbook_datatable">
-            <thead>
-              <tr>
-                  <th scope="col">Date</th>
-                  <th scope="col">V-ID</th>
-                  <th scope="col">Description</th>
-                  <th scope="col">Previous</th>
-                  <th scope="col">Debit</th>
-                  <th scope="col">Credit</th>
-                  <th scope="col">Balance</th>
-              </tr>
-            </thead>
-            <tbody>
-                <tr>
-                  <td scope="col">2020-06-22</td>
-                  <td scope="col">#080954</td>
-                  <td scope="col">Testing description</td>
-                  <td scope="col">Rs: 4555</td>
-                  <td scope="col">Rs: 3434</td>
-                  <td scope="col">Rs: 8766</td>
-                  <td scope="col">Rs: 543534</td>
-                </tr>
-                <tr>
-                  <td scope="col">2020-06-22</td>
-                  <td scope="col">#080954</td>
-                  <td scope="col">Testing description</td>
-                  <td scope="col">Rs: 4555</td>
-                  <td scope="col">Rs: 3434</td>
-                  <td scope="col">Rs: 8766</td>
-                  <td scope="col">Rs: 543534</td>
-                </tr>
-                <tr>
-                  <td scope="col">2020-06-22</td>
-                  <td scope="col">#080954</td>
-                  <td scope="col">Testing description</td>
-                  <td scope="col">Rs: 4555</td>
-                  <td scope="col">Rs: 3434</td>
-                  <td scope="col">Rs: 8766</td>
-                  <td scope="col">Rs: 543534</td>
-                </tr>
-                <tr>
-                  <td scope="col">2020-06-22</td>
-                  <td scope="col">#080954</td>
-                  <td scope="col">Testing description</td>
-                  <td scope="col">Rs: 4555</td>
-                  <td scope="col">Rs: 3434</td>
-                  <td scope="col">Rs: 8766</td>
-                  <td scope="col">Rs: 543534</td>
-                </tr>
-                <tr>
-                  <td scope="col">2020-06-22</td>
-                  <td scope="col">#080954</td>
-                  <td scope="col">Testing description</td>
-                  <td scope="col">Rs: 4555</td>
-                  <td scope="col">Rs: 3434</td>
-                  <td scope="col">Rs: 8766</td>
-                  <td scope="col">Rs: 543534</td>
-                </tr>
-                <tr>
-                  <td scope="col">2020-06-22</td>
-                  <td scope="col">#080954</td>
-                  <td scope="col">Testing description</td>
-                  <td scope="col">Rs: 4555</td>
-                  <td scope="col">Rs: 3434</td>
-                  <td scope="col">Rs: 8766</td>
-                  <td scope="col">Rs: 543534</td>
-                </tr>
-            </tbody>
-        </table>
     </div>
-
-</div>
-</div>
-</div>
-</div>
-<!-- end row -->
+    <!-- end row -->
 
 </div><!-- container fluid -->
 

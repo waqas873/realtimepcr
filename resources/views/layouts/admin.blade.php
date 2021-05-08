@@ -22,6 +22,7 @@
   <link href="{{asset('assets/css/icons.css')}}" rel="stylesheet" type="text/css">
   <link href="{{asset('assets/css/style.css')}}" rel="stylesheet" type="text/css">
   <link href="{{asset('assets/developer/developer.css')}}" rel="stylesheet" type="text/css">
+  <link href="{{asset('assets/css/cmp-style.css')}}" rel="stylesheet" type="text/css">
   
 
   <link href="{{asset('assets/select2/css/select2.min.css')}}" rel="stylesheet" type="text/css" />
@@ -82,7 +83,7 @@
             </li>
             <li style="text-align: center;border-radius: 5px;border: solid 1px #c3c3c3;margin: auto;width: 80%;" id="account_balance">
               <h6>Account Balance: </h6>
-              <h5> <b style="color:#00c169">------</b></h5>
+              <h5> <b style="color:#00c169">Rs:</b></h5>
             </li>
             <?php
             $permissions = permissions();
@@ -225,7 +226,7 @@
               <li>
                 <a href="{{url('admin/invoices')}}" class="waves-effect">
                   <img src="{{asset('assets/icons/sidebar-icons/icon2.svg')}}" class="sidebar_icons">
-                  <span>Users Invoices</span>
+                  <span>Invoices List</span>
                 </a>
               </li>
 

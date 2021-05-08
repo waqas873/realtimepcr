@@ -213,7 +213,7 @@
               <select name="account_category_id" class="form-control select2">Select Expense Category
               @if(!empty($expense_categories))
               @foreach($expense_categories as $record)
-              <option value="">Select here</option>
+              <option value="">Select Expense Category</option>
               <option value="{{$record->id}}">{{$record->name}}</option>
               @endforeach
               @endif
@@ -287,6 +287,22 @@
                 ?>
               </select>
               <div class="all_errors" id="user_id_error">
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="title" class="col-sm-3 col-form-label pformlabel">Select Category</label>
+            <div class="col-sm-9">
+              <!-- <input type="text" class="form-control inputs_with_bottom_border" id="title" name="title" placeholder="Enter item"> -->
+              <select name="account_category_id" class="form-control select2">Select Income Category
+              @if(!empty($expense_categories))
+              @foreach($expense_categories as $record)
+              <option value="">Select Income Category</option>
+              <option value="{{$record->id}}">{{$record->name}}</option>
+              @endforeach
+              @endif
+              </select>
+              <div class="all_errors account_category_id_error">
               </div>
             </div>
           </div>

@@ -24,7 +24,7 @@
 @endif
 
 
-<div class="container-fluid">
+<div class="container">
 <style>
         .data-card {
             padding: 10px 20px;
@@ -94,7 +94,7 @@
                             <?php
                             $role = 'Receptionist';
                             if($value->role==1){
-                                $role = 'Super Admin';
+                                $role = 'Admin';
                             }
                             if($value->role==7){
                                 $role = 'Sub Admin';
