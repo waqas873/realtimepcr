@@ -12,6 +12,8 @@ use App\User;
 use App\Collection_point;
 use App\Category;
 use App\Collection_point_category;
+use App\Collection_point_test;
+use App\Test;
 use App\Airline;
 use App\Patient;
 
@@ -46,6 +48,8 @@ class Collection_pointController extends Controller
         $result = $cp->find($id);
         if(!empty($result)){
             $data['result'] = $result;
+            $data['tests'] = Test::all();
+            $data['cp_tests'] = Collection_point_test::all();
             if(empty($result->cp_categories[0])){
                 $categories = Category::all();
                 if(!empty($categories)){
@@ -175,6 +179,50 @@ class Collection_pointController extends Controller
                 $result = Collection_point_category::where('id',$id)->update($formData);
                 $data['response'] = true;
             }
+        }
+        echo json_encode($data);
+    }
+
+    public function updateCpTest($id='0')
+    {
+        $data = [];
+        $data['response'] = false;
+        $result = Collection_point_test::find($id);
+        if(!empty($result)){
+            $data['result'] = $result;
+            $data['response'] = true;
+        }
+        echo json_encode($data);
+    }
+
+    public function processCpTest(Request $request)
+    {
+        $data = [];
+        $data['response'] = false;
+
+        $formData = $request->all();
+        $rules = [
+            'collection_point_id'=>'required',
+            'test_id' => 'required',
+            'discounted_price' => 'required'
+        ];
+        $messages = [];
+        $attributes = [];
+        $validator = Validator::make($formData,$rules,$messages,$attributes);
+        if($validator->fails()){
+            $data['errors'] = $validator->errors();
+        }
+        else{
+            $id = $formData['id'];
+            unset($formData['_token'],$formData['id']);
+            if(!empty($id)){
+                $result = Collection_point_test::where('id',$id)->update($formData);
+            }
+            else{
+                $formData['user_id'] = Auth::user()->id;
+                Collection_point_test::insert($formData);
+            }
+            $data['response'] = true;
         }
         echo json_encode($data);
     }

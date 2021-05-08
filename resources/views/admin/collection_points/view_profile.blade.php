@@ -47,7 +47,6 @@
       <div class="card-body">
         <ul class="nav nav-tabs" role="tablist">
           <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#CPprofile" role="tab"><span class="d-none d-md-block">CP Profile</span><span class="d-block d-md-none"><i class="mdi mdi-home-variant h5"></i></span></a></li>
-          <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#cpReports" role="tab"><span class="d-none d-md-block">Reports</span><span class="d-block d-md-none"><i class="mdi mdi-account h5"></i></span></a></li>
           <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#prizes" role="tab"><span class="d-none d-md-block">Special Prizes</span><span class="d-block d-md-none"><i class="mdi mdi-email h5"></i></span></a></li>
           <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#CPLedgers" role="tab"><span class="d-none d-md-block">Ledgers</span><span class="d-block d-md-none"><i class="mdi mdi-settings h5"></i></span></a></li>
           <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Trx" role="tab"><span class="d-none d-md-block">Transactions</span><span class="d-block d-md-none"><i class="mdi mdi-settings h5"></i></span></a></li>
@@ -68,7 +67,11 @@
               <div class="col-sm-2">Address</div>
               <div class="col-sm-10"><b>{{$result->address}}</b></div>
               <div class="col-sm-2">Registered Users:</div>
-              <div class="col-sm-8"><b>{{$result->users->count()}}</b></div>
+              <div class="col-sm-10"><b>{{$result->users->count()}}</b></div>
+              <div class="col-sm-2">Reports:</div>
+              <div class="col-sm-10">
+                <a href="{{url('admin/staff-patients/collection-point/'.$result->id)}}">Click here to view reports</a>
+              </div>
             </div>
             <hr>
             <table class="table table-borderless" id="collection_point_categories">
@@ -99,24 +102,32 @@
             </table>
           </div>
 
-
-          <div class="tab-pane p-3" id="cpReports" role="tabpanel">
-
-            <!-- Staff Page Content Starts here   -->
-          SHOW the LAB Reports in this AREA, path: Admin\staff\patients.blade.php
-            <!-- Staff Page Content ENDs here   -->
-          </div>
           <div class="tab-pane p-3" id="prizes" role="tabpanel">
+            <form id="cpTestForm">
 
-            <form>
+              @csrf
+              <input type="hidden" name="id" id="cp_test_id">
+              <input type="hidden" name="collection_point_id" value="{{$result->id}}">
+
               <div class="col-sm-6">
-                <label for="">Select Test</label>
-                <input type="" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Select Test">
+                <label for="test_id">Select Test</label>
+                <select class="form-control select2 inputs_with_bottom_border test_id" name="test_id">
+                  <option value="">Select here</option>
+                  @if(!empty($tests))
+                  @foreach($tests as $record)
+                  <option value="{{$record->id}}">{{$record->name}}</option>
+                  @endforeach
+                  @endif
+                </select>
+                <div class="all_errors test_id_error">
+                </div>
               </div>
               <br>
               <div class="col-sm-6">
-                <label for="">Enter Discounted Prize</label>
-                <input type="" class="form-control" id="exampleInputPassword1" placeholder=" Discounted Prize">
+                <label for="discounted_price">Enter Discounted Prize</label>
+                <input type="number" class="form-control discounted_price" name="discounted_price" placeholder=" Discounted Prize">
+                <div class="all_errors discounted_price_error">
+                </div>
               </div>
               <div class="col-sm-6" style="height: 100px;"> <br>
                 <button type="submit" class="btn btn-light" style="width: 100%;">Save Prize</button>
@@ -126,7 +137,7 @@
             </form>
 
             <div class="row">
-              <table class="table table-borderless">
+              <table class="table table-borderless" id="cpTestsDatatable">
                 <thead class="thead-dark">
                   <tr>
                     <th>S.No</th>
@@ -138,14 +149,20 @@
                   </tr>
                 </thead>
                 <tbody>
+                  @if(!empty($cp_tests))
+                  @foreach($cp_tests as $key=>$value)
                   <tr>
-                    <td>1</td>
-                    <td>CBC</td>
-                    <td>Molecular Virology</td>
-                    <td>Rs: 500%</td>
-                    <td>Rs: 150</td>
-                    <td>EDIT</td>
+                    <td>{{$key+1}}</td>
+                    <td>{{(!empty($value->test->name))?$value->test->name:'----'}}</td>
+                    <td>{{(!empty($value->test->category->name))?$value->test->category->name:'----'}}</td>
+                    <td>Rs: {{(!empty($value->test->price))?$value->test->price:'----'}}</td>
+                    <td>Rs: {{(!empty($value->discounted_price))?$value->discounted_price:'----'}}</td>
+                    <td><a href="javascript::" rel="{{$value->id}}" class="cp_test_update_id">
+                        Edit
+                    </a></td>
                   </tr>
+                  @endforeach
+                  @endif
                 </tbody>
               </table>
             </div>

@@ -93,7 +93,9 @@ Route::group(['middleware' => ['web','admin']], function()
         Route::get('/collection-points', 'Admin\Collection_pointController@index');
         Route::get('/update-collection-point/{id?}', 'Admin\Collection_pointController@update');
         Route::get('/update-cp-category/{id?}', 'Admin\Collection_pointController@updateCpCategory');
+        Route::get('/update-cp-test/{id?}', 'Admin\Collection_pointController@updateCpTest');
         Route::post('/update-cp-category', 'Admin\Collection_pointController@processUpdateCpCategory');
+        Route::post('/add-cp-test', 'Admin\Collection_pointController@processCpTest');
         Route::post('/add-collection-point', 'Admin\Collection_pointController@process_add');
         Route::get('/delete-cp/{id?}', 'Admin\Collection_pointController@delete');
 
