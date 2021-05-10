@@ -11,6 +11,7 @@ use DB;
 use App\User;
 use App\Collection_point;
 use App\Category;
+use App\Ledger;
 use App\Collection_point_category;
 use App\Collection_point_test;
 use App\Test;

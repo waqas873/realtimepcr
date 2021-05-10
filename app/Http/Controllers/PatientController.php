@@ -18,11 +18,13 @@ use App\Amount;
 use App\Airline;
 use App\Profile_test;
 use App\Invoice;
+use App\Ledger;
 use App\Country;
 use App\Cash;
 use App\Deleted_patient;
 use App\Log;
 use App\Doctor;
+use App\Collection_point_test;
 
 use Carbon\Carbon;
 
@@ -328,6 +330,10 @@ class PatientController extends Controller
                         }
                     }
 
+                    if(!empty($user->collection_point_id)){
+                        $this->addCpLedger($tests);
+                    }
+
                     if(!empty($test_profiles)){
                         foreach($test_profiles as $profile_id){
                             $save = [];
@@ -349,6 +355,56 @@ class PatientController extends Controller
         }
         
         echo json_encode($data);
+    }
+
+    public function addCpLedger($test_ids = [])
+    {
+        $amount = 0;
+        $user = Auth::user();
+        $ledger = new Ledger;
+        $ledger->user_id = $user->id;
+        if(empty($user->collection_point_id) || empty($test_ids)){
+            return false;
+        }
+        $cp_id = $user->collection_point_id;
+        $ledger->collection_point_id = $cp_id;
+        foreach($test_ids as $test_id){
+            $test = Test::find($test_id);
+            $amount = $amount + $test->price;
+        }
+        foreach($test_ids as $test_id){
+            $cp_test = Collection_point_test::where('collection_point_id', $cp_id)->where('test_id', $test_id)->first();
+            if(!empty($cp_test)){
+                $test = Test::find($test_id);
+                if($amount >= $test->price){
+                    $amount = $amount - $test->price;
+                    $amount = $amount + $cp_test->discounted_price;
+                }
+            }
+        }
+        $uniq_id = '000000';
+        $uniqueness = false;
+        while($uniqueness == false){
+            $uniq_id = rand(1,1000000);
+            $invRes = Ledger::where('unique_id',$uniq_id)->first();
+            if(empty($invRes)){
+                $uniqueness = true;
+            }
+        }
+        $ledger->unique_id = $uniq_id;
+        $ledger->description = 'Amount received from patient';
+        $ledger->amount = $amount;
+        $ledger->is_debit = 1;
+        
+        $result = Ledger::where('collection_point_id',$cp_id)->latest()->first();
+        if(!empty($result)){
+            $ledger->balance = $result->balance+$amount;
+        }
+        else{
+            $ledger->balance = $amount;
+        }
+        $ledger->save();
+        return true;
     }
 
     public function api_request($patient_id = 0 , $dateTime = '')

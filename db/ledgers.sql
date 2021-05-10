@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 08, 2021 at 08:46 PM
+-- Generation Time: May 10, 2021 at 11:27 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.2
 
@@ -25,27 +25,41 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `collection_point_tests`
+-- Table structure for table `ledgers`
 --
 
-CREATE TABLE `collection_point_tests` (
+CREATE TABLE `ledgers` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` int(11) DEFAULT NULL COMMENT 'who created this',
   `collection_point_id` int(11) DEFAULT NULL,
-  `test_id` int(11) DEFAULT NULL,
-  `discounted_price` int(11) DEFAULT NULL,
+  `lab_id` int(11) DEFAULT NULL,
+  `unique_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `amount` int(11) DEFAULT NULL,
+  `is_debit` tinyint(4) NOT NULL DEFAULT 0,
+  `is_credit` tinyint(4) NOT NULL DEFAULT 0,
+  `balance` int(11) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `ledgers`
+--
+
+INSERT INTO `ledgers` (`id`, `user_id`, `collection_point_id`, `lab_id`, `unique_id`, `description`, `amount`, `is_debit`, `is_credit`, `balance`, `created_at`, `updated_at`) VALUES
+(1, 8, 1, NULL, '410774', 'Amount received from patient', 7500, 1, 0, 7500, '2021-05-10 20:52:46', '2021-05-10 20:52:46'),
+(2, 8, 1, NULL, '273269', 'Amount received from patient', 1200, 1, 0, 8700, '2021-05-10 20:54:26', '2021-05-10 20:54:26'),
+(5, 8, 1, NULL, '66536', 'Amount received from patient', 1200, 1, 0, 9900, '2021-05-10 21:06:57', '2021-05-10 21:06:57');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `collection_point_tests`
+-- Indexes for table `ledgers`
 --
-ALTER TABLE `collection_point_tests`
+ALTER TABLE `ledgers`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -53,10 +67,10 @@ ALTER TABLE `collection_point_tests`
 --
 
 --
--- AUTO_INCREMENT for table `collection_point_tests`
+-- AUTO_INCREMENT for table `ledgers`
 --
-ALTER TABLE `collection_point_tests`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+ALTER TABLE `ledgers`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
