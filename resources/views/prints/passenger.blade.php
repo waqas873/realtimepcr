@@ -118,6 +118,12 @@ Your Test is in Process.</h2>
                         </p>
                     <?php } else { ?>
                         <button type="button" onclick="window.print()" class="btn btn-primary" id="clearedPayment">Print Report</button>
+                        <div class="input-group mt-3">
+                            <input type="text" class="form-control" placeholder="mail@domain.com" aria-label="Recipient's Email" aria-describedby="button-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-secondary" type="button" id="button-addon2">Send as Email</button>
+                            </div>
+                        </div>
                     <?php } ?>
                 </div>
                 <div class="col-sm-12">
@@ -400,7 +406,7 @@ Your Test is in Process.</h2>
                     <strong>
                         <?php echo (!empty($result->passenger->flight_date)) ? $result->passenger->flight_date : 'Not Available'; ?>
 
-                         (<?php echo (!empty($result->passenger->flight_time)) ? $result->passenger->flight_time : ''; ?>) 
+                        (<?php echo (!empty($result->passenger->flight_time)) ? $result->passenger->flight_time : ''; ?>)
                     </strong>
                 </h6>
             </div>

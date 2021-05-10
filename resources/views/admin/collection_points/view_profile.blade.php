@@ -115,7 +115,7 @@
                   <option value="">Select here</option>
                   @if(!empty($tests))
                   @foreach($tests as $record)
-                  <option value="{{$record->id}}">{{$record->name}}</option>
+                  <option value="{{$record->id}}">{{$record->name}} &nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size: 11px !important;"> (Rs: {{$record->price}})</span></option>
                   @endforeach
                   @endif
                 </select>
@@ -159,7 +159,12 @@
                     <td>Rs: {{(!empty($value->discounted_price))?$value->discounted_price:'----'}}</td>
                     <td><a href="javascript::" rel="{{$value->id}}" class="cp_test_update_id">
                         Edit
-                      </a></td>
+                      </a>
+                      <a href="javascript::" rel="{{$value->id}}" class="">
+                        Delete
+                      </a>
+                    
+                    </td>
                   </tr>
                   @endforeach
                   @endif

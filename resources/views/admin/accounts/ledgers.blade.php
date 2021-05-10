@@ -113,53 +113,53 @@
                     <th scope="row">1</th>
                     <td>#225695</td>
                     <td>22-22-2222</td>
-                    <td>This is the Description</td>
-                    <td>Rs: 2500</td>
-                    <td>Rs: 5000</td>
-                    <td>Rs: 1000</td>
+                    <td>Covid 19 RNA PCR (Test Performed)</td>
+                    <td>Rs: 3000</td>
+                    <td>0</td>
+                    <td>Rs: 3000</td>
                   </tr>
                   <tr>
                     <th scope="row">1</th>
                     <td>#225695</td>
                     <td>22-22-2222</td>
-                    <td>This is the Description</td>
-                    <td>Rs: 2500</td>
-                    <td>Rs: 5000</td>
-                    <td>Rs: 1000</td>
+                    <td>Covid 19 RNA PCR (Test Performed)</td>
+                    <td>Rs: 3000</td>
+                    <td></td>
+                    <td>Rs: 6000</td>
                   </tr>
                   <tr>
                     <th scope="row">1</th>
                     <td>#225695</td>
                     <td>22-22-2222</td>
-                    <td>This is the Description</td>
-                    <td>Rs: 2500</td>
-                    <td>Rs: 5000</td>
-                    <td>Rs: 1000</td>
+                    <td>Covid 19 RNA PCR (Test Performed)</td>
+                    <td>Rs: 3000</td>
+                    <td></td>
+                    <td>Rs: 9000</td>
                   </tr>
                   <tr>
                     <th scope="row">1</th>
                     <td>#225695</td>
                     <td>22-22-2222</td>
-                    <td>This is the Description</td>
-                    <td>Rs: 2500</td>
+                    <td>Amount Paid via CASH</td>
+                    <td></td>
                     <td>Rs: 5000</td>
-                    <td>Rs: 1000</td>
+                    <td>Rs: 4000</td>
                   </tr>
                   <tr>
                     <th scope="row">1</th>
                     <td>#225695</td>
                     <td>22-22-2222</td>
-                    <td>This is the Description</td>
-                    <td>Rs: 2500</td>
-                    <td>Rs: 5000</td>
-                    <td>Rs: 1000</td>
+                    <td>Covid 19 RNA PCR (Test Performed)</td>
+                    <td>Rs: 3000</td>
+                    <td></td>
+                    <td>Rs: 7000</td>
                   </tr>
                   <footer>
                     <tr class="thead-dark">
                       <th colspan="4">Total</th>
-                      <th>Rs: 2500</th>
+                      <th>Rs: 12000</th>
                       <th>Rs: 5000</th>
-                      <th>Rs: 1000</th>
+                      <th>Rs: 7000</th>
                     </tr>
                   </footer>
 
