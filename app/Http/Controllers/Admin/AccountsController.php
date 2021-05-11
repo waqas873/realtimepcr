@@ -10,6 +10,7 @@ use DB;
 use App\User;
 use App\Liability;
 use App\Cash;
+use App\Collection_point;
 use App\Amount;
 
 class AccountsController extends Controller
@@ -116,6 +117,7 @@ class AccountsController extends Controller
     public function ledgers()
     {
         $data = [];
+        $data['collection_points'] = Collection_point::all();
         return view('admin.accounts.ledgers',$data);
     }
 

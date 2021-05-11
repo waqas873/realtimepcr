@@ -123,6 +123,8 @@ Route::group(['middleware' => ['web','admin']], function()
         Route::get('/accounts/income-statment', 'Admin\AccountsController@income_statment');
         Route::post('/cash-user-transfer', 'Admin\AccountsController@cashUserTransfer');
 
+        Route::post('/get-cp-ledger', 'Admin\LedgersController@cpLedger');
+
         Route::get('/logs', 'Admin\LogsController@index');
         Route::post('/get-logs', 'Admin\LogsController@get_logs');
 

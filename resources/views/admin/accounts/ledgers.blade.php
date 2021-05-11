@@ -52,16 +52,22 @@
         </ul><!-- Tab panes -->
         <div class="tab-content">
           <div class="tab-pane active p-3 print-aria" id="CP" role="tabpanel">
+
             <form>
+
               <div class="form-group">
-                <label for="CPledger">Select Collection Point</label>
-                <select name="" id="CPledger" class="form-control form-control-lg">
-                  <option value="">Example Diagnostics Lab {Peshawar} </option>
+                <label for="collection_point_id">Select Collection Point</label>
+                <select name="collection_point_id" id="collection_point_id" class="form-control form-control-lg select2">
+                  @if(!empty($collection_points))
+                  @foreach($collection_points as $key=>$value)
+                  <option value="{{$value->id}}">{{$value->name}}</option>
+                  @endforeach
+                  @endif
                 </select>
                 <small id="CPledger" class="form-text text-muted">You can select Collecction Point here.</small>
               </div>
-              <div class="col-sm-12">
 
+              <div class="col-sm-12">
                 <div class="row emdatefilter">
                   <div class="col-sm-2 no_padd">
                     <p>Date Range</p>
@@ -79,8 +85,8 @@
                     <a href="javascript::" class="btn btn-success embsearch" id="by_date">Search</a>
                   </div>
                 </div>
-
               </div>
+
             </form>
 
             <br>
@@ -96,10 +102,10 @@
 
 
             <div class="table-responsive">
-              <table class="table table-bordered table-sm ">
+              <table class="table table-bordered table-sm" id="cp_ledger">
                 <thead>
                   <tr>
-                    <th scope="col">#</th>
+                    <!-- <th scope="col">#</th> -->
                     <th scope="col">ID</th>
                     <th scope="col">Date</th>
                     <th scope="col">Particulars / Description</th>
@@ -108,62 +114,14 @@
                     <th scope="col">Balance</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>#225695</td>
-                    <td>22-22-2222</td>
-                    <td>Covid 19 RNA PCR (Test Performed)</td>
-                    <td>Rs: 3000</td>
-                    <td>0</td>
-                    <td>Rs: 3000</td>
+                <footer>
+                  <tr class="thead-dark">
+                    <th colspan="4">Total</th>
+                    <th>Rs: 12000</th>
+                    <th>Rs: 5000</th>
+                    <th>Rs: 7000</th>
                   </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>#225695</td>
-                    <td>22-22-2222</td>
-                    <td>Covid 19 RNA PCR (Test Performed)</td>
-                    <td>Rs: 3000</td>
-                    <td></td>
-                    <td>Rs: 6000</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>#225695</td>
-                    <td>22-22-2222</td>
-                    <td>Covid 19 RNA PCR (Test Performed)</td>
-                    <td>Rs: 3000</td>
-                    <td></td>
-                    <td>Rs: 9000</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>#225695</td>
-                    <td>22-22-2222</td>
-                    <td>Amount Paid via CASH</td>
-                    <td></td>
-                    <td>Rs: 5000</td>
-                    <td>Rs: 4000</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>#225695</td>
-                    <td>22-22-2222</td>
-                    <td>Covid 19 RNA PCR (Test Performed)</td>
-                    <td>Rs: 3000</td>
-                    <td></td>
-                    <td>Rs: 7000</td>
-                  </tr>
-                  <footer>
-                    <tr class="thead-dark">
-                      <th colspan="4">Total</th>
-                      <th>Rs: 12000</th>
-                      <th>Rs: 5000</th>
-                      <th>Rs: 7000</th>
-                    </tr>
-                  </footer>
-
-                </tbody>
+                </footer>
 
                 <caption>
                   Captions of the table
@@ -300,8 +258,6 @@
         </div>
 
 
-
-
       </div>
     </div>
   </div>
@@ -312,5 +268,7 @@
 <!-- container fluid -->
 
 <script src="{{asset('assets/developer/admin/accounts.js')}}"></script>
+
+<script src="{{asset('assets/developer/admin/ledgers.js')}}"></script>
 
 @endsection

@@ -331,7 +331,7 @@ class PatientController extends Controller
                     }
 
                     if(!empty($user->collection_point_id)){
-                        $this->addCpLedger($tests);
+                        $this->addCpLedger($tests,$invoice_id);
                     }
 
                     if(!empty($test_profiles)){
@@ -357,12 +357,13 @@ class PatientController extends Controller
         echo json_encode($data);
     }
 
-    public function addCpLedger($test_ids = [])
+    public function addCpLedger($test_ids = [] , $invoice_id = 0)
     {
         $amount = 0;
         $user = Auth::user();
         $ledger = new Ledger;
         $ledger->user_id = $user->id;
+        $ledger->invoice_id = $invoice_id;
         if(empty($user->collection_point_id) || empty($test_ids)){
             return false;
         }
