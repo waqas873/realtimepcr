@@ -25,41 +25,30 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ledgers`
+-- Table structure for table `system_invoices`
 --
 
-CREATE TABLE `ledgers` (
+CREATE TABLE `system_invoices` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` int(11) DEFAULT NULL COMMENT 'who created this',
-  `invoice_id` int(11) DEFAULT NULL,
-  `collection_point_id` int(11) DEFAULT NULL,
-  `lab_id` int(11) DEFAULT NULL,
   `unique_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `amount` int(11) DEFAULT NULL,
-  `is_debit` tinyint(4) NOT NULL DEFAULT 0,
-  `is_credit` tinyint(4) NOT NULL DEFAULT 0,
+  `payment_method` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `is_recieved` tinyint(4) NOT NULL DEFAULT 1,
+  `date` date DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `ledgers`
---
-
-INSERT INTO `ledgers` (`id`, `user_id`, `invoice_id`, `collection_point_id`, `lab_id`, `unique_id`, `description`, `amount`, `is_debit`, `is_credit`, `created_at`, `updated_at`) VALUES
-(1, 8, NULL, 1, NULL, '410774', 'Amount received from patient', 7500, 1, 0, '2021-05-10 20:52:46', '2021-05-10 20:52:46'),
-(2, 8, NULL, 1, NULL, '273269', 'Amount received from patient', 1000, 0, 1, '2021-05-10 20:54:26', '2021-05-10 20:54:26'),
-(5, 8, NULL, 1, NULL, '66536', 'Amount received from patient', 1200, 1, 0, '2021-05-10 21:06:57', '2021-05-10 21:06:57');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `ledgers`
+-- Indexes for table `system_invoices`
 --
-ALTER TABLE `ledgers`
+ALTER TABLE `system_invoices`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -67,10 +56,10 @@ ALTER TABLE `ledgers`
 --
 
 --
--- AUTO_INCREMENT for table `ledgers`
+-- AUTO_INCREMENT for table `system_invoices`
 --
-ALTER TABLE `ledgers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+ALTER TABLE `system_invoices`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

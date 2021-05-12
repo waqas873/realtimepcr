@@ -199,11 +199,11 @@
                 <p>Discount Ratio</p>
               </div>
               <div class="col-sm-2 data-card">
-                <h3 class="val-card" style="color: #00c169;">Rs:5000</h3>
+                <h3 class="val-card" style="color: #00c169;">Rs: {{$amount_paid}}</h3>
                 <p>Amount Paid</p>
               </div>
               <div class="col-sm-2 data-card">
-                <h3 class="val-card" style="color: #ff000080;">Rs:5000</h3>
+                <h3 class="val-card" style="color: #ff000080;">Rs: {{$amount_payable}}</h3>
                 <p>Amount Payable</p>
               </div>
 

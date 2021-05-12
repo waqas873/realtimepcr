@@ -397,13 +397,8 @@ class PatientController extends Controller
         $ledger->amount = $amount;
         $ledger->is_debit = 1;
         
-        $result = Ledger::where('collection_point_id',$cp_id)->latest()->first();
-        if(!empty($result)){
-            $ledger->balance = $result->balance+$amount;
-        }
-        else{
-            $ledger->balance = $amount;
-        }
+        //$result = Ledger::where('collection_point_id',$cp_id)->latest()->first();
+
         $ledger->save();
         return true;
     }

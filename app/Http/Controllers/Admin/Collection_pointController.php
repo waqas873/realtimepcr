@@ -64,6 +64,8 @@ class Collection_pointController extends Controller
                     }
                 }
             }
+            $data['amount_paid'] = Ledger::where('collection_point_id',$id)->where('is_credit',1)->sum('amount');
+            $data['amount_payable'] = Ledger::where('collection_point_id',$id)->where('is_debit',1)->sum('amount');
             return view('admin.collection_points.view_profile',$data);
         }
     }

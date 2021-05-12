@@ -75,6 +75,7 @@ class LedgersController extends Controller
         //dd($result_data);
 
         if(isset($result_data)){
+        	$total_balance = 0;
             foreach($result_data as $item){
                 $single_field['unique_id'] = '#'.$item->unique_id;
                 $date = explode(' ', $item->created_at);
@@ -82,7 +83,13 @@ class LedgersController extends Controller
                 $single_field['description'] = (!empty($item->description))?$item->description:'---';
                 $single_field['debit'] = (!empty($item->is_debit))?'Rs: '.$item->amount:'0';
                 $single_field['credit'] = (!empty($item->is_credit))?'Rs: '.$item->amount:'0';
-                $single_field['balance'] = 'Rs: '.$item->balance;
+                if(!empty($item->is_debit)){
+                	$total_balance = $total_balance+$item->amount;
+                }
+                if(!empty($item->is_credit)){
+                	$total_balance = $total_balance-$item->amount;
+                }
+                $single_field['balance'] = 'Rs: '.$total_balance;
                 $result_array[] = $single_field;
             }
             $data['draw'] = $draw;
