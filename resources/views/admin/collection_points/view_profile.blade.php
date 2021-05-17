@@ -210,9 +210,8 @@
             </div>
             <div class="row">
               <div class="col-sm-12">
-                <button type="submit" class="btn btn-light float-right" data-toggle="modal" data-target=".addPayment">Add Payment</button>
+                <button type="button" class="btn btn-light float-right" id="addPaymentBtn">Add Payment</button>
               </div>
-
             </div>
             <br>
             <div class="row">
@@ -320,48 +319,56 @@
 
 
 
-<div class="modal fade addPayment" id="addPayment" tabindex="-1" role="dialog" aria-labelledby="addPayment" aria-hidden="true">
+<div class="modal fade addPayment" id="addPaymentModal" tabindex="-1" role="dialog" aria-labelledby="addPayment" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+        <h5 class="modal-title" id="exampleModalLabel">New Payment</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+      <form id="addPaymentForm" method="post">
       <div class="modal-body">
-        <form>
+          @csrf
+
+          <input type="hidden" name="id" class="system_invocie_id">
+          <input type="hidden" name="collection_point_id" value="{{$result->id}}">
+
           <div class="form-group">
             <label for="recipient-name" class="col-form-label">Date:</label>
-            <input type="text" class="form-control" id="recipient-name">
+            <input type="date" name="date" class="form-control date">
+            <div class="all_errors date_error"></div>
           </div>
           <div class="form-group">
-            <label for="assetVal">Enter Amount</label>
+            <label for="amount">Enter Amount</label>
             <div class="input-group mb-2">
               <div class="input-group-prepend">
                 <div class="input-group-text">Rs:</div>
               </div>
-              <input name="value" type="number" class="form-control value" id="assetVal" placeholder="Enter Value">
+              <input name="amount" type="number" class="form-control value amount" placeholder="Enter Value">
             </div>
-            <div class="all_errors value_error"></div>
+            <div class="all_errors amount_error"></div>
           </div>
           <div class="form-group">
             <label for="message-text" class="col-form-label">Payment Method</label>
-            <select class="form-control" name="" id="">
-              <option value="">Cash</option>
-              <option value="">Bank Transfer</option>
-              <option value="">Payment Gateway</option>
+            <select class="form-control payment_method" name="payment_method" id="payment_method">
+              <option value="">Select here</option>
+              <option value="Cash">Cash</option>
+              <option value="Bank Transfer">Bank Transfer</option>
+              <option value="Payment Gateway">Payment Gateway</option>
             </select>
+            <div class="all_errors payment_method_error"></div>
           </div>
           <div class="form-group">
             <label for="message-text" class="col-form-label">Description</label>
-            <textarea class="form-control" id="message-text"></textarea>
+            <textarea class="form-control description" name="description" id="message-text"></textarea>
           </div>
-        </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">Save Record</button>
+        <button type="submit" class="btn btn-primary">Save Record</button>
       </div>
+      </form>
     </div>
   </div>
 </div>

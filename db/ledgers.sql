@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 12, 2021 at 08:26 PM
+-- Generation Time: May 17, 2021 at 09:43 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.2
 
@@ -34,6 +34,7 @@ CREATE TABLE `ledgers` (
   `invoice_id` int(11) DEFAULT NULL,
   `collection_point_id` int(11) DEFAULT NULL,
   `lab_id` int(11) DEFAULT NULL,
+  `system_invoice_id` int(11) DEFAULT NULL,
   `unique_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `amount` int(11) DEFAULT NULL,
@@ -47,10 +48,10 @@ CREATE TABLE `ledgers` (
 -- Dumping data for table `ledgers`
 --
 
-INSERT INTO `ledgers` (`id`, `user_id`, `invoice_id`, `collection_point_id`, `lab_id`, `unique_id`, `description`, `amount`, `is_debit`, `is_credit`, `created_at`, `updated_at`) VALUES
-(1, 8, NULL, 1, NULL, '410774', 'Amount received from patient', 7500, 1, 0, '2021-05-10 20:52:46', '2021-05-10 20:52:46'),
-(2, 8, NULL, 1, NULL, '273269', 'Amount received from patient', 1000, 0, 1, '2021-05-10 20:54:26', '2021-05-10 20:54:26'),
-(5, 8, NULL, 1, NULL, '66536', 'Amount received from patient', 1200, 1, 0, '2021-05-10 21:06:57', '2021-05-10 21:06:57');
+INSERT INTO `ledgers` (`id`, `user_id`, `invoice_id`, `collection_point_id`, `lab_id`, `system_invoice_id`, `unique_id`, `description`, `amount`, `is_debit`, `is_credit`, `created_at`, `updated_at`) VALUES
+(1, 8, NULL, 1, NULL, NULL, '410774', 'Amount received from patient', 7500, 1, 0, '2021-05-10 20:52:46', '2021-05-10 20:52:46'),
+(2, 8, NULL, 1, NULL, NULL, '273269', 'Amount received from patient', 1000, 0, 1, '2021-05-10 20:54:26', '2021-05-10 20:54:26'),
+(5, 8, NULL, 1, NULL, NULL, '66536', 'Amount received from patient', 1200, 1, 0, '2021-05-10 21:06:57', '2021-05-10 21:06:57');
 
 --
 -- Indexes for dumped tables

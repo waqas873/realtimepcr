@@ -124,6 +124,10 @@ Route::group(['middleware' => ['web','admin']], function()
         Route::post('/cash-user-transfer', 'Admin\AccountsController@cashUserTransfer');
 
         Route::post('/get-cp-ledger', 'Admin\LedgersController@cpLedger');
+        
+        Route::get('/get-system-invoice', 'Admin\System_invoiceController@update');
+        Route::post('/add-system-invoice', 'Admin\System_invoiceController@process_add');
+
 
         Route::get('/logs', 'Admin\LogsController@index');
         Route::post('/get-logs', 'Admin\LogsController@get_logs');
