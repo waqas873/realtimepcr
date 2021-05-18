@@ -16,6 +16,7 @@ class CreateSystemInvoicesTable extends Migration
         Schema::create('system_invoices', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id')->nullable()->comment = 'who created this';
+            $table->integer('collection_point_id')->nullable();
             $table->string('unique_id')->nullable();
             $table->integer('amount')->nullable();
             $table->string('payment_method')->nullable();

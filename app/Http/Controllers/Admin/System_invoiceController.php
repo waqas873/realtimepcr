@@ -79,6 +79,7 @@ class System_invoiceController extends Controller
             else{
                 $save = new System_invoice;
                 $save->user_id = $user->id;
+                $save->collection_point_id = $cp_id;
                 $save->date = $formData['date'];
                 $save->amount = $formData['amount'];
                 $save->payment_method = $formData['payment_method'];
@@ -135,7 +136,86 @@ class System_invoiceController extends Controller
         return true;
     }
 
+    public function get_datatable(Request $request)
+    {
+        $like = array();
+        $result_array = [];
+        $post = $request->all();
 
+        $orderByColumnIndex = $post['order'][0]['column'];
+        $orderByColumn = $post['columns'][$orderByColumnIndex]['data'];
+        $orderType = $post['order'][0]['dir'];
+        $offset = $post['start'];
+        $limit = $post['length'];
+        $draw = $post['draw'];
+        $search = $post['search']['value'];
+
+        $collection_point_id = $post['collection_point_id'];
+
+        $auth = Auth::user();
+
+        $result_count = System_invoice::where('collection_point_id',$collection_point_id)->count();
+
+        $result = new System_invoice;
+        $result = $result->where('collection_point_id' , $collection_point_id);
+
+        if(!empty($search)){
+            $result = $result->where('unique_id', 'like', '%' .$search. '%');
+        }
+
+        $result_count_rows = count($result->get());
+
+        $result_data = $result->orderBy('id' , 'ASC')->skip($offset)->take($limit)->get();
+        //dd($result_data);
+
+        if(isset($result_data)){
+        	$total_balance = 0;
+            foreach($result_data as $item){
+            	$single_field['date'] = $item->date;
+                $single_field['unique_id'] = '#'.$item->unique_id;
+                $single_field['amount'] = 'Rs: '.$item->amount;
+                $single_field['description'] = (!empty($item->description))?$item->description:'---';
+                $single_field['payment_method'] = $item->payment_method;
+                $single_field['action'] = '
+                   <div class="btn-group">
+                        <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                        <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-126px, 35px, 0px);">
+                          <a href="javascript::" class="system_invoice_update_id" rel="'.$item->id.'">
+                            <button class="dropdown-item" type="button">Edit</button>
+                          </a>
+                          <a href="'.url('admin/delete-system-invoice/'.$item->id.'/'.$item->collection_point_id).'" class="delete_system_invoice">
+                            <button class="dropdown-item" type="button">Delete</button>
+                          </a>
+                        </div>
+                    </div>
+                ';
+                $result_array[] = $single_field;
+            }
+            $data['draw'] = $draw;
+            $data['recordsTotal'] = $result_count;
+            $data['recordsFiltered'] = $result_count_rows;
+            $data['data'] = $result_array;
+        } else {
+            $data['draw'] = $draw;
+            $data['recordsTotal'] = 0;
+            $data['recordsFiltered'] = 0;
+            $data['data'] = '';
+        }
+        echo json_encode($data);
+    }
+
+    public function delete($id = 0,$cp_id = 0)
+    {
+        $data  = [];
+        $class = new System_invoice;
+        $result = $class->find($id);
+        if(empty($result)){
+            return redirect('admin/cp-view-profile/'.$cp_id)->with('error_message' , 'This record does not exist.');
+        }
+        $result->delete();
+        Ledger::where('system_invoice_id',$id)->delete();
+        return redirect('admin/cp-view-profile/'.$cp_id)->with('success_message' , 'Record has been deleted successfully.');
+    }
 
 
 }

@@ -48,7 +48,6 @@
         <ul class="nav nav-tabs" role="tablist">
           <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#CPprofile" role="tab"><span class="d-none d-md-block">CP Profile</span><span class="d-block d-md-none"><i class="mdi mdi-home-variant h5"></i></span></a></li>
           <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#prizes" role="tab"><span class="d-none d-md-block">Special Prizes</span><span class="d-block d-md-none"><i class="mdi mdi-email h5"></i></span></a></li>
-          <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#CPLedgers" role="tab"><span class="d-none d-md-block">Ledgers</span><span class="d-block d-md-none"><i class="mdi mdi-settings h5"></i></span></a></li>
           <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Trx" role="tab"><span class="d-none d-md-block">Transactions</span><span class="d-block d-md-none"><i class="mdi mdi-settings h5"></i></span></a></li>
         </ul><!-- Tab panes -->
         <div class="tab-content">
@@ -71,6 +70,10 @@
               <div class="col-sm-2">Reports:</div>
               <div class="col-sm-10">
                 <a href="{{url('admin/staff-patients/collection-point/'.$result->id)}}">Click here to view reports</a>
+              </div>
+              <div class="col-sm-2">Ledgers:</div>
+              <div class="col-sm-10">
+                <a href="{{url('admin/accounts/ledgers/cp/'.$result->id)}}">Click here to view ledger</a>
               </div>
             </div>
             <hr>
@@ -172,9 +175,6 @@
               </table>
             </div>
           </div>
-          <div class="tab-pane p-3" id="CPLedgers" role="tabpanel">
-            Current User Ledger will be shown here
-          </div>
           <div class="tab-pane p-3" id="Trx" role="tabpanel">
 
             <style>
@@ -215,12 +215,12 @@
             </div>
             <br>
             <div class="row">
-              <table class="table table-borderless">
+              <table class="table table-borderless" id="systemInvoices">
                 <thead class="thead-dark">
                   <tr>
-                    <th>S.No</th>
                     <th>Date</th>
                     <th>Invoice ID</th>
+                    <th>Amount</th>
                     <th>Description</th>
                     <th>Payment Method</th>
                     <th>Action</th>
@@ -228,7 +228,6 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td>1</td>
                     <td>11-11-1111</td>
                     <td>#225566</td>
                     <td>Description</td>
@@ -333,7 +332,7 @@
           @csrf
 
           <input type="hidden" name="id" class="system_invocie_id">
-          <input type="hidden" name="collection_point_id" value="{{$result->id}}">
+          <input type="hidden" name="collection_point_id" value="{{$result->id}}" class="collection_point_id">
 
           <div class="form-group">
             <label for="recipient-name" class="col-form-label">Date:</label>

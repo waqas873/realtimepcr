@@ -114,10 +114,13 @@ class AccountsController extends Controller
         echo json_encode($data);
     }
 
-    public function ledgers()
+    public function ledgers($action = '',$id = 0)
     {
         $data = [];
         $data['collection_points'] = Collection_point::all();
+        if($action=='cp'){
+            $data['cp_id'] = $id;
+        }
         return view('admin.accounts.ledgers',$data);
     }
 

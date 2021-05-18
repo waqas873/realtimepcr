@@ -191,11 +191,11 @@ $(document).on('click', '.system_invoice_update_id', function (e) {
       dataType: 'JSON',
       success: function (data) {
         if(data.response){
-          $('#system_invocie_id').val(data.result.id);
+          $('.system_invocie_id').val(data.result.id);
           $('.date').val(data.result.date);
           $('.amount').val(data.result.amount);
           $('.payment_method').val(data.result.payment_method).change();
-          $('.description').html(data.result.amount);
+          $('.description').html(data.result.description);
           $('#addPaymentModal').modal('show');
         }
       }
@@ -229,8 +229,62 @@ $(document).on('submit', '#addPaymentForm', function (e) {
   });
 });
 
+$(document).on('click', '.delete_system_invoice', function (e) {
+  e.preventDefault();
+  var url = $(this).attr('href');
+  swal({
+    title: "Are you sure?",
+    text: "If a system invoice is deleted than all its data will be deleted.Are you sure to do this?",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  })
+  .then((willDelete) => {
+    if (willDelete) {
+      location.replace(url);
+    }
+  });
+});
+
 $('#collection_point_categories').DataTable({});
 $('#cpTestsDatatable').DataTable({});
+
+$('#systemInvoices').DataTable({
+  "ordering": true,
+  "lengthChange": true,
+  "searching": true,
+  "processing":true,
+  "serverSide": true,
+  "ajax": {
+      url: '/admin/get-system-invoices-datatable',
+      type: 'POST',
+      "data": function (d) {
+          return $.extend({}, d, {
+            "_token": $('meta[name="csrf-token"]').attr('content'),
+            "collection_point_id": $('.collection_point_id').val(),
+          });
+      } 
+  },
+  "order": [
+      [0, 'desc']
+  ],
+  columnDefs: [
+      {'targets': 0, 'orderable': false},
+      {'targets': 1, 'orderable': false},
+      {'targets': 2, 'orderable': false},
+      {'targets': 3, 'orderable': false},
+      {'targets': 4, 'orderable': false},
+      {'targets': 5, 'orderable': false},
+  ],
+  "columns": [
+      {"data": "date"},
+      {"data": "unique_id"},
+      {"data": "amount"},
+      {"data": "description"},
+      {"data": "payment_method"},
+      {"data": "action"}
+  ]
+});
 
 function errors(arr = ''){
     $.each(arr, function( key, value ) {

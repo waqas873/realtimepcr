@@ -117,7 +117,7 @@ Route::group(['middleware' => ['web','admin']], function()
         Route::get('/accounts/transfers', 'Admin\AccountsController@transfers');
         Route::get('/accounts/cashbook', 'Admin\AccountsController@cashbook');
         Route::get('/accounts/vouchers', 'Admin\AccountsController@vouchers');
-        Route::get('/accounts/ledgers', 'Admin\AccountsController@ledgers');
+        Route::get('/accounts/ledgers/{action?}/{id?}', 'Admin\AccountsController@ledgers');
         Route::get('/accounts/trial-balance', 'Admin\AccountsController@trial_balance');
         Route::get('/accounts/balance-sheet', 'Admin\AccountsController@balance_sheet');
         Route::get('/accounts/income-statment', 'Admin\AccountsController@income_statment');
@@ -125,8 +125,10 @@ Route::group(['middleware' => ['web','admin']], function()
 
         Route::post('/get-cp-ledger', 'Admin\LedgersController@cpLedger');
         
-        Route::get('/get-system-invoice', 'Admin\System_invoiceController@update');
+        Route::get('/get-system-invoice/{id?}', 'Admin\System_invoiceController@update');
         Route::post('/add-system-invoice', 'Admin\System_invoiceController@process_add');
+        Route::post('/get-system-invoices-datatable', 'Admin\System_invoiceController@get_datatable');
+        Route::get('/delete-system-invoice/{id?}/{cp_id?}', 'Admin\System_invoiceController@delete');
 
 
         Route::get('/logs', 'Admin\LogsController@index');
