@@ -57,7 +57,7 @@
 
               <div class="form-group">
                 <label for="collection_point_id">Select Collection Point</label>
-                <select name="collection_point_id" id="collection_point_id" class="form-control form-control-lg select2">
+                <select name="collection_point_id" id="collection_point_id" class="form-control form-control-lg <!--select2-->">
                   @if(!empty($collection_points))
                   @foreach($collection_points as $key=>$value)
                   <option value="{{$value->id}}" <?php echo (!empty($cp_id) && $cp_id==$value->id)?"selected":''; ?>>{{$value->name}}</option>
