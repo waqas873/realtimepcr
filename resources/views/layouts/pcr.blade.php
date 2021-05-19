@@ -21,7 +21,6 @@
   <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css">
   <link href="{{asset('assets/css/icons.css')}}" rel="stylesheet" type="text/css">
   <link href="{{asset('assets/css/style.css')}}" rel="stylesheet" type="text/css">
-  <link href="{{asset('assets/css/cmp-style.css')}}" rel="stylesheet" type="text/css">
 
   <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
@@ -43,12 +42,6 @@
   <script src="{{asset('assets/js/jquery.min.js')}}"></script>
   <script src="{{asset('assets/js/sweetalert.min.js')}}"></script>
   <script src="{{asset('assets/developer/loadingOverlay.js')}}"></script>
-
-  <style>
-  html{
-    background-color: #fff;
-  }
-  </style>
 
 </head>
 
@@ -154,7 +147,7 @@
 
     <!-- Start right Content here -->
 
-    <div class="content-page" style="background-color: #fff;">
+    <div class="content-page">
       <!-- Start content -->
       <div class="content">
 
