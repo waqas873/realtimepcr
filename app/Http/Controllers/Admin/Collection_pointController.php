@@ -258,4 +258,15 @@ class Collection_pointController extends Controller
         return redirect('admin/collection-points')->with('success_message' , 'Collection point and its related inactive users have been deleted successfully.');
     }
 
+    public function delete_cp_test($id = 0 , $cp_id = 0)
+    {
+        $data  = [];
+        $result = Collection_point_test::find($id);
+        if(empty($result)){
+            return redirect('admin/cp-view-profile/'.$cp_id)->with('error_message' , 'This record does not exist.');
+        }
+        Collection_point_test::where('id',$id)->delete();
+        return redirect('admin/cp-view-profile/'.$cp_id)->with('success_message' , 'Record has been deleted successfully.');
+    }
+
 }

@@ -163,7 +163,7 @@
                     <td><a href="javascript::" rel="{{$value->id}}" class="cp_test_update_id">
                         Edit
                       </a>
-                      <a href="javascript::" rel="{{$value->id}}" class="">
+                      <a href="{{url('admin/delete-cp-test/'.$value->id.'/'.$result->id)}}" class="delete-cp-test">
                         Delete
                       </a>
                     

@@ -176,6 +176,23 @@ $(document).on('click', '.delete_cp', function (e) {
   });
 });
 
+$(document).on('click', '.delete-cp-test', function (e) {
+  e.preventDefault();
+  var url = $(this).attr('href');
+  swal({
+    title: "Are you sure?",
+    text: "If a collection point test is deleted than all its data will be deleted.Are you sure to do this?",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  })
+  .then((willDelete) => {
+    if (willDelete) {
+      location.replace(url);
+    }
+  });
+});
+
 $(document).on('click', '#addPaymentBtn', function (e) {
   $('#addPaymentForm').trigger("reset");
   $('.all_errors').empty();

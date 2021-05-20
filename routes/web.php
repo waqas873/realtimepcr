@@ -98,6 +98,13 @@ Route::group(['middleware' => ['web','admin']], function()
         Route::post('/add-cp-test', 'Admin\Collection_pointController@processCpTest');
         Route::post('/add-collection-point', 'Admin\Collection_pointController@process_add');
         Route::get('/delete-cp/{id?}', 'Admin\Collection_pointController@delete');
+        Route::get('/delete-cp-test/{id?}/{cp_id?}', 'Admin\Collection_pointController@delete_cp_test');
+
+        Route::get('/update-doctor-category/{id?}', 'Admin\DoctorsController@updateDoctorCategory');
+        Route::post('/update-doctor-category', 'Admin\DoctorsController@processUpdateDoctorCategory');
+        Route::get('/update-doctor-test/{id?}', 'Admin\DoctorsController@updateDoctorTest');
+        Route::post('/add-doctor-test', 'Admin\DoctorsController@processDoctorTest');
+        Route::get('/delete-doctor-test/{id?}/{doctor_id?}', 'Admin\DoctorsController@delete_doctor_test');
 
         Route::get('/staff', 'Admin\StaffController@index');
         Route::get('/staff-profile/{id?}', 'Admin\StaffController@viewProfile');

@@ -10,12 +10,21 @@ use Illuminate\Support\Facades\Hash;
 use DB;
 use App\Doctor;
 use App\User;
+use App\Category;
+use App\Ledger;
+use App\Doctor_category;
+use App\Doctor_test;
+use App\Test;
 
 class DoctorsController extends Controller
 {
+    public $date_time;
+
     public function __construct()
     {
         $this->middleware('auth');
+        date_default_timezone_set("Asia/Karachi");
+        $this->date_time = date('Y:m:d H:i:s');
     }
 
     public function index()
@@ -32,7 +41,31 @@ class DoctorsController extends Controller
     public function viewProfile($id = 0)
     {
         $data = [];
-        return view('doctors.view_profile',$data);
+        $cp = new Doctor;
+        $result = $cp->find($id);
+        if(!empty($result)){
+            $data['result'] = $result;
+            $data['tests'] = Test::all();
+            $data['doctor_tests'] = Doctor_test::all();
+            if(empty($result->doctor_categories[0])){
+                $categories = Category::all();
+                if(!empty($categories)){
+                    foreach($categories as $key => $value){
+                        $save = new Doctor_category;
+                        $save->user_id = Auth::user()->id;
+                        $save->doctor_id = $id;
+                        $save->category_id = $value->id;
+                        $save->discount_percentage = 0;
+                        $save->save();
+                    }
+                }
+            }
+            $amount_paid = Ledger::where('doctor_id',$id)->where('is_credit',1)->sum('amount');
+            $amount_payable = Ledger::where('doctor_id',$id)->where('is_debit',1)->sum('amount');
+            $data['amount_paid'] = $amount_paid;
+            $data['amount_payable'] = $amount_payable-$amount_paid;
+            return view('doctors.view_profile',$data);
+        }
     }
 
     public function update($id='0')
@@ -129,4 +162,100 @@ class DoctorsController extends Controller
         }
         echo json_encode($data);
     }
+
+    public function updateDoctorCategory($id='0')
+    {
+        $data = [];
+        $data['response'] = false;
+        $result = Doctor_category::find($id);
+        if(!empty($result)){
+            $data['result'] = $result;
+            $data['response'] = true;
+        }
+        echo json_encode($data);
+    }
+
+    public function processUpdateDoctorCategory(Request $request)
+    {
+        $data = [];
+        $data['response'] = false;
+
+        $formData = $request->all();
+        $rules = [
+            'id'=>'required',
+            'discount_percentage' => 'required|min:1|max:3',
+            'custom_prizes' => 'required'
+        ];
+        $messages = [];
+        $attributes = [];
+        $validator = Validator::make($formData,$rules,$messages,$attributes);
+        if($validator->fails()){
+            $data['errors'] = $validator->errors();
+        }
+        else{
+            $id = $formData['id'];
+            unset($formData['_token'],$formData['id']);
+            if(!empty($id)){
+                $result = Doctor_category::where('id',$id)->update($formData);
+                $data['response'] = true;
+            }
+        }
+        echo json_encode($data);
+    }
+
+    public function updateDoctorTest($id='0')
+    {
+        $data = [];
+        $data['response'] = false;
+        $result = Doctor_test::find($id);
+        if(!empty($result)){
+            $data['result'] = $result;
+            $data['response'] = true;
+        }
+        echo json_encode($data);
+    }
+
+    public function processDoctorTest(Request $request)
+    {
+        $data = [];
+        $data['response'] = false;
+
+        $formData = $request->all();
+        $rules = [
+            'doctor_id'=>'required',
+            'test_id' => 'required',
+            'discounted_price' => 'required'
+        ];
+        $messages = [];
+        $attributes = [];
+        $validator = Validator::make($formData,$rules,$messages,$attributes);
+        if($validator->fails()){
+            $data['errors'] = $validator->errors();
+        }
+        else{
+            $id = $formData['id'];
+            unset($formData['_token'],$formData['id']);
+            if(!empty($id)){
+                $result = Doctor_test::where('id',$id)->update($formData);
+            }
+            else{
+                $formData['user_id'] = Auth::user()->id;
+                Doctor_test::insert($formData);
+            }
+            $data['response'] = true;
+        }
+        echo json_encode($data);
+    }
+
+    public function delete_doctor_test($id = 0 , $doctor_id = 0)
+    {
+        $data  = [];
+        $result = Doctor_test::find($id);
+        if(empty($result)){
+            return redirect('admin/doctor-profile/'.$doctor_id)->with('error_message' , 'This record does not exist.');
+        }
+        Doctor_test::where('id',$id)->delete();
+        return redirect('admin/doctor-profile/'.$doctor_id)->with('success_message' , 'Record has been deleted successfully.');
+    }
+
 }
