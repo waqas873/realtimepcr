@@ -65,9 +65,17 @@ class System_invoiceController extends Controller
             $id = $formData['id'];
             unset($formData['_token'],$formData['id']);
             $cp_id = null;
+            $doctor_id = null;
+            $description = null;
             if(!empty($formData['collection_point_id'])){
             	$cp_id = $formData['collection_point_id'];
             	unset($formData['collection_point_id']);
+                $description = 'Amount recieved from collection point.';
+            }
+            if(!empty($formData['doctor_id'])){
+                $doctor_id = $formData['doctor_id'];
+                unset($formData['doctor_id']);
+                $description = 'Amount delivered to doctor.';
             }
             $user = Auth::user();
             if(!empty($id)){
@@ -80,6 +88,10 @@ class System_invoiceController extends Controller
                 $save = new System_invoice;
                 $save->user_id = $user->id;
                 $save->collection_point_id = $cp_id;
+                $save->doctor_id = $doctor_id;
+                if(!empty($formData['doctor_id'])){
+                    $save->is_recieved = 0;
+                }
                 $save->date = $formData['date'];
                 $save->amount = $formData['amount'];
                 $save->payment_method = $formData['payment_method'];
@@ -101,14 +113,14 @@ class System_invoiceController extends Controller
                 $save->save();
 
                 $system_invoice_id = $save->id;
-                $this->addLedger($formData['amount'],$system_invoice_id,$cp_id,'Amount recieved from collection point.');
+                $this->addLedger($formData['amount'],$system_invoice_id,$cp_id,$doctor_id,$description);
             }
             $data['response'] = true;
         }
         echo json_encode($data);
     }
 
-    public function addLedger($amount = 0,$si_id = null,$cp_id = null,$description = null)
+    public function addLedger($amount = 0,$si_id = null,$cp_id = null,$doctor_id = null,$description = null)
     {
         $user = Auth::user();
         $ledger = new Ledger;
@@ -119,6 +131,7 @@ class System_invoiceController extends Controller
         }
         $ledger->amount = $amount;
         $ledger->collection_point_id = $cp_id;
+        $ledger->doctor_id = $doctor_id;
         $uniq_id = '000000';
         $uniqueness = false;
         while($uniqueness == false){
@@ -150,14 +163,21 @@ class System_invoiceController extends Controller
         $draw = $post['draw'];
         $search = $post['search']['value'];
 
-        $collection_point_id = $post['collection_point_id'];
-
         $auth = Auth::user();
-
-        $result_count = System_invoice::where('collection_point_id',$collection_point_id)->count();
-
+        
         $result = new System_invoice;
-        $result = $result->where('collection_point_id' , $collection_point_id);
+            
+        if(!empty($post['collection_point_id'])){
+            $collection_point_id = $post['collection_point_id'];
+            $result_count = System_invoice::where('collection_point_id',$collection_point_id)->count();
+            $result = $result->where('collection_point_id' , $collection_point_id);
+        }
+
+        if(!empty($post['doctor_id'])){
+            $doctor_id = $post['doctor_id'];
+            $result_count = System_invoice::where('doctor_id',$doctor_id)->count();
+            $result = $result->where('doctor_id' , $doctor_id);
+        }
 
         if(!empty($search)){
             $result = $result->where('unique_id', 'like', '%' .$search. '%');
@@ -169,7 +189,6 @@ class System_invoiceController extends Controller
         //dd($result_data);
 
         if(isset($result_data)){
-        	$total_balance = 0;
             foreach($result_data as $item){
             	$single_field['date'] = $item->date;
                 $single_field['unique_id'] = '#'.$item->unique_id;
@@ -183,7 +202,7 @@ class System_invoiceController extends Controller
                           <a href="javascript::" class="system_invoice_update_id" rel="'.$item->id.'">
                             <button class="dropdown-item" type="button">Edit</button>
                           </a>
-                          <a href="'.url('admin/delete-system-invoice/'.$item->id.'/'.$item->collection_point_id).'" class="delete_system_invoice">
+                          <a href="'.url('admin/delete-system-invoice/'.$item->id).'" class="delete_system_invoice">
                             <button class="dropdown-item" type="button">Delete</button>
                           </a>
                         </div>
@@ -204,17 +223,23 @@ class System_invoiceController extends Controller
         echo json_encode($data);
     }
 
-    public function delete($id = 0,$cp_id = 0)
+    public function delete($id = 0)
     {
         $data  = [];
         $class = new System_invoice;
         $result = $class->find($id);
         if(empty($result)){
-            return redirect('admin/cp-view-profile/'.$cp_id)->with('error_message' , 'This record does not exist.');
+            return redirect('admin/dashboard')->with('error_message' , 'This record does not exist.');
         }
-        $result->delete();
         Ledger::where('system_invoice_id',$id)->delete();
-        return redirect('admin/cp-view-profile/'.$cp_id)->with('success_message' , 'Record has been deleted successfully.');
+        if(!empty($result->collection_point_id)){
+            $result->delete();
+            return redirect('admin/cp-view-profile/'.$result->collection_point_id)->with('success_message' , 'Record has been deleted successfully.');
+        }
+        if(!empty($result->doctor_id)){
+            $result->delete();
+            return redirect('admin/doctor-profile/'.$result->doctor_id)->with('success_message' , 'Record has been deleted successfully.');
+        }
     }
 
 

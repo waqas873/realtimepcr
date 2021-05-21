@@ -226,28 +226,6 @@
                     <th>Action</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <td>11-11-1111</td>
-                    <td>#225566</td>
-                    <td>Description</td>
-                    <td>Cash</td>
-                    <td>
-                      <div class="btn-group">
-                        <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-                        <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-126px, 35px, 0px);">
-                          <a href="javascript::" class="">
-                            <button class="dropdown-item" type="button">Edit</button>
-                          </a>
-                          <a href="" class="">
-                            <button class="dropdown-item" type="button">Delete</button>
-                          </a>
-                        </div>
-                      </div>
-                    </td>
-
-                  </tr>
-                </tbody>
               </table>
             </div>
 

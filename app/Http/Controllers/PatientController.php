@@ -25,6 +25,9 @@ use App\Deleted_patient;
 use App\Log;
 use App\Doctor;
 use App\Collection_point_test;
+use App\Collection_point_category;
+use App\Doctor_test;
+use App\Doctor_category;
 
 use Carbon\Carbon;
 
@@ -261,8 +264,8 @@ class PatientController extends Controller
                             if($total_discount > 0){
                                 $dctrAmnt = $dctrAmnt - $total_discount;
                             }
-                            $doctor = Doctor::where(['user_id'=>$doctor_id])->where('affiliate_share','>',0)->first();
-                            if(!empty($doctor)){
+                            $doctor = Doctor::where(['user_id'=>$doctor_id])->first();
+                            if(!empty($doctor) && $doctor->affiliate_share > 0){
                                 $percent = $doctor->affiliate_share;
                                 $dcamnt = ($percent/100)*$dctrAmnt;
                                 $this->cash_add($dcamnt , $doctor_id);
@@ -333,6 +336,9 @@ class PatientController extends Controller
                     if(!empty($user->collection_point_id)){
                         $this->addCpLedger($tests,$invoice_id);
                     }
+                    if(!empty($doctor->id)){
+                        $this->addDoctorLedger($tests,$invoice_id,$doctor->id);
+                    }
 
                     if(!empty($test_profiles)){
                         foreach($test_profiles as $profile_id){
@@ -357,6 +363,52 @@ class PatientController extends Controller
         echo json_encode($data);
     }
 
+    public function addDoctorLedger($test_ids = [] , $invoice_id = 0 , $doctor_id = 0)
+    {
+        $amount = 0;
+        $user = Auth::user();
+        $ledger = new Ledger;
+        $ledger->user_id = $user->id;
+        $ledger->invoice_id = $invoice_id;
+        if(empty($test_ids)){
+            return false;
+        }
+        $ledger->doctor_id = $doctor_id;
+        foreach($test_ids as $test_id){
+            $doctor_test = Doctor_test::where('doctor_id', $doctor_id)->where('test_id', $test_id)->first();
+            if(!empty($doctor_test)){
+                $amount = $amount + $doctor_test->discounted_price;
+            }
+            else{
+                $test = Test::find($test_id);
+                $test_category_id = $test->category_id;
+                $cpc = Doctor_category::where('doctor_id',$doctor_id)->where('category_id',$test_category_id)->where('discount_percentage','>',0)->first();
+                if(!empty($cpc)){
+                    $discnt = ($cpc->discount_percentage/100)*$test->price;
+                    $amount = $amount + $discnt;
+                }
+            }
+        }
+        $uniq_id = '000000';
+        $uniqueness = false;
+        while($uniqueness == false){
+            $uniq_id = rand(1,1000000);
+            $invRes = Ledger::where('unique_id',$uniq_id)->first();
+            if(empty($invRes)){
+                $uniqueness = true;
+            }
+        }
+        $ledger->unique_id = $uniq_id;
+        $ledger->description = 'Doctors Commssion';
+        $ledger->amount = $amount;
+        $ledger->is_debit = 1;
+        
+        //$result = Ledger::where('collection_point_id',$cp_id)->latest()->first();
+
+        $ledger->save();
+        return true;
+    }
+
     public function addCpLedger($test_ids = [] , $invoice_id = 0)
     {
         $amount = 0;
@@ -375,11 +427,23 @@ class PatientController extends Controller
         }
         foreach($test_ids as $test_id){
             $cp_test = Collection_point_test::where('collection_point_id', $cp_id)->where('test_id', $test_id)->first();
+            $test = Test::find($test_id);
             if(!empty($cp_test)){
-                $test = Test::find($test_id);
                 if($amount >= $test->price){
                     $amount = $amount - $test->price;
                     $amount = $amount + $cp_test->discounted_price;
+                }
+            }
+            else{
+                $test_category_id = $test->category_id;
+                $cpc = Collection_point_category::where('collection_point_id',$cp_id)->where('category_id',$test_category_id)->where('discount_percentage','>',0)->first();
+                if(!empty($cpc)){
+                    $discnt = ($cpc->discount_percentage/100)*$test->price;
+                    $discntd_price = $test->price-$discnt;
+                    if($amount >= $test->price){
+                        $amount = $amount - $test->price;
+                        $amount = $amount + $discntd_price;
+                    }
                 }
             }
         }

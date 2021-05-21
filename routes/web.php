@@ -135,7 +135,7 @@ Route::group(['middleware' => ['web','admin']], function()
         Route::get('/get-system-invoice/{id?}', 'Admin\System_invoiceController@update');
         Route::post('/add-system-invoice', 'Admin\System_invoiceController@process_add');
         Route::post('/get-system-invoices-datatable', 'Admin\System_invoiceController@get_datatable');
-        Route::get('/delete-system-invoice/{id?}/{cp_id?}', 'Admin\System_invoiceController@delete');
+        Route::get('/delete-system-invoice/{id?}', 'Admin\System_invoiceController@delete');
 
 
         Route::get('/logs', 'Admin\LogsController@index');

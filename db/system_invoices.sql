@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 18, 2021 at 09:25 PM
+-- Generation Time: May 21, 2021 at 09:18 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.2
 
@@ -32,6 +32,7 @@ CREATE TABLE `system_invoices` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` int(11) DEFAULT NULL COMMENT 'who created this',
   `collection_point_id` int(11) DEFAULT NULL,
+  `doctor_id` int(11) DEFAULT NULL,
   `unique_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `amount` int(11) DEFAULT NULL,
   `payment_method` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -46,11 +47,11 @@ CREATE TABLE `system_invoices` (
 -- Dumping data for table `system_invoices`
 --
 
-INSERT INTO `system_invoices` (`id`, `user_id`, `collection_point_id`, `unique_id`, `amount`, `payment_method`, `description`, `is_recieved`, `date`, `created_at`, `updated_at`) VALUES
-(6, 13, NULL, '368047', 567, 'Bank Transfer', NULL, 1, '2021-05-18', '2021-05-17 20:01:35', '2021-05-17 20:01:35'),
-(7, 13, NULL, '191106', 567, 'Bank Transfer', NULL, 1, '2021-05-18', '2021-05-17 20:01:47', '2021-05-17 20:01:47'),
-(8, 13, NULL, '994529', 4000, 'Payment Gateway', 'testing', 1, '2021-05-18', '2021-05-17 20:04:04', '2021-05-17 20:04:04'),
-(9, 13, NULL, '177748', 700, 'Bank Transfer', NULL, 1, '2021-05-19', '2021-05-17 20:24:33', '2021-05-17 20:24:33');
+INSERT INTO `system_invoices` (`id`, `user_id`, `collection_point_id`, `doctor_id`, `unique_id`, `amount`, `payment_method`, `description`, `is_recieved`, `date`, `created_at`, `updated_at`) VALUES
+(7, 13, 1, NULL, '191106', 567, 'Bank Transfer', NULL, 1, '2021-05-18', '2021-05-17 20:01:47', '2021-05-17 20:01:47'),
+(8, 13, 1, NULL, '994529', 3500, 'Cash', 'testing-894723429423', 1, '2021-05-18', '2021-05-17 20:04:04', '2021-05-18 20:03:51'),
+(10, 13, 1, NULL, '134325', 1500, 'Cash', 'teesti', 1, '2021-05-19', '2021-05-18 19:29:07', '2021-05-18 19:29:07'),
+(12, 13, 1, NULL, '794791', 1200, 'Payment Gateway', 'hello world', 1, '2021-05-19', '2021-05-18 20:32:02', '2021-05-18 20:32:02');
 
 --
 -- Indexes for dumped tables
@@ -70,7 +71,7 @@ ALTER TABLE `system_invoices`
 -- AUTO_INCREMENT for table `system_invoices`
 --
 ALTER TABLE `system_invoices`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

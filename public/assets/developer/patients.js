@@ -77,6 +77,7 @@ $(document).on('submit', '#add-form', function (e) {
       processData: false,
       contentType: false,
       success: function (data) {
+        $('body').LoadingOverlay("hide");
         if(data.response){
 
           swal({
