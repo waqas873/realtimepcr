@@ -46,7 +46,8 @@
         <ul class="nav nav-tabs" role="tablist">
           <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#CP" role="tab"><span class="d-none d-md-block">CP Ledger</span><span class="d-block d-md-none"><i class="mdi mdi-home-variant h5"></i></span></a></li>
           <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Lab" role="tab"><span class="d-none d-md-block">Lab Ledger</span><span class="d-block d-md-none"><i class="mdi mdi-account h5"></i></span></a></li>
-          <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#airLines" role="tab"><span class="d-none d-md-block">Airlines Ledger Prizes</span><span class="d-block d-md-none"><i class="mdi mdi-email h5"></i></span></a></li>
+          <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#doctors" role="tab"><span class="d-none d-md-block">Doctors Ledger</span><span class="d-block d-md-none"><i class="mdi mdi-account h5"></i></span></a></li>          
+          <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#airLines" role="tab"><span class="d-none d-md-block">Airlines Ledger</span><span class="d-block d-md-none"><i class="mdi mdi-email h5"></i></span></a></li>
           <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#embassies" role="tab"><span class="d-none d-md-block">Embassies Ledger</span><span class="d-block d-md-none"><i class="mdi mdi-settings h5"></i></span></a></li>
           <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#vendors" role="tab"><span class="d-none d-md-block">Vendors Ledger</span><span class="d-block d-md-none"><i class="mdi mdi-settings h5"></i></span></a></li>
         </ul><!-- Tab panes -->
@@ -245,7 +246,9 @@
 
           </div>
 
+          <div class="tab-pane p-3 print-aria" id="doctors" role="tabpanel">
 
+</div>
           <div class="tab-pane p-3 print-aria" id="airLines" role="tabpanel">
 
           </div>

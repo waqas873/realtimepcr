@@ -47,6 +47,11 @@
     margin-left: 1px;
     margin-top: 1px;
   }
+
+  span.select2-selection.select2-selection--multiple {
+    padding: 5px 10px;
+    border: solid 1px #ced4da;
+  }
 </style>
 
 
@@ -95,13 +100,15 @@
         <!-- end col -->
       </div>
       <!-- end row -->
-      <div class="col-sm-3 mt-3">
+      <?php if (\Session::get('role') == 0) { ?>
+        <div class="col-sm-3 mt-3">
 
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="onBehalf-cmp-check" onclick="checkFunction('onBehalf-cmp-check','onBehalf-cmp');">
-          <label class="form-check-label" for="onBehalf-cmp-check">Register on Behalf of Others</label>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="onBehalf-cmp-check" onclick="checkFunction('onBehalf-cmp-check','onBehalf-cmp');">
+            <label class="form-check-label" for="onBehalf-cmp-check">Register on Behalf of Others</label>
+          </div>
         </div>
-      </div>
+      <?php } ?>
 
 
       <div class="col-sm-3 mt-2" id="onBehalf-cmp" style="display: none;">
@@ -156,25 +163,47 @@
             </div>
 
           </div>
-
-          <div class="form-group col-sm-4">
-
-
-
-            <label for="reffered_by" class="col-form-label pformlabel">Reffered By</label>
-            <div class="">
-              <select class="form-control <!--inputs_with_bottom_border--> <!--select2-->" id="reffered_by" name="reffered_by">
-                <option value="">Select doctor</option>
-                @if(!empty($doctors))
-                @foreach($doctors as $record)
-                <option value="{{$record->id}}">{{$record->name}} (Doctor)</option>
-                @endforeach
-                @endif
-              </select>
+          <?php if (\Session::get('role') == 0) { ?>
+            <div class="form-group col-sm-4">
+              <label for="reffered_by" class="col-form-label pformlabel">Reffered By (Doctors / Embassy)</label>
+              <div class="">
+                <select class="form-control <!--inputs_with_bottom_border--> <!--select2-->" id="reffered_by" name="reffered_by">
+                  <option value="">Select doctor / Refferer</option>
+                  @if(!empty($doctors))
+                  @foreach($doctors as $record)
+                  <option value="{{$record->id}}">{{$record->name}} (Doctor)</option>
+                  @endforeach
+                  @endif
+                </select>
+                <?php if (\Session::get('role') == 0) { ?>
+                  <small id="emailHelp" class="form-text text-muted">Premium Doctor</small>
+                <?php } ?>
+              </div>
             </div>
+          <?php } ?>
 
 
-          </div>
+          <?php if (\Session::get('role') == 5) { ?>
+            <div class="form-group col-sm-4">
+              <label for="reffered_by" class="col-form-label pformlabel">Reffered By (Doctors / Embassy)</label>
+              <div class="">
+                <select class="form-control <!--inputs_with_bottom_border--> <!--select2-->" id="reffered_by" name="reffered_by">
+                  <option value="">Select doctor / Refferer</option>
+                  @if(!empty($doctors))
+                  @foreach($doctors as $record)
+                  <option value="{{$record->id}}">{{$record->name}} (Doctor)</option>
+                  @endforeach
+                  @endif
+                </select>
+
+              </div>
+            </div>
+          <?php } ?>
+
+
+
+
+
 
           <div class="form-group col-sm-3">
 
@@ -192,10 +221,7 @@
           <div class="form-group col-sm-3">
             <fieldset class="form-group">
               <div class="">
-                <legend class="col-form-label mt-2 ml-3 mb-2 pformlabel" style="
-    text-align: left;
-    border-bottom: solid 1px #f5f5f5;
-">Gender</legend>
+                <legend class="col-form-label mt-2 ml-3 mb-2 pformlabel" style="text-align: left; border-bottom: solid 1px #f5f5f5;">Gender</legend>
                 <div class="custom-control custom-radio custom-control-inline">
                   <input type="radio" id="customRadioInline1" name="sex" class="custom-control-input" value="1" checked="">
                   <label class="custom-control-label" for="customRadioInline1">Male</label>
@@ -223,6 +249,9 @@
                   @endforeach
                   @endif
                 </select>
+                <?php if (\Session::get('role') == 0) { ?>
+                  <small id="emailHelp" class="form-text text-muted">Total <b> --- </b> Kits Availbale for this test</small>
+                <?php } ?>
               </div>
             </div>
           </div>
@@ -359,7 +388,7 @@
     </div>
 
     <!-- Payment Section -->
-    
+
     <div class="col-sm-12 component nobdr">
       <div class="row" style="margin-top: 10px;">
         <div class="col-sm-12">
@@ -377,17 +406,29 @@
           </div>
 
           <div class="row">
-            <div class="col-sm-4">
+
+            <div class="col-sm-2">
               <div class="form-group invoice-inputs">
-                <label for="discount" class="col-form-label pformlabel">Discount</label>
+                <label for="discount" class="col-form-label pformlabel">Discount (PKR)</label>
                 <div class="">
-                  <input type="number" class="form-control <!--inputs_with_bottom_border-->" id="discount">
+                  <input type="number" class="form-control <!--inputs_with_bottom_border-->" id="discount" placeholder="max Rs: 00000">
+
                 </div>
               </div>
             </div>
+
+            <div class="col-sm-2">
+              <div class="form-group invoice-inputs">
+                <label for="discount" class="col-form-label pformlabel">Discount (%)</label>
+                <div class="">
+                  <input type="number" class="form-control <!--inputs_with_bottom_border-->" id="discount" placeholder="max 25%" disabled>
+                </div>
+              </div>
+            </div>
+
             <div class="col-sm-4">
               <div class="form-group invoice-inputs">
-                <label for="amount_paid" class="col-form-label pformlabel">Amount Paid</label>
+                <label for="amount_paid" class="col-form-label pformlabel">Amount Paid (PKR)</label>
                 <div class="">
                   <input type="number" class="form-control <!--inputs_with_bottom_border-->" id="amount_paid">
                 </div>
@@ -405,9 +446,15 @@
               <div class="form-group invoice-inputs">
                 <label for="delivery_time" class="col-form-label pformlabel">Delivery time (Hours)</label>
                 <div class="">
-                  <input type="number" class="form-control" id="delivery_time">
+                  <input type="number" class="form-control" id="delivery_time" disabled>
                 </div>
               </div>
+            </div>
+            <div class="col-sm-12">
+              <?php if (\Session::get('role') == 5) { ?>
+                <small id="emailHelp" class="form-text text-muted"> <i><b> *NOTE</b> </i> This test will cost you total amount of <b> Rs: 0000 </b> <i>Exceeding discount limit, will be your own responsibility</i> </small>
+              <?php } ?>
+
             </div>
           </div>
 
@@ -422,7 +469,7 @@
         </div>
       </div>
 
-      <a href="" disabled>Pay Online</a>
+      <a href="" class="d-flex justify-content-center">Pay Online</a>
     </div>
 
 </div>
