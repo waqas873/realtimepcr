@@ -131,6 +131,7 @@ Route::group(['middleware' => ['web','admin']], function()
         Route::post('/cash-user-transfer', 'Admin\AccountsController@cashUserTransfer');
 
         Route::post('/get-cp-ledger', 'Admin\LedgersController@cpLedger');
+        Route::post('/get-doctor-ledger', 'Admin\LedgersController@doctorLedger');
         
         Route::get('/get-system-invoice/{id?}', 'Admin\System_invoiceController@update');
         Route::post('/add-system-invoice', 'Admin\System_invoiceController@process_add');

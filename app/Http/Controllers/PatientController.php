@@ -376,12 +376,13 @@ class PatientController extends Controller
         $ledger->doctor_id = $doctor_id;
         foreach($test_ids as $test_id){
             $doctor_test = Doctor_test::where('doctor_id', $doctor_id)->where('test_id', $test_id)->first();
-            if(!empty($doctor_test)){
+            $test = Test::find($test_id);
+            $test_category_id = $test->category_id;   
+            $cpct = Doctor_category::where('doctor_id',$doctor_id)->where('category_id',$test_category_id)->where('discount_percentage','>',0)->where('custom_prizes',1)->first(); 
+            if(!empty($doctor_test) && !empty($cpct)){
                 $amount = $amount + $doctor_test->discounted_price;
             }
             else{
-                $test = Test::find($test_id);
-                $test_category_id = $test->category_id;
                 $cpc = Doctor_category::where('doctor_id',$doctor_id)->where('category_id',$test_category_id)->where('discount_percentage','>',0)->first();
                 if(!empty($cpc)){
                     $discnt = ($cpc->discount_percentage/100)*$test->price;
@@ -405,7 +406,9 @@ class PatientController extends Controller
         
         //$result = Ledger::where('collection_point_id',$cp_id)->latest()->first();
 
-        $ledger->save();
+        if($amount > 0){
+            $ledger->save();
+        }
         return true;
     }
 
@@ -428,14 +431,15 @@ class PatientController extends Controller
         foreach($test_ids as $test_id){
             $cp_test = Collection_point_test::where('collection_point_id', $cp_id)->where('test_id', $test_id)->first();
             $test = Test::find($test_id);
-            if(!empty($cp_test)){
+            $test_category_id = $test->category_id;
+            $cpct = Collection_point_category::where('collection_point_id',$cp_id)->where('category_id',$test_category_id)->where('discount_percentage','>',0)->where('custom_prizes',1)->first();
+            if(!empty($cp_test) && !empty($cpct)){
                 if($amount >= $test->price){
                     $amount = $amount - $test->price;
                     $amount = $amount + $cp_test->discounted_price;
                 }
             }
             else{
-                $test_category_id = $test->category_id;
                 $cpc = Collection_point_category::where('collection_point_id',$cp_id)->where('category_id',$test_category_id)->where('discount_percentage','>',0)->first();
                 if(!empty($cpc)){
                     $discnt = ($cpc->discount_percentage/100)*$test->price;
@@ -462,8 +466,9 @@ class PatientController extends Controller
         $ledger->is_debit = 1;
         
         //$result = Ledger::where('collection_point_id',$cp_id)->latest()->first();
-
-        $ledger->save();
+        if($amount > 0){
+            $ledger->save();
+        }
         return true;
     }
 

@@ -10,6 +10,7 @@ use DB;
 use App\User;
 use App\Liability;
 use App\Cash;
+use App\Doctor;
 use App\Collection_point;
 use App\Amount;
 
@@ -120,6 +121,10 @@ class AccountsController extends Controller
         $data['collection_points'] = Collection_point::all();
         if($action=='cp'){
             $data['cp_id'] = $id;
+        }
+        $data['doctors'] = Doctor::all();
+        if($action=='doctor'){
+            $data['doctor_id'] = $id;
         }
         return view('admin.accounts.ledgers',$data);
     }
