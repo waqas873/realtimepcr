@@ -107,12 +107,16 @@ Route::group(['middleware' => ['web','admin']], function()
         Route::get('/delete-doctor-test/{id?}/{doctor_id?}', 'Admin\DoctorsController@delete_doctor_test');
 
         Route::get('/staff', 'Admin\StaffController@index');
-        Route::get('/staff-profile/{id?}', 'Admin\StaffController@viewProfile');
+        Route::get('/embassy-profile/{id?}', 'Admin\StaffController@viewEmbassyProfile');
         Route::post('/add-lab-user', 'Admin\StaffController@process_lab_user');
         Route::post('/add-cp-user', 'Admin\StaffController@process_cp_user');
         Route::get('/staff-patients/{source?}/{id?}', 'Admin\StaffController@staff_patients');
         Route::post('/staff-patients', 'Admin\StaffController@get_patients');
         Route::get('/delete-user/{id?}', 'Admin\StaffController@delete');
+
+        Route::get('/update-commission-test/{id?}', 'Admin\StaffController@updateCommissionTest');
+        Route::post('/add-commission-test', 'Admin\StaffController@processCommissionTest');
+        Route::get('/delete-commission-test/{id?}', 'Admin\StaffController@delete_commission_test');
 
         Route::get('/reports/{date?}', 'Admin\ReportsController@index');
         Route::get('/progress-reports', 'Admin\ReportsController@progressReports');

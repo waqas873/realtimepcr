@@ -14,7 +14,9 @@ use App\Patient;
 use App\Invoice;
 use App\Country;
 use App\Test;
+use App\Ledger;
 use App\Airline;
+use App\Commission_test;
 
 class StaffController extends Controller
 {
@@ -49,10 +51,81 @@ class StaffController extends Controller
         return view('admin.staff.index',$data);
     }
 
-    public function viewProfile($id = 0)
+    public function viewEmbassyProfile($id = 0)
     {
         $data = [];
-        return view('admin.staff.view_profile',$data);
+        $cp = new User;
+        $result = $cp->where('role',3)->find($id);
+        if(!empty($result)){
+            $data['result'] = $result;
+            $data['tests'] = Test::all();
+            $data['collection_points'] = Collection_point::all();
+            $data['labs'] = Lab::all();
+            $data['commission_tests'] = Commission_test::where('collection_point_id','>',0)->orWhere('lab_id','>',0)->get();
+            $amount_paid = Ledger::where('embassy_user_id',$id)->where('is_credit',1)->sum('amount');
+            $amount_payable = Ledger::where('embassy_user_id',$id)->where('is_debit',1)->sum('amount');
+            $data['amount_paid'] = $amount_paid;
+            $data['amount_payable'] = $amount_payable-$amount_paid;
+            return view('admin.staff.embassy_profile',$data);
+        }
+    }
+
+    public function updateCommissionTest($id='0')
+    {
+        $data = [];
+        $data['response'] = false;
+        $result = Commission_test::find($id);
+        if(!empty($result)){
+            $data['result'] = $result;
+            $data['response'] = true;
+        }
+        echo json_encode($data);
+    }
+
+    public function processCommissionTest(Request $request)
+    {
+        $data = [];
+        $data['response'] = false;
+
+        $formData = $request->all();
+        $rules = [
+            'to_user_id'=>'required',
+            'test_id' => 'required',
+            'commission_price' => 'required'
+        ];
+        $messages = [];
+        $attributes = [];
+        $validator = Validator::make($formData,$rules,$messages,$attributes);
+        if($validator->fails()){
+            $data['errors'] = $validator->errors();
+        }
+        else{
+            $id = $formData['id'];
+            unset($formData['_token'],$formData['id']);
+            if(!empty($formData['lab_id']) && !empty($formData['collection_point_id'])){
+                $formData['collection_point_id'] = null;
+            }
+            if(!empty($id)){
+                $result = Commission_test::where('id',$id)->update($formData);
+            }
+            else{
+                $formData['user_id'] = Auth::user()->id;
+                Commission_test::insert($formData);
+            }
+            $data['response'] = true;
+        }
+        echo json_encode($data);
+    }
+
+    public function delete_commission_test($id = 0)
+    {
+        $data  = [];
+        $result = Commission_test::find($id);
+        if(empty($result)){
+            return redirect('admin/embassy-profile/'.$result->to_user_id)->with('error_message' , 'This record does not exist.');
+        }
+        Commission_test::where('id',$id)->delete();
+        return redirect('admin/embassy-profile/'.$result->to_user_id)->with('success_message' , 'Record has been deleted successfully.');
     }
 
     public function staff_patients($labCp = '' , $id = 0)

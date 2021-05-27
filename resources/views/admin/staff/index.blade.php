@@ -238,7 +238,7 @@
                     <td>{{$value->contact_no}}</td>
                     <td>
                       <?php if($permissions['role']==1 || (!empty($permissions['app_users_update']))) { ?>
-                        <a href="{{url('admin/staff-profile')}}" class="">View | </a>
+                        <a href="{{url('admin/embassy-profile/'.$value->id)}}" class="">View | </a>
                       <?php 
                       }
                       else{

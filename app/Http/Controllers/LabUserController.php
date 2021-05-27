@@ -67,9 +67,11 @@ class LabUserController extends Controller
         $repeated_tests = $result->where('user_id' , $user->id)->sum('no_of_repeat');
         $data['repeated_tests'] = $repeated_tests;
         $total_tests = $repeated_tests+$data['performed'];
-        $repeat_ratio = ($repeated_tests/$total_tests)*100;
-        $data['repeat_ratio'] = round($repeat_ratio , 2);
-        
+        $data['repeat_ratio'] = 0;
+        if($repeated_tests>0 && $total_tests>0){
+            $repeat_ratio = ($repeated_tests/$total_tests)*100;
+            $data['repeat_ratio'] = round($repeat_ratio , 2);
+        }
         $data['test_categories'] = Test_category::all();
     	return view('lab.open_cases',$data);
     }

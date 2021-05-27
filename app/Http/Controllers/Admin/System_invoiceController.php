@@ -66,6 +66,7 @@ class System_invoiceController extends Controller
             unset($formData['_token'],$formData['id']);
             $cp_id = null;
             $doctor_id = null;
+            $embassy_user_id = null;
             $description = null;
             if(!empty($formData['collection_point_id'])){
             	$cp_id = $formData['collection_point_id'];
@@ -76,6 +77,11 @@ class System_invoiceController extends Controller
                 $doctor_id = $formData['doctor_id'];
                 unset($formData['doctor_id']);
                 $description = 'Amount delivered to doctor.';
+            }
+            if(!empty($formData['embassy_user_id'])){
+                $embassy_user_id = $formData['embassy_user_id'];
+                unset($formData['embassy_user_id']);
+                $description = 'Commission delivered to embassy.';
             }
             $user = Auth::user();
             if(!empty($id)){
@@ -89,7 +95,11 @@ class System_invoiceController extends Controller
                 $save->user_id = $user->id;
                 $save->collection_point_id = $cp_id;
                 $save->doctor_id = $doctor_id;
+                $save->embassy_user_id = $embassy_user_id;
                 if(!empty($formData['doctor_id'])){
+                    $save->is_recieved = 0;
+                }
+                if(!empty($formData['embassy_user_id'])){
                     $save->is_recieved = 0;
                 }
                 $save->date = $formData['date'];
@@ -113,14 +123,14 @@ class System_invoiceController extends Controller
                 $save->save();
 
                 $system_invoice_id = $save->id;
-                $this->addLedger($formData['amount'],$system_invoice_id,$cp_id,$doctor_id,$description);
+                $this->addLedger($formData['amount'],$system_invoice_id,$cp_id,$doctor_id,$embassy_user_id,$description);
             }
             $data['response'] = true;
         }
         echo json_encode($data);
     }
 
-    public function addLedger($amount = 0,$si_id = null,$cp_id = null,$doctor_id = null,$description = null)
+    public function addLedger($amount = 0,$si_id = null,$cp_id = null,$doctor_id = null,$embassy_user_id = null,$description = null)
     {
         $user = Auth::user();
         $ledger = new Ledger;
@@ -132,6 +142,7 @@ class System_invoiceController extends Controller
         $ledger->amount = $amount;
         $ledger->collection_point_id = $cp_id;
         $ledger->doctor_id = $doctor_id;
+        $ledger->embassy_user_id = $embassy_user_id;
         $uniq_id = '000000';
         $uniqueness = false;
         while($uniqueness == false){
@@ -177,6 +188,12 @@ class System_invoiceController extends Controller
             $doctor_id = $post['doctor_id'];
             $result_count = System_invoice::where('doctor_id',$doctor_id)->count();
             $result = $result->where('doctor_id' , $doctor_id);
+        }
+
+        if(!empty($post['embassy_user_id'])){
+            $embassy_user_id = $post['embassy_user_id'];
+            $result_count = System_invoice::where('embassy_user_id',$embassy_user_id)->count();
+            $result = $result->where('embassy_user_id' , $embassy_user_id);
         }
 
         if(!empty($search)){
