@@ -171,7 +171,15 @@
                   <option value="">Select doctor / Refferer</option>
                   @if(!empty($doctors))
                   @foreach($doctors as $record)
-                  <option value="{{$record->id}}">{{$record->name}} (Doctor)</option>
+                  <?php
+                  if($record->role==2){
+                    $ed = "Doctor";
+                  }
+                  else{
+                    $ed = "Embassy";
+                  }
+                  ?>
+                  <option value="{{$record->id}}">{{$record->name}} (<?php echo $ed;?>)</option>
                   @endforeach
                   @endif
                 </select>

@@ -170,6 +170,43 @@ $('#systemInvoices').DataTable({
   ]
 });
 
+$('#airlineSystemInvoices').DataTable({
+  "ordering": true,
+  "lengthChange": true,
+  "searching": true,
+  "processing":true,
+  "serverSide": true,
+  "ajax": {
+      url: '/admin/get-system-invoices-datatable',
+      type: 'POST',
+      "data": function (d) {
+          return $.extend({}, d, {
+            "_token": $('meta[name="csrf-token"]').attr('content'),
+            "airline_user_id": $('.airline_user_id').val(),
+          });
+      } 
+  },
+  "order": [
+      [0, 'desc']
+  ],
+  columnDefs: [
+      {'targets': 0, 'orderable': false},
+      {'targets': 1, 'orderable': false},
+      {'targets': 2, 'orderable': false},
+      {'targets': 3, 'orderable': false},
+      {'targets': 4, 'orderable': false},
+      {'targets': 5, 'orderable': false},
+  ],
+  "columns": [
+      {"data": "date"},
+      {"data": "unique_id"},
+      {"data": "amount"},
+      {"data": "description"},
+      {"data": "payment_method"},
+      {"data": "action"}
+  ]
+});
+
 $('#commission_tests').DataTable();
 
 function errors(arr = ''){

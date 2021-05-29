@@ -311,7 +311,7 @@
                     <td><?php echo (!empty($value->airline->name))?$value->airline->name:'---'; ?></td>
                     <td>
                       <?php if($permissions['role']==1 || (!empty($permissions['app_users_update']))) { ?>
-                        <a href="javascript::" class="">View | </a>
+                        <a href="{{url('admin/airline-profile/'.$value->id)}}" class="">View | </a>
                       <?php 
                       }
                       else{

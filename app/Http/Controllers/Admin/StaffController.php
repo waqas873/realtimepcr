@@ -70,6 +70,23 @@ class StaffController extends Controller
         }
     }
 
+    public function viewAirlineProfile($id = 0)
+    {
+        $data = [];
+        $cp = new User;
+        $result = $cp->where('role',6)->find($id);
+        if(!empty($result)){
+            $data['result'] = $result;
+            $data['tests'] = Test::all();
+            $data['commission_tests'] = Commission_test::where('collection_point_id','=',null)->where('lab_id','=',null)->get();
+            $amount_paid = Ledger::where('airline_user_id',$id)->where('is_credit',1)->sum('amount');
+            $amount_payable = Ledger::where('airline_user_id',$id)->where('is_debit',1)->sum('amount');
+            $data['amount_paid'] = $amount_paid;
+            $data['amount_payable'] = $amount_payable-$amount_paid;
+            return view('admin.staff.airline_profile',$data);
+        }
+    }
+
     public function updateCommissionTest($id='0')
     {
         $data = [];

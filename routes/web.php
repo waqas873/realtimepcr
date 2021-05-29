@@ -108,6 +108,7 @@ Route::group(['middleware' => ['web','admin']], function()
 
         Route::get('/staff', 'Admin\StaffController@index');
         Route::get('/embassy-profile/{id?}', 'Admin\StaffController@viewEmbassyProfile');
+        Route::get('/airline-profile/{id?}', 'Admin\StaffController@viewAirlineProfile');
         Route::post('/add-lab-user', 'Admin\StaffController@process_lab_user');
         Route::post('/add-cp-user', 'Admin\StaffController@process_cp_user');
         Route::get('/staff-patients/{source?}/{id?}', 'Admin\StaffController@staff_patients');

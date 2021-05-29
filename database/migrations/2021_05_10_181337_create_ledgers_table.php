@@ -20,6 +20,7 @@ class CreateLedgersTable extends Migration
             $table->integer('lab_id')->nullable();
             $table->integer('doctor_id')->nullable();
             $table->integer('embassy_user_id')->nullable();
+            $table->integer('airline_user_id')->nullable();
             $table->integer('invoice_id')->nullable();
             $table->integer('system_invoice_id')->nullable();
             $table->string('unique_id')->nullable();
