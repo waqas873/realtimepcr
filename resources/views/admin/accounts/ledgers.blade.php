@@ -314,8 +314,132 @@
 
           <div class="tab-pane p-3 print-aria" id="airLines" role="tabpanel">
 
+            <form>
+
+              <div class="form-group">
+                <label for="airline_user_id">Select Airline User</label>
+                <select name="airline_user_id" id="airline_user_id" class="form-control form-control-lg select2">
+                  @if(!empty($airline_users))
+                  @foreach($airline_users as $key=>$value)
+                  <option value="{{$value->id}}">{{$value->name}}</option>
+                  @endforeach
+                  @endif
+                </select>
+                <small id="airlineledger" class="form-text text-muted">You can select user here.</small>
+              </div>
+
+              <div class="col-sm-12">
+                <div class="row emdatefilter">
+                  <div class="col-sm-2 no_padd">
+                    <p>Date Range</p>
+                  </div>
+                  <div class="col-sm-3 no_padd">
+                    <input class="form-control inputs_with_bottom_border" type="date" id="airline_user_from_date" name="from_date">
+                  </div>
+                  <div class="">
+                    <p>To</p>
+                  </div>
+                  <div class="col-sm-3 no_padd">
+                    <input class="form-control inputs_with_bottom_border" type="date" id="airline_user_to_date" name="to_date">
+                  </div>
+                  <div class="col-sm-3">
+                    <a href="javascript::" class="btn btn-success embsearch" id="airline_by_date">Search</a>
+                  </div>
+                </div>
+              </div>
+
+            </form>
+
+            <br>
+            <hr>
+            <div class="row">
+              <div class="col-sm-10">
+                <h5>Ledger</h5>
+              </div>
+              <div class="col-sm-2">
+                <button type="button" onclick="window.print()" class="btn btn-primary">Print Report</button>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-bordered table-sm" id="airline_user_ledger" style="width: 100% !important;">
+                <thead>
+                  <tr>
+                    <!-- <th scope="col">#</th> -->
+                    <th scope="col">ID</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Particulars / Description</th>
+                    <th scope="col">Debit</th>
+                    <th scope="col">Credit</th>
+                    <th scope="col">Balance</th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+
           </div>
           <div class="tab-pane p-3 print-aria" id="embassies" role="tabpanel">
+
+            <form>
+
+              <div class="form-group">
+                <label for="embassy_user_id">Select Embassy User</label>
+                <select name="embassy_user_id" id="embassy_user_id" class="form-control form-control-lg select2">
+                  @if(!empty($embassy_users))
+                  @foreach($embassy_users as $key=>$value)
+                  <option value="{{$value->id}}">{{$value->name}}</option>
+                  @endforeach
+                  @endif
+                </select>
+                <small id="embassyledger" class="form-text text-muted">You can select user here.</small>
+              </div>
+
+              <div class="col-sm-12">
+                <div class="row emdatefilter">
+                  <div class="col-sm-2 no_padd">
+                    <p>Date Range</p>
+                  </div>
+                  <div class="col-sm-3 no_padd">
+                    <input class="form-control inputs_with_bottom_border" type="date" id="embassy_user_from_date" name="from_date">
+                  </div>
+                  <div class="">
+                    <p>To</p>
+                  </div>
+                  <div class="col-sm-3 no_padd">
+                    <input class="form-control inputs_with_bottom_border" type="date" id="embassy_user_to_date" name="to_date">
+                  </div>
+                  <div class="col-sm-3">
+                    <a href="javascript::" class="btn btn-success embsearch" id="embassy_by_date">Search</a>
+                  </div>
+                </div>
+              </div>
+
+            </form>
+
+            <br>
+            <hr>
+            <div class="row">
+              <div class="col-sm-10">
+                <h5>Ledger</h5>
+              </div>
+              <div class="col-sm-2">
+                <button type="button" onclick="window.print()" class="btn btn-primary">Print Report</button>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-bordered table-sm" id="embassy_user_ledger" style="width: 100% !important;">
+                <thead>
+                  <tr>
+                    <!-- <th scope="col">#</th> -->
+                    <th scope="col">ID</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Particulars / Description</th>
+                    <th scope="col">Debit</th>
+                    <th scope="col">Credit</th>
+                    <th scope="col">Balance</th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
 
           </div>
           <div class="tab-pane p-3 print-aria" id="vendors" role="tabpanel">

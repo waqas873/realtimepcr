@@ -126,6 +126,8 @@ class AccountsController extends Controller
         if($action=='doctor'){
             $data['doctor_id'] = $id;
         }
+        $data['embassy_users'] = User::where('role',3)->get();
+        $data['airline_users'] = User::where('role',6)->get();
         return view('admin.accounts.ledgers',$data);
     }
 

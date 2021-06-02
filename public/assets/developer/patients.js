@@ -104,7 +104,7 @@ $(document).on('submit', '#add-form', function (e) {
           // });
           $('#reffered_by').select2('val', '');
           $('#tests').select2('val', '');
-          $('#test_profiles').select2('val', '');
+          //$('#test_profiles').select2('val', '');
 
           image_file = '';
           

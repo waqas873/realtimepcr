@@ -346,6 +346,16 @@ class PatientController extends Controller
                             $this->addEmbassyLedger($tests,$invoice_id,$formData['reffered_by']);
                         }
                     }
+                    if(!empty($formData['airline'])){
+                        $air = Airline::where('name',$formData['airline'])->first();
+                        $userrs = User::where('role',6)->where('status',1)->where('airline_id',$air->id)->get();
+                        if(!empty($userrs)){
+                            foreach($userrs as $userr) 
+                            {
+                                $this->addAirlineLedger($tests,$invoice_id,$userr->id);
+                            }
+                        }
+                    }
 
                     if(!empty($test_profiles)){
                         foreach($test_profiles as $profile_id){
@@ -368,6 +378,43 @@ class PatientController extends Controller
         }
         
         echo json_encode($data);
+    }
+
+    public function addAirlineLedger($test_ids = [] , $invoice_id = 0 , $user_id = 0)
+    {
+        $amount = 0;
+        $user = Auth::user();
+        $ledger = new Ledger;
+        $ledger->user_id = $user->id;
+        $ledger->invoice_id = $invoice_id;
+        if(empty($test_ids)){
+            return false;
+        }
+        $ledger->airline_user_id = $user_id;
+        foreach($test_ids as $test_id){
+            $commission_test = Commission_test::where('to_user_id', $user_id)->where('test_id', $test_id)->first();
+            $test = Test::find($test_id); 
+            if(!empty($commission_test)){
+                $amount = $amount + $commission_test->commission_price;
+            }
+        }
+        $uniq_id = '000000';
+        $uniqueness = false;
+        while($uniqueness == false){
+            $uniq_id = rand(1,1000000);
+            $invRes = Ledger::where('unique_id',$uniq_id)->first();
+            if(empty($invRes)){
+                $uniqueness = true;
+            }
+        }
+        $ledger->unique_id = $uniq_id;
+        $ledger->description = 'Airline user commission';
+        $ledger->amount = $amount;
+        $ledger->is_debit = 1;
+        if($amount > 0){
+            $ledger->save();
+        }
+        return true;
     }
 
     public function addEmbassyLedger($test_ids = [] , $invoice_id = 0 , $user_id = 0)
@@ -398,7 +445,7 @@ class PatientController extends Controller
             }
         }
         $ledger->unique_id = $uniq_id;
-        $ledger->description = 'Embassy Commssion';
+        $ledger->description = 'Embassy Commission';
         $ledger->amount = $amount;
         $ledger->is_debit = 1;
         if($amount > 0){
