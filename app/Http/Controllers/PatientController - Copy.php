@@ -337,9 +337,6 @@ class PatientController extends Controller
                     if(!empty($user->collection_point_id) && empty($amount_remaining)){
                         $this->addCpLedger($tests,$invoice_id,$amount_paid);
                     }
-                    if($user->role==0 && !empty($amount_paid)){
-                        $this->addLabLedger($invoice_id,$amount_paid);
-                    }
                     if(!empty($doctor->id) && empty($amount_remaining)){
                         $this->addDoctorLedger($tests,$invoice_id,$doctor->id,$amount_paid);
                     }
@@ -501,36 +498,7 @@ class PatientController extends Controller
         
         //$result = Ledger::where('collection_point_id',$cp_id)->latest()->first();
 
-        if($amount > 0 && $amount_paid >= $amount){
-            $ledger->save();
-        }
-        return true;
-    }
-
-    public function addLabLedger($invoice_id = 0, $amount_paid = 0)
-    {
-        $user = Auth::user();
-        $ledger = new Ledger;
-        $ledger->user_id = $user->id;
-        $ledger->invoice_id = $invoice_id;
-        $ledger->lab_id = $user->lab_id;
-        $uniq_id = '000000';
-        $uniqueness = false;
-        while($uniqueness == false){
-            $uniq_id = rand(1,1000000);
-            $invRes = Ledger::where('unique_id',$uniq_id)->first();
-            if(empty($invRes)){
-                $uniqueness = true;
-            }
-        }
-        $ledger->unique_id = $uniq_id;
-        $ledger->description = 'Amount received from patient';
-        $ledger->amount = $amount_paid;
-        $ledger->is_debit = 0;
-        $ledger->is_credit = 1;
-        
-        //$result = Ledger::where('collection_point_id',$cp_id)->latest()->first();
-        if($amount_paid > 0){
+        if($amount > 0){
             $ledger->save();
         }
         return true;
@@ -590,7 +558,7 @@ class PatientController extends Controller
         $ledger->is_debit = 1;
         
         //$result = Ledger::where('collection_point_id',$cp_id)->latest()->first();
-        if($amount > 0 && $amount_paid >= $amount){
+        if($amount > 0){
             $ledger->save();
         }
         return true;

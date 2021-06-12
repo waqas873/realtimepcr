@@ -137,11 +137,15 @@
           <div class="tab-pane p-3 print-aria" id="Lab" role="tabpanel">
             <form>
               <div class="form-group">
-                <label for="LabLedger">Select Lab</label>
-                <select name="" id="LabLedger" class="form-control form-control-lg">
-                  <option value="">RealtimePCR Diagnostics Lab {Peshawar} </option>
+                <label for="lab_id">Select Lab</label>
+                <select name="lab_id" id="lab_id" class="form-control form-control-lg select2">
+                  @if(!empty($labs))
+                  @foreach($labs as $key=>$value)
+                  <option value="{{$value->id}}">{{$value->name}}</option>
+                  @endforeach
+                  @endif
                 </select>
-                <small id="LabLedger" class="form-text text-muted">You can select Lab here.</small>
+                <small id="labledger" class="form-text text-muted">You can select Lab here.</small>
               </div>
               <div class="col-sm-12">
 
@@ -150,16 +154,16 @@
                     <p>Date Range</p>
                   </div>
                   <div class="col-sm-3 no_padd">
-                    <input class="form-control inputs_with_bottom_border" type="date" id="from_date" name="from_date">
+                    <input class="form-control inputs_with_bottom_border" type="date" id="lab_from_date" name="from_date">
                   </div>
                   <div class="">
                     <p>To</p>
                   </div>
                   <div class="col-sm-3 no_padd">
-                    <input class="form-control inputs_with_bottom_border" type="date" id="to_date" name="to_date">
+                    <input class="form-control inputs_with_bottom_border" type="date" id="lab_to_date" name="to_date">
                   </div>
                   <div class="col-sm-3">
-                    <a href="javascript::" class="btn btn-success embsearch" id="by_date">Search</a>
+                    <a href="javascript::" class="btn btn-success embsearch" id="lab_by_date">Search</a>
                   </div>
                 </div>
 
@@ -170,10 +174,10 @@
             <h5>Ledger</h5>
 
             <div class="table-responsive">
-              <table class="table table-bordered table-sm ">
+              <table class="table table-bordered table-sm" id="lab_ledger" style="width: 100% !important;">
                 <thead>
                   <tr>
-                    <th scope="col">#</th>
+                    <!-- <th scope="col">#</th> -->
                     <th scope="col">ID</th>
                     <th scope="col">Date</th>
                     <th scope="col">Particulars / Description</th>
@@ -182,64 +186,6 @@
                     <th scope="col">Balance</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>#225695</td>
-                    <td>22-22-2222</td>
-                    <td>This is the Description</td>
-                    <td>Rs: 2500</td>
-                    <td>Rs: 5000</td>
-                    <td>Rs: 1000</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>#225695</td>
-                    <td>22-22-2222</td>
-                    <td>This is the Description</td>
-                    <td>Rs: 2500</td>
-                    <td>Rs: 5000</td>
-                    <td>Rs: 1000</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>#225695</td>
-                    <td>22-22-2222</td>
-                    <td>This is the Description</td>
-                    <td>Rs: 2500</td>
-                    <td>Rs: 5000</td>
-                    <td>Rs: 1000</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>#225695</td>
-                    <td>22-22-2222</td>
-                    <td>This is the Description</td>
-                    <td>Rs: 2500</td>
-                    <td>Rs: 5000</td>
-                    <td>Rs: 1000</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>#225695</td>
-                    <td>22-22-2222</td>
-                    <td>This is the Description</td>
-                    <td>Rs: 2500</td>
-                    <td>Rs: 5000</td>
-                    <td>Rs: 1000</td>
-                  </tr>
-                  <tr>
-                    <td colspan="4">Total</td>
-                    <td>Rs: 2500</td>
-                    <td>Rs: 5000</td>
-                    <td>Rs: 1000</td>
-                  </tr>
-                </tbody>
-
-                <caption>
-                  Captions of the table
-                </caption>
-
               </table>
             </div>
 

@@ -137,6 +137,7 @@ Route::group(['middleware' => ['web','admin']], function()
 
         Route::post('/get-cp-ledger', 'Admin\LedgersController@cpLedger');
         Route::post('/get-doctor-ledger', 'Admin\LedgersController@doctorLedger');
+        Route::post('/get-lab-ledger', 'Admin\LedgersController@labLedger');
         Route::post('/get-airline-user-ledger', 'Admin\LedgersController@airlineUserLedger');
         Route::post('/get-embassy-user-ledger', 'Admin\LedgersController@embassyUserLedger');
         

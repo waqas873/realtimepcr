@@ -10,6 +10,7 @@ use DB;
 use App\User;
 use App\Liability;
 use App\Cash;
+use App\Lab;
 use App\Doctor;
 use App\Collection_point;
 use App\Amount;
@@ -119,6 +120,7 @@ class AccountsController extends Controller
     {
         $data = [];
         $data['collection_points'] = Collection_point::all();
+        $data['labs'] = Lab::all();
         if($action=='cp'){
             $data['cp_id'] = $id;
         }
