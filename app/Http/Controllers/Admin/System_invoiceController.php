@@ -67,6 +67,7 @@ class System_invoiceController extends Controller
             $cp_id = null;
             $doctor_id = null;
             $embassy_user_id = null;
+            $supplier_id = null;
             $airline_user_id = null;
             $description = null;
             if(!empty($formData['collection_point_id'])){
@@ -89,6 +90,11 @@ class System_invoiceController extends Controller
                 unset($formData['airline_user_id']);
                 $description = 'Commission delivered to airline user.';
             }
+            if(!empty($formData['supplier_id'])){
+                $supplier_id = $formData['supplier_id'];
+                unset($formData['supplier_id']);
+                $description = 'Payment delivered to supplier.';
+            }
             $user = Auth::user();
             if(!empty($id)){
                 $result = System_invoice::where('id',$id)->update($formData);
@@ -101,6 +107,7 @@ class System_invoiceController extends Controller
                 $save->user_id = $user->id;
                 $save->collection_point_id = $cp_id;
                 $save->doctor_id = $doctor_id;
+                $save->supplier_id = $supplier_id;
                 $save->embassy_user_id = $embassy_user_id;
                 $save->airline_user_id = $airline_user_id;
                 if(!empty($formData['doctor_id'])){
@@ -110,6 +117,9 @@ class System_invoiceController extends Controller
                     $save->is_recieved = 0;
                 }
                 if(!empty($formData['airline_user_id'])){
+                    $save->is_recieved = 0;
+                }
+                if(!empty($formData['supplier_id'])){
                     $save->is_recieved = 0;
                 }
                 $save->date = $formData['date'];
@@ -133,14 +143,14 @@ class System_invoiceController extends Controller
                 $save->save();
 
                 $system_invoice_id = $save->id;
-                $this->addLedger($formData['amount'],$system_invoice_id,$cp_id,$doctor_id,$embassy_user_id,$airline_user_id,$description);
+                $this->addLedger($formData['amount'],$system_invoice_id,$cp_id,$doctor_id,$embassy_user_id,$airline_user_id,$supplier_id,$description);
             }
             $data['response'] = true;
         }
         echo json_encode($data);
     }
 
-    public function addLedger($amount = 0,$si_id = null,$cp_id = null,$doctor_id = null,$embassy_user_id = null,$airline_user_id = null,$description = null)
+    public function addLedger($amount = 0,$si_id = null,$cp_id = null,$doctor_id = null,$embassy_user_id = null,$airline_user_id = null,$supplier_id = null,$description = null)
     {
         $user = Auth::user();
         $ledger = new Ledger;
@@ -153,6 +163,7 @@ class System_invoiceController extends Controller
         $ledger->collection_point_id = $cp_id;
         $ledger->doctor_id = $doctor_id;
         $ledger->embassy_user_id = $embassy_user_id;
+        $ledger->supplier_id = $supplier_id;
         $ledger->airline_user_id = $airline_user_id;
         $uniq_id = '000000';
         $uniqueness = false;
@@ -199,6 +210,12 @@ class System_invoiceController extends Controller
             $doctor_id = $post['doctor_id'];
             $result_count = System_invoice::where('doctor_id',$doctor_id)->count();
             $result = $result->where('doctor_id' , $doctor_id);
+        }
+
+        if(!empty($post['supplier_id'])){
+            $supplier_id = $post['supplier_id'];
+            $result_count = System_invoice::where('supplier_id',$supplier_id)->count();
+            $result = $result->where('supplier_id' , $supplier_id);
         }
 
         if(!empty($post['embassy_user_id'])){
@@ -281,6 +298,10 @@ class System_invoiceController extends Controller
         if(!empty($result->airline_user_id)){
             $result->delete();
             return redirect('admin/airline-profile/'.$result->airline_user_id)->with('success_message' , 'Record has been deleted successfully.');
+        }
+        if(!empty($result->supplier_id)){
+            $result->delete();
+            return redirect('admin/supplier-view-profile/'.$result->supplier_id)->with('success_message' , 'Record has been deleted successfully.');
         }
     }
 

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use DB;
 use App\Supplier;
+use App\Ledger;
 use App\User;
 
 class SupplierController extends Controller
@@ -35,7 +36,16 @@ class SupplierController extends Controller
     public function viewProfile($id = 0)
     {
         $data = [];
-        return view('admin.suppliers.view_profile',$data);
+        $cp = new Supplier;
+        $result = $cp->find($id);
+        if(!empty($result)){
+            $data['result'] = $result;
+            $amount_paid = Ledger::where('supplier_id',$id)->where('is_credit',1)->sum('amount');
+            $amount_payable = Ledger::where('supplier_id',$id)->where('is_debit',1)->sum('amount');
+            $data['amount_paid'] = $amount_paid;
+            $data['amount_payable'] = $amount_payable-$amount_paid;
+            return view('admin.suppliers.view_profile',$data);
+        }
     }
 
     public function process_add(Request $request)

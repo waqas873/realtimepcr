@@ -18,6 +18,7 @@ class CreateSystemInvoicesTable extends Migration
             $table->integer('user_id')->nullable()->comment = 'who created this';
             $table->integer('collection_point_id')->nullable();
             $table->integer('doctor_id')->nullable();
+            $table->integer('supplier_id')->nullable();
             $table->integer('embassy_user_id')->nullable();
             $table->integer('airline_user_id')->nullable();
             $table->string('unique_id')->nullable();
