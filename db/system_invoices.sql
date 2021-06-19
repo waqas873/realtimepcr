@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 16, 2021 at 06:34 AM
+-- Generation Time: Jun 18, 2021 at 02:59 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.2
 
@@ -35,7 +35,7 @@ CREATE TABLE `system_invoices` (
   `doctor_id` int(11) DEFAULT NULL,
   `embassy_user_id` int(11) DEFAULT NULL,
   `airline_user_id` int(11) DEFAULT NULL,
-  `supplier_id` int(11) DEFAULT NULL,
+  `purchase_id` int(11) DEFAULT NULL,
   `unique_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `amount` int(11) DEFAULT NULL,
   `payment_method` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -50,7 +50,7 @@ CREATE TABLE `system_invoices` (
 -- Dumping data for table `system_invoices`
 --
 
-INSERT INTO `system_invoices` (`id`, `user_id`, `collection_point_id`, `doctor_id`, `embassy_user_id`, `airline_user_id`, `supplier_id`, `unique_id`, `amount`, `payment_method`, `description`, `is_recieved`, `date`, `created_at`, `updated_at`) VALUES
+INSERT INTO `system_invoices` (`id`, `user_id`, `collection_point_id`, `doctor_id`, `embassy_user_id`, `airline_user_id`, `purchase_id`, `unique_id`, `amount`, `payment_method`, `description`, `is_recieved`, `date`, `created_at`, `updated_at`) VALUES
 (7, 13, 1, NULL, NULL, NULL, NULL, '191106', 567, 'Bank Transfer', NULL, 1, '2021-05-18', '2021-05-17 20:01:47', '2021-05-17 20:01:47'),
 (8, 13, 1, NULL, NULL, NULL, NULL, '994529', 3500, 'Cash', 'testing-894723429423', 1, '2021-05-18', '2021-05-17 20:04:04', '2021-05-18 20:03:51'),
 (10, 13, 1, NULL, NULL, NULL, NULL, '134325', 1500, 'Cash', 'teesti', 1, '2021-05-19', '2021-05-18 19:29:07', '2021-05-18 19:29:07'),
@@ -77,7 +77,7 @@ ALTER TABLE `system_invoices`
 -- AUTO_INCREMENT for table `system_invoices`
 --
 ALTER TABLE `system_invoices`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

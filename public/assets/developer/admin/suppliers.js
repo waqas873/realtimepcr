@@ -57,33 +57,34 @@ $(document).on('submit', '#addForm', function (e) {
   });
 });
 
-$(document).on('click', '#addPaymentBtn', function (e) {
-  $('#addPaymentForm').trigger("reset");
+$(document).on('click', '#addPurchaseBtn', function (e) {
+  $('#addPurchaseForm').trigger("reset");
   $('.all_errors').empty();
-  $('#addPaymentModal').modal("show");
+  $('#addPurchaseModal').modal("show");
 });
 
-$(document).on('click', '.system_invoice_update_id', function (e) {
-  var id = $(this).attr('rel');
-  $('.all_errors').empty();
-  $.ajax({
-      url: '/admin/get-system-invoice/'+id,
-      type: 'GET',
-      dataType: 'JSON',
-      success: function (data) {
-        if(data.response){
-          $('.system_invocie_id').val(data.result.id);
-          $('.date').val(data.result.date);
-          $('.amount').val(data.result.amount);
-          $('.payment_method').val(data.result.payment_method).change();
-          $('.description').html(data.result.description);
-          $('#addPaymentModal').modal('show');
-        }
-      }
-  });
-});
+// $(document).on('click', '.purchase_update_id', function (e) {
+//   var id = $(this).attr('rel');
+//   $('.all_errors').empty();
+//   $.ajax({
+//       url: '/admin/get-purchase/'+id,
+//       type: 'GET',
+//       dataType: 'JSON',
+//       success: function (data) {
+//         if(data.response){
+//           $('#addPurchaseForm').trigger("reset");
+//           $('.purchase_id').val(data.result.id);
+//           $('.date').val(data.result.date);
+//           $('.price').val(data.result.price);
+//           $('.purchase_type').val(data.result.purchase_type).change();
+//           $('.description').html(data.result.description);
+//           $('#addPaymentModal').modal('show');
+//         }
+//       }
+//   });
+// });
 
-$(document).on('submit', '#addPaymentForm', function (e) {
+$(document).on('submit', '#addPurchaseForm', function (e) {
   e.preventDefault();
   var obj = $(this);
   $('.all_errors').empty();
@@ -91,7 +92,7 @@ $(document).on('submit', '#addPaymentForm', function (e) {
   var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
   formData.push({'name':'_token','value':CSRF_TOKEN});
   $.ajax({
-      url: '/admin/add-system-invoice',
+      url: '/admin/add-purchase',
       type: 'POST',
       data: formData,
       dataType: 'JSON',
@@ -110,12 +111,12 @@ $(document).on('submit', '#addPaymentForm', function (e) {
   });
 });
 
-$(document).on('click', '.delete_system_invoice', function (e) {
+$(document).on('click', '.delete_purchase', function (e) {
   e.preventDefault();
   var url = $(this).attr('href');
   swal({
     title: "Are you sure?",
-    text: "If a system invoice is deleted than all its data will be deleted.Are you sure to do this?",
+    text: "If a purchase is deleted than all its data will be deleted.Are you sure to do this?",
     icon: "warning",
     buttons: true,
     dangerMode: true,
@@ -127,14 +128,14 @@ $(document).on('click', '.delete_system_invoice', function (e) {
   });
 });
 
-$('#systemInvoices').DataTable({
+$('#purchases_datatable').DataTable({
   "ordering": true,
   "lengthChange": true,
   "searching": true,
   "processing":true,
   "serverSide": true,
   "ajax": {
-      url: '/admin/get-system-invoices-datatable',
+      url: '/admin/get-purchases-datatable',
       type: 'POST',
       "data": function (d) {
           return $.extend({}, d, {
@@ -155,11 +156,12 @@ $('#systemInvoices').DataTable({
       {'targets': 5, 'orderable': false},
   ],
   "columns": [
-      {"data": "date"},
       {"data": "unique_id"},
-      {"data": "amount"},
+      {"data": "purchase_type"},
       {"data": "description"},
-      {"data": "payment_method"},
+      {"data": "price"},
+      {"data": "advance_payment"},
+      {"data": "remaining_balance"},
       {"data": "action"}
   ]
 });

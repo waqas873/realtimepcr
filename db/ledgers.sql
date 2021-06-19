@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 16, 2021 at 06:34 AM
+-- Generation Time: Jun 18, 2021 at 02:58 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.2
 
@@ -35,7 +35,7 @@ CREATE TABLE `ledgers` (
   `collection_point_id` int(11) DEFAULT NULL,
   `lab_id` int(11) DEFAULT NULL,
   `doctor_id` int(11) DEFAULT NULL,
-  `supplier_id` int(11) DEFAULT NULL,
+  `purchase_id` int(11) DEFAULT NULL,
   `embassy_user_id` int(11) DEFAULT NULL,
   `airline_user_id` int(11) DEFAULT NULL,
   `system_invoice_id` int(11) DEFAULT NULL,
@@ -52,7 +52,7 @@ CREATE TABLE `ledgers` (
 -- Dumping data for table `ledgers`
 --
 
-INSERT INTO `ledgers` (`id`, `user_id`, `invoice_id`, `collection_point_id`, `lab_id`, `doctor_id`, `supplier_id`, `embassy_user_id`, `airline_user_id`, `system_invoice_id`, `unique_id`, `description`, `amount`, `is_debit`, `is_credit`, `created_at`, `updated_at`) VALUES
+INSERT INTO `ledgers` (`id`, `user_id`, `invoice_id`, `collection_point_id`, `lab_id`, `doctor_id`, `purchase_id`, `embassy_user_id`, `airline_user_id`, `system_invoice_id`, `unique_id`, `description`, `amount`, `is_debit`, `is_credit`, `created_at`, `updated_at`) VALUES
 (1, 8, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, '410774', 'Amount received from patient', 7500, 1, 0, '2021-05-10 20:52:46', '2021-05-10 20:52:46'),
 (2, 8, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, '273269', 'Amount received from patient', 1000, 0, 1, '2021-05-10 20:54:26', '2021-05-10 20:54:26'),
 (5, 8, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, '66536', 'Amount received from patient', 1200, 1, 0, '2021-05-10 21:06:57', '2021-05-10 21:06:57'),
@@ -89,7 +89,7 @@ ALTER TABLE `ledgers`
 -- AUTO_INCREMENT for table `ledgers`
 --
 ALTER TABLE `ledgers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

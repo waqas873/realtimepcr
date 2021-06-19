@@ -48,7 +48,7 @@
         <ul class="nav nav-tabs" role="tablist">
           <li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#VendorProfile" role="tab"><span class="d-none d-md-block"> Profile</span><span class="d-block d-md-none"><i class="mdi mdi-home-variant h5"></i></span></a></li>
           <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Purchases" role="tab"><span class="d-none d-md-block">Purchases</span><span class="d-block d-md-none"><i class="mdi mdi-account h5"></i></span></a></li>
-          <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Trx" role="tab"><span class="d-none d-md-block">Transactions</span><span class="d-block d-md-none"><i class="mdi mdi-settings h5"></i></span></a></li>
+          <!-- <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Trx" role="tab"><span class="d-none d-md-block">Transactions</span><span class="d-block d-md-none"><i class="mdi mdi-settings h5"></i></span></a></li> -->
         </ul><!-- Tab panes -->
         <div class="tab-content">
           <div class="tab-pane active p-3" id="VendorProfile" role="tabpanel">
@@ -75,30 +75,21 @@
 
             
             <div class="row">
-            <div class="col-sm-12"><button type="button" class="btn btn-light float-right" style="margin: 10px;">Make Purchase</button></div>
-            <table class="table table-borderless">
+            <div class="col-sm-12">
+              <button type="button" id="addPurchaseBtn" class="btn btn-light float-right" style="margin: 10px;">Make Purchase</button>
+            </div>
+            <table class="table table-borderless" id="purchases_datatable">
               <thead class="thead-dark">
                 <tr>
-                  <th>S.No</th>
                   <th>Purchase ID</th>
                   <th>Purchase Type</th>
                   <th>Description</th>
                   <th>Total Price</th>
                   <th>Advance Payment</th>
                   <th>Payment Balance</th>
+                  <th>Action</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td>-----</td>
-                  <td>-----</td>
-                  <td>-----</td>
-                  <td>-----</td>
-                  <td>-----</td>
-                  <td>-----</td>
-                  <td>-----</td>
-                </tr>
-              </tbody>
             </table>
             </div>
           </div>
@@ -142,7 +133,7 @@
 
             </div>
             <br>
-            <div class="row">
+            <!-- <div class="row">
               <table class="table table-borderless" id="systemInvoices">
                 <thead class="thead-dark">
                   <tr>
@@ -155,7 +146,7 @@
                   </tr>
                 </thead>
               </table>
-            </div>
+            </div> -->
 
           </div>
         </div>
@@ -206,6 +197,79 @@
               <option value="Payment Gateway">Payment Gateway</option>
             </select>
             <div class="all_errors payment_method_error"></div>
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Description</label>
+            <textarea class="form-control description" name="description" id="message-text"></textarea>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Save Record</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade addPurchase" id="addPurchaseModal" tabindex="-1" role="dialog" aria-labelledby="addPurchase" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New Purchase</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="addPurchaseForm" method="post">
+      <div class="modal-body">
+          @csrf
+
+          <!-- <input type="hidden" name="id" class="purchase_id"> -->
+          <input type="hidden" name="supplier_id" value="{{$result->id}}" class="supplier_id">
+
+          <?php
+          $purchase_types = [['id'=>1,'name'=>'Kits'],['id'=>2,'name'=>'Boxes']];
+          ?>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Purchase Type</label>
+            <select class="form-control purchase_type" name="purchase_type" id="purchase_type">
+              <option value="">Select here</option>
+              <?php 
+              if(!empty($purchase_types)){
+                foreach ($purchase_types as $key => $value) {
+              ?>
+              <option value="<?php echo $value['id'];?>"><?php echo $value['name'];?></option>
+              <?php
+                }
+              }
+              ?>
+            </select>
+            <div class="all_errors purchase_type_error"></div>
+          </div>
+          <div class="form-group">
+            <label for="price">Total Price</label>
+            <div class="input-group mb-2">
+              <div class="input-group-prepend">
+                <div class="input-group-text">Rs:</div>
+              </div>
+              <input name="price" type="number" class="form-control value price" placeholder="Enter Value">
+            </div>
+            <div class="all_errors price_error"></div>
+          </div>
+          <div class="form-group">
+            <label for="advance_payment">Advance Payment</label>
+            <div class="input-group mb-2">
+              <div class="input-group-prepend">
+                <div class="input-group-text">Rs:</div>
+              </div>
+              <input name="advance_payment" type="number" class="form-control value advance_payment" placeholder="Enter Value">
+            </div>
+            <div class="all_errors advance_payment_error"></div>
+          </div>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Date:</label>
+            <input type="date" name="date" class="form-control date">
+            <div class="all_errors date_error"></div>
           </div>
           <div class="form-group">
             <label for="message-text" class="col-form-label">Description</label>
