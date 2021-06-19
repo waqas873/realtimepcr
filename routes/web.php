@@ -68,6 +68,7 @@ Route::group(['middleware' => ['web','admin']], function()
         Route::get('/update-supplier/{id?}', 'Admin\SupplierController@update');
         Route::post('/add-purchase', 'Admin\SupplierController@processPurchase');
         Route::post('/get-purchases-datatable', 'Admin\SupplierController@purchases_datatable');
+        Route::get('/delete-purchase/{id?}', 'Admin\SupplierController@deletePurchase');
 
         Route::get('/patient-delete-permanently/{id?}', 'Admin\PatientController@delete_permanently');
         Route::get('/delete-admin/{id?}', 'Admin\AdminController@delete_admin');

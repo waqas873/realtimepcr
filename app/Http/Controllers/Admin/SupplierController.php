@@ -11,6 +11,7 @@ use App\Supplier;
 use App\Ledger;
 use App\User;
 use App\Purchase;
+use App\System_invoice;
 
 class SupplierController extends Controller
 {
@@ -258,6 +259,22 @@ class SupplierController extends Controller
             $data['data'] = '';
         }
         echo json_encode($data);
+    }
+
+    public function deletePurchase($id = 0)
+    {
+        $data  = [];
+        $class = new Purchase;
+        $result = $class->find($id);
+        if(empty($result)){
+            return redirect('admin/dashboard')->with('error_message' , 'This record does not exist.');
+        }
+        if(!empty($result->supplier_id)){
+            $result->delete();
+            Ledger::where('purchase_id',$id)->delete();
+            System_invoice::where('purchase_id',$id)->delete();
+            return redirect('admin/supplier-view-profile/'.$result->supplier_id)->with('success_message' , 'Record has been deleted successfully.');
+        }
     }
 
 }
