@@ -150,7 +150,7 @@
           <div class="form-group row">
             <label for="name" class="col-sm-2 col-form-label pformlabel">Name:</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control inputs_with_bottom_border" id="name" name="name" placeholder="Enter Name">
+              <input type="text" class="form-control iwbb" id="name" name="name" placeholder="Enter Name">
               <div class="all_errors" id="name_error">
               </div>
             </div>
@@ -158,7 +158,7 @@
           <div class="form-group row">
             <label for="domain" class="col-sm-2 col-form-label pformlabel">Domain:</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control inputs_with_bottom_border" id="domain" name="domain" placeholder="Enter domain">
+              <input type="text" class="form-control iwbb" id="domain" name="domain" placeholder="Enter domain">
               <div class="all_errors" id="domain_error">
               </div>
             </div>
@@ -166,7 +166,7 @@
           <div class="form-group row">
             <label for="focal_person" class="col-sm-2 col-form-label pformlabel">Focal Person:</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control inputs_with_bottom_border" id="focal_person" name="focal_person" placeholder="Enter focal person">
+              <input type="text" class="form-control iwbb" id="focal_person" name="focal_person" placeholder="Enter focal person">
               <div class="all_errors" id="focal_person_error">
               </div>
             </div>
@@ -174,7 +174,7 @@
           <div class="form-group row">
             <label for="contact_no" class="col-sm-2 col-form-label pformlabel">Contact No:</label>
             <div class="col-sm-10">
-              <input type="number" class="form-control inputs_with_bottom_border" id="contact_no" name="contact_no" placeholder="Enter contact no">
+              <input type="number" class="form-control iwbb" id="contact_no" name="contact_no" placeholder="Enter contact no">
               <div class="all_errors" id="contact_no_error">
               </div>
             </div>
@@ -182,7 +182,7 @@
           <div class="form-group row">
             <label for="city" class="col-sm-2 col-form-label pformlabel">City:</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control inputs_with_bottom_border" id="city" name="city" placeholder="Enter city">
+              <input type="text" class="form-control iwbb" id="city" name="city" placeholder="Enter city">
               <div class="all_errors" id="city_error">
               </div>
             </div>
@@ -190,7 +190,7 @@
           <div class="form-group row">
             <label for="address" class="col-sm-2 col-form-label pformlabel">Address:</label>
             <div class="col-sm-10">
-              <input type="text" class="form-control inputs_with_bottom_border" id="address" name="address" placeholder="Enter address">
+              <input type="text" class="form-control iwbb" id="address" name="address" placeholder="Enter address">
               <div class="all_errors" id="address_error">
               </div>
             </div>

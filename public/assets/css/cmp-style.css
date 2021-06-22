@@ -148,6 +148,15 @@ display: block;
 margin: 0px auto;
 border-radius: 10px;
 }
+.mbl-screen {
+    display: none;
+}
+
+@media only screen and (max-width: 560px) {
+    .mbl-screen {
+        display: block;
+    }
+}
 
 @media print {
     

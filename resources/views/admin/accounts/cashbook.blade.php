@@ -33,6 +33,18 @@
     <div class="col-sm-5">
         <h4 class="page-title m-0">Cashbook</h4>
     </div>
+
+
+    <div class="col-sm-1 no_padd">
+                <p>Filter by LAB</p>
+            </div>
+            <div class="col-sm-6 no_padd">
+                <select class="form-control" name="" id="">
+                <option value="">All</option>
+                
+                </select>
+            </div>
+
     <!-- end col -->
 </div>
 <!-- end row -->

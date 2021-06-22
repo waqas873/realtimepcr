@@ -167,7 +167,7 @@
             <div class="form-group col-sm-4">
               <label for="reffered_by" class="col-form-label pformlabel">Reffered By (Doctors / Embassy)</label>
               <div class="">
-                <select class="form-control <!--inputs_with_bottom_border--> select2" id="reffered_by" name="reffered_by">
+                <select class="form-control <!--inputs_with_bottom_border-->" id="reffered_by" name="reffered_by">
                   <option value="">Select doctor / Refferer</option>
                   @if(!empty($doctors))
                   @foreach($doctors as $record)

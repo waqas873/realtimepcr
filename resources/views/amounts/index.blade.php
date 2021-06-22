@@ -149,7 +149,7 @@
                     <?php
                     echo (!empty($value->description)) ? $value->description : '------';
                     if (!empty($value->patient_id)) {
-                      echo ' &nbsp;<a href="' . url('patient-detail/' . $value->patient_id) . '" class="btn btn-sm btn-primary">View Patient</a>';
+                      echo ' &nbsp; <a href="' . url('patient-detail/' . $value->patient_id) . '"  class="btn btn-sm btn-primary" target="_blank">View Patient</a>';
                     }
                     ?>
                   </td>
@@ -209,8 +209,8 @@
           <div class="form-group row">
             <label for="title" class="col-sm-3 col-form-label pformlabel">Select Category</label>
             <div class="col-sm-9">
-              <!-- <input type="text" class="form-control inputs_with_bottom_border" id="title" name="title" placeholder="Enter item"> -->
-              <select name="account_category_id" class="form-control select2">Select Expense Category
+              <!-- <input type="text" class="form-control  iwbb" id="title" name="title" placeholder="Enter item"> -->
+              <select name="account_category_id" class="form-control ">Select Expense Category
               @if(!empty($expense_categories))
               @foreach($expense_categories as $record)
               <option value="">Select Expense Category</option>
@@ -225,7 +225,7 @@
           <div class="form-group row">
             <label for="amount" class="col-sm-3 col-form-label pformlabel">Amount Spent</label>
             <div class="col-sm-9">
-              <input type="number" class="form-control inputs_with_bottom_border" id="amount" name="amount" placeholder="Enter amount">
+              <input type="number" class="form-control  iwbb" id="amount" name="amount" placeholder="Enter amount">
               <div class="all_errors amount_error">
               </div>
             </div>
@@ -234,7 +234,7 @@
           <div class="form-group row">
             <label for="description" class="col-sm-3 col-form-label pformlabel">Description</label>
             <div class="col-sm-9">
-              <textarea class="form-control inputs_with_bottom_border" id="description" name="description"></textarea>
+              <textarea class="form-control  iwbb" id="description" name="description"></textarea>
             </div>
           </div>
 
@@ -266,7 +266,7 @@
           <div class="form-group row">
             <label for="amount_transfer" class="col-sm-3 col-form-label pformlabel">Amount Submitted</label>
             <div class="col-sm-9">
-              <input type="number" class="form-control inputs_with_bottom_border" id="amount_transfer" name="amount_transfer" placeholder="Enter amount">
+              <input type="number" class="form-control  iwbb" id="amount_transfer" name="amount_transfer" placeholder="Enter amount">
               <div class="all_errors" id="amount_transfer_error">
               </div>
             </div>
@@ -275,7 +275,7 @@
           <div class="form-group row">
             <label for="user_id" class="col-sm-3 col-form-label pformlabel">Submitted To</label>
             <div class="col-sm-9">
-              <select class="form-control inputs_with_bottom_border select2" id="user_id" name="user_id">
+              <select class="form-control  iwbb " id="user_id" name="user_id">
                 <option value="">Select User</option>
                 <?php
                 if (!empty($users)) {
@@ -290,11 +290,12 @@
               </div>
             </div>
           </div>
-          <div class="form-group row">
+          
+          <!-- <div class="form-group row">
             <label for="title" class="col-sm-3 col-form-label pformlabel">Select Category</label>
             <div class="col-sm-9">
-              <!-- <input type="text" class="form-control inputs_with_bottom_border" id="title" name="title" placeholder="Enter item"> -->
-              <select name="account_category_id" class="form-control select2">Select Income Category
+              
+              <select name="account_category_id" class="form-control ">Select Income Category
               @if(!empty($expense_categories))
               @foreach($expense_categories as $record)
               <option value="">Select Income Category</option>
@@ -305,12 +306,12 @@
               <div class="all_errors account_category_id_error">
               </div>
             </div>
-          </div>
+          </div> -->
 
           <div class="form-group row">
             <label for="description" class="col-sm-3 col-form-label pformlabel">Description</label>
             <div class="col-sm-9">
-              <textarea class="form-control inputs_with_bottom_border" name="description"></textarea>
+              <textarea class="form-control  iwbb" name="description"></textarea>
             </div>
           </div>
 

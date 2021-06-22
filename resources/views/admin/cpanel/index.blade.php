@@ -621,7 +621,7 @@
             @csrf
             <div class="form-group">
               <label for="add_category">Category Type</label>
-              <select class="form-control select2 inputs_with_bottom_border" name="type">
+              <select class="form-control iwbb" name="type">
                 <option value="">Select Category Type</option>
                 <option value="1">Cash Payment</option>
                 <option value="2">Cash Recieved</option>
@@ -687,7 +687,7 @@
             @csrf
             <div class="form-group">
               <label for="add_category">Category Type</label>
-              <select class="form-control select2 inputs_with_bottom_border" name="type">
+              <select class="form-control iwbb" name="type">
                 <option value="">Select Category Type</option>
                 <option value="1">Chain Reaction / PCR / No PCR</option>
                 <option value="2">Test Medicines</option>
@@ -783,19 +783,29 @@
             @csrf
 
             <input type="hidden" name="id" value="" id="test_id">
-
             <div class="form-group row">
-              <label for="name" class="col-sm-3 col-form-label pformlabel">Test Name/Parameters</label>
-              <div class="col-sm-9">
-                <input type="text" class="form-control inputs_with_bottom_border" id="name" name="name" placeholder="Enter test name">
-                <div class="all_errors name_error">
-                </div>
+              <div class="col-sm-3">
               </div>
+              <div class="com-sm-7">
+
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" id="shc" onclick="checkFunction('shc','sub-heading')">
+                  <label class="form-check-label" for="shc">SubHeading</label>
+                  <small id="" class="form-text text-muted">You can Select the SubHeading (Qualitative/Quantitative) displayed on Reports Page</small>
+
+                  <input class="form-check-input" type="checkbox" value="" id="t-kits" onclick="checkFunction('t-kits','test-kits')">
+                  <label class="form-check-label" for="t-kits">Test Kits</label>
+                  <small id="" class="form-text text-muted">Assign Already added test kit to this Test.</small>
+
+                </div>
+
+              </div>
+
             </div>
             <div class="form-group row">
               <label for="category_id" class="col-sm-3 col-form-label pformlabel">Category</label>
               <div class="col-sm-9">
-                <select class="form-control select2 inputs_with_bottom_border" id="category_id" name="category_id">
+                <select class="form-control iwbb" id="category_id" name="category_id">
                   <option value="">Select Category</option>
                   @if(!empty($categories))
                   @foreach($categories as $record)
@@ -808,17 +818,20 @@
               </div>
             </div>
             <div class="form-group row">
-              <label for="reporting_hrs" class="col-sm-3 col-form-label pformlabel">Reporting Time (hrs)</label>
+              <label for="name" class="col-sm-3 col-form-label pformlabel">Test Name</label>
               <div class="col-sm-9">
-                <input type="number" class="form-control inputs_with_bottom_border" id="reporting_hrs" value="{{ old('reporting_hrs') }}" name="reporting_hrs" placeholder="Enter reporting time">
-                <div class="all_errors reporting_hrs_error">
+                <input type="text" class="form-control iwbb" id="name" name="name" placeholder="Enter test name">
+                <div class="all_errors name_error">
                 </div>
               </div>
             </div>
+
+
+
             <div class="form-group row">
               <label for="email" class="col-sm-3 col-form-label pformlabel">Sample</label>
               <div class="col-sm-9">
-                <select class="form-control select2" id="sample_id" name="sample_id">
+                <select class="form-control " id="sample_id" name="sample_id">
                   <option value="">Select Sample</option>
                   @if(!empty($samples))
                   @foreach($samples as $record)
@@ -830,12 +843,29 @@
                 </div>
               </div>
             </div>
-
-            <!--
             <div class="form-group row">
+              <label for="reporting_hrs" class="col-sm-3 col-form-label pformlabel">Reporting Time (Hrs)</label>
+              <div class="col-sm-3">
+                <input type="number" class="form-control iwbb" id="reporting_hrs" value="" name="reporting_hrs" placeholder="Hours">
+                <div class="all_errors reporting_hrs_error">
+                </div>
+              </div>
+
+              <label for="reporting_hrs" class="col-sm-3 col-form-label pformlabel">Reporting (Days)</label>
+              <div class="col-sm-3">
+                <input type="number" class="form-control iwbb" id="reporting_days" value="" name="reporting_days" placeholder="Days">
+                <!-- <div class="all_errors reporting_hrs_error"> -->
+              </div>
+            </div>
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+        </div>
+
+
+            <div class="form-group row" id="test-kits" style="display: none;">
               <label for="product_id" class="col-sm-3 col-form-label pformlabel">Test Kit</label>
               <div class="col-sm-9">
-                <select class="form-control select2" id="product_id" name="product_id">
+                <select class="form-control " id="product_id" name="product_id">
                   <option value="">Select Kit</option>
                   @if(!empty($products))
                   @foreach($products as $record)
@@ -847,17 +877,17 @@
                 </div>
               </div>
             </div>
-            -->
-            <div class="form-group row">
-              <label for="price" class="col-sm-3 col-form-label pformlabel">Test Price</label>
-              <div class="col-sm-9">
-                <input type="number" class="form-control inputs_with_bottom_border" id="price" name="price" placeholder="Enter test price">
-                <div class="all_errors price_error">
-                </div>
-              </div>
-            </div>
 
-            <!-- <fieldset class="form-group">
+        <div class="form-group row">
+          <label for="price" class="col-sm-3 col-form-label pformlabel">Test Price</label>
+          <div class="col-sm-9">
+            <input type="number" class="form-control iwbb" id="price" name="price" placeholder="Enter test price in (PKR)">
+            <div class="all_errors price_error">
+            </div>
+          </div>
+        </div>
+
+        <!-- <fieldset class="form-group">
               <div class="row" style="margin-left: 42px;margin-top: 14px;">
                 <legend class="col-form-label col-sm-2 pt-0 pformlabel">Registration Type</legend>
                 <div class="custom-control custom-radio custom-control-inline">
@@ -875,322 +905,323 @@
               </div>
             </fieldset> -->
 
-            <div class="form-group row">
-              <legend class="col-form-label col-sm-3 pt-0 pformlabel">Test type</legend>
-              <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" id="type1" name="type" class="custom-control-input" value="1" checked="">
-                <label class="custom-control-label" for="type1">Local</label>
-              </div>
-              <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" id="type2" name="type" class="custom-control-input" value="2">
-                <label class="custom-control-label" for="type2">Overseas</label>
-              </div>
-            </div>
-
-            <div class="form-group row">
-              <label for="reporting_unit_id" class="col-sm-3 col-form-label pformlabel">Reporting Type</label>
-              <div class="col-sm-9">
-                <select class="form-control select2 reporting_unit_id" id="reporting_unit_id" name="reporting_unit_id">
-                  <option value="">Select Unit</option>
-                  <!-- <option value="input-value">Input-Value</option> -->
-                  @if(!empty($reporting_units))
-                  @foreach($reporting_units as $record)
-                  <option value="{{$record->id}}">{{$record->name}}</option>
-                  @endforeach
-                  @endif
-                </select>
-                <div class="all_errors reporting_unit_id_error">
-                </div>
-              </div>
-            </div>
-
-            <div class="form-group row unitsNormal">
-              <label for="units" class="col-sm-3 col-form-label pformlabel">Units</label>
-              <div class="col-sm-9">
-                <input type="text" class="form-control inputs_with_bottom_border" id="units" name="units" placeholder="Enter normal value">
-                <div class="all_errors units_error">
-                </div>
-              </div>
-            </div>
-
-            <div class="form-group row unitsNormal">
-              <label for="normal_value" class="col-sm-3 col-form-label pformlabel">Normal Value</label>
-              <div class="col-sm-9">
-                <input type="text" class="form-control inputs_with_bottom_border" id="normal_value" name="normal_value" placeholder="Enter normal value">
-                <div class="all_errors normal_value_error">
-                </div>
-              </div>
-            </div>
-
-
-
-            <!--
-            <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="shc" onclick="myFunction()">
-                    <label class="form-check-label" for="shc">Sub Heading/Chain Reaction</label>
-                </div>
-            
-            
-            <!--
-
-             <div class="form-group row" id="sub-heading">
-              <label for="email" class="col-sm-3 col-form-label pformlabel">Sub Heading / Chain Reaction</label>
-             
-              <div class="col-sm-9">
-                <select class="form-control select2" id="test_category_id" name="test_category_id">
-                  <option value="">Select Chain</option>
-                  @if(!empty($test_categories))
-                  @foreach($test_categories as $record)
-                  @if($record->type==1)
-                  <option value="{{$record->id}}">{{$record->name}}</option>
-                  @endif
-                  @endforeach
-                  @endif
-                </select>
-                <div class="all_errors test_category_id_error">
-                </div>
-              </div>
-            </div>
--->
-            <div class="form-group row">
-              <label for="email" class="col-sm-3 col-form-label pformlabel">Test Comments</label>
-              <!--Getting Css File-->
-              <link rel="stylesheet" href="https://pcr.realtimepcr.pk/assets/css/cmp-style.css">
-              <div class="col-sm-9">
-                <textarea class="component comments" name="comments" id="comments" cols="0" rows="5" placeholder="Type Comments Here (If Any) Leave Blank if there's No Comments"></textarea>
-                <div class="all_errors comments_error">
-                </div>
-              </div>
-
-            </div>
-
-            <div class="form-group row">
-              <div class="col-sm-9 offset-sm-3">
-                <button type="submit" class="btn btn-primary test_save_btn">Save Test</button>
-              </div>
-            </div>
-          </form>
+        <div class="form-group row">
+          <legend class="col-form-label col-sm-3 pt-0 pformlabel">Test type</legend>
+          <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="type1" name="type" class="custom-control-input" value="1" checked="">
+            <label class="custom-control-label" for="type1">Local</label>
+          </div>
+          <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="type2" name="type" class="custom-control-input" value="2">
+            <label class="custom-control-label" for="type2">Overseas</label>
+          </div>
         </div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-primary" data-dismiss="modal">Close</button>
+
+        <div class="form-group row">
+          <label for="reporting_unit_id" class="col-sm-3 col-form-label pformlabel">Reporting Type</label>
+          <div class="col-sm-9">
+            <select class="form-control reporting_unit_id" id="reporting_unit_id" name="reporting_unit_id">
+              <option value="">Select Unit</option>
+              <!-- <option value="input-value">Input-Value</option> -->
+              @if(!empty($reporting_units))
+              @foreach($reporting_units as $record)
+              <option value="{{$record->id}}">{{$record->name}}</option>
+              @endforeach
+              @endif
+            </select>
+            <div class="all_errors reporting_unit_id_error">
+            </div>
+          </div>
         </div>
+
+        <div class="form-group row unitsNormal">
+          <label for="units" class="col-sm-3 col-form-label pformlabel">Units</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control iwbb" id="units" name="units" placeholder="Enter Reporting Units">
+            <div class="all_errors units_error">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row unitsNormal">
+          <label for="normal_value" class="col-sm-3 col-form-label pformlabel">Normal Value</label>
+          <div class="col-sm-9">
+            <input type="text" class="form-control iwbb" id="normal_value" name="normal_value" placeholder="Enter normal value">
+            <div class="all_errors normal_value_error">
+            </div>
+          </div>
+        </div>
+
+
+
+        <script>
+          //CheckBOX function
+          function checkFunction(x, y) {
+            var checkBox = document.getElementById(x);
+            var cmp = document.getElementById(y);
+            if (checkBox.checked == true) {
+              cmp.style.display = "";
+            } else {
+              cmp.style.display = "none";
+            }
+          }
+        </script>
+
+        <div class="form-group row" id="sub-heading" class="shc-heading" style="display: none;">
+          <label for="" class="col-sm-3 col-form-label pformlabel">Sub Heading / Chain Reaction</label>
+
+          <div class="col-sm-9">
+            <select class="form-control " id="test_category_id" name="test_category_id">
+              <option value="">Select Chain</option>
+              @if(!empty($test_categories))
+              @foreach($test_categories as $record)
+              @if($record->type==1)
+              <option value="{{$record->id}}">{{$record->name}}</option>
+              @endif
+              @endforeach
+              @endif
+            </select>
+            <div class="all_errors test_category_id_error">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="email" class="col-sm-3 col-form-label pformlabel">Test Comments</label>
+          <!--Getting Css File-->
+          <link rel="stylesheet" href="https://pcr.realtimepcr.pk/assets/css/cmp-style.css">
+          <div class="col-sm-9">
+            <textarea class="component comments" name="comments" id="comments" cols="0" rows="5" placeholder="Type Comments Here (If Any) Leave Blank if there's No Comments"></textarea>
+            <div class="all_errors comments_error">
+            </div>
+          </div>
+
+        </div>
+
+        <div class="form-group row">
+          <div class="col-sm-9 offset-sm-3">
+            <button type="submit" class="btn btn-secondary test_save_btn btn-block">Save Test</button>
+          </div>
+        </div>
+        </form>
       </div>
     </div>
   </div>
+</div>
 
-  <!-- Modal -->
-  <div class="modal fade" id="addProfileTestModal" tabindex="-1" role="dialog" aria-labelledby="addProfileTestModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content add-test-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="addProfileTestModalLabel">Add Profile</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form action="" method="post" id="profile-test-form">
-            @csrf
+<!-- Modal -->
+<div class="modal fade" id="addProfileTestModal" tabindex="-1" role="dialog" aria-labelledby="addProfileTestModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content add-test-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addProfileTestModalLabel">Add Profile</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="" method="post" id="profile-test-form">
+          @csrf
 
-            <input type="hidden" name="id" value="" id="profile_id">
+          <input type="hidden" name="id" value="" id="profile_id">
 
-            <div class="form-group row">
-              <label for="profile_name" class="col-sm-3 col-form-label pformlabel">Profile Name</label>
-              <div class="col-sm-9">
-                <input type="text" class="form-control inputs_with_bottom_border" id="profile_name" name="name" placeholder="Enter profile name">
-                <div class="all_errors" id="profile_name_error">
-                </div>
+          <div class="form-group row">
+            <label for="profile_name" class="col-sm-3 col-form-label pformlabel">Profile Name</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control iwbb" id="profile_name" name="name" placeholder="Enter profile name">
+              <div class="all_errors" id="profile_name_error">
               </div>
             </div>
-            <div class="form-group row">
-              <label for="profile_price" class="col-sm-3 col-form-label pformlabel">Price</label>
-              <div class="col-sm-9">
-                <input type="number" class="form-control inputs_with_bottom_border" id="profile_price" name="price" placeholder="Enter profile price">
-                <div class="all_errors" id="profile_price_error">
-                </div>
+          </div>
+          <div class="form-group row">
+            <label for="profile_price" class="col-sm-3 col-form-label pformlabel">Price</label>
+            <div class="col-sm-9">
+              <input type="number" class="form-control iwbb" id="profile_price" name="price" placeholder="Enter profile price">
+              <div class="all_errors" id="profile_price_error">
               </div>
             </div>
-            <div class="form-group row">
-              <label for="profile_tests" class="col-sm-3 col-form-label pformlabel">Select Tests</label>
-              <div class="col-sm-9" id="">
-                <select class="form-control select2 inputs_with_bottom_border" id="profile_tests" name="tests[]" multiple="">
-                  @if(!empty($tests))
-                  @foreach($tests as $record)
-                  <option value="{{$record->id}}">{{$record->name}}</option>
-                  @endforeach
-                  @endif
-                </select>
-                <div class="all_errors" id="tests_error">
-                </div>
+          </div>
+          <div class="form-group row">
+            <label for="profile_tests" class="col-sm-3 col-form-label pformlabel">Select Tests</label>
+            <div class="col-sm-9" id="">
+              <select class="form-control iwbb" id="profile_tests" name="tests[]" multiple="">
+                @if(!empty($tests))
+                @foreach($tests as $record)
+                <option value="{{$record->id}}">{{$record->name}}</option>
+                @endforeach
+                @endif
+              </select>
+              <div class="all_errors" id="tests_error">
               </div>
             </div>
+          </div>
 
-            <div class="form-group row">
-              <div class="col-sm-9 offset-sm-3">
-                <button type="submit" class="btn btn-primary profile_save_btn">Save Profile</button>
-              </div>
+          <div class="form-group row">
+            <div class="col-sm-9 offset-sm-3">
+              <button type="submit" class="btn btn-primary profile_save_btn">Save Profile</button>
             </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-primary" data-dismiss="modal">Close</button>
-        </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
+</div>
 
 
-  <?php
-  function check_in_array($test_id, $profile_tests, $profile_id)
-  {
-    foreach ($profile_tests as $record) {
-      if ($record['test_profile_id'] == $profile_id && $record['test_id'] == $test_id)
-        return true;
-    }
-    return false;
+<?php
+function check_in_array($test_id, $profile_tests, $profile_id)
+{
+  foreach ($profile_tests as $record) {
+    if ($record['test_profile_id'] == $profile_id && $record['test_id'] == $test_id)
+      return true;
   }
-  ?>
+  return false;
+}
+?>
 
-  @if(!empty($tp))
-  <script type="text/javascript">
-    $(document).ready(function() {
-      $('#updateProfileTestModal').modal('show');
-    });
-  </script>
-  <!-- Modal -->
-  <div class="modal fade" id="updateProfileTestModal" tabindex="-1" role="dialog" aria-labelledby="updateProfileTestModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content add-test-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="updateProfileTestModalLabel">Update Profile</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form action="" method="post" id="update-profile-test-form">
-            @csrf
+@if(!empty($tp))
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#updateProfileTestModal').modal('show');
+  });
+</script>
+<!-- Modal -->
+<div class="modal fade" id="updateProfileTestModal" tabindex="-1" role="dialog" aria-labelledby="updateProfileTestModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content add-test-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="updateProfileTestModalLabel">Update Profile</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="" method="post" id="update-profile-test-form">
+          @csrf
 
-            <input type="hidden" name="id" value="<?php echo (!empty($tp)) ? $tp['id'] : ''; ?>">
+          <input type="hidden" name="id" value="<?php echo (!empty($tp)) ? $tp['id'] : ''; ?>">
 
-            <div class="form-group row">
-              <label for="update_profile_name" class="col-sm-3 col-form-label pformlabel">Profile Name</label>
-              <div class="col-sm-9">
-                <input type="text" class="form-control inputs_with_bottom_border" id="update_profile_name" name="name" placeholder="Enter profile name" value="<?php echo (!empty($tp)) ? $tp['name'] : ''; ?>">
-                <div class="all_errors" id="update_profile_name_error">
-                </div>
+          <div class="form-group row">
+            <label for="update_profile_name" class="col-sm-3 col-form-label pformlabel">Profile Name</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control iwbb" id="update_profile_name" name="name" placeholder="Enter profile name" value="<?php echo (!empty($tp)) ? $tp['name'] : ''; ?>">
+              <div class="all_errors" id="update_profile_name_error">
               </div>
             </div>
-            <div class="form-group row">
-              <label for="update_profile_price" class="col-sm-3 col-form-label pformlabel">Price</label>
-              <div class="col-sm-9">
-                <input type="number" class="form-control inputs_with_bottom_border" id="update_profile_price" name="price" value="<?php echo (!empty($tp)) ? $tp['price'] : ''; ?>" placeholder="Enter profile price">
-                <div class="all_errors" id="update_profile_price_error">
-                </div>
+          </div>
+          <div class="form-group row">
+            <label for="update_profile_price" class="col-sm-3 col-form-label pformlabel">Price</label>
+            <div class="col-sm-9">
+              <input type="number" class="form-control iwbb" id="update_profile_price" name="price" value="<?php echo (!empty($tp)) ? $tp['price'] : ''; ?>" placeholder="Enter profile price">
+              <div class="all_errors" id="update_profile_price_error">
               </div>
             </div>
-            <div class="form-group row">
-              <label for="update_profile_tests" class="col-sm-3 col-form-label pformlabel">Select Tests</label>
-              <div class="col-sm-9" id="">
-                <select class="form-control select2 inputs_with_bottom_border" id="update_profile_tests" name="tests[]" multiple="">
-                  @if(!empty($tests))
-                  @foreach($tests as $record)
-                  <option value="{{$record->id}}" <?php echo isset($profile_tests) && check_in_array(
-                                                    $record['id'],
-                                                    $profile_tests,
-                                                    $tp['id']
-                                                  ) ? 'selected="selected"' : ''; ?>>{{$record->name}}</option>
-                  @endforeach
-                  @endif
-                </select>
-                <div class="all_errors" id="update_tests_error">
-                </div>
+          </div>
+          <div class="form-group row">
+            <label for="update_profile_tests" class="col-sm-3 col-form-label pformlabel">Select Tests</label>
+            <div class="col-sm-9" id="">
+              <select class="form-control iwbb" id="update_profile_tests" name="tests[]" multiple="">
+                @if(!empty($tests))
+                @foreach($tests as $record)
+                <option value="{{$record->id}}" <?php echo isset($profile_tests) && check_in_array(
+                                                  $record['id'],
+                                                  $profile_tests,
+                                                  $tp['id']
+                                                ) ? 'selected="selected"' : ''; ?>>{{$record->name}}</option>
+                @endforeach
+                @endif
+              </select>
+              <div class="all_errors" id="update_tests_error">
               </div>
             </div>
+          </div>
 
-            <div class="form-group row">
-              <div class="col-sm-9 offset-sm-3">
-                <button type="submit" class="btn btn-primary profile_update_btn">Update Profile</button>
-              </div>
+          <div class="form-group row">
+            <div class="col-sm-9 offset-sm-3">
+              <button type="submit" class="btn btn-primary profile_update_btn">Update Profile</button>
             </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-primary" data-dismiss="modal">Close</button>
-        </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
-  @endif
+</div>
+@endif
 
 
-  <!-- Modal -->
-  <div class="modal fade" id="addParameterModal" tabindex="-1" role="dialog" aria-labelledby="addTestModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content add-test-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="addTestsLabel">Add Test</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form action="" method="post" id="addParameterForm">
-            @csrf
+<!-- Modal -->
+<div class="modal fade" id="addParameterModal" tabindex="-1" role="dialog" aria-labelledby="addTestModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content add-test-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addTestsLabel">Add Test</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="" method="post" id="addParameterForm">
+          @csrf
 
-            <input type="hidden" name="id" value="" id="parameter_id">
+          <input type="hidden" name="id" value="" id="parameter_id">
 
-            <div class="form-group row">
-              <label for="name" class="col-sm-3 col-form-label pformlabel">Parameter Name</label>
-              <div class="col-sm-9">
-                <input type="text" class="form-control inputs_with_bottom_border name" name="name" placeholder="Enter test name">
-                <div class="all_errors name_error">
-                </div>
+          <div class="form-group row">
+            <label for="name" class="col-sm-3 col-form-label pformlabel">Parameter Name</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control iwbb name" name="name" placeholder="Enter test name">
+              <div class="all_errors name_error">
               </div>
             </div>
-            <div class="form-group row">
-              <label for="normal_value" class="col-sm-3 col-form-label pformlabel">Normal Value</label>
-              <div class="col-sm-9">
-                <input type="text" class="form-control inputs_with_bottom_border normal_value" name="normal_value" placeholder="Enter normal value">
-                <div class="all_errors normal_value_error">
-                </div>
+          </div>
+          <div class="form-group row">
+            <label for="normal_value" class="col-sm-3 col-form-label pformlabel">Normal Value</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control iwbb normal_value" name="normal_value" placeholder="Enter normal value">
+              <div class="all_errors normal_value_error">
               </div>
             </div>
-            <div class="form-group row">
-              <label for="units" class="col-sm-3 col-form-label pformlabel">Units</label>
-              <div class="col-sm-9">
-                <input type="text" class="form-control inputs_with_bottom_border units" name="units" placeholder="Enter units">
-                <div class="all_errors units_error">
-                </div>
+          </div>
+          <div class="form-group row">
+            <label for="units" class="col-sm-3 col-form-label pformlabel">Units</label>
+            <div class="col-sm-9">
+              <input type="text" class="form-control iwbb units" name="units" placeholder="Enter units">
+              <div class="all_errors units_error">
               </div>
             </div>
-            <div class="form-group row">
-              <label for="status" class="col-sm-3 col-form-label pformlabel">Select Status</label>
-              <div class="col-sm-9">
-                <select class="form-control select2 inputs_with_bottom_border status" name="status">
-                  <option value="1">Active</option>
-                  <option value="0">Inactive</option>
-                </select>
-                <div class="all_errors status_error">
-                </div>
+          </div>
+          <div class="form-group row">
+            <label for="status" class="col-sm-3 col-form-label pformlabel">Select Status</label>
+            <div class="col-sm-9">
+              <select class="form-control iwbb status" name="status">
+                <option value="1">Active</option>
+                <option value="0">Inactive</option>
+              </select>
+              <div class="all_errors status_error">
               </div>
             </div>
-            <div class="form-group row">
-              <div class="col-sm-9 offset-sm-3">
-                <button type="submit" class="btn btn-primary">Save Parameter</button>
-              </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-sm-9 offset-sm-3">
+              <button type="submit" class="btn btn-primary">Save Parameter</button>
             </div>
-          </form>
-        </div>
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-primary" data-dismiss="modal">Close</button>
-        </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
+</div>
 
 
-  <script src="{{asset('assets/developer/admin/cpanel.js')}}"></script>
-  <script src="{{asset('assets/developer/admin/tests.js')}}"></script>
+<script src="{{asset('assets/developer/admin/cpanel.js')}}"></script>
+<script src="{{asset('assets/developer/admin/tests.js')}}"></script>
 
-  @endsection
+@endsection

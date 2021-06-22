@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Realtime PCR | Test Reports</title>
+    <title><?php echo $result->unique_id; ?> - Test Reports | RealtimePCR Lab Official</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <link href="https://pcr.realtimepcr.pk/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="{{asset('assets/css/cmp-style.css')}}" rel="stylesheet" type="text/css">
@@ -125,46 +125,56 @@ Your Test is in Process.</h2>
                             </div>
                         </div>
                     <?php } ?>
+
                 </div>
-                <div class="col-sm-12">
-                    <hr>
-                    <div class="row">
-                        <?php
-                        $total_attempts = count($result->patient_tests);
-                        $repeated = 0;
-                        if (!empty($result->patient_tests)) {
-                            foreach ($result->patient_tests as $ptpt) {
-                                $ans = $ptpt->patient_tests_repeated;
-                                if (!empty($ans)) {
-                                    $total_attempts = $total_attempts + $ans->no_of_repeat;
-                                    $repeated = $repeated + $ans->no_of_repeat;
-                                }
+
+
+
+            </div>
+            <div class="col-sm-12">
+                <hr>
+                <div class="row">
+                    <?php
+                    $total_attempts = count($result->patient_tests);
+                    $repeated = 0;
+                    if (!empty($result->patient_tests)) {
+                        foreach ($result->patient_tests as $ptpt) {
+                            $ans = $ptpt->patient_tests_repeated;
+                            if (!empty($ans)) {
+                                $total_attempts = $total_attempts + $ans->no_of_repeat;
+                                $repeated = $repeated + $ans->no_of_repeat;
                             }
                         }
-                        ?>
-                        <div class="col-sm-3">
-                            <p>Total Attempts = <b style="color: #00aaff;"><?php echo $total_attempts; ?></b> </p>
-                        </div>
-                        <div class="col-sm-3">
-                            <p>Repeated <b style="color: red;"><?php echo $repeated; ?> </b> Times </p>
-                        </div>
-
-                        <?php
-                        $auth = Auth::user();
-                        if (!empty($auth->role) && $auth->role == 1) {
-                        ?>
-                            <div class="col-sm-3" id="adminControlBox">
-                                <p>Net Earnings : <b style="color: green;">Rs:- - - -</b></p>
-                            </div>
-                            <div class="col-sm-3" id="adminControlBox">
-                                <p>Distributed Earning <b style="color: red;">Rs:- - - -</b> </p>
-                            </div>
-                        <?php } ?>
+                    }
+                    ?>
+                    <div class="col-sm-3">
+                        <p>Total Attempts = <b style="color: #00aaff;"><?php echo $total_attempts; ?></b> </p>
                     </div>
+                    <div class="col-sm-3">
+                        <p>Repeated <b style="color: red;"><?php echo $repeated; ?> </b> Times </p>
+                    </div>
+
+                    <?php
+                    $auth = Auth::user();
+                    if (!empty($auth->role) && $auth->role == 1) {
+                    ?>
+                        <div class="col-sm-3" id="adminControlBox">
+                            <p>Net Earnings : <b style="color: green;">Rs:- - - -</b></p>
+                        </div>
+                        <div class="col-sm-3" id="adminControlBox">
+                            <p>Distributed Earning <b style="color: red;">Rs:- - - -</b> </p>
+                        </div>
+                    <?php } ?>
                 </div>
             </div>
         </div>
+        </div>
     <?php } ?>
+
+
+    <div class="mbl-screen">
+        <button type="button" onclick="window.print()" class="btn btn-light btn-lg btn-block" id="clearedPayment">Print / Convert to PDF</button>
+    </div>
 
 
     <div class="container" style="padding: 20px" ; id="print_section">

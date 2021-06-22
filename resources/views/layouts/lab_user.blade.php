@@ -102,6 +102,13 @@
 </a>
 </li>
 
+<li>
+<a href="{{url('lab/reports')}}" class="waves-effect">
+<img src="{{asset('assets/icons/sidebar-icons/icon6.svg')}}" class="sidebar_icons">
+<span>My Inventory</span>
+</a>
+</li>
+
 <!-- <li class="has_sub">
 <a href="javascript:void(0);" class="waves-effect"><i class="dripicons-briefcase"></i> <span> Elements </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
 <ul class="list-unstyled">
