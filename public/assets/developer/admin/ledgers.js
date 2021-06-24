@@ -226,4 +226,49 @@ $(document).on('change', '#lab_id', function (e) {
   $('#lab_ledger').DataTable().ajax.reload();  
 });
 
+$('#supplier_ledger').DataTable({
+  "ordering": true,
+  "lengthChange": true,
+  "searching": true,
+  "processing":true,
+  "serverSide": true,
+  "ajax": {
+      url: '/admin/get-supplier-ledger',
+      type: 'POST',
+      "data": function (d) {
+          return $.extend({}, d, {
+            "_token": $('meta[name="csrf-token"]').attr('content'),
+            "from_date": $('#supplier_from_date').val(),
+            "to_date": $('#supplier_to_date').val(),
+            "supplier_id": $('#supplier_id').val(),
+          });
+      } 
+  },
+  "order": [
+      [0, 'desc']
+  ],
+  columnDefs: [
+      {'targets': 0, 'orderable': false},
+      {'targets': 1, 'orderable': false},
+      {'targets': 2, 'orderable': false},
+      {'targets': 3, 'orderable': false},
+      {'targets': 4, 'orderable': false},
+      {'targets': 5, 'orderable': false},
+  ],
+  "columns": [
+      {"data": "unique_id"},
+      {"data": "created_at"},
+      {"data": "description"},
+      {"data": "debit"},
+      {"data": "credit"},
+      {"data": "balance"}
+  ]
+});
+$(document).on('click', '#supplier_by_date', function (e) {
+  $('#supplier_ledger').DataTable().ajax.reload();  
+});
+$(document).on('change', '#supplier_id', function (e) {
+  $('#supplier_ledger').DataTable().ajax.reload();  
+});
+
 });

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 19, 2021 at 01:19 PM
+-- Generation Time: Jun 24, 2021 at 09:19 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.2
 
@@ -48,7 +48,10 @@ CREATE TABLE `purchases` (
 --
 
 INSERT INTO `purchases` (`id`, `user_id`, `supplier_id`, `unique_id`, `purchase_type`, `price`, `advance_payment`, `remaining_balance`, `date`, `description`, `created_at`, `updated_at`) VALUES
-(5, 13, 1, '814757', 1, 13000, 6000, 7000, '2021-06-16', NULL, '2021-06-19 11:17:31', '2021-06-19 11:17:31');
+(6, 13, 1, '627443', 1, 15000, 7000, 0, '2021-06-17', NULL, '2021-06-23 04:28:11', '2021-06-24 03:56:35'),
+(7, 13, 1, '877879', 2, 3000, 2000, 1000, '2021-06-12', 'sdafljsadf', '2021-06-23 04:59:00', '2021-06-23 04:59:00'),
+(8, 13, 1, '244807', 2, 3000, 2000, 1000, '2021-06-12', 'sdafljsadf', '2021-06-23 04:59:07', '2021-06-23 04:59:07'),
+(9, 13, 1, '821078', 2, 3000, 2000, 1000, '2021-06-12', 'sdafljsadf', '2021-06-23 04:59:37', '2021-06-23 04:59:37');
 
 --
 -- Indexes for dumped tables
@@ -68,7 +71,7 @@ ALTER TABLE `purchases`
 -- AUTO_INCREMENT for table `purchases`
 --
 ALTER TABLE `purchases`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

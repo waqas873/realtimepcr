@@ -150,9 +150,73 @@ class SupplierController extends Controller
 
             $purchase_id = $save->id;
             $this->addLedger($formData['price'],$formData['advance_payment'],$purchase_id);
+            $this->addSystemInvoice($formData['advance_payment'],$purchase_id,$formData['description']);
             $data['response'] = true;
         }
         echo json_encode($data);
+    }
+
+    public function processPurchasePay(Request $request)
+    {
+        $data = [];
+        $data['response'] = false;
+
+        $formData = $request->all();
+        $rules = [
+            'id'=>'required',
+            'date'=>'required',
+            'amount' => 'required|min:1'
+        ];
+        $messages = [];
+        $attributes = [];
+
+        $validator = Validator::make($formData,$rules,$messages,$attributes);
+        //$validator = Validator::make($inputs,$rules);
+        if($validator->fails()){
+            $data['errors'] = $validator->errors();
+        }
+        else{
+            unset($formData['_token']);
+            $purchase_id = $formData['id'];
+            $user = Auth::user();
+            $result = new Purchase;
+            if(is_numeric($formData['amount']) && $formData['amount']>0){
+                $result = $result->find($purchase_id);
+                if($result->remaining_balance>=$formData['amount']){
+                    $result->remaining_balance = $result->remaining_balance-$formData['amount'];
+                    $result->update();
+                    $this->addLedger2($formData['amount'],$purchase_id);
+                    $this->addSystemInvoice($formData['amount'],$purchase_id,$formData['description']);
+                    $data['response'] = true;
+                }
+            }
+        }
+        echo json_encode($data);
+    }
+
+    public function addSystemInvoice($amount = 0,$purchase_id = null, $description = '')
+    {
+        $user = Auth::user();
+        $save = new System_invoice;
+        $save->user_id = $user->id;
+        $save->purchase_id = $purchase_id;
+        if(empty($amount) || empty($purchase_id)){
+            return false;
+        }
+        $save->amount = $amount;
+        $uniq_id = '000000';
+        $uniqueness = false;
+        while($uniqueness == false){
+            $uniq_id = rand(1,1000000);
+            $invRes = System_invoice::where('unique_id',$uniq_id)->first();
+            if(empty($invRes)){
+                $uniqueness = true;
+            }
+        }
+        $save->unique_id = $uniq_id;
+        $save->description = $description;
+        $save->save();
+        return true;
     }
 
     public function addLedger($amount = 0,$advance = 0,$purchase_id = null)
@@ -188,6 +252,32 @@ class SupplierController extends Controller
             $ledger->is_credit = 1;
             $ledger->save();
         }
+        return true;
+    }
+
+    public function addLedger2($amount = 0,$purchase_id = null)
+    {
+        $user = Auth::user();
+        $ledger = new Ledger;
+        $ledger->user_id = $user->id;
+        $ledger->purchase_id = $purchase_id;
+        if(empty($amount)){
+            return false;
+        }
+        $ledger->amount = $amount;
+        $uniq_id = '000000';
+        $uniqueness = false;
+        while($uniqueness == false){
+            $uniq_id = rand(1,1000000);
+            $invRes = Ledger::where('unique_id',$uniq_id)->first();
+            if(empty($invRes)){
+                $uniqueness = true;
+            }
+        }
+        $ledger->unique_id = $uniq_id;
+        $ledger->description = "Amount paid to vendor";
+        $ledger->is_credit = 1;
+        $ledger->save();
         return true;
     }
 
@@ -236,10 +326,17 @@ class SupplierController extends Controller
                 $single_field['price'] = 'Rs: '.$item->price;
                 $single_field['advance_payment'] = 'Rs: '.$item->advance_payment;
                 $single_field['remaining_balance'] = 'Rs: '.$item->remaining_balance;
+                $ancr = '';
+                if($item->remaining_balance > 0){
+                    $ancr = '<a href="javascript::" class="purchase_pay" rel="'.$item->id.'">
+                            <button class="dropdown-item" type="button">Pay</button>
+                          </a>';
+                }
                 $single_field['action'] = '
                    <div class="btn-group">
                         <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                         <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-126px, 35px, 0px);">
+                          '.$ancr.'
                           <a href="'.url('admin/delete-purchase/'.$item->id).'" class="delete_purchase">
                             <button class="dropdown-item" type="button">Delete</button>
                           </a>

@@ -69,6 +69,7 @@ Route::group(['middleware' => ['web','admin']], function()
         Route::post('/add-purchase', 'Admin\SupplierController@processPurchase');
         Route::post('/get-purchases-datatable', 'Admin\SupplierController@purchases_datatable');
         Route::get('/delete-purchase/{id?}', 'Admin\SupplierController@deletePurchase');
+        Route::post('/add-purchase-pay', 'Admin\SupplierController@processPurchasePay');
 
         Route::get('/patient-delete-permanently/{id?}', 'Admin\PatientController@delete_permanently');
         Route::get('/delete-admin/{id?}', 'Admin\AdminController@delete_admin');
@@ -141,6 +142,7 @@ Route::group(['middleware' => ['web','admin']], function()
         Route::post('/get-cp-ledger', 'Admin\LedgersController@cpLedger');
         Route::post('/get-doctor-ledger', 'Admin\LedgersController@doctorLedger');
         Route::post('/get-lab-ledger', 'Admin\LedgersController@labLedger');
+        Route::post('/get-supplier-ledger', 'Admin\LedgersController@supplierLedger');
         Route::post('/get-airline-user-ledger', 'Admin\LedgersController@airlineUserLedger');
         Route::post('/get-embassy-user-ledger', 'Admin\LedgersController@embassyUserLedger');
         

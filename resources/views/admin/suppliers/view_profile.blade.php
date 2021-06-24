@@ -284,6 +284,49 @@
   </div>
 </div>
 
+<div class="modal fade addPurchasePay" id="addPurchasePayModal" tabindex="-1" role="dialog" aria-labelledby="addPurchasePay" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Pay Pending Balance</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="addPurchasePayForm" method="post">
+      <div class="modal-body">
+          @csrf
+
+          <input type="hidden" name="id" class="purchase_id">
+          
+          <div class="form-group">
+            <label for="amount">Amount to Pay</label>
+            <div class="input-group mb-2">
+              <div class="input-group-prepend">
+                <div class="input-group-text">Rs:</div>
+              </div>
+              <input name="amount" type="number" class="form-control value amount" placeholder="Enter Value">
+            </div>
+            <div class="all_errors amount_error"></div>
+          </div>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Date:</label>
+            <input type="date" name="date" class="form-control date">
+            <div class="all_errors date_error"></div>
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Description</label>
+            <textarea class="form-control description" name="description" id="message-text"></textarea>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Save Record</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
 <script src="{{asset('assets/developer/admin/suppliers.js')}}"></script>
 <script src="{{asset('assets/developer/admin/accounts.js')}}"></script>
 

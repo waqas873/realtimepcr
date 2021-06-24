@@ -14,6 +14,7 @@ use App\Lab;
 use App\Doctor;
 use App\Collection_point;
 use App\Amount;
+use App\Supplier;
 
 class AccountsController extends Controller
 {
@@ -120,6 +121,7 @@ class AccountsController extends Controller
     {
         $data = [];
         $data['collection_points'] = Collection_point::all();
+        $data['suppliers'] = Supplier::all();
         $data['labs'] = Lab::all();
         if($action=='cp'){
             $data['cp_id'] = $id;

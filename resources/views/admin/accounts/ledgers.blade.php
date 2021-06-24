@@ -390,6 +390,68 @@
           </div>
           <div class="tab-pane p-3 print-aria" id="vendors" role="tabpanel">
 
+            <form>
+
+              <div class="form-group">
+                <label for="supplier_id">Select Vendor</label>
+                <select name="supplier_id" id="supplier_id" class="form-control form-control-lg select2">
+                  @if(!empty($suppliers))
+                  @foreach($suppliers as $key=>$value)
+                  <option value="{{$value->id}}">{{$value->name}}</option>
+                  @endforeach
+                  @endif
+                </select>
+                <small id="" class="form-text text-muted">You can select vendor here.</small>
+              </div>
+
+              <div class="col-sm-12">
+                <div class="row emdatefilter">
+                  <div class="col-sm-2 no_padd">
+                    <p>Date Range</p>
+                  </div>
+                  <div class="col-sm-3 no_padd">
+                    <input class="form-control inputs_with_bottom_border" type="date" id="supplier_from_date" name="from_date">
+                  </div>
+                  <div class="">
+                    <p>To</p>
+                  </div>
+                  <div class="col-sm-3 no_padd">
+                    <input class="form-control inputs_with_bottom_border" type="date" id="supplier_to_date" name="to_date">
+                  </div>
+                  <div class="col-sm-3">
+                    <a href="javascript::" class="btn btn-success embsearch" id="supplier_by_date">Search</a>
+                  </div>
+                </div>
+              </div>
+
+            </form>
+
+            <br>
+            <hr>
+            <div class="row">
+              <div class="col-sm-10">
+                <h5>Ledger</h5>
+              </div>
+              <div class="col-sm-2">
+                <button type="button" onclick="window.print()" class="btn btn-primary">Print Report</button>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-bordered table-sm" id="supplier_ledger" style="width: 100% !important;">
+                <thead>
+                  <tr>
+                    <!-- <th scope="col">#</th> -->
+                    <th scope="col">ID</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Particulars / Description</th>
+                    <th scope="col">Debit</th>
+                    <th scope="col">Credit</th>
+                    <th scope="col">Balance</th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+
           </div>
         </div>
 

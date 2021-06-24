@@ -128,6 +128,41 @@ $(document).on('click', '.delete_purchase', function (e) {
   });
 });
 
+$(document).on('click', '.purchase_pay', function (e) {
+  var purchase_id = $(this).attr('rel');
+  $('.all_errors').empty();
+  $('#addPurchasePayForm').trigger("reset");
+  $('.purchase_id').val(purchase_id);
+  $('#addPurchasePayModal').modal("show");
+});
+
+$(document).on('submit', '#addPurchasePayForm', function (e) {
+  e.preventDefault();
+  var obj = $(this);
+  $('.all_errors').empty();
+  var formData = obj.serializeArray();
+  var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+  formData.push({'name':'_token','value':CSRF_TOKEN});
+  $.ajax({
+      url: '/admin/add-purchase-pay',
+      type: 'POST',
+      data: formData,
+      dataType: 'JSON',
+      success: function (data) {
+        if(data.response){
+          obj.trigger("reset");
+          swal("Data saved successfully.")
+          .then((value) => {
+            location.reload();
+          });
+        }
+        else{
+          errors(data.errors);
+        }
+      }
+  });
+});
+
 $('#purchases_datatable').DataTable({
   "ordering": true,
   "lengthChange": true,
