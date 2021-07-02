@@ -139,6 +139,8 @@ Route::group(['middleware' => ['web','admin']], function()
         Route::get('/accounts/income-statment', 'Admin\AccountsController@income_statment');
         Route::post('/cash-user-transfer', 'Admin\AccountsController@cashUserTransfer');
 
+        Route::post('/get-cash-payment', 'Admin\AccountsController@get_cash_payment');
+
         Route::post('/get-cp-ledger', 'Admin\LedgersController@cpLedger');
         Route::post('/get-doctor-ledger', 'Admin\LedgersController@doctorLedger');
         Route::post('/get-lab-ledger', 'Admin\LedgersController@labLedger');

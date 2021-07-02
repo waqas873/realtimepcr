@@ -29,6 +29,7 @@ use App\Collection_point_category;
 use App\Doctor_test;
 use App\Doctor_category;
 use App\Commission_test;
+use App\System_invoice;
 
 use Carbon\Carbon;
 
@@ -36,11 +37,13 @@ use Session;
 
 class PatientController extends Controller
 {
-	
+    public $date_time;
+
     public function __construct()
     {
         $this->middleware('auth');
         date_default_timezone_set("Asia/Karachi");
+        $this->date_time = date('Y:m:d H:i:s');
     }
 
     public function index($from_date='',$to_date='')
@@ -72,7 +75,7 @@ class PatientController extends Controller
         $data['airlines'] = Airline::all();
         $data['countries'] = Country::all();
         $data['test_profiles'] = Test_profile::all();
-    	return view('patients.add',$data);
+        return view('patients.add',$data);
     }
 
     public function process_add(Request $request)
@@ -82,12 +85,12 @@ class PatientController extends Controller
         $data['redirect_to'] = false;
         $data['invoice_id'] = '';
 
-    	$formData = $request->all();
+        $formData = $request->all();
 
-    	$rules = [
-	        'name'=>'required|min:3',
-	        'contact_no'=>'required|unique:patients|min:10|max:17'
-	    ];
+        $rules = [
+            'name'=>'required|min:3',
+            'contact_no'=>'required|unique:patients|min:10|max:17'
+        ];
         if(!empty($formData['email'])){
             $rules['email'] = 'email';
         }
@@ -118,8 +121,8 @@ class PatientController extends Controller
 
         //dd($rules);
 
-	    $messages = [];
-	    $attributes = [];
+        $messages = [];
+        $attributes = [];
 
         if($covid==true){
             $attributes['passport_no'] = 'passport no';
@@ -129,8 +132,8 @@ class PatientController extends Controller
             $attributes['flight_time'] = 'flight time';
         }
 
-    	$validator = Validator::make($formData,$rules,$messages,$attributes);
-    	//$validator = Validator::make($inputs,$rules);
+        $validator = Validator::make($formData,$rules,$messages,$attributes);
+        //$validator = Validator::make($inputs,$rules);
         if($validator->fails()){
             $errors = $validator->errors();
 
@@ -203,6 +206,7 @@ class PatientController extends Controller
             
 
             if($patient->save()){
+
                 $patient_id = $patient->id;
 
                 $api_request = false;
@@ -334,8 +338,13 @@ class PatientController extends Controller
                         }
                     }
 
+                    //dd($user);
+
                     if(!empty($user->collection_point_id) && empty($amount_remaining)){
                         $this->addCpLedger($tests,$invoice_id,$amount_paid);
+                    }
+                    if($user->role==0 && !empty($amount_paid)){
+                        $this->addLabLedger($invoice_id,$amount_paid);
                     }
                     if(!empty($doctor->id) && empty($amount_remaining)){
                         $this->addDoctorLedger($tests,$invoice_id,$doctor->id,$amount_paid);
@@ -379,6 +388,55 @@ class PatientController extends Controller
         }
         
         echo json_encode($data);
+    }
+
+    public function addLabLedger($invoice_id = 0, $amount_paid = 0)
+    {
+        $user = Auth::user();
+        $ledger = new Ledger;
+        $ledger->user_id = $user->id;
+        $ledger->invoice_id = $invoice_id;
+        $ledger->lab_id = $user->lab_id;
+        $uniq_id = '000000';
+        $uniqueness = false;
+        while($uniqueness == false){
+            $uniq_id = rand(1,1000000);
+            $invRes = Ledger::where('unique_id',$uniq_id)->first();
+            if(empty($invRes)){
+                $uniqueness = true;
+            }
+        }
+        $ledger->unique_id = $uniq_id;
+        $ledger->description = 'Amount received from patient';
+        $ledger->amount = $amount_paid;
+        $ledger->is_debit = 0;
+        $ledger->is_credit = 1;
+        
+        //$result = Ledger::where('collection_point_id',$cp_id)->latest()->first();
+        if($amount_paid > 0){
+            $ledger->save();
+        }
+
+        $save = new System_invoice;
+        $save->user_id = $user->id;
+        $save->lab_id = $user->lab_id;
+        $save->date = date('Y-m-d');
+        $save->amount = $amount_paid;
+        $save->description = 'Amount received from patient';
+        $inv_uniq_id = '000000';
+        $uniqueness = false;
+        while($uniqueness == false){
+            $inv_uniq_id = rand(1,1000000);
+            $invRes = System_invoice::where('unique_id',$inv_uniq_id)->first();
+            if(empty($invRes)){
+                $uniqueness = true;
+            }
+        }
+        $save->unique_id = $inv_uniq_id;
+        $save->created_at = $this->date_time;
+        $save->updated_at = $this->date_time;
+        $save->save();
+        return true;
     }
 
     public function addAirlineLedger($test_ids = [] , $invoice_id = 0 , $user_id = 0)
@@ -498,7 +556,7 @@ class PatientController extends Controller
         
         //$result = Ledger::where('collection_point_id',$cp_id)->latest()->first();
 
-        if($amount > 0){
+        if($amount > 0 && $amount_paid >= $amount){
             $ledger->save();
         }
         return true;
@@ -558,7 +616,7 @@ class PatientController extends Controller
         $ledger->is_debit = 1;
         
         //$result = Ledger::where('collection_point_id',$cp_id)->latest()->first();
-        if($amount > 0){
+        if($amount > 0 && $amount_paid >= $amount){
             $ledger->save();
         }
         return true;
@@ -1118,3 +1176,4 @@ class PatientController extends Controller
 
 
 }
+  

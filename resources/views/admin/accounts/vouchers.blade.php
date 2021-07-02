@@ -74,7 +74,7 @@
 
               <div class="row">
                 <div class="col-xl-12">
-                  <a href="javascript::" class="btn btn-success" style="float: right;margin-bottom: 20px;margin-right: 1.5%;">Add Voucher</a>
+                  <!-- <a href="javascript::" class="btn btn-success" style="float: right;margin-bottom: 20px;margin-right: 1.5%;">Add Voucher</a> -->
                 </div>
               </div>
 
@@ -88,44 +88,14 @@
                       <th scope="col">Amount Debit</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  <!-- <tbody>
                     <tr>
                       <td scope="col">#080954</td>
                       <td scope="col">Food</td>
                       <td scope="col">Testing description</td>
                       <td scope="col">Rs: 543534</td>
                     </tr>
-                    <tr>
-                      <td scope="col">#080954</td>
-                      <td scope="col">Food</td>
-                      <td scope="col">Testing description</td>
-                      <td scope="col">Rs: 543534</td>
-                    </tr>
-                    <tr>
-                      <td scope="col">#080954</td>
-                      <td scope="col">Food</td>
-                      <td scope="col">Testing description</td>
-                      <td scope="col">Rs: 543534</td>
-                    </tr>
-                    <tr>
-                      <td scope="col">#080954</td>
-                      <td scope="col">Food</td>
-                      <td scope="col">Testing description</td>
-                      <td scope="col">Rs: 543534</td>
-                    </tr>
-                    <tr>
-                      <td scope="col">#080954</td>
-                      <td scope="col">Food</td>
-                      <td scope="col">Testing description</td>
-                      <td scope="col">Rs: 543534</td>
-                    </tr>
-                    <tr>
-                      <td scope="col">#080954</td>
-                      <td scope="col">Food</td>
-                      <td scope="col">Testing description</td>
-                      <td scope="col">Rs: 543534</td>
-                    </tr>
-                  </tbody>
+                  </tbody> -->
                 </table>
               </div>
 

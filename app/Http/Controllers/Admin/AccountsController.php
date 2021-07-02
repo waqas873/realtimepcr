@@ -14,6 +14,7 @@ use App\Lab;
 use App\Doctor;
 use App\Collection_point;
 use App\Amount;
+use App\System_invoice;
 use App\Supplier;
 
 class AccountsController extends Controller
@@ -91,9 +92,11 @@ class AccountsController extends Controller
             $user = Auth::user();
             $transfer_to = $user->id;
             $transfer_from = $formData['id'];
+            $is_recieved = 1;
             if($formData['action']=='transfer'){
                 $transfer_to = $formData['id'];
                 $transfer_from = $user->id;
+                $is_recieved = 0;
             }
             $cash = $this->cash_in_hand($transfer_from);
             if($cash < $formData['amount']){
@@ -110,6 +113,23 @@ class AccountsController extends Controller
                 $amount->type = 1;
                 $amount->is_accepted = 2;
                 if($amount->save()){
+                    $id = $amount->id;
+                    $save = new System_invoice;
+                    $save->user_id = $user->id;
+                    $save->amount_id = $id;
+                    $inv_uniq_id = '000000';
+                    $uniqueness = false;
+                    while($uniqueness == false){
+                        $inv_uniq_id = rand(1,1000000);
+                        $invRes = System_invoice::where('unique_id',$inv_uniq_id)->first();
+                        if(empty($invRes)){
+                            $uniqueness = true;
+                        }
+                    }
+                    $save->unique_id = $inv_uniq_id;
+                    $save->amount = $formData['amount'];
+                    $save->is_recieved = $is_recieved;
+                    $save->save();
                     $data['response'] = true;
                 }
             }
@@ -198,6 +218,78 @@ class AccountsController extends Controller
             Cash::insert($save);
         }
         return true;
+    }
+
+    public function get_cash_payment(Request $request)
+    {
+        $like = array();
+        $result_array = [];
+        $post = $request->all();
+
+        $orderByColumnIndex = $post['order'][0]['column'];
+        $orderByColumn = $post['columns'][$orderByColumnIndex]['data'];
+        $orderType = $post['order'][0]['dir'];
+        $offset = $post['start'];
+        $limit = $post['length'];
+        $draw = $post['draw'];
+        $search = $post['search']['value'];
+
+        $auth = Auth::user();
+        
+        $result = new System_invoice;
+
+        $result_count = count($result->get());
+
+        if(!empty($search)){
+            $result = $result->where('unique_id', 'like', '%' .$search. '%');
+        }
+
+        $result = $result->where('is_recieved',0)->where(function($query){
+                $query->where('doctor_id','!=',null)->orWhere('embassy_user_id','!=',null)->orWhere('airline_user_id','!=',null)->orWhere('purchase_id','!=',null)->orWhere('amount_id','!=',null);
+            }
+        );
+
+        //$result_count_rows = count($result->get());
+
+        $result_data = $result->orderBy('id' , 'ASC')->skip($offset)->take($limit)->get();
+        //dd($result_data);
+        $result_count_rows = 0;
+        if(isset($result_data)){
+            foreach($result_data as $item){
+
+                $description = (!empty($item->description))?$item->description:'---';
+                $category = '---';
+                if(!empty($item->amount_id)){
+                    $rr = Amount::find($item->amount_id);
+                    if($rr->is_accepted > 0 && $rr->is_accepted != 2){
+                        continue;
+                    }
+                    if(!empty($rr->description)){
+                        $description = $rr->description;
+                    }
+                    if(!empty($rr->account_category->name)){
+                        $category = $rr->account_category->name;
+                    }
+                }
+
+                $single_field['unique_id'] = '#'.$item->unique_id;
+                $single_field['category'] = $category;
+                $single_field['description'] = $description;
+                $single_field['amount'] = 'Rs: '.$item->amount;
+                $result_array[] = $single_field;
+                $result_count_rows++;
+            }
+            $data['draw'] = $draw;
+            $data['recordsTotal'] = $result_count;
+            $data['recordsFiltered'] = $result_count_rows;
+            $data['data'] = $result_array;
+        } else {
+            $data['draw'] = $draw;
+            $data['recordsTotal'] = 0;
+            $data['recordsFiltered'] = 0;
+            $data['data'] = '';
+        }
+        echo json_encode($data);
     }
 
 }

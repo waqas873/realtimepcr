@@ -66,10 +66,39 @@ $('#cashbook_datatable').DataTable({
   ],
 });
 
+
 $('#cash_payment_datatable').DataTable({
+  "ordering": true,
+  "lengthChange": true,
+  "searching": true,
+  "processing":true,
+  "serverSide": true,
+  "ajax": {
+      url: '/admin/get-cash-payment',
+      type: 'POST',
+      "data": function (d) {
+          return $.extend({}, d, {
+            "_token": $('meta[name="csrf-token"]').attr('content'),
+            //"from_date": $('#from_date').val(),
+          });
+      } 
+  },
   "order": [
-      [0, 'desc']
+      [0, 'asc']
   ],
+  columnDefs: [
+      // {'targets': 0, 'orderable': false},
+      // {'targets': 1, 'orderable': false},
+      // {'targets': 3, 'orderable': false},
+      // {'targets': 4, 'orderable': false},
+      // {'targets': 5, 'orderable': false}
+  ],
+  "columns": [
+      {"data": "unique_id"},
+      {"data": "category"},
+      {"data": "description"},
+      {"data": "amount"}
+  ]
 });
 
 $('#cash_recieved_datatable').DataTable({

@@ -13,10 +13,13 @@ use App\Amount;
 use App\Account_category;
 use App\Cash;
 use App\User;
+use App\System_invoice;
 use Carbon\Carbon;
 
 class AmountsController extends Controller
 {
+    public $date_time;
+
     public function __construct()
     {
         $this->middleware('auth');
@@ -27,6 +30,8 @@ class AmountsController extends Controller
             }
             return $next($request);
         });
+        date_default_timezone_set("Asia/Karachi");
+        $this->date_time = date('Y:m:d H:i:s');
     }
 
     public function index()
@@ -86,6 +91,23 @@ class AmountsController extends Controller
                 $amount->description = $formData['description'];
                 $amount->type = 2;
                 if($amount->save()){
+                    $id = $amount->id;
+                    $save = new System_invoice;
+                    $save->user_id = $user->id;
+                    $save->amount_id = $id;
+                    $inv_uniq_id = '000000';
+                    $uniqueness = false;
+                    while($uniqueness == false){
+                        $inv_uniq_id = rand(1,1000000);
+                        $invRes = System_invoice::where('unique_id',$inv_uniq_id)->first();
+                        if(empty($invRes)){
+                            $uniqueness = true;
+                        }
+                    }
+                    $save->unique_id = $inv_uniq_id;
+                    $save->amount = $formData['amount'];
+                    $save->is_recieved = 0;
+                    $save->save();
                     $data['response'] = true;
                 }
             }
@@ -134,6 +156,23 @@ class AmountsController extends Controller
                 $amount->type = 1;
                 $amount->is_accepted = 1;
                 if($amount->save()){
+                    $id = $amount->id;
+                    $save = new System_invoice;
+                    $save->user_id = $user->id;
+                    $save->amount_id = $id;
+                    $inv_uniq_id = '000000';
+                    $uniqueness = false;
+                    while($uniqueness == false){
+                        $inv_uniq_id = rand(1,1000000);
+                        $invRes = System_invoice::where('unique_id',$inv_uniq_id)->first();
+                        if(empty($invRes)){
+                            $uniqueness = true;
+                        }
+                    }
+                    $save->unique_id = $inv_uniq_id;
+                    $save->amount = $formData['amount_transfer'];
+                    $save->is_recieved = 0;
+                    $save->save();
                     $data['response'] = true;
                 }
             }
@@ -150,6 +189,7 @@ class AmountsController extends Controller
             return redirect('admin/amounts')->with('error_message' , 'Invalid request to cancel transfer.');
         }
         $amount->find($id)->delete();
+        System_invoice::where('amount_id',$id)->delete();
         return redirect('admin/amounts')->with('success_message' , 'Transfer has been cancelled successfully.');
     }
 

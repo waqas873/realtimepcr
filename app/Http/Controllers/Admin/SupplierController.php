@@ -214,6 +214,7 @@ class SupplierController extends Controller
             }
         }
         $save->unique_id = $uniq_id;
+        $save->is_recieved = 0;
         $save->description = $description;
         $save->save();
         return true;
