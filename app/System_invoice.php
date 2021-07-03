@@ -10,4 +10,9 @@ class System_invoice extends Model
     {
         return $this->belongsTo('App\Amount');
     }
+
+    public function account_category()
+    {
+        return $this->belongsTo('App\Account_category');
+    }
 }

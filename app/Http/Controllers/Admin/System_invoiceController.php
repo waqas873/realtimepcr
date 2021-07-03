@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use DB;
 use App\User;
 use App\Ledger;
+use App\Cash;
 use App\System_invoice;
 
 class System_invoiceController extends Controller
@@ -136,6 +137,77 @@ class System_invoiceController extends Controller
                 $system_invoice_id = $save->id;
                 $this->addLedger($formData['amount'],$system_invoice_id,$cp_id,$doctor_id,$embassy_user_id,$airline_user_id,$description);
             }
+            $data['response'] = true;
+        }
+        echo json_encode($data);
+    }
+
+    public function process_add_bank(Request $request)
+    {
+        $data = [];
+        $data['response'] = false;
+        $data['insufficient'] = false;
+
+        $formData = $request->all();
+        $rules = [
+            'date'=>'required',
+            'amount' => 'required|min:1',
+            'is_recieved' => 'required',
+            'account_category_id' => 'required'
+        ];
+        $messages = [];
+        $attributes = [];
+        $attributes['account_category_id'] = 'account category';
+        $attributes['is_recieved'] = 'payment type';
+
+        $validator = Validator::make($formData,$rules,$messages,$attributes);
+        //$validator = Validator::make($inputs,$rules);
+        if($validator->fails()){
+            $data['errors'] = $validator->errors();
+        }
+        else{
+            unset($formData['_token']);
+            $user = Auth::user();
+            if($formData['is_recieved'] == 0){
+                $cash = $this->cash_in_hand();
+                if($cash < $formData['amount']){
+                    $data['insufficient'] = true;
+                    echo json_encode($data);
+                    exit;
+                }
+            }
+            $save = new System_invoice;
+            $save->date = $formData['date'];
+            $save->amount = $formData['amount'];
+            $save->account_category_id = $formData['account_category_id'];
+            $save->is_bank_payment = 1;
+            $save->user_id = $user->id;
+            $save->is_recieved = $formData['is_recieved'];
+            if(!empty($formData['description'])){
+                $save->description = $formData['description'];
+            }
+            $inv_uniq_id = '000000';
+            $uniqueness = false;
+            while($uniqueness == false){
+                $inv_uniq_id = rand(1,1000000);
+                $invRes = System_invoice::where('unique_id',$inv_uniq_id)->first();
+                if(empty($invRes)){
+                    $uniqueness = true;
+                }
+            }
+            $save->unique_id = $inv_uniq_id;
+            $save->created_at = $this->date_time;
+            $save->updated_at = $this->date_time;
+            //dd($save);
+            $save->save();
+
+            if($formData['is_recieved']==1){
+                $this->cash_add($formData['amount'],$user->id);
+            }
+            else{
+                $this->cash_deduct($formData['amount'],$user->id);
+            }
+
             $data['response'] = true;
         }
         echo json_encode($data);
@@ -283,6 +355,53 @@ class System_invoiceController extends Controller
             $result->delete();
             return redirect('admin/airline-profile/'.$result->airline_user_id)->with('success_message' , 'Record has been deleted successfully.');
         }
+    }
+
+    public function cash_in_hand($user_id = '')
+    {
+        $cash = 0;
+        $user = Auth::user();
+        if(!empty($user_id)){
+            $id = $user_id;
+        }
+        else{
+            $id = $user->id;
+        }
+        $result = Cash::where('user_id' , $id)->get();
+        if(!empty($result[0])){
+           $cash = $result[0]->cash_in_hand;
+        }
+        return $cash;
+    }
+
+    public function cash_deduct($cash='0',$user_id = '0')
+    {
+        $result = Cash::where('user_id',$user_id)->get();
+        if(!empty($result[0])){
+            $result = $result[0];
+            $update = [];
+            $update['cash_in_hand'] = $result->cash_in_hand - $cash;
+            Cash::where('user_id' , $user_id)->update($update);
+        }
+        return true;
+    }
+
+    public function cash_add($cash='0',$user_id = '0')
+    {
+        $result = Cash::where('user_id',$user_id)->get();
+        if(!empty($result[0])){
+            $result = $result[0];
+            $update = [];
+            $update['cash_in_hand'] = $result->cash_in_hand+$cash;
+            Cash::where('user_id' , $user_id)->update($update);
+        }
+        else{
+            $save = [];
+            $save['user_id'] = $user_id;
+            $save['cash_in_hand'] = $cash;
+            Cash::insert($save);
+        }
+        return true;
     }
 
 

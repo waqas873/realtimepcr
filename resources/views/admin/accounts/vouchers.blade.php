@@ -38,6 +38,11 @@
           <div class="col-sm-5">
             <h4 class="page-title m-0">Vouchers</h4>
           </div>
+
+          <div class="col-sm-7">
+            <a href="javascript::" id="addBankPaymentBtn" class="btn btn-success" style="float: right;margin-bottom: 20px;margin-right: 1.5%;">Add Bank Voucher</a>
+          </div>
+
           <!-- end col -->
         </div>
         <!-- end row -->
@@ -104,58 +109,20 @@
 
               <div class="row">
                 <div class="col-xl-12">
-                  <a href="javascript::" class="btn btn-success" style="float: right;margin-bottom: 20px;margin-right: 1.5%;">Add Voucher</a>
+                  <!-- <a href="javascript::" class="btn btn-success" style="float: right;margin-bottom: 20px;margin-right: 1.5%;">Add Voucher</a> -->
                 </div>
               </div>
 
               <div class="table-responsive">
-                <table class="table table-hover" id="cash_recieved_datatable">
+                <table class="table table-hover" id="cash_recieved_datatable" style="width: 100% !important;">
                   <thead>
                     <tr>
                       <th scope="col">Invoice-ID</th>
                       <th scope="col">Category</th>
                       <th scope="col">Description</th>
-                      <th scope="col">Amount Debit</th>
+                      <th scope="col">Amount Credit</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                      <td scope="col">#080954</td>
-                      <td scope="col">Food</td>
-                      <td scope="col">Testing description</td>
-                      <td scope="col">Rs: 543534</td>
-                    </tr>
-                    <tr>
-                      <td scope="col">#080954</td>
-                      <td scope="col">Food</td>
-                      <td scope="col">Testing description</td>
-                      <td scope="col">Rs: 543534</td>
-                    </tr>
-                    <tr>
-                      <td scope="col">#080954</td>
-                      <td scope="col">Food</td>
-                      <td scope="col">Testing description</td>
-                      <td scope="col">Rs: 543534</td>
-                    </tr>
-                    <tr>
-                      <td scope="col">#080954</td>
-                      <td scope="col">Food</td>
-                      <td scope="col">Testing description</td>
-                      <td scope="col">Rs: 543534</td>
-                    </tr>
-                    <tr>
-                      <td scope="col">#080954</td>
-                      <td scope="col">Food</td>
-                      <td scope="col">Testing description</td>
-                      <td scope="col">Rs: 543534</td>
-                    </tr>
-                    <tr>
-                      <td scope="col">#080954</td>
-                      <td scope="col">Food</td>
-                      <td scope="col">Testing description</td>
-                      <td scope="col">Rs: 543534</td>
-                    </tr>
-                  </tbody>
                 </table>
               </div>
 
@@ -198,34 +165,6 @@
                       <td scope="col">Credit</td>
                       <td scope="col">Rs: 543534</td>
                     </tr>
-                    <tr>
-                      <td scope="col">#080954</td>
-                      <td scope="col">Food</td>
-                      <td scope="col">Testing description</td>
-                      <td scope="col">Debit</td>
-                      <td scope="col">Rs: 543534</td>
-                    </tr>
-                    <tr>
-                      <td scope="col">#080954</td>
-                      <td scope="col">Food</td>
-                      <td scope="col">Testing description</td>
-                      <td scope="col">Debit</td>
-                      <td scope="col">Rs: 543534</td>
-                    </tr>
-                    <tr>
-                      <td scope="col">#080954</td>
-                      <td scope="col">Food</td>
-                      <td scope="col">Testing description</td>
-                      <td scope="col">Credit</td>
-                      <td scope="col">Rs: 543534</td>
-                    </tr>
-                    <tr>
-                      <td scope="col">#080954</td>
-                      <td scope="col">Food</td>
-                      <td scope="col">Testing description</td>
-                      <td scope="col">Debit</td>
-                      <td scope="col">Rs: 543534</td>
-                    </tr>
                   </tbody>
                 </table>
               </div>
@@ -235,14 +174,8 @@
 
             <div class="tab-pane fade" id="BankPayment-just" role="tabpanel" aria-labelledby="profile-tab-just">
 
-              <div class="row">
-                <div class="col-xl-12">
-                  <a href="javascript::" class="btn btn-success" style="float: right;margin-bottom: 20px;margin-right: 1.5%;">Add Voucher</a>
-                </div>
-              </div>
-
               <div class="table-responsive">
-                <table class="table table-hover" id="cash_recieved_datatable">
+                <table class="table table-hover" id="bank_payment_datatable" style="width: 100% !important;">
                   <thead>
                     <tr>
                       <th scope="col">Invoice-ID</th>
@@ -251,57 +184,13 @@
                       <th scope="col">Amount Debit</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                      <td scope="col">#080954</td>
-                      <td scope="col">Food</td>
-                      <td scope="col">Testing description</td>
-                      <td scope="col">Rs: 543534</td>
-                    </tr>
-                    <tr>
-                      <td scope="col">#080954</td>
-                      <td scope="col">Food</td>
-                      <td scope="col">Testing description</td>
-                      <td scope="col">Rs: 543534</td>
-                    </tr>
-                    <tr>
-                      <td scope="col">#080954</td>
-                      <td scope="col">Food</td>
-                      <td scope="col">Testing description</td>
-                      <td scope="col">Rs: 543534</td>
-                    </tr>
-                    <tr>
-                      <td scope="col">#080954</td>
-                      <td scope="col">Food</td>
-                      <td scope="col">Testing description</td>
-                      <td scope="col">Rs: 543534</td>
-                    </tr>
-                    <tr>
-                      <td scope="col">#080954</td>
-                      <td scope="col">Food</td>
-                      <td scope="col">Testing description</td>
-                      <td scope="col">Rs: 543534</td>
-                    </tr>
-                    <tr>
-                      <td scope="col">#080954</td>
-                      <td scope="col">Food</td>
-                      <td scope="col">Testing description</td>
-                      <td scope="col">Rs: 543534</td>
-                    </tr>
-                  </tbody>
                 </table>
               </div>
             </div>
             <div class="tab-pane fade" id="BankReceived-just" role="tabpanel" aria-labelledby="profile-tab-just">
 
-              <div class="row">
-                <div class="col-xl-12">
-                  <a href="javascript::" class="btn btn-success" style="float: right;margin-bottom: 20px;margin-right: 1.5%;">Add Voucher</a>
-                </div>
-              </div>
-
               <div class="table-responsive">
-                <table class="table table-hover" id="cash_recieved_datatable">
+                <table class="table table-hover"id="bank_recieved_datatable" style="width: 100% !important;">
                   <thead>
                     <tr>
                       <th scope="col">Invoice-ID</th>
@@ -310,44 +199,6 @@
                       <th scope="col">Amount Debit</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                      <td scope="col">#080954</td>
-                      <td scope="col">Food</td>
-                      <td scope="col">Testing description</td>
-                      <td scope="col">Rs: 543534</td>
-                    </tr>
-                    <tr>
-                      <td scope="col">#080954</td>
-                      <td scope="col">Food</td>
-                      <td scope="col">Testing description</td>
-                      <td scope="col">Rs: 543534</td>
-                    </tr>
-                    <tr>
-                      <td scope="col">#080954</td>
-                      <td scope="col">Food</td>
-                      <td scope="col">Testing description</td>
-                      <td scope="col">Rs: 543534</td>
-                    </tr>
-                    <tr>
-                      <td scope="col">#080954</td>
-                      <td scope="col">Food</td>
-                      <td scope="col">Testing description</td>
-                      <td scope="col">Rs: 543534</td>
-                    </tr>
-                    <tr>
-                      <td scope="col">#080954</td>
-                      <td scope="col">Food</td>
-                      <td scope="col">Testing description</td>
-                      <td scope="col">Rs: 543534</td>
-                    </tr>
-                    <tr>
-                      <td scope="col">#080954</td>
-                      <td scope="col">Food</td>
-                      <td scope="col">Testing description</td>
-                      <td scope="col">Rs: 543534</td>
-                    </tr>
-                  </tbody>
                 </table>
               </div>
             </div>
@@ -361,6 +212,69 @@
 
   </div><!-- container fluid -->
 
-  <script src="{{asset('assets/developer/admin/accounts.js')}}"></script>
+<div class="modal fade addBankPayment" id="addBankPaymentModal" tabindex="-1" role="dialog" aria-labelledby="addBankPayment" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Bank Payment</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="addBankPaymentForm" method="post">
+      <div class="modal-body">
+          @csrf
+          
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Payment Type</label>
+            <select class="form-control is_recieved select2" name="is_recieved">
+              <option value="">Select here</option>
+              <option value="1">Recieved From Bank</option>
+              <option value="0">Payment to Bank</option>
+            </select>
+            <div class="all_errors is_recieved_error"></div>
+          </div>
+
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Account Category</label>
+            <select class="form-control account_category_id select2" name="account_category_id">
+              <option value="">Select here</option>
+              @if(!empty($expense_categories))
+              @foreach($expense_categories as $record)
+              <option value="{{$record->id}}">{{$record->name}}</option>
+              @endforeach
+              @endif
+            </select>
+            <div class="all_errors account_category_id_error"></div>
+          </div>
+          <div class="form-group">
+            <label for="amount">Enter Amount</label>
+            <div class="input-group mb-2">
+              <div class="input-group-prepend">
+                <div class="input-group-text">Rs:</div>
+              </div>
+              <input name="amount" type="number" class="form-control value amount" placeholder="Enter Value">
+            </div>
+            <div class="all_errors amount_error"></div>
+          </div>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Date:</label>
+            <input type="date" name="date" class="form-control date">
+            <div class="all_errors date_error"></div>
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Description</label>
+            <textarea class="form-control description" name="description" id="message-text"></textarea>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Save Record</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script src="{{asset('assets/developer/admin/accounts.js')}}"></script>
 
   @endsection

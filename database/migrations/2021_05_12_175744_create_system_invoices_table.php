@@ -27,6 +27,11 @@ class CreateSystemInvoicesTable extends Migration
             $table->string('payment_method')->nullable();
             $table->text('description')->nullable();
             $table->tinyInteger('is_recieved')->default(1);
+
+            $table->integer('amount_id')->nullable();
+            $table->tinyInteger('is_bank_payment')->default(0);
+            $table->integer('account_category_id')->nullable();
+
             $table->date('date')->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();

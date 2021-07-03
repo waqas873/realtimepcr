@@ -16,6 +16,7 @@ use App\Collection_point;
 use App\Amount;
 use App\System_invoice;
 use App\Supplier;
+use App\Account_category;
 
 class AccountsController extends Controller
 {
@@ -41,6 +42,7 @@ class AccountsController extends Controller
     public function vouchers()
     {
         $data = [];
+        $data['expense_categories'] = Account_category::where('status', '=' ,1)->get();
         return view('admin.accounts.vouchers',$data);
     }
 
@@ -270,6 +272,198 @@ class AccountsController extends Controller
                     if(!empty($rr->account_category->name)){
                         $category = $rr->account_category->name;
                     }
+                }
+
+                $single_field['unique_id'] = '#'.$item->unique_id;
+                $single_field['category'] = $category;
+                $single_field['description'] = $description;
+                $single_field['amount'] = 'Rs: '.$item->amount;
+                $result_array[] = $single_field;
+                $result_count_rows++;
+            }
+            $data['draw'] = $draw;
+            $data['recordsTotal'] = $result_count;
+            $data['recordsFiltered'] = $result_count_rows;
+            $data['data'] = $result_array;
+        } else {
+            $data['draw'] = $draw;
+            $data['recordsTotal'] = 0;
+            $data['recordsFiltered'] = 0;
+            $data['data'] = '';
+        }
+        echo json_encode($data);
+    }
+
+    public function get_cash_recieved(Request $request)
+    {
+        $like = array();
+        $result_array = [];
+        $post = $request->all();
+
+        $orderByColumnIndex = $post['order'][0]['column'];
+        $orderByColumn = $post['columns'][$orderByColumnIndex]['data'];
+        $orderType = $post['order'][0]['dir'];
+        $offset = $post['start'];
+        $limit = $post['length'];
+        $draw = $post['draw'];
+        $search = $post['search']['value'];
+
+        $auth = Auth::user();
+        
+        $result = new System_invoice;
+
+        $result_count = count($result->get());
+
+        if(!empty($search)){
+            $result = $result->where('unique_id', 'like', '%' .$search. '%');
+        }
+
+        $result = $result->where('is_recieved',1)->where(function($query){
+                $query->where('collection_point_id','!=',null)->orWhere('amount_id','!=',null);
+            }
+        );
+
+        //$result_count_rows = count($result->get());
+
+        $result_data = $result->orderBy('id' , 'ASC')->skip($offset)->take($limit)->get();
+        //dd($result_data);
+        $result_count_rows = 0;
+        if(isset($result_data)){
+            foreach($result_data as $item){
+
+                $description = (!empty($item->description))?$item->description:'---';
+                $category = '---';
+                if(!empty($item->amount_id)){
+                    $rr = Amount::find($item->amount_id);
+                    if($rr->is_accepted > 0 && $rr->is_accepted != 2){
+                        continue;
+                    }
+                    if(!empty($rr->description)){
+                        $description = $rr->description;
+                    }
+                    if(!empty($rr->account_category->name)){
+                        $category = $rr->account_category->name;
+                    }
+                }
+
+                $single_field['unique_id'] = '#'.$item->unique_id;
+                $single_field['category'] = $category;
+                $single_field['description'] = $description;
+                $single_field['amount'] = 'Rs: '.$item->amount;
+                $result_array[] = $single_field;
+                $result_count_rows++;
+            }
+            $data['draw'] = $draw;
+            $data['recordsTotal'] = $result_count;
+            $data['recordsFiltered'] = $result_count_rows;
+            $data['data'] = $result_array;
+        } else {
+            $data['draw'] = $draw;
+            $data['recordsTotal'] = 0;
+            $data['recordsFiltered'] = 0;
+            $data['data'] = '';
+        }
+        echo json_encode($data);
+    }
+
+    public function get_bank_payment(Request $request)
+    {
+        $like = array();
+        $result_array = [];
+        $post = $request->all();
+
+        $orderByColumnIndex = $post['order'][0]['column'];
+        $orderByColumn = $post['columns'][$orderByColumnIndex]['data'];
+        $orderType = $post['order'][0]['dir'];
+        $offset = $post['start'];
+        $limit = $post['length'];
+        $draw = $post['draw'];
+        $search = $post['search']['value'];
+
+        $auth = Auth::user();
+        
+        $result = new System_invoice;
+
+        $result_count = count($result->get());
+
+        if(!empty($search)){
+            $result = $result->where('unique_id', 'like', '%' .$search. '%');
+        }
+
+        $result = $result->where('is_recieved',0)->where('is_bank_payment',1);
+
+        //$result_count_rows = count($result->get());
+
+        $result_data = $result->orderBy('id' , 'ASC')->skip($offset)->take($limit)->get();
+        //dd($result_data);
+        $result_count_rows = 0;
+        if(isset($result_data)){
+            foreach($result_data as $item){
+
+                $description = (!empty($item->description))?$item->description:'---';
+                $category = '---';
+                if(!empty($item->account_category->name)){
+                    $category = $item->account_category->name;
+                }
+
+                $single_field['unique_id'] = '#'.$item->unique_id;
+                $single_field['category'] = $category;
+                $single_field['description'] = $description;
+                $single_field['amount'] = 'Rs: '.$item->amount;
+                $result_array[] = $single_field;
+                $result_count_rows++;
+            }
+            $data['draw'] = $draw;
+            $data['recordsTotal'] = $result_count;
+            $data['recordsFiltered'] = $result_count_rows;
+            $data['data'] = $result_array;
+        } else {
+            $data['draw'] = $draw;
+            $data['recordsTotal'] = 0;
+            $data['recordsFiltered'] = 0;
+            $data['data'] = '';
+        }
+        echo json_encode($data);
+    }
+
+    public function get_bank_recieved(Request $request)
+    {
+        $like = array();
+        $result_array = [];
+        $post = $request->all();
+
+        $orderByColumnIndex = $post['order'][0]['column'];
+        $orderByColumn = $post['columns'][$orderByColumnIndex]['data'];
+        $orderType = $post['order'][0]['dir'];
+        $offset = $post['start'];
+        $limit = $post['length'];
+        $draw = $post['draw'];
+        $search = $post['search']['value'];
+
+        $auth = Auth::user();
+        
+        $result = new System_invoice;
+
+        $result_count = count($result->get());
+
+        if(!empty($search)){
+            $result = $result->where('unique_id', 'like', '%' .$search. '%');
+        }
+
+        $result = $result->where('is_recieved',1)->where('is_bank_payment',1);
+
+        //$result_count_rows = count($result->get());
+
+        $result_data = $result->orderBy('id' , 'ASC')->skip($offset)->take($limit)->get();
+        //dd($result_data);
+        $result_count_rows = 0;
+        if(isset($result_data)){
+            foreach($result_data as $item){
+
+                $description = (!empty($item->description))?$item->description:'---';
+                $category = '---';
+                if(!empty($item->account_category->name)){
+                    $category = $item->account_category->name;
                 }
 
                 $single_field['unique_id'] = '#'.$item->unique_id;

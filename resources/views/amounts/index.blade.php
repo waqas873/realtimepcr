@@ -210,10 +210,10 @@
             <label for="title" class="col-sm-3 col-form-label pformlabel">Select Category</label>
             <div class="col-sm-9">
               <!-- <input type="text" class="form-control  iwbb" id="title" name="title" placeholder="Enter item"> -->
-              <select name="account_category_id" class="form-control ">Select Expense Category
+              <select name="account_category_id" class="form-control ">
+              <option value="">Select Expense Category</option>
               @if(!empty($expense_categories))
               @foreach($expense_categories as $record)
-              <option value="">Select Expense Category</option>
               <option value="{{$record->id}}">{{$record->name}}</option>
               @endforeach
               @endif
