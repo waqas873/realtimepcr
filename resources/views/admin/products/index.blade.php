@@ -81,6 +81,7 @@
                 <tr>
                   <th scope="col">Kit Name</th>
                   <th scope="col">Assigned Test</th>
+                  <th scope="col">Associated LAB</th>
                   <th scope="col">No of Test kits</th>
                   <th scope="col">Remaining kits</th>
                   <th scope="col">Expiry Date</th>
@@ -205,6 +206,7 @@
               <input type="number" class="form-control iwbb" id="price" name="price" placeholder="Enter price">
               <div class="all_errors price_error">
               </div>
+              <small>Cost of sale per test will be Rs: 500</small>
             </div>
           </div>
 

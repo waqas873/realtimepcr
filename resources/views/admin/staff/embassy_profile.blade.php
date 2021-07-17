@@ -25,7 +25,11 @@
 
 
 <div class="container-fluid">
-
+<style>
+  .dataTables_wrapper.container-fluid{
+    width: 100%;
+  }
+</style>
   <!-- embassy Profile Page -->
   <div class="row">
     <div class="col-sm-12">
@@ -61,7 +65,7 @@
 
               <div class="col-sm-6">
                 <label for="test_id">Select Overseas Test</label>
-                <select class="form-control select2 inputs_with_bottom_border test_id" name="test_id">
+                <select class="form-control  test_id" name="test_id">
                   <option value="">Select here</option>
                   @if(!empty($tests))
                   @foreach($tests as $record)
@@ -75,7 +79,7 @@
               <br>
               <div class="col-sm-6">
                 <label for="">Select Lab</label>
-                <select class="form-control select2 inputs_with_bottom_border lab_id" name="lab_id">
+                <select class="form-control  lab_id" name="lab_id">
                   <option value="">Select here</option>
                   @if(!empty($labs))
                   @foreach($labs as $record)
@@ -89,7 +93,7 @@
               <br>
               <div class="col-sm-6">
                 <label for="">Select Collection Point</label>
-                <select class="form-control select2 inputs_with_bottom_border collection_point_id" name="collection_point_id">
+                <select class="form-control  collection_point_id" name="collection_point_id">
                   <option value="">Select here</option>
                   @if(!empty($collection_points))
                   @foreach($collection_points as $record)
@@ -104,7 +108,7 @@
 
               <div class="col-sm-6">
                 <label for="">Commission Amount</label>
-                <input type="number" name="commission_price" class="form-control commission_price" placeholder="Commission price">
+                <input type="number" name="commission_price" class="form-control commission_price" placeholder="Embassy Commission Amount">
                 <div class="all_errors commission_price_error">
                 </div>
               </div>
@@ -202,7 +206,7 @@
             </div>
             <br>
             <div class="row">
-              <table class="table table-borderless" id="systemInvoices">
+              <table class="table table-borderless" id="systemInvoices" style="width: 100%;">
                   <thead class="thead-dark">
                     <tr>
                       <th>Date</th>

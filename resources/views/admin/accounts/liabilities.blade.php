@@ -62,11 +62,12 @@
         .dataTables_wrapper.container-fluid {
             width: 100%;
         }
+        
     </style>
 
     <div class="row">
 
-        <div class="col-sm-6">
+        <div class="col-sm-12">
             <div class="card">
                 <div class="card-body">
                     <h6>Assets </h6>
@@ -128,7 +129,7 @@
             </div>
         </div>
 
-        <div class="col-sm-6">
+        <div class="col-sm-12">
             <div class="card">
                 <div class="card-body">
                     <h6>Liability </h6>
@@ -168,6 +169,9 @@
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                                             <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-126px, 35px, 0px);">
+                                                <a href="javascript::" rel="---" class="---">
+                                                    <button class="dropdown-item" type="button">Pay Now</button>
+                                                </a>
                                                 <a href="javascript::" rel="{{$value->id}}" class="update_id">
                                                     <button class="dropdown-item" type="button">Edit</button>
                                                 </a>
@@ -214,7 +218,7 @@
 
                         <div class="form-group">
                             <label for="mainType">Select Main Type</label>
-                            <select name="type" class="form-control select2 type" id="mainType">
+                            <select name="type" class="form-control type" id="mainType">
                                 <option value="">Select here</option>
                                 <option value="1">Assets</option>
                                 <option value="2">Liabilities</option>
@@ -223,7 +227,7 @@
                         </div>
                         <div class="form-group">
                             <label for="subType">Select Sub Type</label>
-                            <select name="sub_type" class="form-control select2 sub_type" id="subType">
+                            <select name="sub_type" class="form-control sub_type" id="subType">
                                 <option value="">Select here</option>
                                 <option value="1">Current</option>
                                 <option value="2">non-Current</option>

@@ -25,7 +25,11 @@
 
 
 <div class="container-fluid">
-
+<style>
+  .table{
+    width: 100% !important;
+    }
+</style>
   <div class="row">
     <div class="col-sm-12">
       <div class="page-title-box">
@@ -114,7 +118,7 @@
 
               <div class="col-sm-6">
                 <label for="test_id">Select Test</label>
-                <select class="form-control select2 inputs_with_bottom_border test_id" name="test_id">
+                <select class="form-control test_id" name="test_id">
                   <option value="">Select here</option>
                   @if(!empty($tests))
                   @foreach($tests as $record)
@@ -265,7 +269,7 @@
           <div class="form-group row">
             <label for="custom_prizes" class="col-sm-2 col-form-label pformlabel">Prioritize Custom Price:</label>
             <div class="col-sm-10">
-              <select class="form-control select2 inputs_with_bottom_border custom_prizes" name="custom_prizes">
+              <select class="form-control custom_prizes" name="custom_prizes">
                 <option value="1">Yes</option>
                 <option value="0">No</option>
               </select>

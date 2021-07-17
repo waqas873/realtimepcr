@@ -804,7 +804,7 @@ class="reports-footer">
             <div class="col-sm-4">
                 Print Date :
                 <?php
-                echo date('Y-m-d H:i:s');
+                echo date('d-M-Y <b>g:i A</b>', time() + 5 * 60 * 60);
                 ?>
             </div>
             <div class="copyright-footer">
