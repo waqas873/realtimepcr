@@ -93,14 +93,6 @@
                       <th scope="col">Amount Debit</th>
                     </tr>
                   </thead>
-                  <!-- <tbody>
-                    <tr>
-                      <td scope="col">#080954</td>
-                      <td scope="col">Food</td>
-                      <td scope="col">Testing description</td>
-                      <td scope="col">Rs: 543534</td>
-                    </tr>
-                  </tbody> -->
                 </table>
               </div>
 
@@ -133,14 +125,13 @@
                 <div class="col-xl-12">
                   <div style="float:right;
                   margin-bottom: 20px;margin-right: 1.5%;">
-                    <a href="javascript::" class="btn btn-success">Debit Adjustment</a>
-                    <a href="javascript::" class="btn btn-success">Credit Adjustment</a>
+                    <a href="javascript::" class="btn btn-success" id="addJournalBtn">Journal Adjustment</a>
                   </div>
                 </div>
               </div>
 
               <div class="table-responsive">
-                <table class="table table-hover" id="journal_datatable">
+                <table class="table table-hover" id="journal_datatable" style="width: 100% !important;">
                   <thead>
                     <tr>
                       <th scope="col">Invoice-ID</th>
@@ -150,22 +141,6 @@
                       <th scope="col">Adjustment</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                      <td scope="col">#080954</td>
-                      <td scope="col">Food</td>
-                      <td scope="col">Testing description</td>
-                      <td scope="col">Debit</td>
-                      <td scope="col">Rs: 543534</td>
-                    </tr>
-                    <tr>
-                      <td scope="col">#080954</td>
-                      <td scope="col">Food</td>
-                      <td scope="col">Testing description</td>
-                      <td scope="col">Credit</td>
-                      <td scope="col">Rs: 543534</td>
-                    </tr>
-                  </tbody>
                 </table>
               </div>
 
@@ -239,8 +214,71 @@
             <label for="message-text" class="col-form-label">Account Category</label>
             <select class="form-control account_category_id select2" name="account_category_id">
               <option value="">Select here</option>
-              @if(!empty($expense_categories))
-              @foreach($expense_categories as $record)
+              @if(!empty($account_categories))
+              @foreach($account_categories as $record)
+              <option value="{{$record->id}}">{{$record->name}}</option>
+              @endforeach
+              @endif
+            </select>
+            <div class="all_errors account_category_id_error"></div>
+          </div>
+          <div class="form-group">
+            <label for="amount">Enter Amount</label>
+            <div class="input-group mb-2">
+              <div class="input-group-prepend">
+                <div class="input-group-text">Rs:</div>
+              </div>
+              <input name="amount" type="number" class="form-control value amount" placeholder="Enter Value">
+            </div>
+            <div class="all_errors amount_error"></div>
+          </div>
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Date:</label>
+            <input type="date" name="date" class="form-control date">
+            <div class="all_errors date_error"></div>
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Description</label>
+            <textarea class="form-control description" name="description" id="message-text"></textarea>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Save Record</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade addJournal" id="addJournalModal" tabindex="-1" role="dialog" aria-labelledby="addJournal" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Journal Adjustment</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="addJournalForm" method="post">
+      <div class="modal-body">
+          @csrf
+          
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Journal Type</label>
+            <select class="form-control is_recieved select2" name="is_recieved">
+              <option value="">Select here</option>
+              <option value="1">Credit Adjustment</option>
+              <option value="0">Debit Adjustment</option>
+            </select>
+            <div class="all_errors is_recieved_error"></div>
+          </div>
+
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">Account Category</label>
+            <select class="form-control account_category_id select2" name="account_category_id">
+              <option value="">Select here</option>
+              @if(!empty($account_categories))
+              @foreach($account_categories as $record)
               <option value="{{$record->id}}">{{$record->name}}</option>
               @endforeach
               @endif

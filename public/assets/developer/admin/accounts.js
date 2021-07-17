@@ -60,12 +60,6 @@ $("#ledger_account").select2({
     allowClear: true
 });
 
-$('#cashbook_datatable').DataTable({
-  "order": [
-      [0, 'desc']
-  ],
-});
-
 $(document).on('click', '#addBankPaymentBtn', function (e) {
   $('#addBankPaymentForm').trigger("reset");
   $('.all_errors').empty();
@@ -81,6 +75,49 @@ $(document).on('submit', '#addBankPaymentForm', function (e) {
   formData.push({'name':'_token','value':CSRF_TOKEN});
   $.ajax({
       url: '/admin/add-system-invoice-bank',
+      type: 'POST',
+      data: formData,
+      dataType: 'JSON',
+      success: function (data) {
+        if(data.response){
+          obj.trigger("reset");
+          swal("Data saved successfully.")
+          .then((value) => {
+            location.reload();
+          });
+        }
+        else{
+          if(data.insufficient){
+            swal({
+              title: "Insufficient Balance",
+              text: "You have insufficient balance.",
+              icon: "error",
+              button: "OK",
+            });
+          }
+          else{
+            errors(data.errors);
+          }
+        }
+      }
+  });
+});
+
+$(document).on('click', '#addJournalBtn', function (e) {
+  $('#addJournalForm').trigger("reset");
+  $('.all_errors').empty();
+  $('#addJournalModal').modal("show");
+});
+
+$(document).on('submit', '#addJournalForm', function (e) {
+  e.preventDefault();
+  var obj = $(this);
+  $('.all_errors').empty();
+  var formData = obj.serializeArray();
+  var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+  formData.push({'name':'_token','value':CSRF_TOKEN});
+  $.ajax({
+      url: '/admin/add-system-invoice-journal',
       type: 'POST',
       data: formData,
       dataType: 'JSON',
@@ -212,6 +249,75 @@ $('#bank_recieved_datatable').DataTable({
   ]
 });
 
+// $('#bank_payment_datatable').DataTable({
+//   "ordering": true,
+//   "lengthChange": true,
+//   "searching": true,
+//   "processing":true,
+//   "serverSide": true,
+//   "ajax": {
+//       url: '/admin/get-bank-payment',
+//       type: 'POST',
+//       "data": function (d) {
+//           return $.extend({}, d, {
+//             "_token": $('meta[name="csrf-token"]').attr('content'),
+//             //"from_date": $('#from_date').val(),
+//           });
+//       } 
+//   },
+//   "order": [
+//       [0, 'asc']
+//   ],
+//   columnDefs: [
+//       // {'targets': 0, 'orderable': false},
+//       // {'targets': 1, 'orderable': false},
+//       // {'targets': 3, 'orderable': false},
+//       // {'targets': 4, 'orderable': false},
+//       // {'targets': 5, 'orderable': false}
+//   ],
+//   "columns": [
+//       {"data": "unique_id"},
+//       {"data": "category"},
+//       {"data": "description"},
+//       {"data": "amount"}
+//   ]
+// });
+
+$('#journal_datatable').DataTable({
+  "ordering": true,
+  "lengthChange": true,
+  "searching": true,
+  "processing":true,
+  "serverSide": true,
+  "ajax": {
+      url: '/admin/get-journal',
+      type: 'POST',
+      "data": function (d) {
+          return $.extend({}, d, {
+            "_token": $('meta[name="csrf-token"]').attr('content'),
+            //"from_date": $('#from_date').val(),
+          });
+      } 
+  },
+  "order": [
+      [0, 'asc']
+  ],
+  columnDefs: [
+      // {'targets': 0, 'orderable': false},
+      // {'targets': 1, 'orderable': false},
+      // {'targets': 3, 'orderable': false},
+      // {'targets': 4, 'orderable': false},
+      // {'targets': 5, 'orderable': false}
+  ],
+  "columns": [
+      {"data": "unique_id"},
+      {"data": "category"},
+      {"data": "description"},
+      {"data": "is_recieved"},
+      {"data": "amount"}
+  ]
+});
+
 $('#cash_recieved_datatable').DataTable({
   "ordering": true,
   "lengthChange": true,
@@ -246,11 +352,52 @@ $('#cash_recieved_datatable').DataTable({
   ]
 });
 
-$('#journal_datatable').DataTable({
+$('#cashbook_datatable').DataTable({
+  "ordering": true,
+  "lengthChange": true,
+  "searching": true,
+  "processing":true,
+  "serverSide": true,
+  "ajax": {
+      url: '/admin/get-cashbook',
+      type: 'POST',
+      "data": function (d) {
+          return $.extend({}, d, {
+            "_token": $('meta[name="csrf-token"]').attr('content'),
+            "from_date": $('#from_date').val(),
+            "to_date": $('#to_date').val(),
+            //"collection_point_id": $('#collection_point_id').val(),
+          });
+      } 
+  },
   "order": [
-      [0, 'desc']
+      [0, 'asc']
   ],
+  columnDefs: [
+      {'targets': 0, 'orderable': false},
+      {'targets': 1, 'orderable': false},
+      {'targets': 2, 'orderable': false},
+      {'targets': 3, 'orderable': false},
+      {'targets': 4, 'orderable': false},
+      {'targets': 5, 'orderable': false},
+      {'targets': 6, 'orderable': false},
+  ],
+  "columns": [
+      {"data": "created_at"},
+      {"data": "unique_id"},
+      {"data": "description"},
+      {"data": "previous"},
+      {"data": "debit"},
+      {"data": "credit"},
+      {"data": "balance"},
+  ]
 });
+$(document).on('click', '#by_date', function (e) {
+  $('#cashbook_datatable').DataTable().ajax.reload();  
+});
+// $(document).on('change', '#collection_point_id', function (e) {
+//   $('#cashbook_datatable').DataTable().ajax.reload();  
+// });
 
 $('#cashUserWallets').DataTable({
   "order": [

@@ -14,6 +14,7 @@ use App\Lab;
 use App\Doctor;
 use App\Collection_point;
 use App\Amount;
+use App\Ledger;
 use App\System_invoice;
 use App\Supplier;
 use App\Account_category;
@@ -42,7 +43,7 @@ class AccountsController extends Controller
     public function vouchers()
     {
         $data = [];
-        $data['expense_categories'] = Account_category::where('status', '=' ,1)->get();
+        $data['account_categories'] = Account_category::where('status', '=' ,1)->get();
         return view('admin.accounts.vouchers',$data);
     }
 
@@ -472,6 +473,156 @@ class AccountsController extends Controller
                 $single_field['amount'] = 'Rs: '.$item->amount;
                 $result_array[] = $single_field;
                 $result_count_rows++;
+            }
+            $data['draw'] = $draw;
+            $data['recordsTotal'] = $result_count;
+            $data['recordsFiltered'] = $result_count_rows;
+            $data['data'] = $result_array;
+        } else {
+            $data['draw'] = $draw;
+            $data['recordsTotal'] = 0;
+            $data['recordsFiltered'] = 0;
+            $data['data'] = '';
+        }
+        echo json_encode($data);
+    }
+
+    public function get_journal(Request $request)
+    {
+        $like = array();
+        $result_array = [];
+        $post = $request->all();
+
+        $orderByColumnIndex = $post['order'][0]['column'];
+        $orderByColumn = $post['columns'][$orderByColumnIndex]['data'];
+        $orderType = $post['order'][0]['dir'];
+        $offset = $post['start'];
+        $limit = $post['length'];
+        $draw = $post['draw'];
+        $search = $post['search']['value'];
+
+        $auth = Auth::user();
+        
+        $result = new System_invoice;
+
+        $result_count = count($result->get());
+
+        if(!empty($search)){
+            $result = $result->where('unique_id', 'like', '%' .$search. '%');
+        }
+
+        $result = $result->where('is_journal',1)->where(function($query){
+            $query->where('is_recieved',0)->orWhere('is_recieved',1);
+
+        });
+
+        //$result_count_rows = count($result->get());
+
+        $result_data = $result->orderBy('id' , 'ASC')->skip($offset)->take($limit)->get();
+        //dd($result_data);
+        $result_count_rows = 0;
+        if(isset($result_data)){
+            foreach($result_data as $item){
+
+                $description = (!empty($item->description))?$item->description:'---';
+                $category = '---';
+                if(!empty($item->account_category->name)){
+                    $category = $item->account_category->name;
+                }
+
+                $single_field['unique_id'] = '#'.$item->unique_id;
+                $single_field['category'] = $category;
+                $single_field['description'] = $description;
+                $single_field['is_recieved'] = ($item->is_recieved==1)?'Credit':'Debit';
+                $single_field['amount'] = 'Rs: '.$item->amount;
+                $result_array[] = $single_field;
+                $result_count_rows++;
+            }
+            $data['draw'] = $draw;
+            $data['recordsTotal'] = $result_count;
+            $data['recordsFiltered'] = $result_count_rows;
+            $data['data'] = $result_array;
+        } else {
+            $data['draw'] = $draw;
+            $data['recordsTotal'] = 0;
+            $data['recordsFiltered'] = 0;
+            $data['data'] = '';
+        }
+        echo json_encode($data);
+    }
+
+    public function get_cashbook(Request $request)
+    {
+        $like = array();
+        $result_array = [];
+        $post = $request->all();
+
+        $orderByColumnIndex = $post['order'][0]['column'];
+        $orderByColumn = $post['columns'][$orderByColumnIndex]['data'];
+        $orderType = $post['order'][0]['dir'];
+        $offset = $post['start'];
+        $limit = $post['length'];
+        $draw = $post['draw'];
+        $search = $post['search']['value'];
+
+        $from_date = $post['from_date'];
+        $to_date = $post['to_date'];
+        //$collection_point_id = $post['collection_point_id'];
+
+        $auth = Auth::user();
+
+        $result_count = System_invoice::where('lab_id',null)->count();
+
+        $result = new System_invoice;
+        $result = $result->where('lab_id',null);
+        $result2 = new System_invoice;
+        $result2 = $result2->where('lab_id',null);
+
+        if(!empty($search)){
+            $result = $result->where('unique_id', 'like', '%' .$search. '%');
+            $result2 = $result2->where('unique_id', 'like', '%' .$search. '%');
+        }
+        
+        if(!empty($from_date) && !empty($to_date)){
+            $result = $result->whereBetween('created_at', [$from_date.' 00-00-01', $to_date.' 23-59-59']);
+            $result2 = $result2->whereBetween('created_at', [$from_date.' 00-00-01', $to_date.' 23-59-59']);
+        }
+
+        $result_count_rows = count($result->get());
+
+        $result_data = $result->orderBy('id' , 'ASC')->skip($offset)->take($limit)->get();
+        //dd($result_data);
+        
+        $result2 = $result2->orderBy('id' , 'ASC')->limit($offset)->get();
+
+        $total_balance = 0;
+        foreach($result2 as $key => $value){
+            if(!empty($value->is_recieved)){
+                $total_balance = $total_balance+$value->amount;
+            }
+            if(empty($value->is_recieved)){
+                $total_balance = $total_balance-$value->amount;
+            }
+        }   
+
+        if(isset($result_data)){
+            $total_balance = $total_balance;
+            foreach($result_data as $item){
+                $date = explode(' ', $item->created_at);
+                $single_field['created_at'] = $date[0];
+                $single_field['unique_id'] = '#'.$item->unique_id;
+                $single_field['description'] = (!empty($item->description))?$item->description:'---';
+                $single_field['previous'] = 'Rs: 0';
+                $single_field['debit'] = (empty($item->is_recieved))?'Rs: '.$item->amount:'0';
+                $single_field['credit'] = (!empty($item->is_recieved))?'Rs: '.$item->amount:'0';
+                if(empty($item->is_recieved)){
+                    $total_balance = $total_balance-$item->amount;
+                }
+                if(!empty($item->is_recieved)){
+                    $total_balance = $total_balance+$item->amount;
+                }
+                $single_field['balance'] = 'Rs: '.$total_balance;
+                $result_array[] = $single_field;
             }
             $data['draw'] = $draw;
             $data['recordsTotal'] = $result_count;

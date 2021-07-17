@@ -31,6 +31,7 @@ class CreateSystemInvoicesTable extends Migration
             $table->integer('amount_id')->nullable();
             $table->tinyInteger('is_bank_payment')->default(0);
             $table->integer('account_category_id')->nullable();
+            $table->tinyInteger('is_journal')->default(0);
 
             $table->date('date')->nullable();
             $table->timestamp('created_at')->useCurrent();

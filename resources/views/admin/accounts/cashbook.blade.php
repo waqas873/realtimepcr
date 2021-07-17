@@ -197,42 +197,6 @@
                   <td scope="col">Rs: 8766</td>
                   <td scope="col">Rs: 543534</td>
                 </tr>
-                <tr>
-                  <td scope="col">2020-06-22</td>
-                  <td scope="col">#080954</td>
-                  <td scope="col">Testing description</td>
-                  <td scope="col">Rs: 4555</td>
-                  <td scope="col">Rs: 3434</td>
-                  <td scope="col">Rs: 8766</td>
-                  <td scope="col">Rs: 543534</td>
-                </tr>
-                <tr>
-                  <td scope="col">2020-06-22</td>
-                  <td scope="col">#080954</td>
-                  <td scope="col">Testing description</td>
-                  <td scope="col">Rs: 4555</td>
-                  <td scope="col">Rs: 3434</td>
-                  <td scope="col">Rs: 8766</td>
-                  <td scope="col">Rs: 543534</td>
-                </tr>
-                <tr>
-                  <td scope="col">2020-06-22</td>
-                  <td scope="col">#080954</td>
-                  <td scope="col">Testing description</td>
-                  <td scope="col">Rs: 4555</td>
-                  <td scope="col">Rs: 3434</td>
-                  <td scope="col">Rs: 8766</td>
-                  <td scope="col">Rs: 543534</td>
-                </tr>
-                <tr>
-                  <td scope="col">2020-06-22</td>
-                  <td scope="col">#080954</td>
-                  <td scope="col">Testing description</td>
-                  <td scope="col">Rs: 4555</td>
-                  <td scope="col">Rs: 3434</td>
-                  <td scope="col">Rs: 8766</td>
-                  <td scope="col">Rs: 543534</td>
-                </tr>
             </tbody>
         </table>
     </div>

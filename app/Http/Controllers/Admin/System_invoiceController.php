@@ -213,6 +213,77 @@ class System_invoiceController extends Controller
         echo json_encode($data);
     }
 
+    public function process_add_journal(Request $request)
+    {
+        $data = [];
+        $data['response'] = false;
+        $data['insufficient'] = false;
+
+        $formData = $request->all();
+        $rules = [
+            'date'=>'required',
+            'amount' => 'required|min:1',
+            'is_recieved' => 'required',
+            'account_category_id' => 'required'
+        ];
+        $messages = [];
+        $attributes = [];
+        $attributes['account_category_id'] = 'account category';
+        $attributes['is_recieved'] = 'journal adjustment';
+
+        $validator = Validator::make($formData,$rules,$messages,$attributes);
+        //$validator = Validator::make($inputs,$rules);
+        if($validator->fails()){
+            $data['errors'] = $validator->errors();
+        }
+        else{
+            unset($formData['_token']);
+            $user = Auth::user();
+            if($formData['is_recieved'] == 0){
+                $cash = $this->cash_in_hand();
+                if($cash < $formData['amount']){
+                    $data['insufficient'] = true;
+                    echo json_encode($data);
+                    exit;
+                }
+            }
+            $save = new System_invoice;
+            $save->date = $formData['date'];
+            $save->amount = $formData['amount'];
+            $save->account_category_id = $formData['account_category_id'];
+            $save->is_journal = 1;
+            $save->user_id = $user->id;
+            $save->is_recieved = $formData['is_recieved'];
+            if(!empty($formData['description'])){
+                $save->description = $formData['description'];
+            }
+            $inv_uniq_id = '000000';
+            $uniqueness = false;
+            while($uniqueness == false){
+                $inv_uniq_id = rand(1,1000000);
+                $invRes = System_invoice::where('unique_id',$inv_uniq_id)->first();
+                if(empty($invRes)){
+                    $uniqueness = true;
+                }
+            }
+            $save->unique_id = $inv_uniq_id;
+            $save->created_at = $this->date_time;
+            $save->updated_at = $this->date_time;
+            //dd($save);
+            $save->save();
+
+            if($formData['is_recieved']==1){
+                $this->cash_add($formData['amount'],$user->id);
+            }
+            else{
+                $this->cash_deduct($formData['amount'],$user->id);
+            }
+
+            $data['response'] = true;
+        }
+        echo json_encode($data);
+    }
+
     public function addLedger($amount = 0,$si_id = null,$cp_id = null,$doctor_id = null,$embassy_user_id = null,$airline_user_id = null,$description = null)
     {
         $user = Auth::user();

@@ -143,6 +143,8 @@ Route::group(['middleware' => ['web','admin']], function()
         Route::post('/get-cash-recieved', 'Admin\AccountsController@get_cash_recieved');
         Route::post('/get-bank-payment', 'Admin\AccountsController@get_bank_payment');
         Route::post('/get-bank-recieved', 'Admin\AccountsController@get_bank_recieved');
+        Route::post('/get-journal', 'Admin\AccountsController@get_journal');
+        Route::post('/get-cashbook', 'Admin\AccountsController@get_cashbook');
 
         Route::post('/get-cp-ledger', 'Admin\LedgersController@cpLedger');
         Route::post('/get-doctor-ledger', 'Admin\LedgersController@doctorLedger');
@@ -155,7 +157,7 @@ Route::group(['middleware' => ['web','admin']], function()
         Route::post('/add-system-invoice', 'Admin\System_invoiceController@process_add');
         Route::post('/get-system-invoices-datatable', 'Admin\System_invoiceController@get_datatable');
         Route::get('/delete-system-invoice/{id?}', 'Admin\System_invoiceController@delete');
-        Route::post('/add-system-invoice-bank', 'Admin\System_invoiceController@process_add_bank');
+        Route::post('/add-system-invoice-journal', 'Admin\System_invoiceController@process_add_journal');
 
 
         Route::get('/logs', 'Admin\LogsController@index');
