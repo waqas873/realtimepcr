@@ -195,6 +195,7 @@ $('#datatable').DataTable({
             "lab_user": $('#lab_user').val(),
             "local_overseas": $('#local_overseas').val(),
             "airline": $('#airline').val(),
+            "country_id": $('#country_id').val(),
           });
       } 
   },
@@ -255,6 +256,10 @@ $(document).on('change', '#local_overseas', function (e) {
 $(document).on('change', '#airline', function (e) {
   $('#datatable').DataTable().ajax.reload();  
 });
+$(document).on('change', '#country_id', function (e) {
+  $('#datatable').DataTable().ajax.reload();  
+});
+
 
 $('#deleted_patients').DataTable({
   "ordering": true,

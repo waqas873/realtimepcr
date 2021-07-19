@@ -258,13 +258,16 @@
               <div class="row">
                 <div class="col-sm-4">
                   <div class="form-group row">
-                    <label for="collection_point_id" class="col-sm-4 col-form-label pformlabel no_padd">Filter By Country</label>
+                    <label for="country_id" class="col-sm-4 col-form-label pformlabel no_padd">Filter By Country</label>
                     <div class="col-sm-8">
-                      <select class="form-control inputs_with_bottom_border " id="collection_point_id" name="collection_point_id">
+                      <select class="form-control inputs_with_bottom_border " id="country_id" name="country_id">
                         <option value="">Select Here</option>
                         <option value="all">All</option>
-                        <option value="all">Country 1</option>
-                        
+                        <?php
+                        foreach ($countries as $key => $value) {
+                        ?>
+                          <option value="{{$value->id}}">{{$value->name}}</option>
+                        <?php } ?>
                       </select>
                     </div>
                   </div>

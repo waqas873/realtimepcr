@@ -47,6 +47,7 @@ class PatientController extends Controller
         $data['users'] = User::where('role',0)->orWhere('role',5)->orderBy('id' , 'DESC')->get();
         $data['lab_users'] = User::where('role',4)->orderBy('id' , 'DESC')->get();
         $data['airlines'] = Airline::all();
+        $data['countries'] = Country::all();
         return view('admin.patients.index',$data);
     }
 
@@ -448,6 +449,7 @@ class PatientController extends Controller
         $collection_point_id = $post['collection_point_id'];
         $local_overseas = $post['local_overseas'];
         $airline = $post['airline'];
+        $country_id = $post['country_id'];
         
         //$status = $post['status_filter'];
 
@@ -521,6 +523,14 @@ class PatientController extends Controller
             $result = $result->whereHas('passenger', function($q) use($airline){
                 $q->where([
                     ['airline' , $airline]
+                ]);
+            });
+        }
+
+        if(!empty($country_id) && $country_id!='all'){
+            $result = $result->whereHas('passenger', function($q) use($country_id){
+                $q->where([
+                    ['country_id' , $country_id]
                 ]);
             });
         }
