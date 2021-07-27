@@ -120,13 +120,17 @@
           <input type="hidden" class="form-control iwbb" id="product_category_id" name="product_category_id" value="1">
 
           <div class="form-group row">
-            <label for="test_id" class="col-sm-2 col-form-label pformlabel">Select Lab</label>
+            <label for="lab_id" class="col-sm-2 col-form-label pformlabel">Select Lab</label>
             <div class="col-sm-10">
-              <select class="form-control iwbb" id="test_id" name="test_id">
+              <select class="form-control iwbb" id="lab_id" name="lab_id">
                 <option value="">Select Lab</option>
-               
+                @if(!empty($labs))
+                @foreach($labs as $record)
+                <option value="{{$record->id}}">{{$record->name}}</option>
+                @endforeach
+                @endif
               </select>
-              <div class="all_errors test_id_error">
+              <div class="all_errors lab_id_error">
               </div>
             </div>
           </div>

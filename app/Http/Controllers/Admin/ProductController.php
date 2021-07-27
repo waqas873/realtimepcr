@@ -12,6 +12,7 @@ use App\Product_history;
 use App\Test;
 use App\Supplier;
 use App\User;
+use App\Lab;
 
 class ProductController extends Controller
 {
@@ -33,6 +34,7 @@ class ProductController extends Controller
         $data = [];
         $data['suppliers'] = Supplier::all();
         $data['tests'] = Test::all();
+        $data['labs'] = Lab::all();
         return view('admin.products.index',$data);
     }
 
@@ -48,12 +50,17 @@ class ProductController extends Controller
 	        'price'=>'required|min:1',
 	        'lot_number'=>'required',
 	        'expiry_date'=>'required',
+            'lab_id'=>'required',
+            'test_id'=>'required',
+            'supplier_id'=>'required',
 	        'quantity'=>'required|min:1'
 	    ];
 	    $messages = [];
 	    $attributes = [
 	    	'quantity' => 'pack size',
 	    	'lot_number' => 'lot number',
+            'lab_id' => 'lab',
+            'supplier_id' => 'supplier',
 	    	'product_category_id' => 'product category',
 	    	'expiry_date' => 'expiry date'
 	    ];
@@ -65,33 +72,38 @@ class ProductController extends Controller
         	unset($formData['_token']);
         	$user = Auth::user();
 
-    		$result = Product::where('name' , $formData['name'])->first();
-    		if(!empty($result)){
-    			$total_quantity = $result->available_quantity+$formData['quantity'];
-    			$update = ['available_quantity'=>$total_quantity,'test_id'=>$formData['test_id'],'product_category_id'=>$formData['product_category_id']];
-                Product::where('id',$result->id)->update($update);
-                $product_id = $result->id;
-    		}
-    		else{
-    			$product = new Product;
-    			$product->name = $formData['name'];
-    			$product->test_id = $formData['test_id'];
-    			$product->available_quantity = $formData['quantity'];
-    			$product->product_category_id = $formData['product_category_id'];
-    			$product->save();
-    			$product_id = $product->id;
-    		}
+    		// $result = Product::where('name' , $formData['name'])->first();
+    		// if(!empty($result)){
+    		// 	$total_quantity = $result->available_quantity+$formData['quantity'];
+    		// 	$update = ['available_quantity'=>$total_quantity,'test_id'=>$formData['test_id'],'product_category_id'=>$formData['product_category_id']];
+      //           Product::where('id',$result->id)->update($update);
+      //           $product_id = $result->id;
+    		// }
+    		// else{
+    		// 	$product = new Product;
+    		// 	$product->name = $formData['name'];
+    		// 	$product->test_id = $formData['test_id'];
+    		// 	$product->available_quantity = $formData['quantity'];
+    		// 	$product->product_category_id = $formData['product_category_id'];
+    		// 	$product->save();
+    		// 	$product_id = $product->id;
+    		// }
 
     		$history = new Product_history;
     		$history->user_id = $user->id;
-    		$history->product_id = $product_id;
+            $history->name = $formData['name'];
+    		//$history->product_id = $product_id;
+            $history->lab_id = $formData['lab_id'];
+            $history->test_id = $formData['test_id'];
+            $history->product_category_id = $formData['product_category_id'];
     		$history->supplier_id = $formData['supplier_id'];
     		$history->lot_number = $formData['lot_number'];
     		$history->expiry_date = $formData['expiry_date'];
     		$history->quantity = $formData['quantity'];
     		$history->remaining_quantity = $formData['quantity'];
-    		$history->price = $formData['price'];
-    		//$history->total_price = $formData['total_price'];
+            $single_price = $formData['price']/$formData['quantity'];
+    		$history->single_price = $single_price;
+    		$history->total_price = $formData['price'];
     		$history->save();
 
 	        $data['response'] = true;
