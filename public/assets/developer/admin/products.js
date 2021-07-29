@@ -46,6 +46,16 @@ $(document).on('click', '.delete_id', function (e) {
   });
 });
 
+$(document).on('keyup', '.total_price', function (e) {
+  var quantity = $('#quantity').val();
+  var total_price = $('.total_price').val();
+  $('#single_price').empty();
+  if(quantity>0 && total_price>0){
+    var single_price = total_price/quantity;
+    $('#single_price').html(single_price.toFixed(2));
+  }
+});
+
 $(document).on('submit', '#addForm', function (e) {
   e.preventDefault();
   var obj = $(this);
@@ -87,6 +97,7 @@ $('#datatable').DataTable({
           return $.extend({}, d, {
             "_token": $('meta[name="csrf-token"]').attr('content'),
             //"from_date": $('#from_date').val(),
+            "lab_id": $('#lab_id2').val(),
           });
       } 
   },
@@ -101,11 +112,15 @@ $('#datatable').DataTable({
   "columns": [
       {"data": "name"},
       {"data": "assigned_test"},
+      {"data": "lab"},
       {"data": "quantity"},
       {"data": "remaining_quantity"},
       {"data": "expiry_date"},
       {"data": "action"},
   ]
+});
+$(document).on('change', '#lab_id2', function (e) {
+  $('#datatable').DataTable().ajax.reload();  
 });
 
 function errors(arr = ''){

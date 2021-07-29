@@ -37,9 +37,14 @@
             <p>Filter by LAB</p>
           </div>
           <div class="col-sm-6 no_padd">
-            <select class="form-control" name="" id="">
-              <option value="">All</option>
-
+            <select class="form-control" name="lab_id" id="lab_id2">
+              <option value="">Select Here</option>
+              <option value="all">All</option>
+              <?php
+              foreach ($labs as $key => $value) {
+              ?>
+                <option value="{{$value->id}}">{{$value->name}}</option>
+              <?php } ?>
             </select>
           </div>
 
@@ -207,10 +212,10 @@
 
             <label for="price" class="col-sm-2 col-form-label pformlabel">Prize: (PKR)</label>
             <div class="col-sm-4">
-              <input type="number" class="form-control iwbb" id="price" name="price" placeholder="Enter price">
+              <input type="number" class="form-control iwbb total_price" id="price" name="price" placeholder="Enter price">
               <div class="all_errors price_error">
               </div>
-              <small>Cost of sale per test will be Rs: 500</small>
+              <small>Cost of sale per test will be Rs: <span id="single_price"></span></small>
             </div>
           </div>
 

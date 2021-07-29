@@ -136,6 +136,7 @@ class ProductController extends Controller
         $limit = $post['length'];
         $draw = $post['draw'];
         $search = $post['search']['value'];
+        $lab_id = $post['lab_id'];
 
         //$from_date = $post['from_date'];
 
@@ -143,6 +144,10 @@ class ProductController extends Controller
         $result_count = Product_history::where('id' ,'>' , 0)->count();
 
         $result = new Product_history;  
+
+        if(!empty($lab_id) && $lab_id!="all"){
+            $result = $result->where('lab_id', $lab_id);
+        } 
 
         if(!empty($search)){
             if(ctype_digit($search)){
@@ -163,8 +168,9 @@ class ProductController extends Controller
         if(isset($result_data)){
             $permissions = permissions();
             foreach($result_data as $item){
-                $single_field['name'] = (!empty($item->product->name))?$item->product->name:'unavailable';
-                $single_field['assigned_test'] = (!empty($item->product->test->name))?$item->product->test->name:'---';
+                $single_field['name'] = (!empty($item->name))?$item->name:'unavailable';
+                $single_field['assigned_test'] = (!empty($item->test->name))?$item->test->name:'---';
+                $single_field['lab'] = (!empty($item->lab->name))?$item->lab->name:'---';
                 $single_field['quantity'] = (!empty($item->quantity))?$item->quantity:0;
                 $single_field['remaining_quantity'] = (!empty($item->remaining_quantity))?$item->remaining_quantity:0;
                 $single_field['expiry_date'] = (!empty($item->expiry_date))?$item->expiry_date:0;

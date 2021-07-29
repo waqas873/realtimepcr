@@ -10,4 +10,14 @@ class Product_history extends Model
     {
         return $this->belongsTo('App\Product');
     }
+
+    public function test()
+    {
+        return $this->belongsTo('App\Test');
+    }
+
+    public function lab()
+    {
+        return $this->belongsTo('App\Lab');
+    }
 }
