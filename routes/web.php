@@ -225,6 +225,8 @@ Route::group(['middleware' => ['web','staff']], function()
     Route::post('/process-patient-reason', 'PatientController@process_reason');
     Route::get('/delete-reason', 'PatientController@delete_reason');
 
+    Route::get('/get-tests/{id?}', 'PatientController@get_tests');
+
 
     Route::get('/amounts', 'AmountsController@index');
     Route::get('/cp-admin', 'Cp_adminController@transactions');

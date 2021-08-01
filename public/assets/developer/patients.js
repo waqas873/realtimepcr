@@ -202,6 +202,22 @@ $(document).on('change', '.select_tests , .select_tests_profile', function (e) {
 
 });
 
+$(document).on('change', '.reffered_by', function (e) {
+  var obj = $(this);
+  var id = obj.val();
+  $('#tests').empty();
+  $.ajax({
+    url: '/get-tests/'+id,
+    type: 'GET',
+    dataType: 'JSON',
+    success: function (data) {
+      if(data.response){
+        $('#tests').html(data.all_tests);
+      }
+    }
+  });
+});
+
 $(document).on('keyup', '#discount', function (e) {
   var obj = $(this);
   var discount_amount = parseInt(obj.val());

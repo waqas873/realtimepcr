@@ -746,6 +746,34 @@ class PatientController extends Controller
         echo json_encode($data);
     }
 
+    public function get_tests($id = '')
+    {
+        $data = [];
+        $data['response'] = false;
+        $test_id = '';
+        $user = new User;
+        if(!empty($id)){
+            $user = $user->where('role',3)->find($id);
+            if(!empty($user->test_id)){
+                $test_id = $user->test_id;
+            }
+        }
+        $tests = new Test;
+        if(!empty($test_id)){
+            $tests = $tests->where('id',$test_id);
+        }
+        $tests = $tests->get();
+        $all_tests = '';
+        if(!empty($tests)){
+            foreach($tests as $test){
+                $all_tests .= '<option value="'.$test->id.'">"'.$test->name.'" &nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size: 11px !important;"> (Rs: "'.$test->price.'")</span></option>';
+            }
+        }
+        $data['all_tests'] = $all_tests;
+        $data['response'] = true;
+        echo json_encode($data);
+    }
+
     public function detail($patient_id = '0' , $search_by = '')
     {
         $data  = [];
