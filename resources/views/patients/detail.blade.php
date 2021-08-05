@@ -12,12 +12,12 @@
 </script>
 @endif
 
-<style type="text/css">
+<!-- <style type="text/css">
   .invoice-inputs {
     margin-top: 0px !important;
     margin-bottom: 0px !important;
   }
-</style>
+</style> -->
 
 <div class="container-fluid">
 
@@ -255,7 +255,7 @@
                   <td>Rs: {{$value->amount_paid}}</td>
                   <td>Rs: {{$value->amount_remaining}}</td>
                   <!-- <td><a href="javascript::" rel="{{$value->id}}" class="invoice_id">View</a></td> -->
-                  <td><a href="{{url('/invoice-detail/'.$value->unique_id)}}" target="_blank">View</a></td>
+                  <td><a href="{{url('/invoice-detail/'.$value->unique_id)}}" target="_blank">View Reports</a></td>
                 </tr>
                 <?php $counter--; ?>
                 @endforeach
@@ -303,14 +303,14 @@
             @endif
           </select>
 
-          <p style="margin-top: 17px;">Select Test Profile</p>
-          <select class="form-control inputs_with_bottom_border select2" id="test_profiles" name="test_profiles[]" multiple="">
+          <!-- <p style="margin-top: 17px;">Select Test Profile</p>
+          <select class="form-control  " id="test_profiles" name="test_profiles[]" multiple="">
             @if(!empty($test_profiles))
             @foreach($test_profiles as $record)
             <option value="{{$record->id}}">{{$record->name}} &nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size: 11px !important;"> (Rs: {{$record->price}})</span></option>
             @endforeach
             @endif
-          </select>
+          </select> -->
         </div>
       </form>
 
@@ -455,7 +455,7 @@
               <div class="form-group row invoice-inputs">
                 <label for="amount_pay" class="col-sm-3 col-form-label pformlabel">Collect Amount</label>
                 <div class="col-sm-9">
-                  <input type="number" class="form-control inputs_with_bottom_border" name="amount_pay" id="amount_pay">
+                  <input type="number" class="form-control  " name="amount_pay" id="amount_pay">
                 </div>
               </div>
               <div class="form-group row invoice-inputs">
@@ -508,19 +508,19 @@
             <div class="form-group row invoice-inputs">
               <label for="discount" class="col-sm-3 col-form-label pformlabel">Discount</label>
               <div class="col-sm-9">
-                <input type="number" class="form-control inputs_with_bottom_border" id="discount">
+                <input type="number" class="form-control  " id="discount">
               </div>
             </div>
             <div class="form-group row invoice-inputs">
               <label for="amount_paid" class="col-sm-3 col-form-label pformlabel">Amount Paid</label>
               <div class="col-sm-9">
-                <input type="number" class="form-control inputs_with_bottom_border" id="amount_paid">
+                <input type="number" class="form-control  " id="amount_paid">
               </div>
             </div>
             <div class="form-group row invoice-inputs">
               <label for="delivery_time" class="col-sm-3 col-form-label pformlabel">Delivery time (days)</label>
               <div class="col-sm-9">
-                <input type="number" class="form-control inputs_with_bottom_border" id="delivery_time">
+                <input type="number" class="form-control  " id="delivery_time">
               </div>
             </div>
 
@@ -534,14 +534,14 @@
                 <div class="form-group row invoice-inputs">
                   <label for="passport_no" class="col-sm-3 col-form-label pformlabel">Passport#</label>
                   <div class="col-sm-9">
-                    <input type="text" name="passport_no" class="form-control inputs_with_bottom_border" id="passport_no">
+                    <input type="text" name="passport_no" class="form-control  " id="passport_no">
                     <div class="all_errors psngr_err" id="passport_no_error"></div>
                   </div>
                 </div>
                 <div class="form-group row invoice-inputs">
                   <label for="airline" class="col-sm-3 col-form-label pformlabel">Airline</label>
                   <div class="col-sm-9">
-                    <select class="form-control inputs_with_bottom_border select2" id="airline" name="airline">
+                    <select class="form-control  " id="airline" name="airline">
                       <option value="">Select Airline</option>
                       <?php
                       foreach ($airlines as $key => $value) {
@@ -555,7 +555,7 @@
                 <div class="form-group row invoice-inputs">
                   <label for="country_id" class="col-sm-3 col-form-label pformlabel">Travelling To</label>
                   <div class="col-sm-9">
-                    <select class="form-control inputs_with_bottom_border select2" id="country_id" name="country_id">
+                    <select class="form-control  " id="country_id" name="country_id">
                       <option value="">Select Country</option>
                       <?php
                       foreach ($countries as $key => $value) {
@@ -569,35 +569,35 @@
                 <div class="form-group row invoice-inputs">
                   <label for="flight_date" class="col-sm-3 col-form-label pformlabel">Flight Date</label>
                   <div class="col-sm-9">
-                    <input type="date" name="flight_date" class="form-control inputs_with_bottom_border" id="flight_date">
+                    <input type="date" name="flight_date" class="form-control  " id="flight_date">
                     <div class="all_errors psngr_err" id="flight_date_error"></div>
                   </div>
                 </div>
                 <div class="form-group row invoice-inputs">
                   <label for="flight_time" class="col-sm-3 col-form-label pformlabel">Flight Time</label>
                   <div class="col-sm-9">
-                    <input type="text" name="flight_time" class="form-control inputs_with_bottom_border" id="flight_time">
+                    <input type="time" name="flight_time" class="form-control  " id="flight_time">
                     <div class="all_errors psngr_err" id="flight_time_error"></div>
                   </div>
                 </div>
                 <div class="form-group row invoice-inputs">
                   <label for="flight_no" class="col-sm-3 col-form-label pformlabel">Flight No</label>
                   <div class="col-sm-9">
-                    <input type="text" name="flight_no" class="form-control inputs_with_bottom_border" id="flight_no">
+                    <input type="text" name="flight_no" class="form-control  " id="flight_no">
                     <div class="all_errors psngr_err" id="flight_no_error"></div>
                   </div>
                 </div>
                 <div class="form-group row invoice-inputs">
                   <label for="booking_ref_no" class="col-sm-3 col-form-label pformlabel">Booking Ref No</label>
                   <div class="col-sm-9">
-                    <input type="text" name="booking_ref_no" class="form-control inputs_with_bottom_border" id="booking_ref_no">
+                    <input type="text" name="booking_ref_no" class="form-control  " id="booking_ref_no">
                     <div class="all_errors psngr_err" id="booking_ref_no_error"></div>
                   </div>
                 </div>
                 <div class="form-group row invoice-inputs">
                   <label for="ticket_no" class="col-sm-3 col-form-label pformlabel">Ticket No</label>
                   <div class="col-sm-9">
-                    <input type="text" name="ticket_no" class="form-control inputs_with_bottom_border" id="ticket_no">
+                    <input type="text" name="ticket_no" class="form-control  " id="ticket_no">
                     <div class="all_errors psngr_err" id="ticket_no_error"></div>
                   </div>
                 </div>

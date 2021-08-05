@@ -58,7 +58,7 @@
 
               <div class="form-group">
                 <label for="collection_point_id">Select Collection Point</label>
-                <select name="collection_point_id" id="collection_point_id" class="form-control form-control-lg <!--select2-->">
+                <select name="collection_point_id" id="collection_point_id" class="form-control form-control-lg">
                   @if(!empty($collection_points))
                   @foreach($collection_points as $key=>$value)
                   <option value="{{$value->id}}" <?php echo (!empty($cp_id) && $cp_id==$value->id)?"selected":''; ?>>{{$value->name}}</option>
@@ -138,7 +138,7 @@
             <form>
               <div class="form-group">
                 <label for="lab_id">Select Lab</label>
-                <select name="lab_id" id="lab_id" class="form-control form-control-lg select2">
+                <select name="lab_id" id="lab_id" class="form-control form-control-lg ">
                   @if(!empty($labs))
                   @foreach($labs as $key=>$value)
                   <option value="{{$value->id}}">{{$value->name}}</option>
@@ -198,7 +198,7 @@
 
               <div class="form-group">
                 <label for="doctor_id">Select Doctor</label>
-                <select name="doctor_id" id="doctor_id" class="form-control form-control-lg select2">
+                <select name="doctor_id" id="doctor_id" class="form-control form-control-lg ">
                   @if(!empty($doctors))
                   @foreach($doctors as $key=>$value)
                   <option value="{{$value->id}}" <?php echo (!empty($doctor_id) && $doctor_id==$value->id)?"selected":''; ?>>{{$value->user->name}}</option>
@@ -264,7 +264,7 @@
 
               <div class="form-group">
                 <label for="airline_user_id">Select Airline User</label>
-                <select name="airline_user_id" id="airline_user_id" class="form-control form-control-lg select2">
+                <select name="airline_user_id" id="airline_user_id" class="form-control form-control-lg ">
                   @if(!empty($airline_users))
                   @foreach($airline_users as $key=>$value)
                   <option value="{{$value->id}}">{{$value->name}}</option>
@@ -329,7 +329,7 @@
 
               <div class="form-group">
                 <label for="embassy_user_id">Select Embassy User</label>
-                <select name="embassy_user_id" id="embassy_user_id" class="form-control form-control-lg select2">
+                <select name="embassy_user_id" id="embassy_user_id" class="form-control form-control-lg ">
                   @if(!empty($embassy_users))
                   @foreach($embassy_users as $key=>$value)
                   <option value="{{$value->id}}">{{$value->name}}</option>
@@ -394,7 +394,7 @@
 
               <div class="form-group">
                 <label for="supplier_id">Select Vendor</label>
-                <select name="supplier_id" id="supplier_id" class="form-control form-control-lg select2">
+                <select name="supplier_id" id="supplier_id" class="form-control form-control-lg ">
                   @if(!empty($suppliers))
                   @foreach($suppliers as $key=>$value)
                   <option value="{{$value->id}}">{{$value->name}}</option>

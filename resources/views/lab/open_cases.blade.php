@@ -129,7 +129,7 @@
               <tr>
                 <th scope="col">Invoice ID</th>
                 <th scope="col">Patient Name</th>
-                <th scope="col">Test</th>
+                <th scope="col">Test Name</th>
                 <th scope="col">Reg Date</th>
                 <th scope="col">Action</th>
               </tr>
@@ -148,10 +148,10 @@
                 <td>{{(!empty($value->test->name))?$value->test->name:'-- --'}}</td>
                 <td>{{$value->created_at}}</td>
                 <td>
-                  <?php 
+                  <!-- <?php 
                         $datetime = strtotime($value->invoice->created_at);
-                        if(strtotime("-6 hours") > $datetime){
-                      ?>
+                        if(strtotime("-1 hours") > $datetime){
+                      ?> -->
 <!--                       
                   <a href="{{url('lab/detected/'.$value->id)}}"
                     class="btn btn-sm btn-success detected_or_not">Detected</a>
@@ -171,7 +171,7 @@
                           <button class="dropdown-item" type="button">Repeat Test</button>
                         </a>
                         <a href="{{url('lab/manual/'.$id)}}" class="">
-                          <button class="dropdown-item" type="button">Submit Manual Report</button>
+                          <button class="dropdown-item" type="button">MS-Word Report</button>
                         </a>
                         
                                               </div>

@@ -2,34 +2,34 @@
 @section('content')
 
 @if(session('success_message'))
-    <script type="text/javascript">
-        swal({
-          title: "Success",
-          text: "{{session('success_message')}}",
-          icon: "success",
-          button: "OK",
-        });
-    </script>
+<script type="text/javascript">
+  swal({
+    title: "Success",
+    text: "{{session('success_message')}}",
+    icon: "success",
+    button: "OK",
+  });
+</script>
 @endif
 
 @if(session('error_message'))
-    <script type="text/javascript">
-        swal({
-          title: "Warning",
-          text: "{{session('error_message')}}",
-          icon: "error",
-          button: "OK",
-        });
-    </script>
+<script type="text/javascript">
+  swal({
+    title: "Warning",
+    text: "{{session('error_message')}}",
+    icon: "error",
+    button: "OK",
+  });
+</script>
 @endif
 
 
 <div class="container-fluid">
-<style>
-  .dataTables_wrapper.container-fluid{
-    width: 100%;
-  }
-</style>
+  <style>
+    .dataTables_wrapper.container-fluid {
+      width: 100%;
+    }
+  </style>
   <!-- embassy Profile Page -->
   <div class="row">
     <div class="col-sm-12">
@@ -51,14 +51,54 @@
     <div class="card m-b-30">
       <div class="card-body">
         <ul class="nav nav-tabs" role="tablist">
-          <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#prizes" role="tab"><span class="d-none d-md-block">Special Prizes</span><span class="d-block d-md-none"><i class="mdi mdi-email h5"></i></span></a></li>
+          <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#profile" role="tab"><span class="d-none d-md-block">Embassy Profile</span><span class="d-block d-md-none"><i class="mdi mdi-email h5"></i></span></a></li>
           <li class="nav-item"><a class="nav-link" data-toggle="tab" href="#Trx" role="tab"><span class="d-none d-md-block">Transactions</span><span class="d-block d-md-none"><i class="mdi mdi-settings h5"></i></span></a></li>
         </ul><!-- Tab panes -->
         <div class="tab-content">
-         
-          <div class="tab-pane active p-3" id="prizes" role="tabpanel">
 
-            <form id="commissionTestForm">
+          <div class="tab-pane active p-3" id="profile" role="tabpanel">
+
+            <div class="row">
+              <div class="col-sm-2">Embassy Name :</div>
+              <div class="col-sm-10"><b>----</b></div>
+              <div class="col-sm-2">Associated Country</div>
+              <div class="col-sm-10"><b>----</b></div>
+              <div class="col-sm-2">Assigned Test</div>
+              <div class="col-sm-10"><b>----</b></div>
+              <div class="col-sm-2">Focal Person: </div>
+              <div class="col-sm-10"><b>----</b></div>
+              <div class="col-sm-2">Contact:</div>
+              <div class="col-sm-10"><b>----</b></div>
+              <div class="col-sm-2">Commission Assigned:</div>
+              <div class="col-sm-10"><b>----</b><a href=""> Edit Commission</a></div>
+              <div class="col-sm-2">portal access email</div>
+              <div class="col-sm-10"><b>----</b></div>
+              <div class="col-sm-2">Password</div>
+              <div class="col-sm-10"><b>----</b></div>
+              <div class="col-sm-2">Account Status:</div>
+              <div class="col-sm-10">
+                <div class="form-check">
+                  <input type="checkbox" class="form-check-input" id="accountStatus">
+                  <label class="form-check-label" for="accountStatus"></label>
+                </div>
+              </div>
+              <div class="col-sm-2">Reports</div>
+              <div class="col-sm-10">
+                <a href="">Click here to view reports</a>
+              </div>
+              <div class="col-sm-2">Ledgers:</div>
+              <div class="col-sm-10">
+                <a href="">Click here to view ledger</a>
+              </div>
+            </div>
+            <br>
+            <br>
+
+
+
+            <!-- Code Hidden for some reason, will be activated in future -->
+
+            <!-- <form id="commissionTestForm">
               @csrf
               <input type="hidden" name="id" id="commission_test_id">
               <input type="hidden" name="to_user_id" value="{{$result->id}}">
@@ -117,7 +157,7 @@
 
               </div>
 
-            </form>
+            </form> -->
 
             <div class="row">
               <table class="table table-borderless" id="commission_tests">
@@ -133,34 +173,35 @@
                 </thead>
                 <tbody>
                   @if(!empty($commission_tests))
-                    @foreach($commission_tests as $key=>$value)
-                    @if(!empty($value->user->role==3))
-                    <tr>
-                      <td>{{$key+1}}</td>
-                      <td>{{(!empty($value->test->name))?$value->test->name:'----'}}</td>
-                      <td>{{(!empty($value->test->category->name))?$value->test->category->name:'----'}}</td>
-                      <td>
-                        <?php 
-                        if(!empty($value->lab_id)){
-                          echo $value->lab->name;
-                        }
-                        if(!empty($value->collection_point_id)){
-                          echo $value->collection_point->name;
-                        }
-                        ?>
-                      </td>
-                      <td>Rs: {{(!empty($value->commission_price))?$value->commission_price:'----'}}</td>
-                      <td><a href="javascript::" rel="{{$value->id}}" class="commission_test_update_id">
-                          Edit
-                        </a> | 
-                        <a href="{{url('admin/delete-commission-test/'.$value->id)}}" class="delete-commission-test">
-                          Delete
-                        </a>
-                      </td>
-                    </tr>
-                    @endif
-                    @endforeach
-                    @endif
+                  @foreach($commission_tests as $key=>$value)
+                  @if(!empty($value->user->role==3))
+                  <tr>
+                    <td>{{$key+1}}</td>
+                    <td>{{(!empty($value->test->name))?$value->test->name:'----'}}</td>
+                    <td>{{(!empty($value->test->category->name))?$value->test->category->name:'----'}}</td>
+                    <td>
+                      <?php
+                      if (!empty($value->lab_id)) {
+                        echo $value->lab->name;
+                      }
+                      if (!empty($value->collection_point_id)) {
+                        echo $value->collection_point->name;
+                      }
+                      ?>
+                    </td>
+                    <td>Rs: {{(!empty($value->commission_price))?$value->commission_price:'----'}}</td>
+                    <td>
+                      <!-- <a href="javascript::" rel="{{$value->id}}" class="commission_test_update_id">
+                        Edit
+                      </a> |
+                      <a href="{{url('admin/delete-commission-test/'.$value->id)}}" class="delete-commission-test">
+                        Delete
+                      </a> -->
+                    </td>
+                  </tr>
+                  @endif
+                  @endforeach
+                  @endif
                 </tbody>
               </table>
             </div>
@@ -207,17 +248,17 @@
             <br>
             <div class="row">
               <table class="table table-borderless" id="systemInvoices" style="width: 100%;">
-                  <thead class="thead-dark">
-                    <tr>
-                      <th>Date</th>
-                      <th>Invoice ID</th>
-                      <th>Amount</th>
-                      <th>Description</th>
-                      <th>Payment Method</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-                </table>
+                <thead class="thead-dark">
+                  <tr>
+                    <th>Date</th>
+                    <th>Invoice ID</th>
+                    <th>Amount</th>
+                    <th>Description</th>
+                    <th>Payment Method</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+              </table>
             </div>
 
           </div>
@@ -239,7 +280,7 @@
         </button>
       </div>
       <form id="addPaymentForm" method="post">
-      <div class="modal-body">
+        <div class="modal-body">
           @csrf
 
           <input type="hidden" name="id" class="system_invocie_id">
@@ -274,10 +315,10 @@
             <label for="message-text" class="col-form-label">Description</label>
             <textarea class="form-control description" name="description" id="message-text"></textarea>
           </div>
-      </div>
-      <div class="modal-footer">
-        <button type="submit" class="btn btn-primary">Save Record</button>
-      </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Save Record</button>
+        </div>
       </form>
     </div>
   </div>

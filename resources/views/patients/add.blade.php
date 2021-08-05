@@ -103,10 +103,10 @@
       <?php if (\Session::get('role') == 0) { ?>
         <div class="col-sm-3 mt-3">
 
-          <div class="form-check">
+          <!-- <div class="form-check">
             <input class="form-check-input" type="checkbox" value="" id="onBehalf-cmp-check" onclick="checkFunction('onBehalf-cmp-check','onBehalf-cmp');">
             <label class="form-check-label" for="onBehalf-cmp-check">Register on Behalf of Others</label>
-          </div>
+          </div> -->
         </div>
       <?php } ?>
 
@@ -184,7 +184,7 @@
                   @endif
                 </select>
                 <?php if (\Session::get('role') == 0) { ?>
-                  <small id="emailHelp" class="form-text text-muted">Premium Doctor</small>
+                  <small id="emailHelp" class="form-text text-muted">*Standard Refferer / *Premium Refferer</small>
                 <?php } ?>
               </div>
             </div>
@@ -195,11 +195,19 @@
             <div class="form-group col-sm-4">
               <label for="reffered_by" class="col-form-label pformlabel">Reffered By (Doctors / Embassy)</label>
               <div class="">
-                <select class="form-control reffered_by <!--inputs_with_bottom_border--> <!--select2-->" id="reffered_by" name="reffered_by">
+              <select class="form-control reffered_by <!--inputs_with_bottom_border-->" id="reffered_by" name="reffered_by">
                   <option value="">Select doctor / Refferer</option>
                   @if(!empty($doctors))
                   @foreach($doctors as $record)
-                  <option value="{{$record->id}}">{{$record->name}} (Doctor)</option>
+                  <?php
+                  if($record->role==2){
+                    $ed = "Doctor";
+                  }
+                  else{
+                    $ed = "Embassy";
+                  }
+                  ?>
+                  <option value="{{$record->id}}">{{$record->name}} (<?php echo $ed;?>)</option>
                   @endforeach
                   @endif
                 </select>
