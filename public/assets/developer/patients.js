@@ -102,8 +102,10 @@ $(document).on('submit', '#add-form', function (e) {
           // $("select").each(function () {
           //     $(this).select2('val', '');
           // });
-          $('#reffered_by').select2('val', '');
-          $('#tests').select2('val', '');
+
+          //$('#reffered_by').select2('val', '');
+          //$('#tests').select2('val', '');
+          
           //$('#test_profiles').select2('val', '');
 
           image_file = '';
