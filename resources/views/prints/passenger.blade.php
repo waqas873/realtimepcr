@@ -420,6 +420,9 @@ Your Test is in Process.</h2>
                     if ($result->patient_tests[0]->status == 2) {
                         $testResult = 'Not Detected';
                     }
+                    if(!empty($result->patient_tests[0]->patient_test_results->type) && $result->patient_tests[0]->patient_test_results->type==1){
+                        $testResult = $result->patient_tests[0]->patient_test_results->dropdown_value;
+                    }
 
                     $reptime = 'Not Reported Yet';
                     if ($result->patient_tests[0]->status != 0) {
