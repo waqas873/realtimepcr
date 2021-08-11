@@ -131,6 +131,7 @@
                 <th scope="col">Patient Name</th>
                 <th scope="col">Test Name</th>
                 <th scope="col">Reg Date</th>
+                <th scope="col">Available Kits / Select Kit</th>
                 <th scope="col">Action</th>
               </tr>
             </thead>
@@ -140,51 +141,52 @@
               @if(!empty($value->invoice->unique_id))
               <tr>
                 <td>
-                  <?php echo (!empty($value->invoice->unique_id))?'#'.$value->invoice->unique_id:'---';?>
+                  <?php echo (!empty($value->invoice->unique_id)) ? '#' . $value->invoice->unique_id : '---'; ?>
                 </td>
                 <td>
-                  <?php echo (!empty($value->patient->name))?$value->patient->name:'---'; ?>
+                  <?php echo (!empty($value->patient->name)) ? $value->patient->name : '---'; ?>
                 </td>
                 <td>{{(!empty($value->test->name))?$value->test->name:'-- --'}}</td>
                 <td>{{$value->created_at}}</td>
+                <td><a href="" class="" data-toggle="modal" data-target="#kitView"> <span class="btn btn-light" style=""> 0 </span> Select Kit</a> </td>
                 <td>
-                  <!-- <?php 
+                  <!-- <?php
                         $datetime = strtotime($value->invoice->created_at);
-                        if(strtotime("-1 hours") > $datetime){
-                      ?> -->
-<!--                       
+                        if (strtotime("-0 hours") > $datetime) {
+                        ?> -->
+                  <!--                       
                   <a href="{{url('lab/detected/'.$value->id)}}"
                     class="btn btn-sm btn-success detected_or_not">Detected</a>
                   <a href="{{url('lab/not_detected/'.$value->id)}}" class="btn btn-sm btn-danger detected_or_not">Not
                     Detected</a> -->
 
-                  <a href="{{$value->id}}" rel="{{!(empty($value->test->reporting_units->type))?$value->test->reporting_units->type:''}}" class="btn btn-primary waves-effect waves-light submit_reports">Submit Reports</a>
+                  <a href="{{$value->id}}" rel="{{!(empty($value->test->reporting_units->type))?$value->test->reporting_units->type:''}}" class="btn btn-success waves-effect waves-light submit_reports">Submit Report</a>
 
 
                   <div class="btn-group">
-                      <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-                      <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-126px, 35px, 0px);">
-                        <?php 
-                        $id = createBase64($value->id);
-                        ?>
-                        <a href="{{url('lab/repeat-test/'.$id)}}" class="repeat_test_id">
-                          <button class="dropdown-item" type="button">Repeat Test</button>
-                        </a>
-                        <a href="{{url('lab/manual/'.$id)}}" class="">
-                          <button class="dropdown-item" type="button">MS-Word Report</button>
-                        </a>
-                        
-                                              </div>
+                    <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                    <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-126px, 35px, 0px);">
+                      <?php
+                          $id = createBase64($value->id);
+                      ?>
+                      <a href="{{url('lab/repeat-test/'.$id)}}" class="repeat_test_id">
+                        <button class="dropdown-item" type="button">Repeat Test</button>
+                      </a>
+                      <a href="{{url('lab/manual/'.$id)}}" class="">
+                        <button class="dropdown-item" type="button">MS-Word Report</button>
+                      </a>
+
                     </div>
+                  </div>
 
 
-            
 
-                  <?php 
+
+                <?php
                         } else {
                           echo "-- -- --";
                         }
-                      ?>
+                ?>
                 </td>
               </tr>
               @endif
@@ -275,8 +277,7 @@
 </div> -->
 
 <!-- Submit Test Report  Modal -->
-<div class="modal fade bs-example-modal-center" id="addModal1" tabindex="-1" role="dialog"
-  aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal fade bs-example-modal-center" id="addModal1" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -291,25 +292,23 @@
           <input type="hidden" name="type" value="1">
           <input type="hidden" name="patient_test_id" class="patient_test_id">
 
-        <div class="component" id="rep-type1">
-          <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Select</label>
-            <div class="col-sm-10">
-              <select name="dropdown_value" class="form-control">
-                <option value="">Select</option>
-                <option value="Positive">Positive</option>
-                <option value="Negative">Negative</option>
-              </select>
-              <div class="all_errors dropdown_value_error"></div>
+          <div class="component" id="rep-type1">
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label">Select</label>
+              <div class="col-sm-10">
+                <select name="dropdown_value" class="form-control">
+                  <option value="">Select</option>
+                  <option value="Positive">Positive</option>
+                  <option value="Negative">Negative</option>
+                </select>
+                <div class="all_errors dropdown_value_error"></div>
+              </div>
             </div>
+            <div class="LabCmnts">
+              <textarea class="component" name="comments" id="LabCmnt" cols="0" rows="5" placeholder="Type Comments Here (If Any) Leave Blank if there's No Comments"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg btn-block waves-effect waves-light">Submit Results</button>
           </div>
-          <div class="LabCmnts">
-            <textarea class="component" name="comments" id="LabCmnt" cols="0" rows="5"
-              placeholder="Type Comments Here (If Any) Leave Blank if there's No Comments"></textarea>
-          </div>
-          <button type="submit"
-            class="btn btn-primary btn-lg btn-block waves-effect waves-light">Submit Results</button>
-        </div>
         </form>
       </div>
     </div><!-- /.modal-content -->
@@ -317,8 +316,7 @@
 </div>
 
 <!-- Submit Test Report  Modal -->
-<div class="modal fade bs-example-modal-center" id="addModal2" tabindex="-1" role="dialog"
-  aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal fade bs-example-modal-center" id="addModal2" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -332,35 +330,32 @@
 
           <input type="hidden" name="type" value="2">
           <input type="hidden" name="patient_test_id" class="patient_test_id">
-          
-        <div class="component" id="rep-type2">
-          <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Select</label>
-            <div class="col-sm-10">
-              <select name="dropdown_value" class="form-control">
-                <option value="">Select</option>
-                <option value="Detected">Detected</option>
-                <option value="Not Detected">Not Detected</option>
-              </select>
-              <div class="all_errors dropdown_value_error"></div>
+
+          <div class="component" id="rep-type2">
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label">Select</label>
+              <div class="col-sm-10">
+                <select name="dropdown_value" class="form-control">
+                  <option value="">Select</option>
+                  <option value="Detected">Detected</option>
+                  <option value="Not Detected">Not Detected</option>
+                </select>
+                <div class="all_errors dropdown_value_error"></div>
+              </div>
             </div>
+            <div class="LabCmnts">
+              <textarea class="component" name="comments" id="LabCmnt" cols="0" rows="5" placeholder="Type Comments Here (If Any) Leave Blank if there's No Comments"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg btn-block waves-effect waves-light">Submit Results</button>
           </div>
-          <div class="LabCmnts">
-            <textarea class="component" name="comments" id="LabCmnt" cols="0" rows="5"
-              placeholder="Type Comments Here (If Any) Leave Blank if there's No Comments"></textarea>
-          </div>
-          <button type="submit"
-            class="btn btn-primary btn-lg btn-block waves-effect waves-light">Submit Results</button>
-        </div>
-      </form>
+        </form>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div>
 
 <!-- Submit Test Report  Modal -->
-<div class="modal fade bs-example-modal-center" id="addModal3" tabindex="-1" role="dialog"
-  aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal fade bs-example-modal-center" id="addModal3" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -374,43 +369,39 @@
 
           <input type="hidden" name="type" value="3">
           <input type="hidden" name="patient_test_id" class="patient_test_id">
-          
-        <div class="component" id="rep-type3">
-          <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Select</label>
-            <div class="col-sm-10">
-              <select name="dropdown_value" class="form-control">
-                <option value="">Select</option>
-                <option value="Positive">Positive</option>
-                <option value="Negative">Negative</option>
-              </select>
-              <div class="all_errors dropdown_value_error"></div>
+
+          <div class="component" id="rep-type3">
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label">Select</label>
+              <div class="col-sm-10">
+                <select name="dropdown_value" class="form-control">
+                  <option value="">Select</option>
+                  <option value="Positive">Positive</option>
+                  <option value="Negative">Negative</option>
+                </select>
+                <div class="all_errors dropdown_value_error"></div>
+              </div>
             </div>
-          </div>
-          <div class="form-group row">
-            <label for="example-text-input" class="col-sm-2 col-form-label">Input Value</label>
-            <div class="col-sm-10">
-              <input class="form-control" name="input_value" type="text" placeholder="Enter Patient Value Here"
-                id="example-text-input">
-              <div class="all_errors input_value_error"></div>
+            <div class="form-group row">
+              <label for="example-text-input" class="col-sm-2 col-form-label">Input Value</label>
+              <div class="col-sm-10">
+                <input class="form-control" name="input_value" type="text" placeholder="Enter Patient Value Here" id="example-text-input">
+                <div class="all_errors input_value_error"></div>
+              </div>
             </div>
+            <div class="LabCmnts">
+              <textarea class="component" name="comments" id="LabCmnt" cols="0" rows="5" placeholder="Type Comments Here (If Any) Leave Blank if there's No Comments"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg btn-block waves-effect waves-light">Submit Results</button>
           </div>
-          <div class="LabCmnts">
-            <textarea class="component" name="comments" id="LabCmnt" cols="0" rows="5"
-              placeholder="Type Comments Here (If Any) Leave Blank if there's No Comments"></textarea>
-          </div>
-          <button type="submit"
-            class="btn btn-primary btn-lg btn-block waves-effect waves-light">Submit Results</button>
-        </div>
-      </form>
+        </form>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div>
 
 <!-- Submit Test Report  Modal -->
-<div class="modal fade bs-example-modal-center" id="addModal4" tabindex="-1" role="dialog"
-  aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal fade bs-example-modal-center" id="addModal4" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -424,10 +415,10 @@
 
           <input type="hidden" name="type" value="4">
           <input type="hidden" name="patient_test_id" class="patient_test_id">
-          
-        <div class="component" id="rep-type4">
-          
-          <!-- <div class="form-group row">
+
+          <div class="component" id="rep-type4">
+
+            <!-- <div class="form-group row">
             <label for="example-text-input" class="col-sm-2 col-form-label">Input Value</label>
             <div class="col-sm-10">
               <input class="form-control" name="input_value" type="text" placeholder="Enter Patient Value Here"
@@ -436,38 +427,35 @@
             </div>
           </div>
           <br/> -->
-          @if(!empty($test_categories))
-          @foreach($test_categories as $key=>$value)
-          @if($value->type==4)
-          <input type="hidden" name="test_categories[]" value="{{$value->id}}">
-          <div class="form-group row">
-            <label class="col-sm-4 col-form-label">{{$value->name}}</label>
-            <div class="col-sm-8">
-              <input class="form-control" name="results[]" type="text" placeholder="Enter Patient results Here">
-              <div class="all_errors dropdown_value_error"></div>
+            @if(!empty($test_categories))
+            @foreach($test_categories as $key=>$value)
+            @if($value->type==4)
+            <input type="hidden" name="test_categories[]" value="{{$value->id}}">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">{{$value->name}}</label>
+              <div class="col-sm-8">
+                <input class="form-control" name="results[]" type="text" placeholder="Enter Patient results Here">
+                <div class="all_errors dropdown_value_error"></div>
+              </div>
             </div>
-          </div>
-          <br/>
-          @endif
-          @endforeach
-          @endif
+            <br />
+            @endif
+            @endforeach
+            @endif
 
-          <div class="LabCmnts">
-            <textarea class="component" name="comments" id="LabCmnt" cols="0" rows="5"
-              placeholder="Type Comments Here (If Any) Leave Blank if there's No Comments"></textarea>
+            <div class="LabCmnts">
+              <textarea class="component" name="comments" id="LabCmnt" cols="0" rows="5" placeholder="Type Comments Here (If Any) Leave Blank if there's No Comments"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg btn-block waves-effect waves-light">Submit Results</button>
           </div>
-          <button type="submit"
-            class="btn btn-primary btn-lg btn-block waves-effect waves-light">Submit Results</button>
-        </div>
-      </form>
+        </form>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div>
 
 <!-- Submit Test Report  Modal -->
-<div class="modal fade bs-example-modal-center" id="addModal5" tabindex="-1" role="dialog"
-  aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal fade bs-example-modal-center" id="addModal5" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -481,40 +469,37 @@
 
           <input type="hidden" name="type" value="5">
           <input type="hidden" name="patient_test_id" class="patient_test_id">
-          
-        <div class="component" id="rep-type5">
-          <div class="form-group row">
-            <label class="col-sm-2 col-form-label">Select</label>
-            <div class="col-sm-10">
-              <select name="dropdown_value" class="form-control">
-                <option value="">Fetch From Genotypes</option>
-                @if(!empty($test_categories))
-                @foreach($test_categories as $key=>$value)
-                @if($value->type==3)
-                <option value="{{$value->name}}">{{$value->name}}</option>
-                @endif
-                @endforeach
-                @endif
-              </select>
-              <div class="all_errors dropdown_value_error"></div>
+
+          <div class="component" id="rep-type5">
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label">Select</label>
+              <div class="col-sm-10">
+                <select name="dropdown_value" class="form-control">
+                  <option value="">Fetch From Genotypes</option>
+                  @if(!empty($test_categories))
+                  @foreach($test_categories as $key=>$value)
+                  @if($value->type==3)
+                  <option value="{{$value->name}}">{{$value->name}}</option>
+                  @endif
+                  @endforeach
+                  @endif
+                </select>
+                <div class="all_errors dropdown_value_error"></div>
+              </div>
             </div>
+            <div class="LabCmnts">
+              <textarea class="component" name="comments" id="LabCmnt" cols="0" rows="5" placeholder="Type Comments Here (If Any) Leave Blank if there's No Comments"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg btn-block waves-effect waves-light">Submit Results</button>
           </div>
-          <div class="LabCmnts">
-            <textarea class="component" name="comments" id="LabCmnt" cols="0" rows="5"
-              placeholder="Type Comments Here (If Any) Leave Blank if there's No Comments"></textarea>
-          </div>
-          <button type="submit"
-            class="btn btn-primary btn-lg btn-block waves-effect waves-light">Submit Results</button>
-        </div>
-      </form>
+        </form>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div>
 
 <!-- Submit Test Report  Modal -->
-<div class="modal fade bs-example-modal-center" id="addModal6" tabindex="-1" role="dialog"
-  aria-labelledby="mySmallModalLabel" aria-hidden="true">
+<div class="modal fade bs-example-modal-center" id="addModal6" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -528,59 +513,92 @@
 
           <input type="hidden" name="type" value="6">
           <input type="hidden" name="patient_test_id" class="patient_test_id">
-          
-        <div class="component" id="rep-type6">
-          <div class="form-group row">
-            <label for="example-text-input" class="col-sm-2 col-form-label">Specie</label>
-            <div class="col-sm-10">
-              <input class="form-control" name="specie" type="text" placeholder="Type Specie Here"
-                id="example-text-input">
-              <div class="all_errors specie_error"></div>
-            </div>
-          </div>
-          <div class="form-group row">
-            <label for="example-text-input" class="col-sm-2 col-form-label">Duration</label>
-            <div class="col-sm-10">
-              <input class="form-control" name="duration" type="text" placeholder="Type Duration Here"
-                id="example-text-input">
-              <div class="all_errors duration_error"></div>
-            </div>
-          </div>
-          @if(!empty($test_categories))
-          @foreach($test_categories as $key=>$value)
-          @if($value->type==2)
-          <input type="hidden" name="test_categories[]" value="{{$value->id}}">
-          <div class="form-group row">
-            <label class="col-sm-4 col-form-label">{{$value->name}}</label>
-            <div class="col-sm-8">
-              <select name="results[]" class="form-control">
-                <option value="">Select here</option>
-                <option value="Sensitive">Sensitive</option>
-                <option value="Partial Sensitive">Partial Sensitive</option>
-                <option value="Resistant">Resistant</option>
-                <option value="Not Tested">Not Tested</option>
-              </select>
-              <div class="all_errors dropdown_value_error"></div>
-            </div>
-          </div>
-          @endif
-          @endforeach
-          @endif
 
-          <div class="LabCmnts">
-            <textarea class="component" name="comments" id="LabCmnt" cols="0" rows="5"
-              placeholder="Type Comments Here (If Any) Leave Blank if there's No Comments"></textarea>
+          <div class="component" id="rep-type6">
+            <div class="form-group row">
+              <label for="example-text-input" class="col-sm-2 col-form-label">Specie</label>
+              <div class="col-sm-10">
+                <input class="form-control" name="specie" type="text" placeholder="Type Specie Here" id="example-text-input">
+                <div class="all_errors specie_error"></div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="example-text-input" class="col-sm-2 col-form-label">Duration</label>
+              <div class="col-sm-10">
+                <input class="form-control" name="duration" type="text" placeholder="Type Duration Here" id="example-text-input">
+                <div class="all_errors duration_error"></div>
+              </div>
+            </div>
+            @if(!empty($test_categories))
+            @foreach($test_categories as $key=>$value)
+            @if($value->type==2)
+            <input type="hidden" name="test_categories[]" value="{{$value->id}}">
+            <div class="form-group row">
+              <label class="col-sm-4 col-form-label">{{$value->name}}</label>
+              <div class="col-sm-8">
+                <select name="results[]" class="form-control">
+                  <option value="">Select here</option>
+                  <option value="Sensitive">Sensitive</option>
+                  <option value="Partial Sensitive">Partial Sensitive</option>
+                  <option value="Resistant">Resistant</option>
+                  <option value="Not Tested">Not Tested</option>
+                </select>
+                <div class="all_errors dropdown_value_error"></div>
+              </div>
+            </div>
+            @endif
+            @endforeach
+            @endif
+
+            <div class="LabCmnts">
+              <textarea class="component" name="comments" id="LabCmnt" cols="0" rows="5" placeholder="Type Comments Here (If Any) Leave Blank if there's No Comments"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg btn-block waves-effect waves-light">Submit
+              Results</button>
           </div>
-          <button type="submit"
-            class="btn btn-primary btn-lg btn-block waves-effect waves-light">Submit
-            Results</button>
-        </div>
-      </form>
+        </form>
       </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div>
 
-<script src="{{asset('assets/developer/lab_user.js')}}"></script>
+<!-- Kit View Modal -->
+<div class="modal fade" id="kitView" tabindex="-1" role="dialog" aria-labelledby="kitView" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="kitViewLabel">Available Test Kits for Test</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table class="table">
+          <tr>
+          <th>Lot #</th>
+          <th>Kit Name</th>
+          <th>Supplier</th>
+          <th>Available Kits</th>
+          <th style="color: red;">Expiry Date</th>
+          </tr>
+         <tr>
+         <td> --- </td>
+         <td> --- </td>
+         <td> --- </td>
+         <td> --- </td>
+         <td style="color: red;"> --- </td>
+         </tr>
+          
 
-@endsection
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="{{asset('assets/developer/lab_user.js')}}"></script>
+
+  @endsection

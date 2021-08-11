@@ -126,10 +126,67 @@ Your Test is in Process.</h2>
                         </div>
                     <?php } ?>
 
+
                 </div>
+                <hr>
+
+                <div class="row" style="margin: auto;">
+                    <div class="pr-5">
+                        <input class="form-check-input" type="checkbox" value="" id="passportNum-check" onclick="checkFunction('passportNum-check','passportNum');" checked>
+                        <label class="form-check-label" for="passportNum-check">Passport</label>
+                    </div>
+                    <div class="pr-5">
+                        <input class="form-check-input" type="checkbox" value="" id="country-check" onclick="checkFunction('country-check','country');" checked>
+                        <label class="form-check-label" for="country-check">Country</label>
+                    </div>
+                    <div class="pr-5">
+                        <input class="form-check-input" type="checkbox" value="" id="airline-check" onclick="checkFunction('airline-check','airline');" checked>
+                        <label class="form-check-label" for="airline-check">Airline</label>
+                    </div>
+                    <div class="pr-5">
+                        <input class="form-check-input" type="checkbox" value="" id="dateTime-check" onclick="checkFunction('dateTime-check','dateTime');" checked>
+                        <label class="form-check-label" for="dateTime-check">Date & Time</label>
+                    </div>
+                    <div class="pr-5">
+                        <input class="form-check-input" type="checkbox" value="" id="flight-check" onclick="checkFunction('flight-check','flight');" checked>
+                        <label class="form-check-label" for="flight-check">Flight#</label>
+                    </div>
+                    <div class="pr-5">
+                        <input class="form-check-input" type="checkbox" value="" id="booking-check" onclick="checkFunction('booking-check','booking');" checked>
+                        <label class="form-check-label" for="booking-check">Booking Ref#</label>
+                    </div>
+                    <div class="pr-5">
+                        <input class="form-check-input" type="checkbox" value="" id="pnrNum-check" onclick="checkFunction('pnrNum-check','pnrNum');" checked>
+                        <label class="form-check-label" for="pnrNum-check">PNR / Ticket#</label>
+                    </div>
 
 
 
+
+                </div>
+                <hr>
+
+                <div class="row">
+
+                    <div class="pr-5 pl-5">
+                        <input class="form-check-input" type="checkbox" value="" id="airportList-check" onclick="checkFunction('airportList-check','airportList');">
+                        <label class="form-check-label" for="airportList-check">Samples Collected From</label>
+                    </div>
+                    <div class="pr-5">
+                        <input class="form-check-input" type="checkbox" value="" id="peshAirport-check" onclick="checkFunction('peshAirport-check','peshAirport');">
+                        <label class="form-check-label" for="peshAirport-check">Peshawar Airport</label>
+                    </div>
+                    <div class="pr-5">
+                        <input class="form-check-input" type="checkbox" value="" id="isbAirport-check" onclick="checkFunction('isbAirport-check','isbAirport');">
+                        <label class="form-check-label" for="isbAirport-check">Islamabad Airport</label>
+                    </div>
+                    <div class="pr-5">
+                        <input class="form-check-input" type="checkbox" value="" id="lhrAirport-check" onclick="checkFunction('lhrAirport-check','lhrAirport');">
+                        <label class="form-check-label" for="lhrAirport-check">Lahore Airport</label>
+                    </div>
+
+
+                </div>
             </div>
             <div class="col-sm-12">
                 <hr>
@@ -210,6 +267,9 @@ Your Test is in Process.</h2>
 
             </div>
         </div>
+
+
+
 
         <!-- Image Header Section -->
         <?php if (!empty($result->patient->image)) { ?>
@@ -386,7 +446,7 @@ Your Test is in Process.</h2>
         <!-- Overseas Details Section -->
 
         <div class="row" id="overseas-cmp">
-            <div class="col-sm-2">
+            <div class="col-sm-2 passportNum-check" id="passportNum">
                 <p class="nomgn">Passport#</p>
                 <h6>
                     <strong>
@@ -394,7 +454,7 @@ Your Test is in Process.</h2>
                     </strong>
                 </h6>
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-2 country-check" id="country">
                 <p class="nomgn"> Flying to</p>
                 <h6>
                     <strong>
@@ -402,7 +462,7 @@ Your Test is in Process.</h2>
                     </strong>
                 </h6>
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-2 airline-check" id="airline">
                 <p class="nomgn"> Airline</p>
                 <h6>
                     <strong>
@@ -410,7 +470,7 @@ Your Test is in Process.</h2>
                     </strong>
                 </h6>
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-2 dateTime-check" id="dateTime">
                 <p class="nomgn"> Flight Date & Time</p>
                 <h6>
                     <strong>
@@ -422,35 +482,41 @@ Your Test is in Process.</h2>
             </div>
 
             <?php if (!empty($result->passenger->flight_no)) { ?>
-                <div class="col-sm-2" id="b-ref">
-                    <p class="nomgn">Flight No#</p>
-                    <h6>
-                        <strong>
-                            {{$result->passenger->flight_no}}
-                        </strong>
-                    </h6>
-                </div>
+                <span class="flight-check" id="flight">
+                    <div class="col-sm-2" id="b-ref">
+                        <p class="nomgn">Flight No#</p>
+                        <h6>
+                            <strong>
+                                {{$result->passenger->flight_no}}
+                            </strong>
+                        </h6>
+                    </div>
+                </span>
             <?php } ?>
 
             <?php if (!empty($result->passenger->booking_ref_no)) { ?>
-                <div class="col-sm-2" id="b-ref">
-                    <p class="nomgn">Booking Ref#</p>
-                    <h6>
-                        <strong>
-                            {{$result->passenger->booking_ref_no}}
-                        </strong>
-                    </h6>
-                </div>
+                <span class="booking-check" id="booking">
+                    <div class="col-sm-2 " id="b-ref">
+                        <p class="nomgn">Booking Ref#</p>
+                        <h6>
+                            <strong>
+                                {{$result->passenger->booking_ref_no}}
+                            </strong>
+                        </h6>
+                    </div>
+                </span>
             <?php } ?>
             <?php if (!empty($result->passenger->ticket_no)) { ?>
-                <div class="col-sm-2" id="b-ref">
-                    <p class="nomgn">PNR/Ticket Number</p>
-                    <h6>
-                        <strong>
-                            {{$result->passenger->ticket_no}}
-                        </strong>
-                    </h6>
-                </div>
+                <span class="pnrNum-check" id="pnrNum">
+                    <div class="col-sm-2" id="b-ref">
+                        <p class="nomgn">PNR/Ticket Number</p>
+                        <h6>
+                            <strong>
+                                {{$result->passenger->ticket_no}}
+                            </strong>
+                        </h6>
+                    </div>
+                </span>
             <?php } ?>
         </div>
         <hr>
@@ -490,7 +556,14 @@ Your Test is in Process.</h2>
                                     </h6>
                                 </div>
                                 <!-- Specimen -->
-                                <?php
+                                <div class="col-sm-2">Specimen:</div>
+                                    <div class="col-sm-10">
+                                        <h6>
+                                            <?php echo (!empty($pt->test->sample->name)) ? $pt->test->sample->name : '---'; ?>
+                                        </h6>
+                                    </div>
+
+                                <!-- <?php
                                 if ($pt->status == 2) { ?>
                                     <div class="col-sm-2">Specimen:</div>
                                     <div class="col-sm-10">
@@ -498,7 +571,19 @@ Your Test is in Process.</h2>
                                             <?php echo (!empty($pt->test->sample->name)) ? $pt->test->sample->name : '---'; ?>
                                         </h6>
                                     </div>
-                                <?php } ?>
+                                <?php } ?> -->
+
+                                <!-- Sample Collected / Airpot List -->
+                                
+                                <div class="row airportList-check" id="airportList" style="display: none; width: 100%; margin-left: 0px;">
+                                    <div class="col-sm-2">Sample Collected:</div>
+                                    <div class="col-sm-10">
+                                    <b class="peshAirport-check" id="peshAirport" style="display: none;">Bacha Khan International Airport, Peshawar, Pakistan </b>
+                                    <b class="isbAirport-check" id="isbAirport" style="display: none;">Islamabad International Airport, Pakistan</b>
+                                    <b class="lhrAirport-check" id="lhrAirport" style="display: none;">Allama Iqbal International Airport, Lahore, Pakistan.</b>
+                                    </div>
+                                </div>
+                                
                                 <!-- Test Result -->
                                 <?php
                                 if ($pt->status == 0) { ?>
@@ -576,8 +661,8 @@ Your Test is in Process.</h2>
                                         </div>
                                     <?php } ?>
                                     <?php if ($ptr->type == 4) { ?>
-                                        <!-- <div class="col-sm-2">Value</div>
-<div class="col-sm-10">"<?php echo $ptr->input_value; ?>"</div> -->
+                                        <!--    <div class="col-sm-2">Value</div>
+                                                <div class="col-sm-10">"<?php echo $ptr->input_value; ?>"</div> -->
                                         <div class="component nomgn pad5">
                                             <div class="col-sm-2">Test Results</div>
                                             <div class="col-sm-12">

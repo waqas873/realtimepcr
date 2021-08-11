@@ -69,7 +69,7 @@
                     <td>
                         <?php echo ($value->status==1)?'Detected':'Not Detected'; ?>
                     </td>
-                    <td><a href="{{url('track/'.$value->invoice->unique_id)}}" class="btn btn-sm btn-success detected_or_not">View</a> | <a href="{{url('lab/revoke/'.$value->id)}}" class="btn btn-sm btn-success revoke">Revoke</a></td>
+                    <td><a href="{{url('track/'.$value->invoice->unique_id)}}" target="_blank" class="btn btn-sm btn-success">View Report</a> | <a href="{{url('lab/revoke/'.$value->id)}}" class="btn btn-sm btn-success revoke">Revoke</a></td>
                 </tr>
                 @endif
                 @endforeach

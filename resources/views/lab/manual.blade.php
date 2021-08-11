@@ -32,9 +32,11 @@
             tinycomments_author: 'Author name',
         });
     </script>
-
     <style>
-        .tox-statusbar__branding {
+            .tox-notifications-container {
+                display: none;
+            }
+            .tox-statusbar__branding {
             display: none;
         }
     </style>
@@ -385,6 +387,9 @@ class="reports-footer">
 
 
         </div>
+
+        <!-- Injected CSS -->
+        
 </body>
 
 </html>
