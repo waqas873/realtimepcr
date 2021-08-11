@@ -853,7 +853,7 @@
 
               <label for="reporting_hrs" class="col-sm-3 col-form-label pformlabel">Reporting (Days)</label>
               <div class="col-sm-3">
-                <input type="number" class="form-control iwbb" id="reporting_days" value="" name="reporting_days" placeholder="Days">
+                <input type="number" class="form-control iwbb" id="reporting_days" value="" name="" placeholder="Days">
                 <!-- <div class="all_errors reporting_hrs_error"> -->
               </div>
             </div>

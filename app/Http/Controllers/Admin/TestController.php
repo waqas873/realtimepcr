@@ -72,6 +72,9 @@ class TestController extends Controller
             //     unset($formData['reporting_unit_id']);
             // }
         	unset($formData['_token'],$formData['id']);
+            if(empty($formData['comments'])){
+                $formData['comments'] = null;
+            }
         	if(!empty($id)){
                 if($rui != 4){
                     $formData['units'] = null;
