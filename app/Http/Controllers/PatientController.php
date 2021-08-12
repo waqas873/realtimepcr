@@ -158,7 +158,6 @@ class PatientController extends Controller
         else{
             unset($formData['_token']);
             
-            //dd($formData);
             $user = Auth::user();
 
             $tests = '';
@@ -254,7 +253,12 @@ class PatientController extends Controller
                         $invoice->status = 1;
                     }
 
-                    $invoice->created_at = $date_time;
+                    if(!empty($formData['invoice_date_time'])){
+                        $invoice->created_at = $formData['invoice_date_time'];
+                    }
+                    else{
+                        $invoice->created_at = $date_time;
+                    }
                     $invoice->updated_at = $date_time;
 
                     $invoice->save();
@@ -297,6 +301,9 @@ class PatientController extends Controller
                         $passenger->flight_time = $formData['flight_time'];
                         $passenger->booking_ref_no = $formData['booking_ref_no'];
                         $passenger->ticket_no = $formData['ticket_no'];
+                        if(!empty($formData['airport'])){
+                            $passenger->airport = $formData['airport'];
+                        }
                         $passenger->created_at = $date_time;
                         $passenger->updated_at = $date_time;
                         $passenger->save();

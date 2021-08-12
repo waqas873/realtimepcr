@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -166,7 +165,7 @@ Your Test is in Process.</h2>
                 </div>
                 <hr>
 
-                <div class="row">
+                <!-- <div class="row">
 
                     <div class="pr-5 pl-5">
                         <input class="form-check-input" type="checkbox" value="" id="airportList-check" onclick="checkFunction('airportList-check','airportList');">
@@ -184,9 +183,7 @@ Your Test is in Process.</h2>
                         <input class="form-check-input" type="checkbox" value="" id="lhrAirport-check" onclick="checkFunction('lhrAirport-check','lhrAirport');">
                         <label class="form-check-label" for="lhrAirport-check">Lahore Airport</label>
                     </div>
-
-
-                </div>
+                </div> -->
             </div>
             <div class="col-sm-12">
                 <hr>
@@ -420,9 +417,6 @@ Your Test is in Process.</h2>
                     if ($result->patient_tests[0]->status == 2) {
                         $testResult = 'Not Detected';
                     }
-                    if(!empty($result->patient_tests[0]->patient_test_results->type) && $result->patient_tests[0]->patient_test_results->type==1){
-                        $testResult = $result->patient_tests[0]->patient_test_results->dropdown_value;
-                    }
 
                     $reptime = 'Not Reported Yet';
                     if ($result->patient_tests[0]->status != 0) {
@@ -516,6 +510,18 @@ Your Test is in Process.</h2>
                         <h6>
                             <strong>
                                 {{$result->passenger->ticket_no}}
+                            </strong>
+                        </h6>
+                    </div>
+                </span>
+            <?php } ?>
+            <?php if (!empty($result->passenger->airport)) { ?>
+                <span class="pnrAirport-check" id="pnrAirport">
+                    <div class="col-sm-2" id="b-ref">
+                        <p class="nomgn">Sample Collected Airport</p>
+                        <h6>
+                            <strong>
+                                {{$result->passenger->airport}}
                             </strong>
                         </h6>
                     </div>

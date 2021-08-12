@@ -27,4 +27,10 @@ class PrintsController extends Controller
         }
     }
 
+    public function trackForm(Request $request)
+    {
+        echo "afdsdfsdfsaf";
+
+    }
+
 }

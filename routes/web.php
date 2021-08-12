@@ -24,6 +24,7 @@ Route::get('/redirected', 'RedirectionController@index');
 
 Route::get('/track/covid/{id?}', 'PrintsController@covid_passenger');
 Route::get('/track/{id?}', 'PrintsController@covid_passenger');
+Route::post('/track-form', 'PrintsController@trackForm');
 
 Route::get('/send_api_requests', 'ApiController@send_api_requests');
 

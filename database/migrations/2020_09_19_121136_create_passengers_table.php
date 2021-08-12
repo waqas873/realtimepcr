@@ -27,6 +27,7 @@ class CreatePassengersTable extends Migration
             $table->string('flight_time')->nullable();
             $table->string('booking_ref_no')->nullable();
             $table->string('ticket_no')->nullable();
+            $table->text('airport')->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent();
         });

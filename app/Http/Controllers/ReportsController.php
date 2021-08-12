@@ -15,6 +15,7 @@ use App\Patient;
 use App\Collection_point;
 use App\Lab;
 use App\User;
+use App\Test;
 
 class ReportsController extends Controller
 {
@@ -26,6 +27,8 @@ class ReportsController extends Controller
     public function index()
     {
         $data = [];
+        $data['tests'] = Test::all();
+        $data['airlines'] = Airline::all();
     	return view('reports.index',$data);
     }
 

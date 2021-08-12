@@ -116,7 +116,6 @@
           <option value="">Self Entry</option>
           <option value="">CP 1</option>
           <option value="">CP 2</option>
-
         </select>
       </div>
       <div class="col-sm-12">
@@ -172,14 +171,13 @@
                   @if(!empty($doctors))
                   @foreach($doctors as $record)
                   <?php
-                  if($record->role==2){
+                  if ($record->role == 2) {
                     $ed = "Doctor";
-                  }
-                  else{
+                  } else {
                     $ed = "Embassy";
                   }
                   ?>
-                  <option value="{{$record->id}}">{{$record->name}} (<?php echo $ed;?>)</option>
+                  <option value="{{$record->id}}">{{$record->name}} (<?php echo $ed; ?>)</option>
                   @endforeach
                   @endif
                 </select>
@@ -195,19 +193,18 @@
             <div class="form-group col-sm-4">
               <label for="reffered_by" class="col-form-label pformlabel">Reffered By (Doctors / Embassy)</label>
               <div class="">
-              <select class="form-control reffered_by <!--inputs_with_bottom_border-->" id="reffered_by" name="reffered_by">
+                <select class="form-control reffered_by <!--inputs_with_bottom_border-->" id="reffered_by" name="reffered_by">
                   <option value="">Select doctor / Refferer</option>
                   @if(!empty($doctors))
                   @foreach($doctors as $record)
                   <?php
-                  if($record->role==2){
+                  if ($record->role == 2) {
                     $ed = "Doctor";
-                  }
-                  else{
+                  } else {
                     $ed = "Embassy";
                   }
                   ?>
-                  <option value="{{$record->id}}">{{$record->name}} (<?php echo $ed;?>)</option>
+                  <option value="{{$record->id}}">{{$record->name}} (<?php echo $ed; ?>)</option>
                   @endforeach
                   @endif
                 </select>
@@ -398,6 +395,16 @@
             <div class="all_errors psngr_err" id="ticket_no_error"></div>
           </div>
         </div>
+        <div class="form-group col-sm-6">
+          <label for="" class="col-form-label pformlabel">Sample Collected from / Airport</label>
+          <div class="">
+            <select name="airport" id="" class="form-control">
+            <option value="">Select Here</option>
+            <option value="Bacha Khan International Airport, Peshawar, Pakistan">Bacha Khan International Airport, Peshawar, Pakistan </option>
+            <option value="Islamabad International Airport, Pakistan">Islamabad International Airport, Pakistan</option>
+            <option value="Allama Iqbal International Airport, Lahore, Pakistan.">Allama Iqbal International Airport, Lahore, Pakistan.</option></select>
+          </div>
+        </div>
       </div>
 
 
@@ -442,7 +449,7 @@
               </div>
             </div>
 
-            <div class="col-sm-4">
+            <div class="col-sm-2">
               <div class="form-group invoice-inputs">
                 <label for="amount_paid" class="col-form-label pformlabel">Amount Paid (PKR)</label>
                 <div class="">
@@ -464,6 +471,16 @@
                 <div class="">
                   <input type="number" class="form-control" id="delivery_time" disabled>
                 </div>
+              </div>
+            </div>
+
+            <div class="col-sm-2">
+              <div class="form-group invoice-inputs">
+                <label for="" class="col-form-label pformlabel">Invoice / Sample Time</label>
+                <div class="">
+                  <input type="datetime-local" class="form-control" name="invoice_date_time">
+                </div>
+
               </div>
             </div>
             <div class="col-sm-12">

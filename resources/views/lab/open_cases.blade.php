@@ -97,11 +97,64 @@
 <!-- end row -->
 
 <div class="row">
+  <div class="form-group col-sm-2">
+    <label for="airline" class=" col-form-label pformlabel">Filter by test Type</label>
+    <div class="">
+      <select class="form-control" id="airline" name="airline">
+        <option value="">Select TestType</option>
+        <option value="">Type1 Positive / Negative</option>
+        <option value="">Type2 Detected / Not-Detected</option>
+
+      </select>
+      <div class="all_errors psngr_err" id="airline_error"></div>
+    </div>
+  </div>
+  <div class="form-group col-sm-2">
+    <label for="airline" class=" col-form-label pformlabel">Filter by Airline</label>
+    <div class="">
+      <select class="form-control" id="airline" name="airline">
+        <option value="">Select Airline</option>
+
+      </select>
+      <div class="all_errors psngr_err" id="airline_error"></div>
+    </div>
+  </div>
+  <div class="form-group col-sm-4">
+    <label for="airline" class=" col-form-label pformlabel">Filter by Test</label>
+    <div class="">
+      <select class="form-control" id="airline" name="airline">
+        <option value="">Select Test</option>
+
+      </select>
+      <div class="all_errors psngr_err" id="airline_error"></div>
+    </div>
+  </div>
+  <div class="form-group col-sm-2">
+    <label for="airline" class=" col-form-label pformlabel">Start Date&Time</label>
+    <div class="">
+      <input type="datetime-local" name="" id="" class="form-control">
+      <div class="all_errors psngr_err" id="airline_error"></div>
+    </div>
+  </div>
+  <div class="form-group col-sm-2">
+    <label for="airline" class=" col-form-label pformlabel">End Date&Time</label>
+    <div class="">
+      <input type="datetime-local" name="" id="" class="form-control">
+      <div class="all_errors psngr_err" id="airline_error"></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="row">
   <div class="col-sm-12">
     <div class="page-title-box">
       <div class="row align-items-center">
         <div class="col-md-8">
           <h4 class="page-title m-0">Open Cases</h4>
+        </div>
+        <div class="col-sm-4">
+          <a href="" rel="" class="btn btn-dark waves-effect waves-light submit_reports float-right">Submit Multiple Reports</a>
         </div>
         <!-- end col -->
       </div>
@@ -109,6 +162,7 @@
     </div>
     <!-- end page-title-box -->
   </div>
+
 </div>
 <!-- end page title -->
 
@@ -575,20 +629,20 @@
       <div class="modal-body">
         <table class="table">
           <tr>
-          <th>Lot #</th>
-          <th>Kit Name</th>
-          <th>Supplier</th>
-          <th>Available Kits</th>
-          <th style="color: red;">Expiry Date</th>
+            <th>Lot #</th>
+            <th>Kit Name</th>
+            <th>Supplier</th>
+            <th>Available Kits</th>
+            <th style="color: red;">Expiry Date</th>
           </tr>
-         <tr>
-         <td> --- </td>
-         <td> --- </td>
-         <td> --- </td>
-         <td> --- </td>
-         <td style="color: red;"> --- </td>
-         </tr>
-          
+          <tr>
+            <td> --- </td>
+            <td> --- </td>
+            <td> --- </td>
+            <td> --- </td>
+            <td style="color: red;"> --- </td>
+          </tr>
+
 
         </table>
       </div>
