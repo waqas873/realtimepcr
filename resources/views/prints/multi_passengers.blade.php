@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title><?php echo $result->unique_id; ?> - Test Reports | RealtimePCR Lab Official</title>
+    <title>Test Reports | RealtimePCR Lab Official</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <link href="https://pcr.realtimepcr.pk/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="{{asset('assets/css/cmp-style.css')}}" rel="stylesheet" type="text/css">
@@ -24,212 +24,11 @@
         }
     </script>
 </head>
-
 <body>
-    <!-- Errors -->
-    <!--
-<div class="container" style="padding: 20px;" id="errPayment">
-<div class="component">
-<h2 style="text-align: center; color: grey; font-size: 26px;">
-Please pay your pending amount of <span style="color: red;">Rs: 2500 </span>to get your Results
-</h2>
-<hr>
-<img src="https://pcr.realtimepcr.pk/assets/images/errPayment.jpg" alt="Payment Error" class="errImg">
-</div>
-</div>
-
-<div class="container" style="padding: 20px;" id="errAwaiting">
-<div class="component">
-<h2 style="text-align: center; color: grey; font-size: 26px;">
-Your Test is in Process.</h2>
-<hr>
-<img src="https://pcr.realtimepcr.pk/assets/images/errAwaiting.jpg" alt="Payment Error" class="errImg">
-</div>
-</div>
-
-<div class="container" style="padding: 20px;" id="errNoRecord">
-<div class="component">
-<img src="https://pcr.realtimepcr.pk/assets/images/errNoRecord.jpg" alt="Payment Error" class="errImg">
-</div>
-</div>
-
-
--->
-
-    <?php
-    $auth = Auth::user();
-    if (!empty($auth) && ($auth->role == 1 || $auth->role == 0 || $auth->role == 7)) {
+    <?php 
+    if(!empty($results)){
+    foreach ($results as $result) {
     ?>
-        <div class="container controlBox" id="controlBox">
-            <div class="row component">
-                <div class="col-sm-2">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="checkHF" onclick="checkFunction('checkHF','address-cmp'); checkFunction('checkHF','noImgHeader'); checkFunction('checkHF','imgHeader');" checked>
-                        <label class="form-check-label" for="checkHF">Header &amp; Footer</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="Consultants" onclick="checkFunction('Consultants','DocList');" checked>
-                        <label class="form-check-label" for="Consultants">Consultants</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="checkComments" onclick="checkFunction('checkComments','TestCmnts-cmp'); checkFunction('checkComments','LabCmnt');" checked>
-                        <label class="form-check-label" for="checkComments">Comments</label>
-
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="overseas-cmp-check" onclick="checkFunction('overseas-cmp-check','overseas-cmp');" checked>
-                        <label class="form-check-label" for="overseas-cmp-check">Overseas details</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="address-cmp-check" onclick="checkFunction('address-cmp-check','address-cmp');" checked>
-                        <label class="form-check-label" for="address-cmp-check">Address</label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="everify-cmnt-check" onclick="checkFunction('everify-cmnt-check','everify-cmnt');" checked>
-                        <label class="form-check-label" for="everify-cmnt-check">E-Verification</label>
-
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="patient-cmp-check" onclick="checkFunction('patient-cmp-check','patient-cmp');" checked>
-                        <label class="form-check-label" for="patient-cmp-check">Patient Details</label>
-
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                        <label class="form-check-label" for="flexRadioDefault1">Multi Page Report</label>
-                    </div>
-                    <div class="form-check">
-
-                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                        <label class="form-check-label" for="flexRadioDefault2">Single Page Report</label>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <?php if (!empty($result->amount_remaining) && $result->amount_remaining > 0) { ?>
-                        <p id="pendingPayment">This patient has pending amount of <b style="color: red; font-size:20px"> Rs:<?php echo $result->amount_remaining; ?> </b>
-                            <br>
-                            you're not allowed to print this report.
-                            <button type="button" class="btn btn-light">Make Payment</button>
-                        </p>
-                    <?php } else { ?>
-                        <button type="button" onclick="window.print()" class="btn btn-primary" id="clearedPayment">Print Report</button>
-                        <div class="input-group mt-3">
-                            <input type="text" class="form-control" placeholder="mail@domain.com" aria-label="Recipient's Email" aria-describedby="button-addon2">
-                            <div class="input-group-append">
-                                <button class="btn btn-secondary" type="button" id="button-addon2">Send as Email</button>
-                            </div>
-                        </div>
-                    <?php } ?>
-
-
-                </div>
-                <hr>
-
-                <div class="row" style="margin: auto;">
-                    <div class="pr-5">
-                        <input class="form-check-input" type="checkbox" value="" id="passportNum-check" onclick="checkFunction('passportNum-check','passportNum');" checked>
-                        <label class="form-check-label" for="passportNum-check">Passport</label>
-                    </div>
-                    <div class="pr-5">
-                        <input class="form-check-input" type="checkbox" value="" id="country-check" onclick="checkFunction('country-check','country');" checked>
-                        <label class="form-check-label" for="country-check">Country</label>
-                    </div>
-                    <div class="pr-5">
-                        <input class="form-check-input" type="checkbox" value="" id="airline-check" onclick="checkFunction('airline-check','airline');" checked>
-                        <label class="form-check-label" for="airline-check">Airline</label>
-                    </div>
-                    <div class="pr-5">
-                        <input class="form-check-input" type="checkbox" value="" id="dateTime-check" onclick="checkFunction('dateTime-check','dateTime');" checked>
-                        <label class="form-check-label" for="dateTime-check">Date & Time</label>
-                    </div>
-                    <div class="pr-5">
-                        <input class="form-check-input" type="checkbox" value="" id="flight-check" onclick="checkFunction('flight-check','flight');" checked>
-                        <label class="form-check-label" for="flight-check">Flight#</label>
-                    </div>
-                    <div class="pr-5">
-                        <input class="form-check-input" type="checkbox" value="" id="booking-check" onclick="checkFunction('booking-check','booking');" checked>
-                        <label class="form-check-label" for="booking-check">Booking Ref#</label>
-                    </div>
-                    <div class="pr-5">
-                        <input class="form-check-input" type="checkbox" value="" id="pnrNum-check" onclick="checkFunction('pnrNum-check','pnrNum');" checked>
-                        <label class="form-check-label" for="pnrNum-check">PNR / Ticket#</label>
-                    </div>
-
-
-
-
-                </div>
-                <hr>
-
-                <!-- <div class="row">
-
-                    <div class="pr-5 pl-5">
-                        <input class="form-check-input" type="checkbox" value="" id="airportList-check" onclick="checkFunction('airportList-check','airportList');">
-                        <label class="form-check-label" for="airportList-check">Samples Collected From</label>
-                    </div>
-                    <div class="pr-5">
-                        <input class="form-check-input" type="checkbox" value="" id="peshAirport-check" onclick="checkFunction('peshAirport-check','peshAirport');">
-                        <label class="form-check-label" for="peshAirport-check">Peshawar Airport</label>
-                    </div>
-                    <div class="pr-5">
-                        <input class="form-check-input" type="checkbox" value="" id="isbAirport-check" onclick="checkFunction('isbAirport-check','isbAirport');">
-                        <label class="form-check-label" for="isbAirport-check">Islamabad Airport</label>
-                    </div>
-                    <div class="pr-5">
-                        <input class="form-check-input" type="checkbox" value="" id="lhrAirport-check" onclick="checkFunction('lhrAirport-check','lhrAirport');">
-                        <label class="form-check-label" for="lhrAirport-check">Lahore Airport</label>
-                    </div>
-                </div> -->
-            </div>
-            <div class="col-sm-12">
-                <hr>
-                <div class="row">
-                    <?php
-                    $total_attempts = count($result->patient_tests);
-                    $repeated = 0;
-                    if (!empty($result->patient_tests)) {
-                        foreach ($result->patient_tests as $ptpt) {
-                            $ans = $ptpt->patient_tests_repeated;
-                            if (!empty($ans)) {
-                                $total_attempts = $total_attempts + $ans->no_of_repeat;
-                                $repeated = $repeated + $ans->no_of_repeat;
-                            }
-                        }
-                    }
-                    ?>
-                    <div class="col-sm-3">
-                        <p>Total Attempts = <b style="color: #00aaff;"><?php echo $total_attempts; ?></b> </p>
-                    </div>
-                    <div class="col-sm-3">
-                        <p>Repeated <b style="color: red;"><?php echo $repeated; ?> </b> Times </p>
-                    </div>
-
-                    <?php
-                    $auth = Auth::user();
-                    if (!empty($auth->role) && $auth->role == 1) {
-                    ?>
-                        <div class="col-sm-3" id="adminControlBox">
-                            <p>Net Earnings : <b style="color: green;">Rs:- - - -</b></p>
-                        </div>
-                        <div class="col-sm-3" id="adminControlBox">
-                            <p>Distributed Earning <b style="color: red;">Rs:- - - -</b> </p>
-                        </div>
-                    <?php } ?>
-                </div>
-            </div>
-        </div>
-    <?php } ?>
-
-
-    <div class="mbl-screen">
-        <button type="button" onclick="window.print()" class="btn btn-light btn-lg btn-block" id="clearedPayment">Print / Convert to PDF</button>
-    </div>
-
-
     <div class="container" style="padding: 20px" ; id="print_section">
         <div class="row component" style="padding: 5px;">
             <div class="col-sm-4">
@@ -915,6 +714,7 @@ class="reports-footer">
         </div>
 
     </div>
+<?php } } ?>
 </body>
 
 </html>

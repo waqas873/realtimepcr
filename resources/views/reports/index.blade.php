@@ -44,7 +44,7 @@
     <div class="form-group col-sm-2">
       <label for="test_type" class=" col-form-label pformlabel">Filter by test Type</label>
       <div class="">
-        <select class="form-control" id="test_type" name="test_type">
+        <select class="form-control" id="test_type" name="test_type" required="">
           <option value="">Select TestType</option>
           <option value="1">Type1 Positive / Negative</option>
           <option value="2">Type2 Detected / Not-Detected</option>
@@ -69,7 +69,7 @@
     <div class="form-group col-sm-4">
       <label for="test_id" class=" col-form-label pformlabel">Filter by Test</label>
       <div class="">
-        <select class="form-control" id="test_id" name="test_id">
+        <select class="form-control" id="test_id" name="test_id" required="">
           <option value="">Select Test</option>
           @if(!empty($tests))
           @foreach($tests as $test)
@@ -83,14 +83,14 @@
     <div class="form-group col-sm-2">
       <label for="start_date" class=" col-form-label pformlabel">Start Date&Time</label>
       <div class="">
-        <input type="text" name="start_date" id="start_date" class="form-control start_date">
+        <input type="text" name="start_date" id="start_date" class="form-control start_date" required="">
         <div class="all_errors psngr_err" id="start_date_error"></div>
       </div>
     </div>
     <div class="form-group col-sm-2">
       <label for="end_date" class=" col-form-label pformlabel">End Date&Time</label>
       <div class="">
-        <input type="text" name="end_date" id="end_date" class="form-control end_date">
+        <input type="text" name="end_date" required="" id="end_date" class="form-control end_date">
         <div class="all_errors end_date_err" id="end_date_error"></div>
       </div>
     </div>
