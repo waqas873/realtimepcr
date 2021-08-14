@@ -262,6 +262,7 @@
                   <li><a href="{{url('admin/')}}">Open Cases</a></li>
                   <li><a href="{{url('admin/')}}">Reports Delivered</a></li>
                   <li><a href="{{url('admin/')}}">Repeated Tests</a></li>
+                  <li><a href="{{url('admin/')}}">Test Results</a></li>
                 </ul>
               </li>
             <?php } ?>
