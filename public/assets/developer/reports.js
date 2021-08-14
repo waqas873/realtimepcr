@@ -84,11 +84,12 @@ $('#datatable').DataTable({
           return $.extend({}, d, {
             "_token": $('meta[name="csrf-token"]').attr('content'),
             "status_filter": $('#status_filter').val(),
-            // "test_type": $('#test_type').val(),
-            // "airline": $('#airline').val(),
-            // "test_id": $('#test_id').val(),
-            // "start_date": $('#start_date').val(),
-            // "end_date": $('#end_date').val(),
+            "test_type": $('#test_type').val(),
+            "airline": $('#airline').val(),
+            "test_id": $('#test_id').val(),
+            "start_date": $('#start_date').val(),
+            "end_date": $('#end_date').val(),
+            "user_id": $('#user_id').val(),
           });
       } 
   },
@@ -103,6 +104,7 @@ $('#datatable').DataTable({
       {'targets': 5, 'orderable': false}
   ],
   "columns": [
+      {"data": "check"},
       {"data": "unique_id"},
       {"data": "name"},
       {"data": "tests"},
@@ -115,20 +117,23 @@ $('#datatable').DataTable({
 $(document).on('change', '#status_filter', function (e) {
  $('#datatable').DataTable().ajax.reload();  
 });
-// $(document).on('change', '#test_type', function (e) {
-//  $('#datatable').DataTable().ajax.reload();  
-// });
-// $(document).on('change', '#airline', function (e) {
-//  $('#datatable').DataTable().ajax.reload();  
-// });
-// $(document).on('change', '#test_id', function (e) {
-//  $('#datatable').DataTable().ajax.reload();  
-// });
-// $(document).on('change', '#start_date', function (e) {
-//  $('#datatable').DataTable().ajax.reload();  
-// });
-// $(document).on('change', '#end_date', function (e) {
-//  $('#datatable').DataTable().ajax.reload();  
-// });
+$(document).on('change', '#test_type', function (e) {
+ $('#datatable').DataTable().ajax.reload();  
+});
+$(document).on('change', '#airline', function (e) {
+ $('#datatable').DataTable().ajax.reload();  
+});
+$(document).on('change', '#test_id', function (e) {
+ $('#datatable').DataTable().ajax.reload();  
+});
+$(document).on('change', '#start_date', function (e) {
+ $('#datatable').DataTable().ajax.reload();  
+});
+$(document).on('change', '#end_date', function (e) {
+ $('#datatable').DataTable().ajax.reload();  
+});
+$(document).on('change', '#user_id', function (e) {
+  $('#datatable').DataTable().ajax.reload();  
+});
 
 });

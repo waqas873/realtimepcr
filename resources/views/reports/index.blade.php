@@ -1,6 +1,14 @@
 @extends('layouts.pcr')
 @section('content')
 
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.9/jquery.datetimepicker.min.css">
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.9/jquery.datetimepicker.full.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.9/jquery.datetimepicker.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('.datetimepicker').datetimepicker();
+})
+</script>
 <div class="container-fluid">
 
   <div class="row">
@@ -38,8 +46,6 @@
   </div>
   <!-- end page title -->
 
-<form action="{{url('track-form')}}" method="post">
-  @csrf
   <div class="row">
     <div class="form-group col-sm-2">
       <label for="test_type" class=" col-form-label pformlabel">Filter by test Type</label>
@@ -83,27 +89,45 @@
     <div class="form-group col-sm-2">
       <label for="start_date" class=" col-form-label pformlabel">Start Date&Time</label>
       <div class="">
-        <input type="text" name="start_date" id="start_date" class="form-control start_date" required="">
+        <input type="text" name="start_date" id="start_date" class="form-control start_date datetimepicker" required="">
         <div class="all_errors psngr_err" id="start_date_error"></div>
       </div>
     </div>
     <div class="form-group col-sm-2">
       <label for="end_date" class=" col-form-label pformlabel">End Date&Time</label>
       <div class="">
-        <input type="text" name="end_date" required="" id="end_date" class="form-control end_date">
+        <input type="text" name="end_date" required="" id="end_date" class="form-control end_date datetimepicker">
         <div class="all_errors end_date_err" id="end_date_error"></div>
       </div>
     </div>
   </div>
+  <div class="row">
+    <div class="form-group col-sm-4">
+      <label for="user_id" class=" col-form-label pformlabel">Filter by User</label>
+      <div class="">
+        <select class="form-control" id="user_id" name="user_id">
+          <option value="">Select User</option>
+          @if(!empty($users))
+          @foreach($users as $value)
+          <option value="{{$value->id}}">{{$value->name}}</option>
+          @endforeach
+          @endif
+        </select>
+        <div class="all_errors user_id_err" id="user_id_error"></div>
+      </div>
+    </div>
+  </div>
 
+  
+
+
+<form action="{{url('track-form')}}" target="_blank" method="post">
+  @csrf
   <div class="row">
     <div class="col-sm-12">
       <input type="submit" class="btn btn-dark waves-effect waves-light submit_reports float-right mb-2" value="Print All Fetched Reports">
     </div>
   </div>
-
-</form>
-
   <div class="row">
     <div class="col-xl-12">
       <div class="card">
@@ -115,6 +139,7 @@
             <table class="table table-hover" id="datatable">
               <thead>
                 <tr>
+                  <th scope="col">---</th>
                   <th scope="col">Invoice ID</th>
                   <th scope="col">Patient Name</th>
                   <th scope="col">Test</th>
@@ -131,6 +156,7 @@
     </div>
   </div>
   <!-- end row -->
+</form>
 
   <div class="modal fade" id="payNowModel" tabindex="-1" role="dialog" aria-labelledby="payNowLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">

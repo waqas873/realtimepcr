@@ -29,6 +29,7 @@ class ReportsController extends Controller
         $data = [];
         $data['tests'] = Test::all();
         $data['airlines'] = Airline::all();
+        $data['users'] = User::where('role',0)->orderBy('id' , 'DESC')->get();
     	return view('reports.index',$data);
     }
 
@@ -48,6 +49,13 @@ class ReportsController extends Controller
         
         $status = $post['status_filter'];
 
+        $test_type = $post['test_type'];
+        $airline = $post['airline'];
+        $test_id = $post['test_id'];
+        $start_date = $post['start_date'];
+        $end_date = $post['end_date'];
+        $user_id = $post['user_id'];
+
         $auth = Auth::user();
 
         $result_count = Invoice::count();
@@ -60,6 +68,37 @@ class ReportsController extends Controller
         // else{
         // 	$result = $result->where('status' , 0)->orWhere('status' , 1)->orWhere('status' , 3)->orWhere('status' , 5);
         // }
+        if(!empty($start_date) && !empty($end_date)){
+            $result = $result->whereHas('patient', function($q) use($post){
+                $q->whereBetween('created_at', [$post['start_date'], $post['end_date']]);
+            });
+        }
+        if(!empty($test_id)){
+            $result = $result->whereHas('patient_tests', function($q) use($test_id){
+                $q->where([
+                    ['test_id' , $test_id]
+                ]);
+            });
+        }
+        if(!empty($airline)){
+            $result = $result->whereHas('passenger', function($q) use($airline){
+                $q->where([
+                    ['airline' , $airline]
+                ]);
+            });
+        }
+
+        if(!empty($test_type)){
+            $result = $result->whereHas('patient_tests', function($q) use($test_type){
+                $q->where('id','>',0)->whereHas('patient_test_results', function($q) use($test_type){
+                    $q->where('type',$test_type);
+                });
+            });
+        }
+
+        if(!empty($user_id) && $user_id!="all"){
+            $result = $result->where('user_id', $user_id);
+        }
 
         if(!empty($search)){
             $result = $result->where('unique_id','like', '%'.$search.'%');
@@ -71,6 +110,7 @@ class ReportsController extends Controller
 
         if(isset($result_data)){
             foreach($result_data as $item){
+                $single_field['check'] = '<input type="checkbox" name="invoice_ids[]" class="eachBox" value="'.$item->id.'">';
                 $single_field['unique_id'] = '#'.$item->unique_id;
                 $single_field['name'] = (!empty($item->patient->name))?$item->patient->name:'unavailable';
                 $single_field['tests'] = '---';
