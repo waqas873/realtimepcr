@@ -103,9 +103,16 @@
 </li>
 
 <li>
-<a href="{{url('lab/reports')}}" class="waves-effect">
+<a href="{{url('lab/')}}" class="waves-effect">
 <img src="{{asset('assets/icons/sidebar-icons/icon6.svg')}}" class="sidebar_icons">
-<span>My Inventory</span>
+<span> Repeated Tests </span>
+</a>
+</li>
+
+<li>
+<a href="{{url('lab/')}}" class="waves-effect">
+<img src="{{asset('assets/icons/sidebar-icons/icon6.svg')}}" class="sidebar_icons">
+<span>Inventory</span>
 </a>
 </li>
 

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -165,7 +166,7 @@ Your Test is in Process.</h2>
                 </div>
                 <hr>
 
-                <!-- <div class="row">
+                <div class="row">
 
                     <div class="pr-5 pl-5">
                         <input class="form-check-input" type="checkbox" value="" id="airportList-check" onclick="checkFunction('airportList-check','airportList');">
@@ -183,7 +184,7 @@ Your Test is in Process.</h2>
                         <input class="form-check-input" type="checkbox" value="" id="lhrAirport-check" onclick="checkFunction('lhrAirport-check','lhrAirport');">
                         <label class="form-check-label" for="lhrAirport-check">Lahore Airport</label>
                     </div>
-                </div> -->
+                </div>
             </div>
             <div class="col-sm-12">
                 <hr>
@@ -254,11 +255,11 @@ Your Test is in Process.</h2>
                 // $days = $result->delivery_time." days";
                 // $date=date_create($rdate[0]);
                 // date_add($date,date_interval_create_from_date_string($days));
-                if ($result->status == 3 || $result->status == 5) {
-                    echo '<strong>' . $result->updated_at . '</strong>';
-                } else {
-                    echo '<strong>Not Reported Yet</strong>';
-                }
+                //if ($result->status == 1 || $result->status == 2) {
+                echo '<strong>' . $result->updated_at . '</strong>';
+                //} else {
+                //    echo '<strong>Not Reported Yet</strong>';
+                //}
                 ?>
 
             </div>
@@ -514,18 +515,6 @@ Your Test is in Process.</h2>
                     </div>
                 </span>
             <?php } ?>
-            <?php if (!empty($result->passenger->airport)) { ?>
-                <span class="pnrAirport-check" id="pnrAirport">
-                    <div class="col-sm-2" id="b-ref">
-                        <p class="nomgn">Sample Collected Airport</p>
-                        <h6>
-                            <strong>
-                                {{$result->passenger->airport}}
-                            </strong>
-                        </h6>
-                    </div>
-                </span>
-            <?php } ?>
         </div>
         <hr>
         <div class="page-title">
@@ -565,14 +554,14 @@ Your Test is in Process.</h2>
                                 </div>
                                 <!-- Specimen -->
                                 <div class="col-sm-2">Specimen:</div>
-                                    <div class="col-sm-10">
-                                        <h6>
-                                            <?php echo (!empty($pt->test->sample->name)) ? $pt->test->sample->name : '---'; ?>
-                                        </h6>
-                                    </div>
+                                <div class="col-sm-10">
+                                    <h6>
+                                        <?php echo (!empty($pt->test->sample->name)) ? $pt->test->sample->name : '---'; ?>
+                                    </h6>
+                                </div>
 
                                 <!-- <?php
-                                if ($pt->status == 2) { ?>
+                                        if ($pt->status == 2) { ?>
                                     <div class="col-sm-2">Specimen:</div>
                                     <div class="col-sm-10">
                                         <h6>
@@ -582,16 +571,37 @@ Your Test is in Process.</h2>
                                 <?php } ?> -->
 
                                 <!-- Sample Collected / Airpot List -->
-                                
+                                <!-- retreiving from DB -->
+
+                                <?php if (!empty($result->passenger->airport)) { ?>
+                                    <!-- <span class="pnrAirport-check" id="pnrAirport">
+                                        <div class="col-sm-2" id="b-ref">
+                                            <p class="nomgn">Sample Collected Airport</p>
+                                            <h6>
+                                                <strong>
+                                                    {{$result->passenger->airport}}
+                                                </strong>
+                                            </h6>
+                                        </div>
+                                    </span> -->
+                                    <div class="col-sm-2">Sample Collected:</div>
+                                    <div class="col-sm-10">
+                                        <b>{{$result->passenger->airport}}</b>
+                                    </div>
+
+                                <?php } ?>
+
+                                <!-- Adjusting Airport Locally -->
+
                                 <div class="row airportList-check" id="airportList" style="display: none; width: 100%; margin-left: 0px;">
                                     <div class="col-sm-2">Sample Collected:</div>
                                     <div class="col-sm-10">
-                                    <b class="peshAirport-check" id="peshAirport" style="display: none;">Bacha Khan International Airport, Peshawar, Pakistan </b>
-                                    <b class="isbAirport-check" id="isbAirport" style="display: none;">Islamabad International Airport, Pakistan</b>
-                                    <b class="lhrAirport-check" id="lhrAirport" style="display: none;">Allama Iqbal International Airport, Lahore, Pakistan.</b>
+                                        <b class="peshAirport-check" id="peshAirport" style="display: none;">Bacha Khan International Airport, Peshawar, Pakistan </b>
+                                        <b class="isbAirport-check" id="isbAirport" style="display: none;">Islamabad International Airport, Pakistan</b>
+                                        <b class="lhrAirport-check" id="lhrAirport" style="display: none;">Allama Iqbal International Airport, Lahore, Pakistan.</b>
                                     </div>
                                 </div>
-                                
+
                                 <!-- Test Result -->
                                 <?php
                                 if ($pt->status == 0) { ?>
@@ -668,46 +678,46 @@ Your Test is in Process.</h2>
                                             <div class="col-sm-12">"<?php echo $ptr->input_value; ?>"</div>
                                         </div>
                                     <?php } ?>
-                <?php if ($ptr->type == 4) { ?>
-                    <!--    <div class="col-sm-2">Value</div>
+                                    <?php if ($ptr->type == 4) { ?>
+                                        <!--    <div class="col-sm-2">Value</div>
                             <div class="col-sm-10">"<?php echo $ptr->input_value; ?>"</div> -->
-            <div class="component nomgn pad5">
-                <div class="col-sm-2">Test Results</div>
-                <div class="col-sm-12">
-                    <div class="table-responsive">
-                        <table class="table mb-0 reports-table">
-                            <tr>
-                                <th>Parameter</th>
-                                <th>Result</th>
-                                <th>Units</th>
-                                <th>Normal Value</th>
-                            </tr>
-                            <?php
-                            if (!empty($ptr->patient_medicine_results)) {
-                                foreach ($ptr->patient_medicine_results as $ptrm) {
-                            ?>
-                                    <tr>
-                                        <td>
-                                            <p class="tableText"><?php echo $ptrm->test_categories->name; ?></p>
-                                        </td>
-                                        <td>
-                                            <p class="tableText"><?php echo $ptrm->result; ?></p>
-                                        </td>
-                                        <td>
-                                            <p class="tableText"><?php echo $ptrm->test_categories->units; ?></p>
-                                        </td>
-                                        <td>
-                                            <p class="tableText"><?php echo $ptrm->test_categories->normal_value; ?></p>
-                                        </td>
+                                        <div class="component nomgn pad5">
+                                            <div class="col-sm-2">Test Results</div>
+                                            <div class="col-sm-12">
+                                                <div class="table-responsive">
+                                                    <table class="table mb-0 reports-table">
+                                                        <tr>
+                                                            <th>Parameter</th>
+                                                            <th>Result</th>
+                                                            <th>Units</th>
+                                                            <th>Normal Value</th>
+                                                        </tr>
+                                                        <?php
+                                                        if (!empty($ptr->patient_medicine_results)) {
+                                                            foreach ($ptr->patient_medicine_results as $ptrm) {
+                                                        ?>
+                                                                <tr>
+                                                                    <td>
+                                                                        <p class="tableText"><?php echo $ptrm->test_categories->name; ?></p>
+                                                                    </td>
+                                                                    <td>
+                                                                        <p class="tableText"><?php echo $ptrm->result; ?></p>
+                                                                    </td>
+                                                                    <td>
+                                                                        <p class="tableText"><?php echo $ptrm->test_categories->units; ?></p>
+                                                                    </td>
+                                                                    <td>
+                                                                        <p class="tableText"><?php echo $ptrm->test_categories->normal_value; ?></p>
+                                                                    </td>
 
-                                    </tr>
-                            <?php }
-                            } ?>
-                        </table>
-                    </div>
-                </div>
-            </div>
-                <?php } ?>
+                                                                </tr>
+                                                        <?php }
+                                                        } ?>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php } ?>
                                     <?php if ($ptr->type == 5) { ?>
                                         <div class="component nomgn pad5">
                                             <div class="col-sm-2">Test Result</div>
@@ -716,43 +726,43 @@ Your Test is in Process.</h2>
                                             </div>
                                         </div>
                                     <?php } ?>
-                <?php if ($ptr->type == 6) { ?>
-                    <div class="component nomgn pad5">
-                        <div class="col-sm-2">Specie</div>
-                        <div class="col-sm-10"><b><?php echo $ptr->specie; ?></b></div>
-                        <div class="col-sm-2">Duration</div>
-                        <div class="col-sm-10"><b><?php echo $ptr->duration; ?></b></div>
-                        <div class="col-sm-2">Test Results</div>
-                        <div class="col-sm-12">
-                            <div class="table-responsive">
-                                <table class="table mb-0 reports-table">
-                                    <tr>
-                                        <th>Medicine</th>
-                                        <th>Label</th>
-                                        <th>Report</th>
-                                    </tr>
-                                    <?php
-                                    if (!empty($ptr->patient_medicine_results)) {
-                                        foreach ($ptr->patient_medicine_results as $ptrm) {
-                                    ?>
-                                            <tr>
-                                                <td>
-                                                    <p class="tableText"><?php echo $ptrm->test_categories->name; ?></p>
-                                                </td>
-                                                <td>
-                                                    <p class="tableText"><?php echo $ptrm->test_categories->medicine_label; ?></p>
-                                                </td>
-                                                <td>
-                                                    <p class="tableText"><?php echo $ptrm->result; ?></p>
-                                                </td>
-                                            </tr>
-                                    <?php }
-                                    } ?>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                <?php } ?>
+                                    <?php if ($ptr->type == 6) { ?>
+                                        <div class="component nomgn pad5">
+                                            <div class="col-sm-2">Specie</div>
+                                            <div class="col-sm-10"><b><?php echo $ptr->specie; ?></b></div>
+                                            <div class="col-sm-2">Duration</div>
+                                            <div class="col-sm-10"><b><?php echo $ptr->duration; ?></b></div>
+                                            <div class="col-sm-2">Test Results</div>
+                                            <div class="col-sm-12">
+                                                <div class="table-responsive">
+                                                    <table class="table mb-0 reports-table">
+                                                        <tr>
+                                                            <th>Medicine</th>
+                                                            <th>Label</th>
+                                                            <th>Report</th>
+                                                        </tr>
+                                                        <?php
+                                                        if (!empty($ptr->patient_medicine_results)) {
+                                                            foreach ($ptr->patient_medicine_results as $ptrm) {
+                                                        ?>
+                                                                <tr>
+                                                                    <td>
+                                                                        <p class="tableText"><?php echo $ptrm->test_categories->name; ?></p>
+                                                                    </td>
+                                                                    <td>
+                                                                        <p class="tableText"><?php echo $ptrm->test_categories->medicine_label; ?></p>
+                                                                    </td>
+                                                                    <td>
+                                                                        <p class="tableText"><?php echo $ptrm->result; ?></p>
+                                                                    </td>
+                                                                </tr>
+                                                        <?php }
+                                                        } ?>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <?php } ?>
 
                                 <?php } ?>
 
@@ -903,13 +913,17 @@ class="reports-footer">
             <div class="copyright-footer">
                 <hr>
                 <footer class="footer">
-                    <p>Copyright &copy;
+                    <p class="mb-0">Copyright &copy;
                         <script type="text/javascript">
                             document.write(new Date().getFullYear());
-                        </script>. Realtime PCR Lab <span class="d-none d-sm-inline-block">
+                        </script>. <b>Realtime PCR </b> <small>Diagnostic, Research & Reference Lab. Pvt. Ltd.</small> <span class="d-none d-sm-inline-block">
 
-                            <span><i>powered by</i></span>
-                            <span> <a href="https://www.artflow.pk" target="_blank">Artflow Studio</a></span>
+                            <span><i>powered by:</i></span>
+                            <span> <a href="https://www.artflow.pk" target="_blank"><b>Artflow Studio</b></a></span>
+                        </span>
+                    </p>
+                    <hr class="mb-0 mt-0">
+                    <small style="margin: 121px;"><b>https://www.artflow.pk</b> --- facebook.com/artflow.pk --- instagram.com/artflow.pk</small>
                 </footer>
             </div>
         </div>
