@@ -128,9 +128,11 @@ class LabUserController extends Controller
                     }
                 }
                 Patient_test::where('id' , $patient_test_id)->update($update);
-
+                
+                $invoice_updated_at = (!empty($formData['invoice_updated_at']))?$formData['invoice_updated_at']:null;
+                unset($formData['invoice_updated_at']);
                 $invoice_id = $result->invoice_id;
-                $this->invoice_update($invoice_id);
+                $this->invoice_update($invoice_id,$invoice_updated_at);
 
                 $msg = 'Test has been updated successfully.';
                 $sms_sent = $this->send_sms($patient_test_id);
@@ -399,7 +401,7 @@ class LabUserController extends Controller
         echo json_encode($data);
     }
 
-    public function invoice_update($invoice_id = 0)
+    public function invoice_update($invoice_id = 0 , $invoice_updated_at = null)
     {
         $pt = Patient_test::where('invoice_id' , $invoice_id)->where('status' , 0)->get();
         if(empty($pt[0])){
@@ -409,6 +411,10 @@ class LabUserController extends Controller
                 $status = 3;
             }
             $update = ['status' => $status];
+            if(!empty($invoice_updated_at)){
+                $invoice_updated_at = str_replace("/","-",$invoice_updated_at);
+                $update['updated_at'] = $invoice_updated_at.':00';
+            }
             Invoice::where('id',$invoice_id)->update($update);
         }
         return false;

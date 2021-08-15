@@ -410,7 +410,7 @@
             <div class="form-group row">
               <label class="col-sm-2 col-form-label">Reporting Date</label>
               <div class="col-sm-10">
-                      <input type="datetime-local" class="form-control" placeholder="Enter Reporting Date Here">
+                      <input type="text" class="form-control datetimepicker" name="invoice_updated_at" placeholder="Enter Reporting Date Here">
                       <small>Leave Blank to get the defualt Date & Time.</small>
               </div>
             </div>
