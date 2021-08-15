@@ -129,6 +129,16 @@
       <div class="all_errors psngr_err" id="airline_error"></div>
     </div>
   </div>
+  <div class="form-group col-sm-4">
+    <label for="airline" class=" col-form-label pformlabel">Filter by USER</label>
+    <div class="">
+      <select class="form-control" id="airline" name="airline">
+        <option value="">Select User</option>
+
+      </select>
+      <div class="all_errors psngr_err" id="airline_error"></div>
+    </div>
+  </div>
   <div class="form-group col-sm-2">
     <label for="airline" class=" col-form-label pformlabel">Start Date&Time</label>
     <div class="">
@@ -395,6 +405,13 @@
                   <option value="Not Detected">Not Detected</option>
                 </select>
                 <div class="all_errors dropdown_value_error"></div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-sm-2 col-form-label">Reporting Date</label>
+              <div class="col-sm-10">
+                      <input type="datetime-local" class="form-control" placeholder="Enter Reporting Date Here">
+                      <small>Leave Blank to get the defualt Date & Time.</small>
               </div>
             </div>
             <div class="LabCmnts">
