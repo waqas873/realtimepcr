@@ -259,6 +259,7 @@ Route::group(['middleware' => ['web','lab_user']], function()
     Route::group(['prefix'=>'lab'], function(){
         Route::get('/dashboard', 'LabUserController@index');
         Route::get('/open-cases', 'LabUserController@open_cases');
+        Route::post('/get-open-cases', 'LabUserController@get_open_cases');
         Route::get('/reports', 'LabUserController@reports');
         Route::get('/detected/{id?}', 'LabUserController@detected');
         Route::get('/repeat-test/{id?}', 'LabUserController@repeat_test');

@@ -130,7 +130,7 @@
             <table class="table table-hover" id="datatable">
               <thead>
                 <tr>
-                  <th scope="col">---</th>
+                  <th scope="col"><input type="checkbox" class="allBoxes"></th>
                   <th scope="col">Invoice ID</th>
                   <th scope="col">Patient Name</th>
                   <th scope="col">Test</th>

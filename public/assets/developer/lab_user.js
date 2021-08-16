@@ -119,11 +119,11 @@ $(document).on('submit', '#manualReportForm', function (e) {
   });
 });
 
-$('#datatable').DataTable({
-  "order": [
-      [0, 'sesc']
-  ],
-});
+// $('#datatable').DataTable({
+//   "order": [
+//       [0, 'sesc']
+//   ],
+// });
 
 $('#datatable2').DataTable({
   "ordering": true,
@@ -158,6 +158,67 @@ $('#datatable2').DataTable({
       {"data": "status"},
       {"data": "action"}
   ]
+});
+
+$('#datatable3').DataTable({
+  "ordering": true,
+  "lengthChange": true,
+  "searching": true,
+  "processing":true,
+  "serverSide": true,
+  "ajax": {
+      url: '/lab/get-open-cases',
+      type: 'POST',
+      "data": function (d) {
+          return $.extend({}, d, {
+            "_token": $('meta[name="csrf-token"]').attr('content'),
+            "test_type": $('#test_type').val(),
+            "airline": $('#airline').val(),
+            "test_id": $('#test_id').val(),
+            "start_date": $('#start_date').val(),
+            "end_date": $('#end_date').val(),
+            "user_id": $('#user_id').val(),
+          });
+      } 
+  },
+  "order": [
+      [0, 'asc']
+  ],
+  columnDefs: [
+      {'targets': 0, 'orderable': false},
+      // {'targets': 1, 'orderable': false},
+      // {'targets': 3, 'orderable': false},
+      // {'targets': 4, 'orderable': false},
+      // {'targets': 5, 'orderable': false}
+  ],
+  "columns": [
+      {"data": "check"},
+      {"data": "unique_id"},
+      {"data": "name"},
+      {"data": "tests"},
+      {"data": "amount_paid"},
+      {"data": "amount_remaining"},
+      // {"data": "status"}
+  ]
+});
+
+$(document).on('change', '#test_type', function (e) {
+ $('#datatable').DataTable().ajax.reload();  
+});
+$(document).on('change', '#airline', function (e) {
+ $('#datatable').DataTable().ajax.reload();  
+});
+$(document).on('change', '#test_id', function (e) {
+ $('#datatable').DataTable().ajax.reload();  
+});
+$(document).on('change', '#start_date', function (e) {
+ $('#datatable').DataTable().ajax.reload();  
+});
+$(document).on('change', '#end_date', function (e) {
+ $('#datatable').DataTable().ajax.reload();  
+});
+$(document).on('change', '#user_id', function (e) {
+  $('#datatable').DataTable().ajax.reload();  
 });
 
 function errors(arr = ''){
