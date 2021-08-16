@@ -38,12 +38,6 @@ class PrintsController extends Controller
             $results = $result->whereIn('id', $post['invoice_ids'])->orderBy('id' , 'ASC')->get();
             if(!empty($results)){
                 $data['results'] = $results;
-                foreach($results as $key => $value){
-                    if($value->status==3){
-                        $update = ['status'=>5];
-                        Invoice::where('id' , $value->id)->update($update);
-                    }
-                }
                 return view('prints.multi_passengers',$data);
             }
             else{

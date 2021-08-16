@@ -71,15 +71,6 @@ $(document).on('submit', '#pay-now-form', function (e) {
   });
 });
 
-$(document).on('click', '.allBoxes', function (e) {
-    if($('.allBoxes').is(':checked')){
-      $('.eachBox').prop('checked', true);
-    }
-    else{
-      $('.eachBox').prop('checked', false);
-    }
-});
-
 $('#datatable').DataTable({
   "ordering": true,
   "lengthChange": true,
