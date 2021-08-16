@@ -98,15 +98,14 @@
 
 <div class="row">
   <div class="form-group col-sm-2">
-    <label for="airline" class=" col-form-label pformlabel">Filter by test Type</label>
+    <label for="test_type" class=" col-form-label pformlabel">Filter by test Type</label>
     <div class="">
-      <select class="form-control" id="airline" name="airline">
+      <select class="form-control" id="test_type" name="test_type" required="">
         <option value="">Select TestType</option>
-        <option value="">Type1 Positive / Negative</option>
-        <option value="">Type2 Detected / Not-Detected</option>
-
+        <option value="1">Type1 Positive / Negative</option>
+        <option value="2">Type2 Detected / Not-Detected</option>
       </select>
-      <div class="all_errors psngr_err" id="airline_error"></div>
+      <div class="all_errors test_type_err" id="test_type_error"></div>
     </div>
   </div>
   <div class="form-group col-sm-2">
@@ -114,46 +113,59 @@
     <div class="">
       <select class="form-control" id="airline" name="airline">
         <option value="">Select Airline</option>
-
+        @if(!empty($airlines))
+        @foreach($airlines as $airline)
+        <option value="{{$airline->name}}">{{$airline->name}}</option>
+        @endforeach
+        @endif
       </select>
-      <div class="all_errors psngr_err" id="airline_error"></div>
+      <div class="all_errors airline_err" id="airline_error"></div>
     </div>
   </div>
   <div class="form-group col-sm-4">
-    <label for="airline" class=" col-form-label pformlabel">Filter by Test</label>
+    <label for="test_id" class=" col-form-label pformlabel">Filter by Test</label>
     <div class="">
-      <select class="form-control" id="airline" name="airline">
+      <select class="form-control" id="test_id" name="test_id" required="">
         <option value="">Select Test</option>
-
+        @if(!empty($testsList))
+        @foreach($testsList as $test)
+        <option value="{{$test->id}}">{{$test->name}}</option>
+        @endforeach
+        @endif
       </select>
-      <div class="all_errors psngr_err" id="airline_error"></div>
+      <div class="all_errors test_id_err" id="test_id_error"></div>
     </div>
   </div>
+  <div class="form-group col-sm-2">
+    <label for="start_date" class=" col-form-label pformlabel">Start Date&Time</label>
+    <div class="">
+      <input type="text" name="start_date" id="start_date" class="form-control start_date datetimepicker" required="">
+      <div class="all_errors psngr_err" id="start_date_error"></div>
+    </div>
+  </div>
+  <div class="form-group col-sm-2">
+    <label for="end_date" class=" col-form-label pformlabel">End Date&Time</label>
+    <div class="">
+      <input type="text" name="end_date" required="" id="end_date" class="form-control end_date datetimepicker">
+      <div class="all_errors end_date_err" id="end_date_error"></div>
+    </div>
+  </div>
+</div>
+<div class="row">
   <div class="form-group col-sm-4">
-    <label for="airline" class=" col-form-label pformlabel">Filter by USER</label>
+    <label for="user_id" class=" col-form-label pformlabel">Filter by User</label>
     <div class="">
-      <select class="form-control" id="airline" name="airline">
+      <select class="form-control" id="user_id" name="user_id">
         <option value="">Select User</option>
-
+        @if(!empty($users))
+        @foreach($users as $value)
+        <option value="{{$value->id}}">{{$value->name}}</option>
+        @endforeach
+        @endif
       </select>
-      <div class="all_errors psngr_err" id="airline_error"></div>
+      <div class="all_errors user_id_err" id="user_id_error"></div>
     </div>
   </div>
-  <div class="form-group col-sm-2">
-    <label for="airline" class=" col-form-label pformlabel">Start Date&Time</label>
-    <div class="">
-      <input type="datetime-local" name="" id="" class="form-control">
-      <div class="all_errors psngr_err" id="airline_error"></div>
-    </div>
-  </div>
-  <div class="form-group col-sm-2">
-    <label for="airline" class=" col-form-label pformlabel">End Date&Time</label>
-    <div class="">
-      <input type="datetime-local" name="" id="" class="form-control">
-      <div class="all_errors psngr_err" id="airline_error"></div>
-    </div>
-  </div>
-
 </div>
 
 <div class="row">
@@ -188,7 +200,7 @@
     </div>  -->
         <h4 class="mt-0 header-title mb-4">Open Cases List</h4>
         <div class="table-responsive">
-          <table class="table table-hover" id="datatable">
+          <table class="table table-hover" id="datatable3">
             <thead>
               <tr>
                 <th scope="col">Invoice ID</th>
@@ -199,6 +211,7 @@
                 <th scope="col">Action</th>
               </tr>
             </thead>
+            {{--
             <tbody>
               @if(!empty($tests))
               @foreach($tests as $key=>$value)
@@ -214,15 +227,6 @@
                 <td>{{$value->created_at}}</td>
                 <td><a href="" class="" data-toggle="modal" data-target="#kitView"> <span class="btn btn-light" style=""> 0 </span> Select Kit</a> </td>
                 <td>
-                  <!-- <?php
-                        $datetime = strtotime($value->invoice->created_at);
-                        if (strtotime("-0 hours") > $datetime) {
-                        ?> -->
-                  <!--                       
-                  <a href="{{url('lab/detected/'.$value->id)}}"
-                    class="btn btn-sm btn-success detected_or_not">Detected</a>
-                  <a href="{{url('lab/not_detected/'.$value->id)}}" class="btn btn-sm btn-danger detected_or_not">Not
-                    Detected</a> -->
 
                   <a href="{{$value->id}}" rel="{{!(empty($value->test->reporting_units->type))?$value->test->reporting_units->type:''}}" class="btn btn-success waves-effect waves-light submit_reports">Submit Report</a>
 
@@ -257,6 +261,9 @@
               @endforeach
               @endif
             </tbody>
+            --}}
+
+
           </table>
         </div>
 
