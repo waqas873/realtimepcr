@@ -36,4 +36,9 @@ class Patient_test extends Model
         return $this->hasOne('App\Patient_tests_repeated');
     }
 
+    public function passenger()
+    {
+        return $this->hasMany('App\Passenger', 'patient_id' , 'patient_id');
+    }
+
 }

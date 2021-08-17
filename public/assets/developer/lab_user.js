@@ -160,6 +160,15 @@ $('#datatable2').DataTable({
   ]
 });
 
+$(document).on('click', '.allBoxes', function (e) {
+    if($('.allBoxes').is(':checked')){
+      $('.eachBox').prop('checked', true);
+    }
+    else{
+      $('.eachBox').prop('checked', false);
+    }
+});
+
 $('#datatable3').DataTable({
   "ordering": true,
   "lengthChange": true,
@@ -195,30 +204,30 @@ $('#datatable3').DataTable({
       {"data": "check"},
       {"data": "unique_id"},
       {"data": "name"},
-      {"data": "tests"},
-      {"data": "amount_paid"},
-      {"data": "amount_remaining"},
-      // {"data": "status"}
+      {"data": "test"},
+      {"data": "created_at"},
+      {"data": "kits"},
+      {"data": "action"}
   ]
 });
 
 $(document).on('change', '#test_type', function (e) {
- $('#datatable').DataTable().ajax.reload();  
+ $('#datatable3').DataTable().ajax.reload();  
 });
 $(document).on('change', '#airline', function (e) {
- $('#datatable').DataTable().ajax.reload();  
+ $('#datatable3').DataTable().ajax.reload();  
 });
 $(document).on('change', '#test_id', function (e) {
- $('#datatable').DataTable().ajax.reload();  
+ $('#datatable3').DataTable().ajax.reload();  
 });
 $(document).on('change', '#start_date', function (e) {
- $('#datatable').DataTable().ajax.reload();  
+ $('#datatable3').DataTable().ajax.reload();  
 });
 $(document).on('change', '#end_date', function (e) {
- $('#datatable').DataTable().ajax.reload();  
+ $('#datatable3').DataTable().ajax.reload();  
 });
 $(document).on('change', '#user_id', function (e) {
-  $('#datatable').DataTable().ajax.reload();  
+  $('#datatable3').DataTable().ajax.reload();  
 });
 
 function errors(arr = ''){

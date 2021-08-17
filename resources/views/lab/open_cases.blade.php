@@ -203,6 +203,7 @@
           <table class="table table-hover" id="datatable3">
             <thead>
               <tr>
+                <th scope="col"><input type="checkbox" class="allBoxes"></th>
                 <th scope="col">Invoice ID</th>
                 <th scope="col">Patient Name</th>
                 <th scope="col">Test Name</th>

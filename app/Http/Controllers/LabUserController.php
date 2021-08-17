@@ -106,27 +106,22 @@ class LabUserController extends Controller
 
         $auth = Auth::user();
 
-        $result_count = Invoice::count();
+        $result_count = Patient_test::count();
 
-        $result = new Invoice;
+        $result = new Patient_test;
 
-        if($status!='all'){
-            $result = $result->where('status' , $status);
+        $result = $result->where('status' , '0');
+        if(!empty($auth->lab->type) && $auth->lab->type==2){
+            $result = $result->where('user_id' , $auth->id);
         }
-        // else{
-        //  $result = $result->where('status' , 0)->orWhere('status' , 1)->orWhere('status' , 3)->orWhere('status' , 5);
-        // }
+        
         if(!empty($start_date) && !empty($end_date)){
-            $result = $result->whereHas('patient', function($q) use($post){
+            $result = $result->whereHas('invoice', function($q) use($post){
                 $q->whereBetween('created_at', [$post['start_date'], $post['end_date']]);
             });
         }
         if(!empty($test_id)){
-            $result = $result->whereHas('patient_tests', function($q) use($test_id){
-                $q->where([
-                    ['test_id' , $test_id]
-                ]);
-            });
+            $result = $result->where('test_id' , $test_id);
         }
         if(!empty($airline)){
             $result = $result->whereHas('passenger', function($q) use($airline){
@@ -137,10 +132,10 @@ class LabUserController extends Controller
         }
 
         if(!empty($test_type)){
-            $result = $result->whereHas('patient_tests', function($q) use($test_type){
-                $q->where('id','>',0)->whereHas('patient_test_results', function($q) use($test_type){
-                    $q->where('type',$test_type);
-                });
+            $result = $result->whereHas('patient_test_results', function($q) use($test_type){
+                $q->where([
+                    ['type' , $test_type]
+                ]);
             });
         }
 
@@ -158,40 +153,27 @@ class LabUserController extends Controller
 
         if(isset($result_data)){
             foreach($result_data as $item){
-                $single_field['check'] = '<input type="checkbox" name="invoice_ids[]" class="eachBox" value="'.$item->id.'">';
-                $single_field['unique_id'] = '#'.$item->unique_id;
-                $single_field['name'] = (!empty($item->patient->name))?$item->patient->name:'unavailable';
-                $single_field['tests'] = '---';
-                if(!empty($item->patient_tests[0]->test->name)){
-                    $tooltip = '';
-                    $cc = count($item->patient_tests);
-                    foreach($item->patient_tests as $key2 => $test){
-                        $i = $key2+1;
-                        $tooltip .= $test->test->name;
-                        ($i<$cc)?$tooltip .= ' , ':'';
-                    }
-                    $single_field['tests'] = '<a href="javascript::" data-toggle="tooltip" title="'.$tooltip.'">'.$item->patient_tests[0]->test->name.'</a>';
-                }
-                $single_field['amount_paid'] = "Rs ".$item->amount_paid;
-                $single_field['amount_remaining'] = "Rs ".$item->amount_remaining;
-                $status = '---';
-                if($item->status==3){
-                    $status = '<a href="'.url('invoice-detail/'.$item->unique_id.'/HpD23hObScvX').'" class="btn btn-sm btn-info" target="_blank">Print</a>';
-                }
-                 if($item->status==2){
-                    $status = '<a href="javascript::" class="warning">Pending Payment</a> | <a href="javascript::" rel="'.$item->id.'" class="pay_now">Pay Now</a>';
-                }
-                if($item->status=='0'){
-                    $status = '<a href="javascript::">Reports in Queue</a>';
-                }
-                if($item->status==1){
-                    $status = '<a href="javascript::" class="warning">Awaiting Results</a>';
-                }
-                if($item->status==5){
-                    $status = '<a href="javascript::" class="info">Delivered</a>';
-                }
-                $single_field['status'] = $status;
-                
+                $single_field['check'] = '<input type="checkbox" name="patient_test_ids[]" class="eachBox" value="'.$item->id.'">';
+                $single_field['unique_id'] = (!empty($item->invoice->unique_id)) ? '#' . $item->invoice->unique_id : '---';
+                $single_field['name'] = (!empty($item->patient->name)) ? $item->patient->name : '---';
+                $single_field['test'] = (!empty($item->test->name))?$item->test->name:'-- --';
+                $single_field['created_at'] = $item->created_at;
+                $single_field['kits'] = '<a href="" class="" data-toggle="modal" data-target="#kitView"> <span class="btn btn-light" style=""> 0 </span> Select Kit</a>';
+                $rut = !(empty($item->test->reporting_units->type))?$item->test->reporting_units->type:'';
+                $id = createBase64($item->id);
+                $action = '<a href="'.$item->id.'" rel="'.$rut.'" class="btn btn-success waves-effect waves-light submit_reports">Submit Report</a>';
+                $action .= '<div class="btn-group">
+                    <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
+                    <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-126px, 35px, 0px);">
+                      <a href="'.url('lab/repeat-test/'.$id).'" class="repeat_test_id">
+                        <button class="dropdown-item" type="button">Repeat Test</button>
+                      </a>
+                      <a href="'.url('lab/manual/'.$id).'" class="">
+                        <button class="dropdown-item" type="button">MS-Word Report</button>
+                      </a>
+                    </div>
+                  </div>';
+                  $single_field['action'] = $action;
                 $result_array[] = $single_field;
             }
             $data['draw'] = $draw;
