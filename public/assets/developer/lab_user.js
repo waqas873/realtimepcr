@@ -7,14 +7,47 @@ $(document).on('click', '.submit_reports', function (e) {
   $('.all_errors').empty();
   if(type!=''){
     var patient_test_id = $(this).attr('href');
+    $('.patient_test_ids').val('');
     $('.patient_test_id').val(patient_test_id);
     $('#addModal'+type).modal("show");
   }
   return false;
 });
 
+$(document).on('click', '.multiple_reports', function (e) {
+  e.preventDefault();
+  $('.allForms').trigger("reset");
+  var type = $('#test_type').val();
+  if(type==''){
+    swal({
+      title: "Warning",
+      text: "Please select a test type!",
+      icon: "warning",
+      button: "Ok",
+    });
+    return false;
+  }
+  var patient_test_ids = $("input:checked").map(function(){
+      return $(this).val();
+  }).get();
+  if(patient_test_ids==''){
+    swal({
+      title: "Warning",
+      text: "Please select a test to process!",
+      icon: "warning",
+      button: "Ok",
+    });
+    return false;
+  }
+  $('.patient_test_ids').val(patient_test_ids);
+  $('#addModal'+type).modal("show");
+  console.log(patient_test_ids);
+  return false;
+});
+
 $(document).on('submit', '#addForm1,#addForm2,#addForm3,#addForm4,#addForm5,#addForm6', function (e) {
   e.preventDefault();
+  $.LoadingOverlay("show");
   var obj = $(this);
   $('.all_errors').empty();
   var formData = obj.serializeArray();
@@ -37,6 +70,9 @@ $(document).on('submit', '#addForm1,#addForm2,#addForm3,#addForm4,#addForm5,#add
         else{
           errors(data.errors);
         }
+      },
+      complete: function () {
+        $.LoadingOverlay("hide");
       }
   });
 });

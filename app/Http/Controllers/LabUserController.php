@@ -131,13 +131,13 @@ class LabUserController extends Controller
             });
         }
 
-        if(!empty($test_type)){
-            $result = $result->whereHas('patient_test_results', function($q) use($test_type){
-                $q->where([
-                    ['type' , $test_type]
-                ]);
-            });
-        }
+        // if(!empty($test_type)){
+        //     $result = $result->whereHas('patient_test_results', function($q) use($test_type){
+        //         $q->where([
+        //             ['type' , $test_type]
+        //         ]);
+        //     });
+        // }
 
         if(!empty($user_id) && $user_id!="all"){
             $result = $result->where('user_id', $user_id);
@@ -155,6 +155,9 @@ class LabUserController extends Controller
 
         if(isset($result_data)){
             foreach($result_data as $item){
+                if(!empty($test_type) && $item->test->reporting_units->type != $test_type){
+                    continue;
+                }
                 $single_field['check'] = '<input type="checkbox" name="patient_test_ids[]" class="eachBox" value="'.$item->id.'">';
                 $single_field['unique_id'] = (!empty($item->invoice->unique_id)) ? '#' . $item->invoice->unique_id : '---';
                 $single_field['name'] = (!empty($item->patient->name)) ? $item->patient->name : '---';
@@ -222,60 +225,109 @@ class LabUserController extends Controller
         else{
             unset($formData['_token']);
             $patient_test_id = $formData['patient_test_id'];
+            
+            if(!empty($formData['patient_test_ids'][0])){
+                $patient_test_ids = $formData['patient_test_ids'][0];
+                unset($formData['patient_test_ids']);
+            }
+            if(isset($formData['patient_test_ids'])){
+                unset($formData['patient_test_ids']);
+            }
 
             $user = Auth::user();
-            $result = Patient_test::where('status' , '0')->find($patient_test_id);
-            if(!empty($result)){
-                $update = ['status'=>3,'updated_at'=>$this->date_time,'processed_by'=>$user->id];
-                if($result->type==2){
-                    if(!empty($formData['dropdown_value']) && $formData['dropdown_value']=="Detected")
-                    {
-                        $update['status'] = 1;
-                        if($result->api_cancelled == 0){
-                            $this->api_result_request($result->patient_id, "positive");
-                        }
-                    }
-                    if(!empty($formData['dropdown_value']) && $formData['dropdown_value']=="Not Detected"){
-                        $update['status'] = 2;
-                        if($result->api_cancelled == 0){
-                            $this->api_result_request($result->patient_id, "negative");
-                        }
-                    }
-                }
-                Patient_test::where('id' , $patient_test_id)->update($update);
-                
-                $invoice_updated_at = (!empty($formData['invoice_updated_at']))?$formData['invoice_updated_at']:null;
-                unset($formData['invoice_updated_at']);
-                $invoice_id = $result->invoice_id;
-                $this->invoice_update($invoice_id,$invoice_updated_at);
 
-                $msg = 'Test has been updated successfully.';
-                $sms_sent = $this->send_sms($patient_test_id);
-                if($sms_sent==true){
-                    $msg .= 'Message has been sent to patient.';
-                }
-                
-                Patient_test_result::where('patient_test_id',$patient_test_id)->delete(); 
-                $formData['user_id'] = $user->id;
-                if($type==6 || $type==4){
-                    $test_categories = $formData['test_categories'];
-                    $results = $formData['results'];
-                    unset($formData['test_categories'],$formData['results']);
-                }
-                Patient_test_result::insert($formData);
-                $id = DB::getPdo()->lastInsertId();
-                if($type==6 || $type==4){
-                    foreach($test_categories as $key => $value){
-                        $save = [];
-                        $save['patient_test_result_id'] = $id;
-                        $save['test_category_id'] = $value;
-                        $save['result'] = (!empty($results[$key]))?$results[$key]:null;
-                        if(!empty($results[$key])){
-                            Patient_medicine_result::insert($save);
+            if(empty($patient_test_ids)){
+                $result = Patient_test::where('status' , '0')->find($patient_test_id);
+                if(!empty($result)){
+                    $update = ['status'=>3,'updated_at'=>$this->date_time,'processed_by'=>$user->id];
+                    if($result->type==2){
+                        if(!empty($formData['dropdown_value']) && $formData['dropdown_value']=="Detected")
+                        {
+                            $update['status'] = 1;
+                            if($result->api_cancelled == 0){
+                                $this->api_result_request($result->patient_id, "positive");
+                            }
+                        }
+                        if(!empty($formData['dropdown_value']) && $formData['dropdown_value']=="Not Detected"){
+                            $update['status'] = 2;
+                            if($result->api_cancelled == 0){
+                                $this->api_result_request($result->patient_id, "negative");
+                            }
                         }
                     }
+                    Patient_test::where('id' , $patient_test_id)->update($update);
+                    
+                    $invoice_updated_at = (!empty($formData['invoice_updated_at']))?$formData['invoice_updated_at']:null;
+                    unset($formData['invoice_updated_at']);
+                    $invoice_id = $result->invoice_id;
+                    $this->invoice_update($invoice_id,$invoice_updated_at);
+
+                    $msg = 'Test has been updated successfully.';
+                    $sms_sent = $this->send_sms($patient_test_id);
+                    if($sms_sent==true){
+                        $msg .= 'Message has been sent to patient.';
+                    }
+                    
+                    Patient_test_result::where('patient_test_id',$patient_test_id)->delete(); 
+                    $formData['user_id'] = $user->id;
+                    if($type==6 || $type==4){
+                        $test_categories = $formData['test_categories'];
+                        $results = $formData['results'];
+                        unset($formData['test_categories'],$formData['results']);
+                    }
+                    Patient_test_result::insert($formData);
+                    $id = DB::getPdo()->lastInsertId();
+                    if($type==6 || $type==4){
+                        foreach($test_categories as $key => $value){
+                            $save = [];
+                            $save['patient_test_result_id'] = $id;
+                            $save['test_category_id'] = $value;
+                            $save['result'] = (!empty($results[$key]))?$results[$key]:null;
+                            if(!empty($results[$key])){
+                                Patient_medicine_result::insert($save);
+                            }
+                        }
+                    }
+                    $data['response'] = true;
                 }
-                $data['response'] = true;
+            }
+            else{
+                $patient_test_ids = explode(',', $patient_test_ids);
+                foreach($patient_test_ids as $patient_test_id){
+                    if($patient_test_id=='on'){
+                        continue;
+                    }
+                    $result = Patient_test::where('status' , '0')->find($patient_test_id);
+                    if(!empty($result)){
+                        $update = ['status'=>3,'updated_at'=>$this->date_time,'processed_by'=>$user->id];
+                        if($result->type==2){
+                            if(!empty($formData['dropdown_value']) && $formData['dropdown_value']=="Detected")
+                            {
+                                $update['status'] = 1;
+                                if($result->api_cancelled == 0){
+                                    $this->api_result_request($result->patient_id, "positive");
+                                }
+                            }
+                            if(!empty($formData['dropdown_value']) && $formData['dropdown_value']=="Not Detected"){
+                                $update['status'] = 2;
+                                if($result->api_cancelled == 0){
+                                    $this->api_result_request($result->patient_id, "negative");
+                                }
+                            }
+                        }
+                        Patient_test::where('id' , $patient_test_id)->update($update);
+                        
+                        $invoice_updated_at = (!empty($formData['invoice_updated_at']))?$formData['invoice_updated_at']:null;
+                        unset($formData['invoice_updated_at']);
+                        $invoice_id = $result->invoice_id;
+                        $this->invoice_update($invoice_id,$invoice_updated_at);
+                        
+                        Patient_test_result::where('patient_test_id',$patient_test_id)->delete(); 
+                        $formData['user_id'] = $user->id;
+                        Patient_test_result::insert($formData);
+                        $data['response'] = true;
+                    }
+                }
             }
         }
         echo json_encode($data);

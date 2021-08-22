@@ -93,7 +93,6 @@
 
 
 </div>
-</div>
 <!-- end row -->
 
 <div class="row">
@@ -176,7 +175,7 @@
           <h4 class="page-title m-0">Open Cases</h4>
         </div>
         <div class="col-sm-4">
-          <a href="" rel="" class="btn btn-dark waves-effect waves-light submit_reports float-right">Submit Multiple Reports</a>
+          <a href="javascript::" class="btn btn-dark waves-effect waves-light float-right multiple_reports">Submit Multiple Reports</a>
         </div>
         <!-- end col -->
       </div>
@@ -184,10 +183,8 @@
     </div>
     <!-- end page-title-box -->
   </div>
-
 </div>
 <!-- end page title -->
-
 
 <div class="row">
   <div class="col-xl-12">
@@ -212,69 +209,13 @@
                 <th scope="col">Action</th>
               </tr>
             </thead>
-            {{--
-            <tbody>
-              @if(!empty($tests))
-              @foreach($tests as $key=>$value)
-              @if(!empty($value->invoice->unique_id))
-              <tr>
-                <td>
-                  <?php echo (!empty($value->invoice->unique_id)) ? '#' . $value->invoice->unique_id : '---'; ?>
-                </td>
-                <td>
-                  <?php echo (!empty($value->patient->name)) ? $value->patient->name : '---'; ?>
-                </td>
-                <td>{{(!empty($value->test->name))?$value->test->name:'-- --'}}</td>
-                <td>{{$value->created_at}}</td>
-                <td><a href="" class="" data-toggle="modal" data-target="#kitView"> <span class="btn btn-light" style=""> 0 </span> Select Kit</a> </td>
-                <td>
-
-                  <a href="{{$value->id}}" rel="{{!(empty($value->test->reporting_units->type))?$value->test->reporting_units->type:''}}" class="btn btn-success waves-effect waves-light submit_reports">Submit Report</a>
-
-
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
-                    <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-126px, 35px, 0px);">
-                      <?php
-                          $id = createBase64($value->id);
-                      ?>
-                      <a href="{{url('lab/repeat-test/'.$id)}}" class="repeat_test_id">
-                        <button class="dropdown-item" type="button">Repeat Test</button>
-                      </a>
-                      <a href="{{url('lab/manual/'.$id)}}" class="">
-                        <button class="dropdown-item" type="button">MS-Word Report</button>
-                      </a>
-
-                    </div>
-                  </div>
-
-
-
-
-                <?php
-                        } else {
-                          echo "-- -- --";
-                        }
-                ?>
-                </td>
-              </tr>
-              @endif
-              @endforeach
-              @endif
-            </tbody>
-            --}}
-
-
           </table>
         </div>
-
       </div>
     </div>
   </div>
 </div>
 <!-- end row -->
-
-</div>
 
 <!-- container fluid -->
 
@@ -363,6 +304,7 @@
 
           <input type="hidden" name="type" value="1">
           <input type="hidden" name="patient_test_id" class="patient_test_id">
+          <input type="hidden" name="patient_test_ids[]" class="patient_test_ids">
 
           <div class="component" id="rep-type1">
             <div class="form-group row">
@@ -402,6 +344,7 @@
 
           <input type="hidden" name="type" value="2">
           <input type="hidden" name="patient_test_id" class="patient_test_id">
+          <input type="hidden" name="patient_test_ids[]" class="patient_test_ids">
 
           <div class="component" id="rep-type2">
             <div class="form-group row">
@@ -677,7 +620,8 @@
       </div>
     </div>
   </div>
+</div>
 
-  <script src="{{asset('assets/developer/lab_user.js')}}"></script>
+<script src="{{asset('assets/developer/lab_user.js')}}"></script>
 
   @endsection
