@@ -144,7 +144,9 @@ class LabUserController extends Controller
         }
 
         if(!empty($search)){
-            $result = $result->where('unique_id','like', '%'.$search.'%');
+            $result = $result->whereHas('invoice', function($q) use($search){
+                $q->where('unique_id','like', '%'.$search.'%');
+            });
         }
 
         $result_count_rows = count($result->get());

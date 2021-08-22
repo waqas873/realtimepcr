@@ -8,7 +8,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title><?php echo $result->unique_id; ?> - Test Reports | RealtimePCR Lab Official</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <link href="https://pcr.realtimepcr.pk/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <!-- <link href="https://pcr.realtimepcr.pk/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"> -->
+    <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css">
     <link href="{{asset('assets/css/cmp-style.css')}}" rel="stylesheet" type="text/css">
     <!-- <link rel="stylesheet" href="https://pcr.realtimepcr.pk/assets/css/cmp-style.css"> -->
     <!-- <link rel="stylesheet" href="cmp-style.css"> -->
@@ -24,9 +25,14 @@
             }
         }
     </script>
+
+    <!-- <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script> -->
+    <script src="{{asset('assets/qr-code/qr_code.js')}}"></script>
+
 </head>
 
 <body>
+
     <!-- Errors -->
     <!--
 <div class="container" style="padding: 20px;" id="errPayment">
@@ -295,16 +301,28 @@ Your Test is in Process.</h2>
                     </div>
                 </div>
                 <div class="col-sm-2">
-                    <div class="qr">
+                    <div class="qr" id="qrCode<?php echo $result->unique_id;?>">
                         <?php
                         $base_url = URL::to('/');
+                        $qrUrl2 = $base_url.'/track/'.$result->unique_id;
                         //QR SERVER CODE
                         $src = 'https://api.qrserver.com/v1/create-qr-code/?size=90x90&data=' . $base_url . '/track/' . $result->unique_id;
                         //Google Chart QR code API
                         //$src = 'https://chart.googleapis.com/chart?chs=125x125&cht=qr&chl='.$base_url.'/track/'.$result->unique_id;
                         ?>
-                        <img src="<?php echo $src; ?>" alt="" title="" class="qr-img" />
+                        <!-- <img src="<?php echo $src; ?>" alt="" title="" class="qr-img" /> -->
                     </div>
+                    <script type="text/javascript">
+                    var unqId = '<?php echo $result->unique_id;?>'
+                    var qrcode = new QRCode(document.getElementById("qrCode"+unqId), {
+                        text: "<?php echo $qrUrl2;?>",
+                        width: 100,
+                        height: 100,
+                        colorDark : "black",
+                        colorLight : "#ffffff",
+                        correctLevel : QRCode.CorrectLevel.H
+                    });
+                    </script>
                     <div class="qr-url">
                         <?php echo $base_url . '/track/' . $result->unique_id; ?>
                     </div>
@@ -331,19 +349,28 @@ Your Test is in Process.</h2>
                     </div>
                 </div>
                 <div class="col-sm-2">
-                    <div class="qr">
+                    <div class="qr" id="qrCode<?php echo $result->unique_id;?>">
                         <?php
                         $base_url = URL::to('/');
-
+                        $qrUrl2 = $base_url.'/track/'.$result->unique_id;
                         //QR SERVER CODE
                         $src = 'https://api.qrserver.com/v1/create-qr-code/?size=90x90&data=' . $base_url . '/track/' . $result->unique_id;
-
                         //Google Chart QR code API
                         //$src = 'https://chart.googleapis.com/chart?chs=125x125&cht=qr&chl='.$base_url.'/track/'.$result->unique_id;
                         ?>
-                        <img src="<?php echo $src; ?>" alt="" title="" class="qr-img" />
-
+                        <!-- <img src="<?php echo $src; ?>" alt="" title="" class="qr-img" /> -->
                     </div>
+                    <script type="text/javascript">
+                    var unqId = '<?php echo $result->unique_id;?>'
+                    var qrcode = new QRCode(document.getElementById("qrCode"+unqId), {
+                        text: "<?php echo $qrUrl2;?>",
+                        width: 100,
+                        height: 100,
+                        colorDark : "black",
+                        colorLight : "#ffffff",
+                        correctLevel : QRCode.CorrectLevel.H
+                    });
+                    </script>
                     <div class="qr-url">
                         <?php echo $base_url . '/track/' . $result->unique_id; ?>
                     </div>
@@ -406,7 +433,7 @@ Your Test is in Process.</h2>
                 </h6>
             </div>
             <div class="col-sm-2">
-                <div class="qr">
+                <div class="qr qrCodeQr" style="padding: 4px;" id="qrCodeQr<?php echo $result->unique_id;?>">
 
                     <?php
 
@@ -433,8 +460,18 @@ Your Test is in Process.</h2>
                     //Google Chart QR code API
                     // $url = 'https://chart.googleapis.com/chart?chs=125x125&cht=qr&chl='.$qrr.'&choe=UTF-8';
                     ?>
-
-                    <img class="qr-img" src="<?php echo $url; ?>" />
+                    <!-- <img class="qr-img" src="<?php echo $url; ?>" /> -->
+                    <script type="text/javascript">
+                    var unqId = '<?php echo $result->unique_id;?>'
+                    var qrcode = new QRCode(document.getElementById("qrCodeQr"+unqId), {
+                        text: "<?php echo $url;?>",
+                        width: 90,
+                        height: 90,
+                        colorDark : "black",
+                        colorLight : "#ffffff",
+                        correctLevel : QRCode.CorrectLevel.H
+                    });
+                    </script>
                 </div>
             </div>
         </div>
