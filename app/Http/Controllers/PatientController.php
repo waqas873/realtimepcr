@@ -769,6 +769,13 @@ class PatientController extends Controller
         if(!empty($test_id)){
             $tests = $tests->where('id',$test_id);
         }
+        if(empty($test_id)){
+            $user = new User;
+            $doctor = $user->where('role',2)->find($id);
+        }
+        if(!empty($doctor)){
+            $tests = $tests->where('type',1);
+        }
         $tests = $tests->get();
         $all_tests = '';
         if(!empty($tests)){

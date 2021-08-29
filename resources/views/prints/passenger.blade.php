@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -310,9 +309,9 @@ Your Test is in Process.</h2>
                         //Google Chart QR code API
                         //$src = 'https://chart.googleapis.com/chart?chs=125x125&cht=qr&chl='.$base_url.'/track/'.$result->unique_id;
                         ?>
-                        <!-- <img src="<?php echo $src; ?>" alt="" title="" class="qr-img" /> -->
+                        <img src="<?php echo $src; ?>" alt="" title="" class="qr-img" />
                     </div>
-                    <script type="text/javascript">
+                    <!-- <script type="text/javascript">
                     var unqId = '<?php echo $result->unique_id;?>'
                     var qrcode = new QRCode(document.getElementById("qrCode"+unqId), {
                         text: "<?php echo $qrUrl2;?>",
@@ -322,7 +321,7 @@ Your Test is in Process.</h2>
                         colorLight : "#ffffff",
                         correctLevel : QRCode.CorrectLevel.H
                     });
-                    </script>
+                    </script> -->
                     <div class="qr-url">
                         <?php echo $base_url . '/track/' . $result->unique_id; ?>
                     </div>
@@ -358,9 +357,9 @@ Your Test is in Process.</h2>
                         //Google Chart QR code API
                         //$src = 'https://chart.googleapis.com/chart?chs=125x125&cht=qr&chl='.$base_url.'/track/'.$result->unique_id;
                         ?>
-                        <!-- <img src="<?php echo $src; ?>" alt="" title="" class="qr-img" /> -->
+                        <img src="<?php echo $src; ?>" alt="" title="" class="qr-img" />
                     </div>
-                    <script type="text/javascript">
+                    <!-- <script type="text/javascript">
                     var unqId = '<?php echo $result->unique_id;?>'
                     var qrcode = new QRCode(document.getElementById("qrCode"+unqId), {
                         text: "<?php echo $qrUrl2;?>",
@@ -370,7 +369,7 @@ Your Test is in Process.</h2>
                         colorLight : "#ffffff",
                         correctLevel : QRCode.CorrectLevel.H
                     });
-                    </script>
+                    </script> -->
                     <div class="qr-url">
                         <?php echo $base_url . '/track/' . $result->unique_id; ?>
                     </div>
@@ -460,8 +459,8 @@ Your Test is in Process.</h2>
                     //Google Chart QR code API
                     // $url = 'https://chart.googleapis.com/chart?chs=125x125&cht=qr&chl='.$qrr.'&choe=UTF-8';
                     ?>
-                    <!-- <img class="qr-img" src="<?php echo $url; ?>" /> -->
-                    <script type="text/javascript">
+                    <img class="qr-img" src="<?php echo $url; ?>" />
+                    <!-- <script type="text/javascript">
                     var unqId = '<?php echo $result->unique_id;?>'
                     var qrcode = new QRCode(document.getElementById("qrCodeQr"+unqId), {
                         text: "<?php echo $url;?>",
@@ -471,7 +470,7 @@ Your Test is in Process.</h2>
                         colorLight : "#ffffff",
                         correctLevel : QRCode.CorrectLevel.H
                     });
-                    </script>
+                    </script> -->
                 </div>
             </div>
         </div>
@@ -630,14 +629,14 @@ Your Test is in Process.</h2>
 
                                 <!-- Adjusting Airport Locally -->
 
-                                <div class="row airportList-check" id="airportList" style="display: none; width: 100%; margin-left: 0px;">
+                                <!-- <div class="row airportList-check" id="airportList" style="display: none; width: 100%; margin-left: 0px;">
                                     <div class="col-sm-2">Sample Collected:</div>
                                     <div class="col-sm-10">
                                         <b class="peshAirport-check" id="peshAirport" style="display: none;">Bacha Khan International Airport, Peshawar, Pakistan </b>
                                         <b class="isbAirport-check" id="isbAirport" style="display: none;">Islamabad International Airport, Pakistan</b>
                                         <b class="lhrAirport-check" id="lhrAirport" style="display: none;">Allama Iqbal International Airport, Lahore, Pakistan.</b>
                                     </div>
-                                </div>
+                                </div> -->
 
                                 <!-- Test Result -->
                                 <?php

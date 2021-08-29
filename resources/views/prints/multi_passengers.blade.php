@@ -122,9 +122,9 @@
                         //Google Chart QR code API
                         //$src = 'https://chart.googleapis.com/chart?chs=125x125&cht=qr&chl='.$base_url.'/track/'.$result->unique_id;
                         ?>
-                        <!-- <img src="<?php echo $src; ?>" alt="" title="" class="qr-img" /> -->
+                        <img src="<?php echo $src; ?>" alt="" title="" class="qr-img" />
                     </div>
-                    <script type="text/javascript">
+                    <!-- <script type="text/javascript">
                     var unqId = '<?php echo $result->unique_id;?>'
                     var qrcode = new QRCode(document.getElementById("qrCode"+unqId), {
                         text: "<?php echo $qrUrl2;?>",
@@ -134,7 +134,7 @@
                         colorLight : "#ffffff",
                         correctLevel : QRCode.CorrectLevel.H
                     });
-                    </script>
+                    </script> -->
                             <div class="qr-url">
                                 <?php echo $base_url . '/track/' . $result->unique_id; ?>
                             </div>
@@ -170,9 +170,9 @@
                         //Google Chart QR code API
                         //$src = 'https://chart.googleapis.com/chart?chs=125x125&cht=qr&chl='.$base_url.'/track/'.$result->unique_id;
                         ?>
-                        <!-- <img src="<?php echo $src; ?>" alt="" title="" class="qr-img" /> -->
+                        <img src="<?php echo $src; ?>" alt="" title="" class="qr-img" />
                     </div>
-                    <script type="text/javascript">
+                    <!-- <script type="text/javascript">
                     var unqId = '<?php echo $result->unique_id;?>'
                     var qrcode = new QRCode(document.getElementById("qrCode"+unqId), {
                         text: "<?php echo $qrUrl2;?>",
@@ -182,7 +182,7 @@
                         colorLight : "#ffffff",
                         correctLevel : QRCode.CorrectLevel.H
                     });
-                    </script>
+                    </script> -->
                             <div class="qr-url">
                                 <?php echo $base_url . '/track/' . $result->unique_id; ?>
                             </div>
@@ -272,8 +272,8 @@
                     //Google Chart QR code API
                     // $url = 'https://chart.googleapis.com/chart?chs=125x125&cht=qr&chl='.$qrr.'&choe=UTF-8';
                     ?>
-                    <!-- <img class="qr-img" src="<?php echo $url; ?>" /> -->
-                    <script type="text/javascript">
+                    <img class="qr-img" src="<?php echo $url; ?>" />
+                    <!-- <script type="text/javascript">
                     var unqId = '<?php echo $result->unique_id;?>'
                     var qrcode = new QRCode(document.getElementById("qrCodeQr"+unqId), {
                         text: "<?php echo $url;?>",
@@ -283,7 +283,7 @@
                         colorLight : "#ffffff",
                         correctLevel : QRCode.CorrectLevel.H
                     });
-                    </script>
+                    </script> -->
                 </div>
                     </div>
                 </div>
