@@ -196,6 +196,7 @@ $('#datatable').DataTable({
             "local_overseas": $('#local_overseas').val(),
             "airline": $('#airline').val(),
             "country_id": $('#country_id').val(),
+            "test_result": $('#test_result').val(),
           });
       } 
   },
@@ -257,6 +258,9 @@ $(document).on('change', '#airline', function (e) {
   $('#datatable').DataTable().ajax.reload();  
 });
 $(document).on('change', '#country_id', function (e) {
+  $('#datatable').DataTable().ajax.reload();  
+});
+$(document).on('change', '#test_result', function (e) {
   $('#datatable').DataTable().ajax.reload();  
 });
 

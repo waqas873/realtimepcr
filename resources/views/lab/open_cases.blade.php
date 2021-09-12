@@ -23,6 +23,15 @@
 </script>
 @endif
 
+<style type="text/css">
+.submit_reports{
+  display: none;
+}
+#open_cases_tbody tr td:last-child {
+    width: 115px !important;
+}
+</style>
+
 <div class="container-fluid">
 
   <div class="row" style="margin-top: 95px;">
@@ -209,6 +218,7 @@
                 <th scope="col">Action</th>
               </tr>
             </thead>
+            <tbody id="open_cases_tbody"></tbody>
           </table>
         </div>
       </div>
@@ -585,7 +595,7 @@
 </div>
 
 <!-- Kit View Modal -->
-<div class="modal fade" id="kitView" tabindex="-1" role="dialog" aria-labelledby="kitView" aria-hidden="true">
+<div class="modal fade" id="kitViewModal" tabindex="-1" role="dialog" aria-labelledby="kitViewModal" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -596,31 +606,28 @@
       </div>
       <div class="modal-body">
         <table class="table">
-          <tr>
-            <th>Lot #</th>
-            <th>Kit Name</th>
-            <th>Supplier</th>
-            <th>Available Kits</th>
-            <th style="color: red;">Expiry Date</th>
-          </tr>
-          <tr>
-            <td> --- </td>
-            <td> --- </td>
-            <td> --- </td>
-            <td> --- </td>
-            <td style="color: red;"> --- </td>
-          </tr>
-
-
+          <thead>
+            <tr>
+              <th>Lot #</th>
+              <th>Kit Name</th>
+              <th>Available Kits</th>
+              <th>Expiry Date</th>
+              <th>Assign</th>
+            </tr>
+          </thead>
+          <tbody id="kitsBody"></tbody>
         </table>
+        <a href="" class="btn btn-primary submit_reports" id="srSr">Submit Report</a>
+        <a href="javascript::" class="btn btn-primary" id="srSr_multi">Submit Multiple Reports</a>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
 </div>
+
+<input type="hidden" id="sr_type" value="1">
 
 <script src="{{asset('assets/developer/lab_user.js')}}"></script>
 

@@ -450,6 +450,7 @@ class PatientController extends Controller
         $local_overseas = $post['local_overseas'];
         $airline = $post['airline'];
         $country_id = $post['country_id'];
+        $test_result = $post['test_result'];
         
         //$status = $post['status_filter'];
 
@@ -546,6 +547,28 @@ class PatientController extends Controller
                 $result = $result->where('name', 'like', '%' .$search. '%');
             }
         }
+
+        // if(!empty($test_result) && $test_result != 'Awaiting Results'){
+        //     $result = $result->whereHas('patient_tests', function($q) use($test_result){
+        //         $q->where('id','>',0)->whereHas('patient_test_results', function($q) use($test_result){
+        //             $q->where('dropdown_value',$test_result);
+        //         });
+        //     });
+        // }
+
+        if(!empty($test_result) && $test_result != 'Awaiting Results'){
+            $result = $result->whereHas('patient_tests.patient_test_results', function($q) use($test_result){
+                    $q->where('dropdown_value', $test_result);
+                }
+            );
+        }
+
+        if(!empty($test_result) && $test_result == 'Awaiting Results'){
+            $result = $result->whereHas('patient_tests', function($q) use($test_result){
+                    $q->where('status', 0);
+                }
+            );
+        }
         
         if(!empty($from_date) && !empty($to_date)){
             $result = $result->whereBetween('created_at', [$from_date.' 00-00-01', $to_date.' 23-59-59']);
@@ -557,6 +580,22 @@ class PatientController extends Controller
 
         if(isset($result_data)){
             foreach($result_data as $item){
+                
+                // $tr = false;
+                // if(!empty($test_result) && $test_result=="Awaiting Results"){
+                //     if(empty($item->patient_tests)){
+                //         continue;
+                //     }
+                //     foreach($item->patient_tests as $pt){
+                //         if($pt->status != 0){
+                //             $tr = true;
+                //         }
+                //     }
+                // }
+                // if($tr == true){
+                //     continue;
+                // }
+
                 $single_field['id'] = '#'.$item->id;
                 $single_field['name'] = (!empty($item->name))?$item->name:'unavailable';
                 $single_field['reffered_by'] = (!empty($item->user->name))?$item->user->name:'---';

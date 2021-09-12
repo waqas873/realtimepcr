@@ -1,11 +1,104 @@
 $(document).ready(function(){
 
+var total_test;
+var available_kits;
+var modal_type;
+
+$('#srSr').hide();
+$('#srSr_multi').hide();
+
+$(document).on('click', '.assign_kit', function (e) {
+  e.preventDefault();
+  $.LoadingOverlay("show");
+  $('#kitsBody').empty();
+  $('#srSr').hide();
+  $('#srSr_multi').hide();
+  $('#sr_type').val(1);
+  var test_id = $(this).attr('rel');
+  var id = $(this).attr('id');
+  var rut = $(this).attr('rut');
+  total_test = 1;
+  $.ajax({
+      url: '/lab/get-kits/'+test_id,
+      type: 'GET',
+      dataType: 'JSON',
+      success: function (data) {
+        if(data.response){
+          //$(this).hide();
+          //$('#submit_report_'+id).fadeIn();
+          $('#srSr').attr('href', id);
+          $('#srSr').attr('rel', rut);
+          //$('#srSr').fadeIn();
+          $('#kitsBody').html(data.kits);
+          $('#kitViewModal').modal('show');
+        }
+        else{
+          swal({
+            title: "Warning",
+            text: "Kits are not available",
+            icon: "warning",
+            button: "Ok",
+          });
+        }
+      },
+      complete: function () {
+        $.LoadingOverlay("hide");
+      }
+  });
+  return false;
+});
+
+$(document).on('click', '.ph_id', function (e) {
+  var ph_id = $(this).val();
+  var obj = $(this);
+  $('#srSr').hide();
+  $('#srSr_multi').hide();
+  if($(this).is(':checked')){
+    $.LoadingOverlay("show");
+    $('.all_checkboxes').prop('checked', false);
+    var sr_type = $('#sr_type').val();
+    $.ajax({
+        url: '/lab/set-ph-id/'+ph_id,
+        type: 'GET',
+        dataType: 'JSON',
+        success: function (data) {
+          if(data.response){
+            available_kits = data.available_kits;
+            // alert('total test '+total_test);
+            // alert('available kits '+available_kits);
+            if(available_kits >= total_test){
+              obj.prop('checked', true);
+              if(sr_type==1){
+                $('#srSr').fadeIn();
+              }
+              else{
+                $('#srSr_multi').fadeIn();
+              }
+            }
+            else{
+              swal({
+                title: "Warning",
+                text: "The tests you have selected are greater than the available kits.Please decrease the number of tests or select other kits.",
+                icon: "warning",
+                button: "Ok",
+              });
+            }
+          }
+        },
+        complete: function () {
+          $.LoadingOverlay("hide");
+        }
+    });
+  }
+});
+
 $(document).on('click', '.submit_reports', function (e) {
   e.preventDefault();
   var type = $(this).attr('rel');
   $('.allForms').trigger("reset");
   $('.all_errors').empty();
   if(type!=''){
+    $('#kitViewModal').modal('hide');
     var patient_test_id = $(this).attr('href');
     $('.patient_test_ids').val('');
     $('.patient_test_id').val(patient_test_id);
@@ -17,11 +110,23 @@ $(document).on('click', '.submit_reports', function (e) {
 $(document).on('click', '.multiple_reports', function (e) {
   e.preventDefault();
   $('.allForms').trigger("reset");
+  $('#srSr').hide();
+  $('#srSr_multi').hide();
   var type = $('#test_type').val();
+  var test_id = $('#test_id').val();
   if(type==''){
     swal({
       title: "Warning",
       text: "Please select a test type!",
+      icon: "warning",
+      button: "Ok",
+    });
+    return false;
+  }
+  if(test_id==''){
+    swal({
+      title: "Warning",
+      text: "Please select a test from filter by test dropdown",
       icon: "warning",
       button: "Ok",
     });
@@ -33,15 +138,55 @@ $(document).on('click', '.multiple_reports', function (e) {
   if(patient_test_ids==''){
     swal({
       title: "Warning",
-      text: "Please select a test to process!",
+      text: "Please select a patient test to process!",
       icon: "warning",
       button: "Ok",
     });
     return false;
   }
+  $('#sr_type').val(2);
   $('.patient_test_ids').val(patient_test_ids);
-  $('#addModal'+type).modal("show");
+  
+  $.LoadingOverlay("show");
+  $.ajax({
+      url: '/lab/get-kits/'+test_id,
+      type: 'GET',
+      dataType: 'JSON',
+      success: function (data) {
+        if(data.response){
+          //$('#srSr_multi').fadeIn();
+          $('#kitsBody').html(data.kits);
+          $('#kitViewModal').modal('show');
+        }
+        else{
+          swal({
+            title: "Warning",
+            text: "Kits are not available",
+            icon: "warning",
+            button: "Ok",
+          });
+        }
+      },
+      complete: function () {
+        $.LoadingOverlay("hide");
+      }
+  });
+  
+  var tests = 0;
+  patient_test_ids.forEach(function(item){
+    tests++;
+  });
+  total_test = tests;
+  modal_type = type;
+  //$('#addModal'+type).modal("show");
   console.log(patient_test_ids);
+  return false;
+});
+
+$(document).on('click', '#srSr_multi', function (e) {
+  e.preventDefault();
+  $('#kitViewModal').modal('hide');
+  $('#addModal'+modal_type).modal("show");
   return false;
 });
 

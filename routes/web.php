@@ -266,6 +266,8 @@ Route::group(['middleware' => ['web','lab_user']], function()
         Route::get('/not_detected/{id?}', 'LabUserController@not_detected');
         Route::get('/revoke/{id?}', 'LabUserController@revoke');
         Route::get('/manual/{id?}', 'LabUserController@manual');
+        Route::get('/get-kits/{id?}', 'LabUserController@get_kits');
+        Route::get('/set-ph-id/{id?}', 'LabUserController@set_ph_id');
         Route::post('/process-manual', 'LabUserController@manualProcess');
         Route::post('/get_reports', 'LabUserController@get_reports');
         Route::post('/add-patient-test-result', 'LabUserController@addTestResult');

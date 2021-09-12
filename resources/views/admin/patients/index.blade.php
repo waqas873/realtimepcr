@@ -272,6 +272,21 @@
                     </div>
                   </div>
                 </div>
+                <div class="col-sm-4">
+                  <div class="form-group row">
+                    <label for="test_result" class="col-sm-4 col-form-label pformlabel no_padd">Filter By Test Results</label>
+                    <div class="col-sm-8">
+                      <select class="form-control inputs_with_bottom_border " id="test_result" name="test_result">
+                        <option value="">Select Here</option>
+                        <option value="Positive">Positive</option>
+                        <option value="Negative">Negative</option>
+                        <option value="Detected">Detected</option>
+                        <option value="Not Detected">Not Detected</option>
+                        <option value="Awaiting Results">Awaiting Results</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             <!-- end col -->

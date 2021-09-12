@@ -19,6 +19,8 @@ use App\Patient_medicine_result;
 use App\Test;
 use App\User;
 use App\Airline;
+use App\Product_history;
+use Session;
 
 class LabUserController extends Controller
 {
@@ -166,7 +168,8 @@ class LabUserController extends Controller
                 $single_field['kits'] = '<a href="" class="" data-toggle="modal" data-target="#kitView"> <span class="btn btn-light" style=""> 0 </span> Select Kit</a>';
                 $rut = !(empty($item->test->reporting_units->type))?$item->test->reporting_units->type:'';
                 $id = createBase64($item->id);
-                $action = '<a href="'.$item->id.'" rel="'.$rut.'" class="btn btn-success waves-effect waves-light submit_reports">Submit Report</a>';
+                $action = '<div><a href="javascript::" rel="'.$item->test_id.'" class="btn btn-info btn-sm waves-effect waves-light assign_kit" id="'.$item->id.'" rut="'.$rut.'">Assign Kit</a></div>';
+                $action .= ' <div><a href="'.$item->id.'" rel="'.$rut.'" class="btn btn-success btn-sm  waves-effect waves-light submit_reports" id="submit_report_'.$item->id.'">Submit Report</a></div>';
                 $action .= '<div class="btn-group">
                     <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
                     <div class="dropdown-menu dropdown-menu-right" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(-126px, 35px, 0px);">
@@ -239,6 +242,16 @@ class LabUserController extends Controller
             if(empty($patient_test_ids)){
                 $result = Patient_test::where('status' , '0')->find($patient_test_id);
                 if(!empty($result)){
+
+                    if(Session::has('ph_id')){
+                        $ph_id = Session::get('ph_id');
+                        $ph = new Product_history;
+                        $ph = $ph->find($ph_id);
+                        $ph->remaining_quantity = $ph->remaining_quantity - 1;
+                        $ph->save();
+                        Session::forget('ph_id');
+                    }
+
                     $update = ['status'=>3,'updated_at'=>$this->date_time,'processed_by'=>$user->id];
                     if($result->type==2){
                         if(!empty($formData['dropdown_value']) && $formData['dropdown_value']=="Detected")
@@ -293,6 +306,17 @@ class LabUserController extends Controller
             }
             else{
                 $patient_test_ids = explode(',', $patient_test_ids);
+                
+                $minus = count($patient_test_ids);
+                if(Session::has('ph_id')){
+                    $ph_id = Session::get('ph_id');
+                    $ph = new Product_history;
+                    $ph = $ph->find($ph_id);
+                    $ph->remaining_quantity = $ph->remaining_quantity - $minus;
+                    $ph->save();
+                    Session::forget('ph_id');
+                }
+
                 foreach($patient_test_ids as $patient_test_id){
                     if($patient_test_id=='on'){
                         continue;
@@ -347,6 +371,50 @@ class LabUserController extends Controller
         // })->orderBy('id' , 'DESC')->get();
 
     	return view('lab.reports',$data);
+    }
+
+    public function get_kits($test_id = 0)
+    {
+        $data = [];
+        $data['response'] = false;
+        $user = Auth::user();
+        $result = new Product_history;
+        $result = $result->where('lab_id' , $user->lab_id)->where('remaining_quantity','>' , 0)->where('test_id',$test_id)->get();
+        if(!empty($result[0]->id)){
+            $allData = '';
+            foreach($result as $histroy){
+                $row = '<tr>';
+                $row .= '<td>'.$histroy->lot_number.'</td>';
+                $row .= '<td>'.$histroy->name.'</td>';
+                $row .= '<td>'.$histroy->remaining_quantity.'</td>';
+                $row .= '<td>'.$histroy->expiry_date.'</td>';
+                $row .= '<td><input type="checkbox" class="ph_id all_checkboxes" value="'.$histroy->id.'"></td>';
+                $row .= '</tr>';
+                $allData .= $row;
+            }
+            $data['kits'] = $allData;
+            $data['response'] = true;
+        }
+        echo json_encode($data);
+    }
+
+    public function set_ph_id($ph_id = 0)
+    {
+        $data = [];
+        $data['response'] = false;
+        if(Session::has('ph_id')){
+            Session::forget('ph_id');
+        }
+        if(!empty($ph_id)){
+            $result = new Product_history;
+            $result = $result->find($ph_id);
+            if(!empty($result)){
+                Session::put('ph_id', $ph_id);
+                $data['available_kits'] = $result->remaining_quantity;
+                $data['response'] = true;
+            }
+        }
+        echo json_encode($data);
     }
 
     public function get_reports(Request $request)
