@@ -310,7 +310,7 @@
         <div class="form-group col-sm-3">
           <label for="passport_no" class="col-form-label pformlabel">Passport#</label>
           <div class="">
-            <input type="text" name="passport_no" class="form-control <!--inputs_with_bottom_border-->" id="passport_no">
+            <input type="text" name="passport_no" class="form-control" style="text-transform:uppercase" id="passport_no">
             <div class="all_errors psngr_err" id="passport_no_error"></div>
           </div>
         </div>
@@ -375,9 +375,9 @@
 
 
         <div class="form-group col-sm-3">
-          <label for="flight_no" class="col-form-label pformlabel">Flight No</label>
+          <label for="flight_no" class="col-form-label pformlabel" >Flight No</label>
           <div class="">
-            <input type="text" name="flight_no" class="form-control <!--inputs_with_bottom_border-->" id="flight_no">
+            <input type="text" name="flight_no" class="form-control" style="text-transform:uppercase" id="flight_no">
             <div class="all_errors psngr_err" id="flight_no_error"></div>
           </div>
         </div>

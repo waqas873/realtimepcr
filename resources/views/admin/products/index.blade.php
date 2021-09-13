@@ -210,7 +210,7 @@
               </div>
             </div>
 
-            <label for="price" class="col-sm-2 col-form-label pformlabel">Prize: (PKR)</label>
+            <label for="price" class="col-sm-2 col-form-label pformlabel">Pack Prize: (PKR)</label>
             <div class="col-sm-4">
               <input type="number" class="form-control iwbb total_price" id="price" name="price" placeholder="Enter price">
               <div class="all_errors price_error">
@@ -222,13 +222,13 @@
           <div class="form-group row">
             <label for="name" class="col-sm-2 col-form-label pformlabel"></label>
             <div class="col-sm-10">
-              <button type="submit" class="btn btn-secondary btn-block btn-lg">Save Data</button>
+              <button type="submit" class="btn btn-success btn-block btn-lg">Save Data</button>
             </div>
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="submit" class="btn btn-primary" data-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-light" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
