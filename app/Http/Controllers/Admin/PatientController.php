@@ -51,6 +51,20 @@ class PatientController extends Controller
         return view('admin.patients.index',$data);
     }
 
+    public function patient_tests()
+    {
+        $data = [];
+        $data['labs'] = Lab::where('status' , 1)->orderBy('id' , 'DESC')->get();
+        $data['collection_points'] = Collection_point::where('status' , 1)->orderBy('id' , 'DESC')->get();
+        $data['tests'] = Test::where('id','>',0)->orderBy('id' , 'DESC')->get();
+        $data['doctors'] = User::where('role',2)->orderBy('id' , 'DESC')->get();
+        $data['users'] = User::where('role',0)->orWhere('role',5)->orderBy('id' , 'DESC')->get();
+        $data['lab_users'] = User::where('role',4)->orderBy('id' , 'DESC')->get();
+        $data['airlines'] = Airline::all();
+        $data['countries'] = Country::all();
+        return view('admin.patients.patient_tests',$data);
+    }
+
     public function update($patient_id = 0)
     {
         $permissions = permissions();
@@ -556,12 +570,12 @@ class PatientController extends Controller
         //     });
         // }
 
-        if(!empty($test_result) && $test_result != 'Awaiting Results'){
-            $result = $result->whereHas('patient_tests.patient_test_results', function($q) use($test_result){
-                    $q->where('dropdown_value', $test_result);
-                }
-            );
-        }
+        // if(!empty($test_result) && $test_result != 'Awaiting Results'){
+        //     $result = $result->whereHas('patient_tests.patient_test_results', function($q) use($test_result){
+        //             $q->where('dropdown_value', $test_result);
+        //         }
+        //     );
+        // }
 
         if(!empty($test_result) && $test_result == 'Awaiting Results'){
             $result = $result->whereHas('patient_tests', function($q) use($test_result){
@@ -581,19 +595,17 @@ class PatientController extends Controller
         if(isset($result_data)){
             foreach($result_data as $item){
                 
-                // $tr = false;
-                // if(!empty($test_result) && $test_result=="Awaiting Results"){
-                //     if(empty($item->patient_tests)){
+                // if(!empty($test_result) && $test_result!="Awaiting Results"){
+                //     if(empty($item->patient_tests[0]->patient_test_results->type)){
                 //         continue;
                 //     }
-                //     foreach($item->patient_tests as $pt){
-                //         if($pt->status != 0){
-                //             $tr = true;
-                //         }
+                //     $ptr = $item->patient_tests[0]->patient_test_results;
+                //     if($ptr->type > 2){
+                //         continue;
                 //     }
-                // }
-                // if($tr == true){
-                //     continue;
+                //     if($ptr->dropdown_value != $test_result){
+                //         continue;
+                //     }
                 // }
 
                 $single_field['id'] = '#'.$item->id;
@@ -628,6 +640,195 @@ class PatientController extends Controller
                     <a href="'.url('admin/patient-delete/'.$item->id).'" class="delete_patient"><i class="fa fa-trash"></i></a> | 
                     <a href="javascript::" class="">View</a>';
                 
+                $result_array[] = $single_field;
+            }
+            $data['draw'] = $draw;
+            $data['recordsTotal'] = $result_count;
+            $data['recordsFiltered'] = $result_count_rows;
+            $data['data'] = $result_array;
+        } else {
+            $data['draw'] = $draw;
+            $data['recordsTotal'] = 0;
+            $data['recordsFiltered'] = 0;
+            $data['data'] = '';
+        }
+        echo json_encode($data);
+    }
+
+    public function get_patient_tests(Request $request)
+    {
+        $like = array();
+        $result_array = [];
+        $post = $request->all();
+
+        $orderByColumnIndex = $post['order'][0]['column'];
+        $orderByColumn = $post['columns'][$orderByColumnIndex]['data'];
+        $orderType = $post['order'][0]['dir'];
+        $offset = $post['start'];
+        $limit = $post['length'];
+        $draw = $post['draw'];
+        $search = $post['search']['value'];
+
+        $from_date = $post['from_date'];
+        $to_date = $post['to_date'];
+        $lab_id = $post['lab_id'];
+        $test_id = $post['test_id'];
+        $doctor_id = $post['doctor_id'];
+        $user_id = $post['user_id'];
+        $payment_filter = $post['payment_filter'];
+        $lab_user = $post['lab_user'];
+        $collection_point_id = $post['collection_point_id'];
+        $local_overseas = $post['local_overseas'];
+        $airline = $post['airline'];
+        $country_id = $post['country_id'];
+        $test_result = $post['test_result'];
+        
+        //$status = $post['status_filter'];
+
+        $auth = Auth::user();
+
+        $result_count = Patient_test::where('id' ,'>' , 0)->count();
+
+        $result = new Patient_test;
+
+        if(!empty($lab_id) && $lab_id!="all"){
+            $users = User::where('lab_id' , $lab_id)->get();
+            $staff = [0];
+            if(!empty($users[0])){
+                foreach($users as $key => $value){
+                    array_push($staff, $value->id);
+                }
+            }
+            $result = $result->whereIn('user_id' , $staff);
+        }
+
+        if(!empty($collection_point_id) && $collection_point_id!="all"){
+            $users = User::where('collection_point_id' , $collection_point_id)->get();
+            $staff = [0];
+            if(!empty($users[0])){
+                foreach($users as $key => $value){
+                    array_push($staff, $value->id);
+                }
+            }
+            $result = $result->whereIn('user_id' , $staff);
+        }
+
+        if(!empty($lab_user) && $lab_user!="all"){
+            $result = $result->where('processed_by',$lab_user);
+        }
+
+        if(!empty($local_overseas) && $local_overseas!="all"){
+            $result = $result->where('type',$local_overseas);
+        }
+
+        if(!empty($test_id) && $test_id!="all"){
+            $result = $result->where('test_id',$test_id);
+        } 
+
+        if(!empty($doctor_id) && $doctor_id!="all"){
+            $result = $result->whereHas('patient', function($q) use($doctor_id){
+                    $q->where('reffered_by', $doctor_id);
+                }
+            );
+        } 
+        
+        if(!empty($user_id) && $user_id!="all"){
+            $result = $result->where('user_id', $user_id);
+        } 
+
+        if(!empty($payment_filter) && $payment_filter!="all"){
+            $result = $result->whereHas('invoice', function($q) use($payment_filter){
+                    if($payment_filter==1){
+                        $q->where('amount_remaining',0);
+                    }
+                    else{
+                        $q->where('amount_remaining','>',0);
+                    }
+                }
+            );
+        } 
+
+        if(!empty($airline) && $airline!='all'){
+            $result = $result->whereHas('passenger', function($q) use($airline){
+                $q->where([
+                    ['airline' , $airline]
+                ]);
+            });
+        }
+
+        if(!empty($country_id) && $country_id!='all'){
+            $result = $result->whereHas('passenger', function($q) use($country_id){
+                $q->where([
+                    ['country_id' , $country_id]
+                ]);
+            });
+        }
+
+        if(!empty($search)){
+            if(ctype_digit($search)){
+                $result = $result->whereHas('invoice', function($q) use($search){
+                        $q->where('unique_id', 'like', '%' .$search. '%');
+                    }
+                );
+            }
+            else{
+                $result = $result->where('name', 'like', '%' .$search. '%');
+            }
+        }
+
+        // if(!empty($test_result) && $test_result != 'Awaiting Results'){
+        //     $result = $result->whereHas('patient_tests', function($q) use($test_result){
+        //         $q->where('id','>',0)->whereHas('patient_test_results', function($q) use($test_result){
+        //             $q->where('dropdown_value',$test_result);
+        //         });
+        //     });
+        // }
+
+        if(!empty($test_result) && $test_result != 'Awaiting Results'){
+            $result = $result->whereHas('patient_test_results', function($q) use($test_result){
+                    $q->where('dropdown_value', $test_result);
+                }
+            );
+        }
+        if(!empty($test_result) && $test_result == 'Awaiting Results'){
+            $result = $result->where('status', 0);
+        }
+        
+        if(!empty($from_date) && !empty($to_date)){
+            $result = $result->whereBetween('created_at', [$from_date.' 00-00-01', $to_date.' 23-59-59']);
+        }
+        $result_count_rows = count($result->get());
+
+        $result_data = $result->orderBy('id' , 'DESC')->skip($offset)->take($limit)->get();
+        //dd($result_data);
+
+        if(isset($result_data)){
+            foreach($result_data as $item){
+
+                $single_field['id'] = '#'.$item->id;
+                $single_field['name'] = (!empty($item->patient->name))?$item->patient->name:'unavailable';
+                $single_field['reffered_by'] = (!empty($item->patient->user->name))?$item->patient->user->name:'---';
+                $single_field['tests'] = '---';
+                if(!empty($item->test->name)){
+                    $tooltip = '';
+                    // foreach($item->patient_tests as $key2 => $test){
+                    //     $i = $key2+1;
+                    //     $tooltip .= $test->test->name;
+                    //     ($i<$cc)?$tooltip .= ' , ':'';
+                    // }
+                    $single_field['tests'] = '<a href="javascript::" data-toggle="tooltip" title="'.$tooltip.'">'.$item->test->name.'</a>';
+                }
+                $single_field['invoice_id'] = (!empty($item->invoice->unique_id))?'#'.$item->invoice->unique_id:'---';
+
+                $amount_paid = 0;
+                $amount_remaining = 0;
+                if(!empty($item->invoice)){
+                   $amount_paid = $amount_paid+$item->invoice->amount_paid;
+                   $amount_remaining = $amount_remaining+$item->invoice->amount_remaining;
+                }
+                $single_field['amount_paid'] = "Rs ".$amount_paid;
+                $single_field['amount_remaining'] = "Rs ".$amount_remaining;
+                $single_field['added_by'] = (!empty($item->users->name))?$item->users->name:'-- --';
                 $result_array[] = $single_field;
             }
             $data['draw'] = $draw;

@@ -249,6 +249,7 @@
                   <span> Patients List </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                 <ul class="list-unstyled">
                   <li><a href="{{url('admin/patients')}}">Registered patients</a></li>
+                  <li><a href="{{url('admin/patient-tests')}}">Patient Tests</a></li>
                   <?php
                   if ($permissions['role'] == 1 || (!empty($permissions['deleted_patients_read']))) { ?>
                     <li><a href="{{url('admin/deleted-patients')}}">Deleted Patients</a></li>

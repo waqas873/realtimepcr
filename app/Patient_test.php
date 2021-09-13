@@ -11,6 +11,11 @@ class Patient_test extends Model
         return $this->belongsTo('App\Test');
     }
 
+    public function users()
+    {
+        return $this->belongsTo('App\User' , 'user_id' , 'id');
+    }
+
     public function patient()
     {
         return $this->belongsTo('App\Patient');

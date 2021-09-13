@@ -50,6 +50,7 @@ Route::group(['middleware' => ['web','admin']], function()
         Route::post('/add-reporting-unit', 'Admin\ReportingUnitController@process_add');
 
         Route::get('/patients', 'Admin\PatientController@index');
+        Route::get('/patient-tests', 'Admin\PatientController@patient_tests');
         Route::get('/patient-detail/{patient_id?}', 'Admin\PatientController@detail');
         Route::get('/patient-update/{id?}', 'Admin\PatientController@update');
         Route::get('/patient-delete/{id?}', 'Admin\PatientController@delete');
@@ -168,6 +169,7 @@ Route::group(['middleware' => ['web','admin']], function()
         Route::get('/cancel-api-request/{id?}', 'Admin\ApiController@cancel_request');
 
         Route::post('/get-patients', 'Admin\PatientController@get_patients');
+        Route::post('/get-patient-tests', 'Admin\PatientController@get_patient_tests');
         Route::post('/get-deleted-patients', 'Admin\PatientController@get_deleted_patients');
         Route::get('/reporting_time/{id?}', 'Admin\PatientController@reporting_time');
 
