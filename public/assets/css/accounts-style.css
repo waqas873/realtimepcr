@@ -1,0 +1,37 @@
+.table > tbody > tr > td{
+    text-align: center;
+    padding: 5px;
+    border-right: solid 1px #c3c3c3;
+}
+
+th{
+    text-align: center;
+    vertical-align: middle;
+    border: solid 1px #c3c3c3;
+}
+
+.grandTotal {
+    text-align: right;
+}
+
+th.category-header {
+    border: none;
+    border-bottom: solid 1px #c3c3c3;
+    text-align: left;
+    padding: 10px 0px 5px 0px;
+}
+
+/* Print Setting */
+
+@media print {
+
+    .side-menu,
+    .topbar,
+    .noprint {
+        display: none;
+    }
+
+    .container-fluid {
+        display block;
+    }
+}

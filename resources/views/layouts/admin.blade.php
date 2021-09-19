@@ -29,6 +29,8 @@
   <link href="{{asset('assets/select2/css/select2-bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
 
   <link href="{{asset('assets/css/bootstrap-toggle.min.css')}}" rel="stylesheet" type="text/css">
+  <!-- Toggl Button CSS -->
+  <link href="{{asset('assets/css/toggle-style.css')}}" rel="stylesheet" type="text/css">
 
   <link href="{{asset('assets/plugins/datatables/dataTables.bootstrap4.min.css')}}" rel="stylesheet" type="text/css" />
   <link href="{{asset('assets/plugins/datatables/buttons.bootstrap4.min.css')}}" rel="stylesheet" type="text/css" />
