@@ -248,8 +248,8 @@
                 <a href="javascript:void(0);" class="waves-effect"><img src="{{asset('assets/icons/sidebar-icons/icon8.svg')}}" class="sidebar_icons">
                   <span> Patients List </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                 <ul class="list-unstyled">
-                  {{--<li><a href="{{url('admin/patients')}}">Registered patients</a></li>--}}
-                  <li><a href="{{url('admin/patient-tests')}}">Registered patients</a></li>
+                  <li><a href="{{url('admin/patients')}}">Registered patients</a></li>
+                  {{--<li><a href="{{url('admin/patient-tests')}}">Registered patients</a></li>--}}
                   <?php
                   if ($permissions['role'] == 1 || (!empty($permissions['deleted_patients_read']))) { ?>
                     <li><a href="{{url('admin/deleted-patients')}}">Deleted Patients</a></li>

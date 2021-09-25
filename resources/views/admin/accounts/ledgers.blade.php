@@ -201,7 +201,7 @@
                 <select name="doctor_id" id="doctor_id" class="form-control form-control-lg ">
                   @if(!empty($doctors))
                   @foreach($doctors as $key=>$value)
-                  <option value="{{$value->id}}" <?php echo (!empty($doctor_id) && $doctor_id==$value->id)?"selected":''; ?>>{{$value->user->name}}</option>
+                  <option value="{{$value->id}}" <?php echo (!empty($doctor_id) && $doctor_id==$value->id)?"selected":''; ?>><?php echo (!empty($value->user->name))?$value->user->name:'---' ?></option>
                   @endforeach
                   @endif
                 </select>

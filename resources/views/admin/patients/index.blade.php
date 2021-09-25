@@ -150,8 +150,14 @@
         <div class="form-group row">
           <label for="test_result" class="col-sm-4 col-form-label pformlabel no_padd">Test Department:</label>
           <div class="col-sm-8">
-            <select class="form-control inputs_with_bottom_border " id="" name="">
+            <select class="form-control inputs_with_bottom_border " id="category_id">
               <option value="">Select Here</option>
+              <option value="all">All</option>
+              <?php
+              foreach ($categories as $key => $value) {
+              ?>
+                <option value="{{$value->id}}">{{$value->name}}</option>
+              <?php } ?>
             </select>
           </div>
         </div>
@@ -225,7 +231,7 @@
         <div class="form-group row">
           <label for="local_overseas" class="col-sm-4 col-form-label pformlabel no_padd">Local / Overseas</label>
           <div class="col-sm-8">
-            <select class="form-control inputs_with_bottom_border " id="local_overseas" name="local_overseas">
+            <select class="form-control inputs_with_bottom_border " id="local_overseas">
               <option value="">Select Here</option>
               <option value="all">All</option>
               <option value="1">Local</option>
@@ -273,7 +279,7 @@
         <div class="form-group row">
           <label for="" class="col-sm-4 col-form-label pformlabel no_padd">Flight No:</label>
           <div class="col-sm-8">
-            <input type="text" class="form-control inputs_with_bottom_border" style="text-transform:uppercase">
+            <input type="text" id="flight_no" class="form-control inputs_with_bottom_border" style="text-transform:uppercase">
           </div>
         </div>
       </div>
@@ -282,7 +288,7 @@
         <div class="form-group row">
           <label for="" class="col-sm-4 col-form-label pformlabel no_padd">Passport No:</label>
           <div class="col-sm-8">
-            <input type="text" class="form-control inputs_with_bottom_border" style="text-transform:uppercase">
+            <input type="text" id="passport_no" class="form-control inputs_with_bottom_border" style="text-transform:uppercase">
           </div>
         </div>
       </div>

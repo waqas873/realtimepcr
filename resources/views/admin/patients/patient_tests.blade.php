@@ -314,6 +314,7 @@
                 <th scope="col">Amount Paid</th>
                 <th scope="col">Balance</th>
                 <th scope="col">Added By</th>
+                <th scope="col">Action</th>
               </tr>
             </thead>
 

@@ -23,11 +23,10 @@ use App\Cash;
 use App\Country;
 use App\Log;
 use App\Lab;
-use App\Category;
 use App\Collection_point;
 use Session;
 
-class PatientController extends Controller
+class PatientController_copy extends Controller
 {
     public $date_time;
 
@@ -44,7 +43,6 @@ class PatientController extends Controller
         $data['labs'] = Lab::where('status' , 1)->orderBy('id' , 'DESC')->get();
         $data['collection_points'] = Collection_point::where('status' , 1)->orderBy('id' , 'DESC')->get();
         $data['tests'] = Test::where('id','>',0)->orderBy('id' , 'DESC')->get();
-        $data['categories'] = Category::where('id','>',0)->orderBy('id' , 'DESC')->get();
         $data['doctors'] = User::where('role',2)->orderBy('id' , 'DESC')->get();
         $data['users'] = User::where('role',0)->orWhere('role',5)->orderBy('id' , 'DESC')->get();
         $data['lab_users'] = User::where('role',4)->orderBy('id' , 'DESC')->get();
@@ -467,17 +465,14 @@ class PatientController extends Controller
         $airline = $post['airline'];
         $country_id = $post['country_id'];
         $test_result = $post['test_result'];
-        $passport_no = $post['passport_no'];
-        $flight_no = $post['flight_no'];
-
         
         //$status = $post['status_filter'];
 
         $auth = Auth::user();
 
-        $result_count = Patient_test::where('id' ,'>' , 0)->count();
+        $result_count = Patient::where('id' ,'>' , 0)->count();
 
-        $result = new Patient_test;
+        $result = new Patient;
 
         if(!empty($lab_id) && $lab_id!="all"){
             $users = User::where('lab_id' , $lab_id)->get();
@@ -502,22 +497,25 @@ class PatientController extends Controller
         }
 
         if(!empty($lab_user) && $lab_user!="all"){
-            $result = $result->where('processed_by',$lab_user);
+            $result = $result->whereHas('patient_tests', function($q) use($lab_user){
+                $q->where([['processed_by',$lab_user]]);
+            });
         }
 
         if(!empty($local_overseas) && $local_overseas!="all"){
-            $result = $result->where('type',$local_overseas);
+            $result = $result->whereHas('patient_tests', function($q) use($local_overseas){
+                $q->where([['type',$local_overseas]]);
+            });
         }
 
         if(!empty($test_id) && $test_id!="all"){
-            $result = $result->where('test_id',$test_id);
+            $result = $result->whereHas('patient_tests', function($q) use($test_id){
+                $q->where([['test_id',$test_id]]);
+            });
         } 
 
         if(!empty($doctor_id) && $doctor_id!="all"){
-            $result = $result->whereHas('patient', function($q) use($doctor_id){
-                    $q->where('reffered_by', $doctor_id);
-                }
-            );
+            $result = $result->where('reffered_by', $doctor_id);
         } 
         
         if(!empty($user_id) && $user_id!="all"){
@@ -559,19 +557,9 @@ class PatientController extends Controller
                     }
                 );
             }
-        }
-
-        if(!empty($passport_no)){
-            $result = $result->whereHas('passenger', function($q) use($passport_no){
-                    $q->where('passport_no', 'like', '%' .$passport_no. '%');
-                }
-            );
-        }
-        if(!empty($flight_no)){
-            $result = $result->whereHas('passenger', function($q) use($flight_no){
-                    $q->where('flight_no', 'like', '%' .$flight_no. '%');
-                }
-            );
+            else{
+                $result = $result->where('name', 'like', '%' .$search. '%');
+            }
         }
 
         // if(!empty($test_result) && $test_result != 'Awaiting Results'){
@@ -582,15 +570,18 @@ class PatientController extends Controller
         //     });
         // }
 
-        if(!empty($test_result) && $test_result != 'Awaiting Results'){
-            $result = $result->whereHas('patient_test_results', function($q) use($test_result){
-                    $q->where('dropdown_value', $test_result);
-                }
-            );
-        }
+        // if(!empty($test_result) && $test_result != 'Awaiting Results'){
+        //     $result = $result->whereHas('patient_tests.patient_test_results', function($q) use($test_result){
+        //             $q->where('dropdown_value', $test_result);
+        //         }
+        //     );
+        // }
 
         if(!empty($test_result) && $test_result == 'Awaiting Results'){
-            $result = $result->where('status', 0);
+            $result = $result->whereHas('patient_tests', function($q) use($test_result){
+                    $q->where('status', 0);
+                }
+            );
         }
         
         if(!empty($from_date) && !empty($to_date)){
@@ -604,28 +595,51 @@ class PatientController extends Controller
         if(isset($result_data)){
             foreach($result_data as $item){
                 
+                // if(!empty($test_result) && $test_result!="Awaiting Results"){
+                //     if(empty($item->patient_tests[0]->patient_test_results->type)){
+                //         continue;
+                //     }
+                //     $ptr = $item->patient_tests[0]->patient_test_results;
+                //     if($ptr->type > 2){
+                //         continue;
+                //     }
+                //     if($ptr->dropdown_value != $test_result){
+                //         continue;
+                //     }
+                // }
+
                 $single_field['id'] = '#'.$item->id;
-                $single_field['name'] = (!empty($item->patient->name))?$item->patient->name:'unavailable';
-                $single_field['reffered_by'] = (!empty($item->patient->user->name))?$item->patient->user->name:'---';
+                $single_field['name'] = (!empty($item->name))?$item->name:'unavailable';
+                $single_field['reffered_by'] = (!empty($item->user->name))?$item->user->name:'---';
                 $single_field['tests'] = '---';
-                if(!empty($item->test->name)){
+                if(!empty($item->patient_tests[0]->test->name)){
                     $tooltip = '';
-                    $single_field['tests'] = '<a href="javascript::" data-toggle="tooltip" title="'.$tooltip.'">'.$item->test->name.'</a>';
+                    $cc = count($item->patient_tests);
+                    foreach($item->patient_tests as $key2 => $test){
+                        $i = $key2+1;
+                        $tooltip .= $test->test->name;
+                        ($i<$cc)?$tooltip .= ' , ':'';
+                    }
+                    $single_field['tests'] = '<a href="javascript::" data-toggle="tooltip" title="'.$tooltip.'">'.$item->patient_tests[0]->test->name.'</a>';
                 }
-                $single_field['invoice_id'] = (!empty($item->invoice->unique_id))?'#'.$item->invoice->unique_id:'---';
+                $single_field['invoice_id'] = (!empty($item->invoice[0]->unique_id))?'#'.$item->invoice[0]->unique_id:'---';
 
                 $amount_paid = 0;
                 $amount_remaining = 0;
                 if(!empty($item->invoice)){
-                   $amount_paid = $amount_paid+$item->invoice->amount_paid;
-                   $amount_remaining = $amount_remaining+$item->invoice->amount_remaining;
+                 foreach($item->invoice as $inv){
+                   $amount_paid = $amount_paid+$inv->amount_paid;
+                   $amount_remaining = $amount_remaining+$inv->amount_remaining;
+                 }
                 }
                 $single_field['amount_paid'] = "Rs ".$amount_paid;
                 $single_field['amount_remaining'] = "Rs ".$amount_remaining;
                 $single_field['added_by'] = (!empty($item->users->name))?$item->users->name:'-- --';
-                $single_field['action'] = '<a href="'.url('admin/patient-update/'.$item->patient_id).'">Edit</a> | 
-                    <a href="'.url('admin/patient-delete/'.$item->patient_id).'" class="delete_patient"><i class="fa fa-trash"></i></a> | 
+
+                $single_field['action'] = '<a href="'.url('admin/patient-update/'.$item->id).'">Edit</a> | 
+                    <a href="'.url('admin/patient-delete/'.$item->id).'" class="delete_patient"><i class="fa fa-trash"></i></a> | 
                     <a href="javascript::" class="">View</a>';
+                
                 $result_array[] = $single_field;
             }
             $data['draw'] = $draw;

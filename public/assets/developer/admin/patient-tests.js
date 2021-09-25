@@ -219,6 +219,7 @@ $('#datatable').DataTable({
       {"data": "amount_paid"},
       {"data": "amount_remaining"},
       {"data": "added_by"},
+      {"data": "action"},
   ]
 });
 
