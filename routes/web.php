@@ -58,6 +58,8 @@ Route::group(['middleware' => ['web','admin']], function()
         Route::post('/process-patient-reason', 'Admin\PatientController@process_reason');
         Route::get('/delete-reason', 'Admin\PatientController@delete_reason');
 
+        Route::post('/delete-multiple-patients', 'Admin\PatientController@delete_multiple_patients');
+
         Route::get('/products', 'Admin\ProductController@index');
         Route::post('/add-product', 'Admin\ProductController@process_add');
         Route::post('/get-products', 'Admin\ProductController@get_products');

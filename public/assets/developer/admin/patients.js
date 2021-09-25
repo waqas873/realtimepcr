@@ -172,6 +172,44 @@ $(document).on('click', '.delete_patient_parmanently', function (e) {
   });
 });
 
+$(document).on('click', '.allBoxes', function (e) {
+    if($('.allBoxes').is(':checked')){
+      $('.eachBox').prop('checked', true);
+    }
+    else{
+      $('.eachBox').prop('checked', false);
+    }
+});
+
+$(document).on('click', '#delMultiplePatients', function (e) {
+  e.preventDefault();
+  var obj = $(this);
+  var patient_ids = $("input:checked").map(function(){
+      return $(this).val();
+  }).get();
+  if(patient_ids==''){
+    swal({
+      title: "Warning",
+      text: "Please select a patient to delete!",
+      icon: "warning",
+      button: "Ok",
+    });
+    return false;
+  }
+  swal({
+    title: "Are you sure?",
+    text: "If a patient is deleted than all its data will be deleted.Are you sure to do this?",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  })
+  .then((willDelete) => {
+    if(willDelete){
+      $('#delete-multiple-patients').submit();
+    }
+  });
+});
+
 $('#datatable').DataTable({
   "ordering": true,
   "lengthChange": true,
@@ -213,6 +251,7 @@ $('#datatable').DataTable({
       {'targets': 5, 'orderable': false}
   ],
   "columns": [
+      {"data": "check"},
       {"data": "id"},
       {"data": "name"},
       {"data": "reffered_by"},

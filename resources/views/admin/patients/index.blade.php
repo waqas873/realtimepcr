@@ -303,6 +303,15 @@
 
 </form>
 
+<form id="delete-multiple-patients" action="{{url('/admin/delete-multiple-patients')}}" method="post">
+  @csrf
+
+<div class="row">
+  <div class="col-xl-12">
+    <input type="submit" value="Delete Multiple Patients" class="btn btn-danger" id="delMultiplePatients" style="margin-bottom: 10px;margin-left: 15px;">
+  </div>
+</div>
+
 <div class="row">
   <div class="col-xl-12">
     <div class="card">
@@ -312,6 +321,7 @@
           <table class="table table-hover" id="datatable">
             <thead>
               <tr>
+                <th scope="col"><input type="checkbox" class="allBoxes"></th>
                 <th scope="col">Patient ID</th>
                 <th scope="col">Patient Name</th>
                 <th scope="col">Reffered By</th>
@@ -332,6 +342,8 @@
   </div>
 </div>
 <!-- end row -->
+
+</form>
 
 
 </div><!-- container fluid -->

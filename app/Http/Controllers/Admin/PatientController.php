@@ -385,6 +385,57 @@ class PatientController extends Controller
         return redirect('admin/patients')->with('success_message' , 'Patient has been deleted successfully.');
     }
 
+    public function delete_multiple_patients(Request $request)
+    {
+        $permissions = permissions();
+        if($permissions['role']==7 && (empty($permissions['patients_delete']))){
+            return redirect('admin/patients');
+        }
+
+        $data  = [];
+        $post = $request->all();
+        if(empty($post['patient_ids'])){
+            return redirect('admin/patients')->with('error_message' , 'Please select a patient to delete.');
+        }
+        //dd($post['patient_ids']);
+        foreach($post['patient_ids'] as $patient_id){
+            $patient = Patient::where('id',$patient_id)->first();
+            if(empty($patient)){
+                continue;
+            }
+            $this->api_delete_request($patient_id);
+
+            $deleted = new Deleted_patient;
+            $deleted->user_id = $patient->user_id;
+            $deleted->name = $patient->name;
+            $deleted->cnic = $patient->cnic;
+            $deleted->dob = $patient->dob;
+            $deleted->sex = $patient->sex;
+            $deleted->contact_no = $patient->contact_no;
+            $deleted->email = $patient->email;
+            $deleted->reffered_by = $patient->reffered_by;
+            $deleted->deleted_by = Auth::user()->id;
+            $deleted->save();
+            $id = $deleted->id;
+
+            $result = Patient::where('id',$patient_id)->delete();
+
+            $log = new Log;
+            $log->user_id = Auth::user()->id;
+            $log->activity = 'deleted';
+            $log->reason = "Multiple deleted";
+            $log->log_of = 'patient';
+            $log->log_of_id = $id;
+            $log->save();
+
+            $result = Invoice::where('patient_id',$patient_id)->delete();
+            $result = Patient_test::where('patient_id',$patient_id)->delete();
+            $result = Passenger::where('patient_id',$patient_id)->delete();
+                
+        }
+        return redirect('admin/patients')->with('success_message' , 'Patients has been deleted successfully.');
+    }
+
     public function delete_permanently($patient_id = '0')
     {
         $permissions = permissions();
@@ -603,7 +654,7 @@ class PatientController extends Controller
 
         if(isset($result_data)){
             foreach($result_data as $item){
-                
+                $single_field['check'] = '<input type="checkbox" name="patient_ids[]" class="eachBox" value="'.$item->patient_id.'">';
                 $single_field['id'] = '#'.$item->id;
                 $single_field['name'] = (!empty($item->patient->name))?$item->patient->name:'unavailable';
                 $single_field['reffered_by'] = (!empty($item->patient->user->name))?$item->patient->user->name:'---';
