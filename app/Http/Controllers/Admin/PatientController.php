@@ -26,6 +26,7 @@ use App\Lab;
 use App\Category;
 use App\Collection_point;
 use Session;
+use Carbon\Carbon;
 
 class PatientController extends Controller
 {
@@ -443,6 +444,17 @@ class PatientController extends Controller
             return redirect('admin/home');
         }
         $data  = [];
+
+        if($patient_id=="delete-all"){
+            $result = Deleted_patient::where('id','>',0)->delete();
+            return redirect('admin/deleted-patients')->with('success_message' , 'All Patients has been deleted successfully.');
+        }
+
+        if($patient_id=="delete-30-days"){
+            Deleted_patient::where('created_at', '<', Carbon::now()->subDays(30))->delete();
+            return redirect('admin/deleted-patients')->with('success_message' , 'All 30 days Patients has been deleted successfully.');
+        }
+
         $patient = Deleted_patient::where('id',$patient_id)->first();
         if(empty($patient)){
             return redirect('admin/deleted-patients')->with('error_message' , 'This patient does not exist.');

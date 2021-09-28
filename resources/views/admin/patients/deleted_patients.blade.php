@@ -31,7 +31,8 @@
 
           <div class="col-sm-12">
             <h4 class="mt-0 header-title mb-4">Deleted Patients List</h4>
-            <button type="button" class="btn btn-danger float-right mb-3">Delete All Records</button>
+            <a href="{{url('admin/patient-delete-permanently/delete-30-days')}}" class="btn btn-danger float-right mb-3 delete_30_days">Delete 30 Days Old</a> 
+            <a href="{{url('admin/patient-delete-permanently/delete-all')}}" class="btn btn-danger float-right mb-3 delete_all_patients" style="margin-right: 7px;">Delete All Records</a>
           </div>
 
           <div class="table-responsive">

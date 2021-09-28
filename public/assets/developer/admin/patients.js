@@ -210,6 +210,40 @@ $(document).on('click', '#delMultiplePatients', function (e) {
   });
 });
 
+$(document).on('click', '.delete_all_patients', function (e) {
+  e.preventDefault();
+  var url = $(this).attr('href');
+  swal({
+    title: "Are you sure?",
+    text: "All patients will be deleted parmanently",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  })
+  .then((willDelete) => {
+    if(willDelete){
+      window.location.replace(url);
+    }
+  });
+});
+
+$(document).on('click', '.delete_30_days', function (e) {
+  e.preventDefault();
+  var url = $(this).attr('href');
+  swal({
+    title: "Are you sure?",
+    text: "All 30 days old patients will be deleted parmanently",
+    icon: "warning",
+    buttons: true,
+    dangerMode: true,
+  })
+  .then((willDelete) => {
+    if(willDelete){
+      window.location.replace(url);
+    }
+  });
+});
+
 $('#datatable').DataTable({
   "ordering": true,
   "lengthChange": true,
