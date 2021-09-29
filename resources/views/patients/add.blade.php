@@ -334,7 +334,7 @@
         <div class="form-group col-sm-3">
           <label for="country_id" class="col-form-label pformlabel">Travelling To</label>
           <div class="">
-            <select class="form-control <!--inputs_with_bottom_border--> <!--select2-->" id="country_id" name="country_id">
+            <select class="form-control" id="country_id" name="country_id">
               <option value="">Select Country</option>
               <?php
               foreach ($countries as $key => $value) {
@@ -346,6 +346,14 @@
           </div>
         </div>
 
+
+        <div class="form-group col-sm-3">
+          <label for="destinationCity" class="col-form-label pformlabel">Destination City</label>
+          <div class="">
+            <input type="date" name="destinationCity" class="form-control" id="">
+            <div class="all_errors psngr_err" id="destinationCity_error"></div>
+          </div>
+        </div>
 
         <!-- <div class="form-group row">
           <label for="collection_point" class="col-sm-3 col-form-label pformlabel">Collection Point</label>
