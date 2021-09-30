@@ -271,6 +271,7 @@ $('#datatable').DataTable({
             "test_result": $('#test_result').val(),
             "passport_no": $('#passport_no').val(),
             "flight_no": $('#flight_no').val(),
+            "api_cancelled": $('#api_cancelled').val(),
           });
       } 
   },
@@ -342,6 +343,9 @@ $(document).on('keyup', '#passport_no', function (e) {
   $('#datatable').DataTable().ajax.reload();  
 });
 $(document).on('keyup', '#flight_no', function (e) {
+  $('#datatable').DataTable().ajax.reload();  
+});
+$(document).on('change', '#api_cancelled', function (e) {
   $('#datatable').DataTable().ajax.reload();  
 });
 

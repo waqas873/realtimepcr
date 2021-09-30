@@ -532,6 +532,7 @@ class PatientController extends Controller
         $test_result = $post['test_result'];
         $passport_no = $post['passport_no'];
         $flight_no = $post['flight_no'];
+        $api_cancelled = $post['api_cancelled'];
 
         
         //$status = $post['status_filter'];
@@ -570,6 +571,14 @@ class PatientController extends Controller
 
         if(!empty($local_overseas) && $local_overseas!="all"){
             $result = $result->where('type',$local_overseas);
+        }
+
+        if(!empty($test_id) && $test_id!="all"){
+            $result = $result->where('test_id',$test_id);
+        }
+
+        if(!empty($api_cancelled)){
+            $result = $result->where('api_cancelled',$api_cancelled);
         }
 
         if(!empty($test_id) && $test_id!="all"){
