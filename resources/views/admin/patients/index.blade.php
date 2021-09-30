@@ -321,7 +321,7 @@
 <div class="row">
   <div class="col-xl-12">
     <input type="submit" value="Delete Multiple Patients" class="btn btn-danger" id="delMultiplePatients" style="margin-bottom: 10px;margin-left: 15px;">
-    <a href="{{url('/admin/patient-delete/api-cancelled-30')}}" class="btn btn-danger" style="margin-top: -10px;margin-left: 5px;">Delete Api Cancelled of 30 Days</a>
+    {{--<a href="{{url('/admin/patient-delete/api-cancelled-30')}}" class="btn btn-danger" style="margin-top: -10px;margin-left: 5px;">Delete Api Cancelled of 30 Days</a>--}}
   </div>
 </div>
 
