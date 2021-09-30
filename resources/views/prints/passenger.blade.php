@@ -436,7 +436,8 @@ Your Test is in Process.</h2>
 
                     <?php
 
-                    $testResult = 'Awaiting Result';
+                    $testResult = 'Not Detected';
+                    
                     if ($result->patient_tests[0]->status == 1) {
                         $testResult = 'Detected';
                     }
@@ -448,6 +449,7 @@ Your Test is in Process.</h2>
                     if ($result->patient_tests[0]->status != 0) {
                         $reptime = $result->patient_tests[0]->updated_at;
                     }
+                    
                     $passno = (!empty($result->passenger->passport_no)) ? $result->passenger->passport_no : 'Not Available';
 
                     $qrr = ' Patient ID: ' . $result->patient->id . '%0A Case Id: ' . $result->unique_id . '%0A Patient Name: ' . ucwords($result->patient->name) . '%0A Reg Date: ' . $result->created_at . '%0A Reporting time: ' . $result->updated_at . '%0A Passport No: ' . $passno . '%0A Result: ' . $testResult . '';
