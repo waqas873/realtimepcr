@@ -20,6 +20,7 @@ class CreatePassengersTable extends Migration
             $table->integer('invoice_id')->nullable();
             $table->string('passport_no')->nullable();
             $table->string('airline')->nullable();
+            $table->string('city')->nullable();
             $table->integer('country_id')->nullable();
             //$table->string('collection_point')->nullable();
             $table->string('flight_no')->nullable();

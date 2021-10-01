@@ -348,10 +348,10 @@
 
 
         <div class="form-group col-sm-3">
-          <label for="destinationCity" class="col-form-label pformlabel">Destination City</label>
+          <label for="city" class="col-form-label pformlabel">Destination City</label>
           <div class="">
-            <input type="date" name="destinationCity" class="form-control" id="">
-            <div class="all_errors psngr_err" id="destinationCity_error"></div>
+            <input type="text" name="city" class="form-control" id="">
+            <div class="all_errors psngr_err" id="city_error"></div>
           </div>
         </div>
 
@@ -362,7 +362,6 @@
             <div class="all_errors psngr_err" id="collection_point_error"></div>
           </div>
         </div> -->
-
 
         <div class="form-group col-sm-3">
           <label for="flight_date" class="col-form-label pformlabel">Flight Date</label>
