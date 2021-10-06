@@ -145,7 +145,7 @@
           </div>
         </div>
       </div>
-      <div id="api_cancelled"></div>
+
       <div class="col-sm-3">
         <div class="form-group row">
           <label for="test_result" class="col-sm-4 col-form-label pformlabel no_padd">Test Department:</label>
@@ -293,6 +293,18 @@
         </div>
       </div>
 
+      <div class="col-sm-3">
+        <div class="form-group row">
+          <label for="api_cancelled" class="col-sm-4 col-form-label pformlabel no_padd">Api Cancelled</label>
+          <div class="col-sm-8">
+            <select class="form-control inputs_with_bottom_border " id="api_cancelled" name="api_cancelled">
+              <option value="">Select Here</option>
+              <option value="1">API Cancelled</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
     </div>
     <div class="row">
       <div class="col-sm-4">
@@ -303,6 +315,15 @@
 
 </form>
 
+<form id="delete-multiple-patients" action="{{url('/admin/delete-multiple-patients')}}" method="post">
+  @csrf
+
+<div class="row">
+  <div class="col-xl-12">
+    <input type="submit" value="Delete Multiple Patients" class="btn btn-danger" id="delMultiplePatients" style="margin-bottom: 10px;margin-left: 15px;">
+    {{--<a href="{{url('/admin/patient-delete/api-cancelled-30')}}" class="btn btn-danger" style="margin-top: -10px;margin-left: 5px;">Delete Api Cancelled of 30 Days</a>--}}
+  </div>
+</div>
 
 <div class="row">
   <div class="col-xl-12">
@@ -334,6 +355,8 @@
   </div>
 </div>
 <!-- end row -->
+
+</form>
 
 
 </div><!-- container fluid -->
