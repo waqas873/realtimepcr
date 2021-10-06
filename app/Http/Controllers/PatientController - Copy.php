@@ -299,6 +299,7 @@ class PatientController extends Controller
                         $passenger->flight_no = $formData['flight_no'];
                         $passenger->flight_date = $formData['flight_date'];
                         $passenger->flight_time = $formData['flight_time'];
+                        $passenger->city = $formData['city'];
                         $passenger->booking_ref_no = $formData['booking_ref_no'];
                         $passenger->ticket_no = $formData['ticket_no'];
                         if(!empty($formData['airport'])){

@@ -364,6 +364,18 @@
                             </div>
                         </span>
                     <?php } ?>
+                    <?php if (!empty($result->passenger->city)) { ?>
+                        <span class="city-check" id="city">
+                            <div class="col-sm-2" id="b-ref">
+                                <p class="nomgn">City</p>
+                                <h6>
+                                    <strong>
+                                        {{$result->passenger->city}}
+                                    </strong>
+                                </h6>
+                            </div>
+                        </span>
+                    <?php } ?>
                 </div>
                 <hr>
                 <div class="page-title">
