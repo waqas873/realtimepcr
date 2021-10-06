@@ -346,7 +346,6 @@
           </div>
         </div>
 
-
         <div class="form-group col-sm-3">
           <label for="city" class="col-form-label pformlabel">Destination City</label>
           <div class=""> 
