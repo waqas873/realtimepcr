@@ -99,6 +99,22 @@ class StaffController extends Controller
         echo json_encode($data);
     }
 
+    public function setUserStatus($action = '')
+    {
+        $data = [];
+        $data['response'] = false;
+        $action = explode('-', $action);
+        $id = $action[0];
+        $status = ($action[1]==1)?0:1;
+        $user = new User;
+        $result = $user->find($id);
+        $result->status = $status;
+        $result->save();
+        $data['action'] = $id.'-'.$status;
+        $data['response'] = true;
+        echo json_encode($data);
+    }
+
     public function processCommissionTest(Request $request)
     {
         $data = [];

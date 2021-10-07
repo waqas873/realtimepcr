@@ -91,7 +91,7 @@
                   <td><?php echo (!empty($value->lab->name)) ? $value->lab->name : '---'; ?></td>
                   <td>
                     <div class="col-sm-5">
-                      <button type="button" class="btn btn-xs btn-toggle active" data-toggle="button" aria-pressed="true" autocomplete="off">
+                      <button type="button" class="btn btn-xs btn-toggle toggle_btn <?php echo ($value->status==1)?'active':''; ?>" data-toggle="button" aria-pressed="true" autocomplete="off" rel="<?php echo $value->id.'-'.$value->status;?>">
                         <div class="handle"></div>
                       </button>
                     </div>
@@ -175,7 +175,7 @@
                   <td><?php echo (!empty($value->collection_point->name)) ? $value->collection_point->name : '---'; ?></td>
                   <td>
                     <div class="col-sm-5">
-                      <button type="button" class="btn btn-xs btn-toggle active" data-toggle="button" aria-pressed="true" autocomplete="off">
+                      <button type="button" class="btn btn-xs btn-toggle toggle_btn <?php echo ($value->status==1)?'active':''; ?>" data-toggle="button" aria-pressed="true" autocomplete="off" rel="<?php echo $value->id.'-'.$value->status;?>">
                         <div class="handle"></div>
                       </button>
                     </div>
@@ -252,7 +252,7 @@
                   <td>{{$value->contact_no}}</td>
                   <td>
                     <div class="col-sm-5">
-                      <button type="button" class="btn btn-xs btn-toggle active" data-toggle="button" aria-pressed="true" autocomplete="off">
+                      <button type="button" class="btn btn-xs btn-toggle toggle_btn <?php echo ($value->status==1)?'active':''; ?>" data-toggle="button" aria-pressed="true" autocomplete="off" rel="<?php echo $value->id.'-'.$value->status;?>">
                         <div class="handle"></div>
                       </button>
                     </div>
@@ -331,7 +331,7 @@
                   <td><?php echo (!empty($value->airline->name)) ? $value->airline->name : '---'; ?></td>
                   <td>
                     <div class="col-sm-5">
-                      <button type="button" class="btn btn-xs btn-toggle active" data-toggle="button" aria-pressed="true" autocomplete="off">
+                      <button type="button" class="btn btn-xs btn-toggle toggle_btn <?php echo ($value->status==1)?'active':''; ?>" data-toggle="button" aria-pressed="true" autocomplete="off" rel="<?php echo $value->id.'-'.$value->status;?>">
                         <div class="handle"></div>
                       </button>
                     </div>

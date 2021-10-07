@@ -10,6 +10,21 @@ $(document).on('click', '#add_cp_user', function (e) {
   $('#addCpUserModal').modal("show");
 });
 
+$(document).on('click', '.toggle_btn', function (e) {
+  var obj = $(this);
+  var action = $(this).attr("rel");
+  $.ajax({
+      url: '/admin/set-user-status/'+action,
+      type: 'GET',
+      dataType: 'JSON',
+      success: function (data) {
+        if(data.response){
+          obj.attr('rel',data.action);
+        }
+      }
+  });
+});
+
 $('#cp_row').hide();
 $('#airline_row').hide();
 $('#countries_row').hide();
