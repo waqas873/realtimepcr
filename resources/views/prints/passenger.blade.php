@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -235,8 +236,20 @@ Your Test is in Process.</h2>
         <button type="button" onclick="window.print()" class="btn btn-light btn-lg btn-block" id="clearedPayment">Print / Convert to PDF</button>
     </div>
 
+    
+
 
     <div class="container" style="padding: 20px" ; id="print_section">
+
+    <div class="alert alert-danger d-flex align-items-center" role="alert">
+        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
+            <use xlink:href="#exclamation-triangle-fill" />
+        </svg>
+        <div>
+            Our Site might be unavailable for 60 minutes on 21 October 2021 11:30 - local time. We're performing server maintenance to increase our website load speed - You can verify reports once the site goes live again.
+        </div>
+    </div>
+
         <div class="row component" style="padding: 5px;">
             <div class="col-sm-4">
                 Case ID: # <b>
@@ -300,10 +313,10 @@ Your Test is in Process.</h2>
                     </div>
                 </div>
                 <div class="col-sm-2">
-                    <div class="qr" id="qrCode<?php echo $result->unique_id;?>">
+                    <div class="qr" id="qrCode<?php echo $result->unique_id; ?>">
                         <?php
                         $base_url = URL::to('/');
-                        $qrUrl2 = $base_url.'/track/'.$result->unique_id;
+                        $qrUrl2 = $base_url . '/track/' . $result->unique_id;
                         //QR SERVER CODE
                         $src = 'https://api.qrserver.com/v1/create-qr-code/?size=90x90&data=' . $base_url . '/track/' . $result->unique_id;
                         //Google Chart QR code API
@@ -312,9 +325,9 @@ Your Test is in Process.</h2>
                         <img src="<?php echo $src; ?>" alt="" title="" class="qr-img" />
                     </div>
                     <!-- <script type="text/javascript">
-                    var unqId = '<?php echo $result->unique_id;?>'
+                    var unqId = '<?php echo $result->unique_id; ?>'
                     var qrcode = new QRCode(document.getElementById("qrCode"+unqId), {
-                        text: "<?php echo $qrUrl2;?>",
+                        text: "<?php echo $qrUrl2; ?>",
                         width: 100,
                         height: 100,
                         colorDark : "black",
@@ -348,10 +361,10 @@ Your Test is in Process.</h2>
                     </div>
                 </div>
                 <div class="col-sm-2">
-                    <div class="qr" id="qrCode<?php echo $result->unique_id;?>">
+                    <div class="qr" id="qrCode<?php echo $result->unique_id; ?>">
                         <?php
                         $base_url = URL::to('/');
-                        $qrUrl2 = $base_url.'/track/'.$result->unique_id;
+                        $qrUrl2 = $base_url . '/track/' . $result->unique_id;
                         //QR SERVER CODE
                         $src = 'https://api.qrserver.com/v1/create-qr-code/?size=90x90&data=' . $base_url . '/track/' . $result->unique_id;
                         //Google Chart QR code API
@@ -360,9 +373,9 @@ Your Test is in Process.</h2>
                         <img src="<?php echo $src; ?>" alt="" title="" class="qr-img" />
                     </div>
                     <!-- <script type="text/javascript">
-                    var unqId = '<?php echo $result->unique_id;?>'
+                    var unqId = '<?php echo $result->unique_id; ?>'
                     var qrcode = new QRCode(document.getElementById("qrCode"+unqId), {
-                        text: "<?php echo $qrUrl2;?>",
+                        text: "<?php echo $qrUrl2; ?>",
                         width: 100,
                         height: 100,
                         colorDark : "black",
@@ -432,12 +445,12 @@ Your Test is in Process.</h2>
                 </h6>
             </div>
             <div class="col-sm-2">
-                <div class="qr qrCodeQr" style="padding: 4px;" id="qrCodeQr<?php echo $result->unique_id;?>">
+                <div class="qr qrCodeQr" style="padding: 4px;" id="qrCodeQr<?php echo $result->unique_id; ?>">
 
                     <?php
 
                     $testResult = 'Not Detected';
-                    
+
                     if ($result->patient_tests[0]->status == 1) {
                         $testResult = 'Detected';
                     }
@@ -449,7 +462,7 @@ Your Test is in Process.</h2>
                     if ($result->patient_tests[0]->status != 0) {
                         $reptime = $result->patient_tests[0]->updated_at;
                     }
-                    
+
                     $passno = (!empty($result->passenger->passport_no)) ? $result->passenger->passport_no : 'Not Available';
 
                     $qrr = ' Patient ID: ' . $result->patient->id . '%0A Case Id: ' . $result->unique_id . '%0A Patient Name: ' . ucwords($result->patient->name) . '%0A Reg Date: ' . $result->created_at . '%0A Reporting time: ' . $result->updated_at . '%0A Passport No: ' . $passno . '%0A Result: ' . $testResult . '';
@@ -463,9 +476,9 @@ Your Test is in Process.</h2>
                     ?>
                     <img class="qr-img" src="<?php echo $url; ?>" />
                     <!-- <script type="text/javascript">
-                    var unqId = '<?php echo $result->unique_id;?>'
+                    var unqId = '<?php echo $result->unique_id; ?>'
                     var qrcode = new QRCode(document.getElementById("qrCodeQr"+unqId), {
-                        text: "<?php echo $url;?>",
+                        text: "<?php echo $url; ?>",
                         width: 90,
                         height: 90,
                         colorDark : "black",
@@ -553,7 +566,8 @@ Your Test is in Process.</h2>
                     </div>
                 </span>
             <?php } ?>
-            <?php if (!empty($result->passenger->city)) { ?>
+
+            <!-- <?php if (!empty($result->passenger->city)) { ?>
                 <span class="city-check" id="city">
                     <div class="col-sm-2" id="b-ref">
                         <p class="nomgn">City</p>
@@ -564,7 +578,8 @@ Your Test is in Process.</h2>
                         </h6>
                     </div>
                 </span>
-            <?php } ?>
+            <?php } ?> -->
+
         </div>
         <hr>
         <div class="page-title">

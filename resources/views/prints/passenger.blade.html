@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>
+        <?php echo $result->unique_id; ?> - Test Reports | RealtimePCR Lab Official</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+
+    <!-- <link href="{{asset('assets/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset('assets/css/cmp-style.css')}}" rel="stylesheet" type="text/css"> -->
+
+
+    <link href="https://pcr.realtimepcr.pk/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="..\..\..\public\assets\css\cmp-style.css">
+
+
+    <script>
+        //CheckBOX function
+        function checkFunction(x, y) {
+            var checkBox = document.getElementById(x);
+            var cmp = document.getElementById(y);
+            if (checkBox.checked == true) {
+                cmp.style.display = "";
+            } else {
+                cmp.style.display = "none";
+            }
+        }
+    </script>
+
+    <!-- <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script> -->
+    <script src="{{asset('assets/qr-code/qr_code.js')}}"></script>
+
+</head>
+
+<body>
+
+    <div class="mbl-screen">
+        <button type="button" onclick="window.print()" class="btn btn-light btn-lg btn-block" id="clearedPayment">Print / Convert to PDF</button>
+    </div>
+
+
+
+
+    <div class="container" style="padding: 20px; width: 1000px;" ; id="print_section">
+
+        <div class="alert alert-danger d-flex align-items-center" role="alert">
+            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
+            <use xlink:href="#exclamation-triangle-fill" />
+        </svg>
+            <div>
+                Our Site might be unavailable for 60 minutes on 21 October 2021 11:30 - local time. We're performing server maintenance to increase our website load speed - You can verify reports once the site goes live again.
+            </div>
+        </div>
+        <div class="row component header-bg" style="border: none;">
+            <div class="col-sm-7 col-xs-12"></div>
+            <div class="col-sm-5 col-cs-12 d-flex">
+                <div class="qr-bg">
+                    <span class="ids d-flex justify-content-center text-white opacity-0">Image</span>
+                    <div class="qr" id="qrCode">
+
+                    </div>
+
+                    <div class="qr-url"> </div>
+                </div>
+                <div class="qr-bg">
+                    <span class="ids d-flex justify-content-center text-primary">#123456</span>
+                    <div class="qr" id="qrCode">
+
+                    </div>
+
+                    <div class="qr-url d-flex justify-content-center ">
+                        <h6 class="" style="text-transform: uppercase;">TRACK Report</h6>
+                    </div>
+                </div>
+                <div class="qr-bg">
+                    <span class="ids d-flex justify-content-center text-primary">#123456</span>
+                    <div class="qr" id="qrCode">
+
+                    </div>
+
+                    <div class="qr-url d-flex justify-content-center">
+                        <h6 style="text-transform: uppercase;">Verify Patient</h6>
+                    </div>
+                </div>
+
+
+                <span class="badge bg-primary track-url"><i>https://pcr.realtimepcr.pk/track/126456</i></span>
+
+
+            </div>
+        </div>
+
+        <div class="row border-bottom">
+            <span class="col-sm-4 sec-label"> Patient Name: 
+                <span class="sec-label-ans border-bottom border-2 border-primary text-primary">This is the Patient Name</span>
+            </span>
+
+            <div class="col-sm-3 sec-label">CNIC:
+                <span class="sec-label-ans border-bottom border-2 border-primary text-primary">1452155986587</span>
+            </div>
+            <div class="col-sm-3 sec-label">Contact:
+                <span class="sec-label-ans border-bottom border-2 border-primary text-primary">03003030303</span>
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <span class="col-sm-3 sec-label"> Passport# 
+                <span class="sec-label-ans border-bottom">AT123456</span>
+            </span>
+
+            <div class="col-sm-3 sec-label">Flying to:
+                <span class="sec-label-ans border-bottom">Country</span>
+            </div>
+            <div class="col-sm-3 sec-label">Arrival City:
+                <span class="sec-label-ans border-bottom">This is the CITY</span>
+            </div>
+            <div class="col-sm-3 sec-label">Airline:
+                <span class="sec-label-ans border-bottom">Emirates Airlines</span>
+            </div>
+
+            <div class="col-sm-4 sec-label"> Flght Date & Time#
+                <span class="sec-label-ans border-bottom">20:20:2020 (20:20)</span>
+            </div>
+
+            <div class="col-sm-5 sec-label">Flight No#
+                <span class="sec-label-ans border-bottom">123456</span>
+            </div>
+            <div class="col-sm-3 sec-label">Booking Ref#
+                <span class="sec-label-ans border-bottom">23545641</span>
+            </div>
+
+
+            <div class="col-sm-3 sec-label">PNR/Ticket Number
+                <span class="sec-label-ans border-bottom">123456</span>
+            </div>
+            <div class="col-sm-4 sec-label">Airport
+                <span class="sec-label-ans border-bottom">Bacha Khan International Airport</span>
+            </div>
+        </div>
+        <hr>
+
+
+
+
+        <!-- Print Detials -->
+        <!-- <div class="row f-br component nomgn" style="padding: 5px;">
+            <div class="col-sm-4">
+                Printed by:
+                <?php echo (!empty($logged_user->name)) ? $logged_user->name : ''; ?>
+            </div>
+            <div class="col-sm-4">
+                Processed by:
+                <?php
+                if (!empty($result->patient_tests[0]->processed->name)) {
+                    echo $result->patient_tests[0]->processed->name;
+                }
+                ?>
+            </div>
+            <div class="col-sm-4">
+                Print Date :
+                <?php
+                echo date('d-M-Y <b>g:i A</b>', time() + 5 * 60 * 60);
+                ?>
+            </div>
+            <div class="copyright-footer">
+                <hr>
+                <footer class="footer">
+                    <p class="mb-0">Copyright &copy;
+                        <script type="text/javascript">
+                            document.write(new Date().getFullYear());
+                        </script>. <b>Realtime PCR </b> <small>Diagnostic, Research & Reference Lab. Pvt. Ltd.</small> <span class="d-none d-sm-inline-block">
+
+                            <span><i>powered by:</i></span>
+                        <span> <a href="https://www.artflow.pk" target="_blank"><b>Artflow Studio</b></a></span>
+                        </span>
+                    </p>
+                    <hr class="mb-0 mt-0">
+                    <small style="margin: 121px;"><b>https://www.artflow.pk</b> --- facebook.com/artflow.pk --- instagram.com/artflow.pk</small>
+                </footer>
+            </div>
+        </div> -->
+
+    </div>
+
+</body>
+
+</html>

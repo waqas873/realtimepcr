@@ -421,6 +421,18 @@
                     <div class="row">
                       <div class="col-sm-12">
                         <div class="form-group row">
+                          <label for="city" class="col-sm-2 col-form-label pformlabel">City</label>
+                          <div class="col-sm-10">
+                            <input type="text" name="city" class="form-control inputs_with_bottom_border" id="city" value="{{$result->passenger->city}}">
+                            <div class="all_errors psngr_err" id="city"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="form-group row">
                           <label for="booking_ref_no" class="col-sm-2 col-form-label pformlabel">Booking Ref No</label>
                           <div class="col-sm-10">
                             <input type="text" name="booking_ref_no" class="form-control inputs_with_bottom_border" id="booking_ref_no" value="{{$result->passenger->booking_ref_no}}">
