@@ -227,6 +227,7 @@
         </div>
         <?php } ?>
         <div class="container mb-5" id="print_section">
+            <img src="https://pcr.realtimepcr.pk/assets/images/pcr-logo.png" alt="logo" class="watermark-logo">
             <div class="row" style="padding: 5px;">
                 <div class="col-sm-4 border-right">
                     ID: # <b>

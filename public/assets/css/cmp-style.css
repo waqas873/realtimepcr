@@ -265,6 +265,14 @@ hr {
 #bottom {
     padding-top: 100px;
 }
+.watermark-logo {
+    position: absolute;
+    width: 750px;
+    opacity: 5%;
+    display: inline-block;
+    margin: 150px 125px;
+}
+
 
 @media print {
     /* To Print Exact Colors and Graphics */
@@ -288,6 +296,14 @@ hr {
         border: none;
     }
     #bottom {
-        padding-top: 100px;
+        position: absolute;
+        bottom: 0;
+    }
+    .watermark-logo {
+        position: absolute;
+        width: 750px;
+        opacity: 10%;
+        display: inline-block;
+        margin: 350px 125px;
     }
 }
