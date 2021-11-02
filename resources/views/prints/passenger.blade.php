@@ -348,7 +348,7 @@
                     </div>
 
 
-                    <span class="badge bg-primary track-url"><i>https://pcr.realtimepcr.pk/track/126456</i></span>
+                    <span class="badge bg-primary track-url"><i><?php echo $base_url . '/track/' . $result->unique_id; ?></i></span>
 
 
                 </div>
