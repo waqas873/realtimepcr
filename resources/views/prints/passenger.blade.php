@@ -287,6 +287,7 @@
                         </div>
                         <?php } else { ?>
                         <div class="qr" id="qrCode" style="border: none;!important">
+                            <img class="iso-logo" src="https://pcr.realtimepcr.pk/assets/images/iso-logo.png" alt="" style="width: 100%; padding:none;">
                         </div>
                         <?php } ?>
 
@@ -400,11 +401,11 @@
                     <span class="sec-label-ans border-bottom"><?php echo (!empty($result->passenger->airline)) ? $result->passenger->airline : 'Not Available'; ?></span>
                 </div>
 
-                <div class="col-sm-3 sec-label"> Flght Date
+                <div class="col-sm-3 sec-label"> Flight Date
                     <span class="sec-label-ans border-bottom"><?php echo (!empty($result->passenger->flight_date)) ? $result->passenger->flight_date : 'Not Available'; ?></span>
                 </div>
 
-                <div class="col-sm-3 sec-label"> Flght Time#
+                <div class="col-sm-3 sec-label"> Flight Time#
                     <span class="sec-label-ans border-bottom"><?php echo (!empty($result->passenger->flight_time)) ? $result->passenger->flight_time : ''; ?></span>
                 </div>
 
@@ -715,7 +716,7 @@
                         <div class="TestCmnts-cmp" id="TestCmnts-cmp">
                             <p class="TestCmnts">
                                 <?php if (!empty($pt->test->comments)) { ?>
-                                <b>Test Comments:</b> <br>
+                                {{-- <b>Test Comments:</b> <br> --}}
                                 <?php echo $pt->test->comments; ?>
                                 <br>
                                 <?php } ?>
