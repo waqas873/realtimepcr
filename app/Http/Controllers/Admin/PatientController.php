@@ -992,7 +992,7 @@ class PatientController extends Controller
         $payment_filter = $formData['payment_filter'];
         $lab_user = $formData['lab_user'];
         $collection_point_id = $formData['collection_point_id'];
-        $local_overseas = $formData['local_overseas'];
+        //$local_overseas = $formData['local_overseas'];
         $airline = $formData['airline'];
 
         $result = new Patient;

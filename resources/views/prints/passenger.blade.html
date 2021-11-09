@@ -227,7 +227,6 @@
         </div>
         <?php } ?>
         <div class="container mb-5" id="print_section">
-            <img src="https://pcr.realtimepcr.pk/assets/images/pcr-logo.png" alt="logo" class="watermark-logo">
             <div class="row" style="padding: 5px;">
                 <div class="col-sm-4 border-right">
                     ID: # <b>
@@ -287,7 +286,6 @@
                         </div>
                         <?php } else { ?>
                         <div class="qr" id="qrCode" style="border: none;!important">
-                            <img class="iso-logo" src="https://pcr.realtimepcr.pk/assets/images/iso-logo.png" alt="" style="width: 100%; padding:none;">
                         </div>
                         <?php } ?>
 
@@ -349,7 +347,7 @@
                     </div>
 
 
-                    <span class="badge bg-primary track-url"><i><?php echo $base_url . '/track/' . $result->unique_id; ?></i></span>
+                    <span class="badge bg-primary track-url"><i>https://pcr.realtimepcr.pk/track/126456</i></span>
 
 
                 </div>
@@ -401,11 +399,11 @@
                     <span class="sec-label-ans border-bottom"><?php echo (!empty($result->passenger->airline)) ? $result->passenger->airline : 'Not Available'; ?></span>
                 </div>
 
-                <div class="col-sm-3 sec-label"> Flight Date
+                <div class="col-sm-3 sec-label"> Flght Date
                     <span class="sec-label-ans border-bottom"><?php echo (!empty($result->passenger->flight_date)) ? $result->passenger->flight_date : 'Not Available'; ?></span>
                 </div>
 
-                <div class="col-sm-3 sec-label"> Flight Time#
+                <div class="col-sm-3 sec-label"> Flght Time#
                     <span class="sec-label-ans border-bottom"><?php echo (!empty($result->passenger->flight_time)) ? $result->passenger->flight_time : ''; ?></span>
                 </div>
 
@@ -716,7 +714,7 @@
                         <div class="TestCmnts-cmp" id="TestCmnts-cmp">
                             <p class="TestCmnts">
                                 <?php if (!empty($pt->test->comments)) { ?>
-                                {{-- <b>Test Comments:</b> <br> --}}
+                                <b>Test Comments:</b> <br>
                                 <?php echo $pt->test->comments; ?>
                                 <br>
                                 <?php } ?>
