@@ -1,19 +1,28 @@
 <?php
-echo "<h1>Processing....</h1>";
+echo "<h1>Processing........</h1>";
 ini_set('max_execution_time', 0);
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+
+function debug($arr, $exit = true)
+{
+     print "<pre>";
+     print_r($arr);
+     print "</pre>";
+     if($exit)
+      exit;
+}
 
 $servername = "localhost";
 $username = "u338287402_pcr";
 $password = "o6S+gLoxy";
 $dbname = "u338287402_pcr";
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "pcr";
+// $servername = "localhost";
+// $username = "root";
+// $password = "";
+// $dbname = "pcr";
 
 ############# Create connection #############
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -26,7 +35,12 @@ if ($conn->connect_error) {
 $sql = "select * from patient_tests where api_sent = '3'";
 $query = mysqli_query($conn, $sql);
 while($row = mysqli_fetch_array($query)){
-    api_request($row['patient_id']);
+	$sql2 = "select * from tests where id = '".$row['test_id']."'";
+    $query2 = mysqli_query($conn, $sql2);
+    $result = mysqli_fetch_array($query2);
+    if(!empty($result) && $result['is_api']==1){
+        api_request($row['patient_id']);
+    }
 }
 
 function api_request($patient_id = 0)

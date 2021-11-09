@@ -258,13 +258,13 @@ class LabUserController extends Controller
                         {
                             $update['status'] = 1;
                             if($result->api_cancelled == 0){
-                                $this->api_result_request($result->patient_id, "positive");
+                                $this->api_result_request($result->patient_id, "positive",$patient_test_id);
                             }
                         }
                         if(!empty($formData['dropdown_value']) && $formData['dropdown_value']=="Not Detected"){
                             $update['status'] = 2;
                             if($result->api_cancelled == 0){
-                                $this->api_result_request($result->patient_id, "negative");
+                                $this->api_result_request($result->patient_id, "negative",$patient_test_id);
                             }
                         }
                     }
@@ -329,13 +329,13 @@ class LabUserController extends Controller
                             {
                                 $update['status'] = 1;
                                 if($result->api_cancelled == 0){
-                                    $this->api_result_request($result->patient_id, "positive");
+                                    $this->api_result_request($result->patient_id, "positive",$patient_test_id);
                                 }
                             }
                             if(!empty($formData['dropdown_value']) && $formData['dropdown_value']=="Not Detected"){
                                 $update['status'] = 2;
                                 if($result->api_cancelled == 0){
-                                    $this->api_result_request($result->patient_id, "negative");
+                                    $this->api_result_request($result->patient_id, "negative",$patient_test_id);
                                 }
                             }
                         }
@@ -495,7 +495,7 @@ class LabUserController extends Controller
             $this->invoice_update($invoice_id);
             
             if($result->type==2 && $result->api_cancelled == 0){
-                $this->api_result_request($result->patient_id, "positive");
+                $this->api_result_request($result->patient_id, "positive",$test_id);
             }
 
             $msg = 'Test has been updated successfully.';
@@ -520,7 +520,7 @@ class LabUserController extends Controller
             $this->invoice_update($invoice_id);
 
             if($result->type==2 && $result->api_cancelled == 0){
-                $this->api_result_request($result->patient_id, "negative");
+                $this->api_result_request($result->patient_id, "negative",$test_id);
             }
 
             $msg = 'Test has been updated successfully.';
@@ -655,8 +655,14 @@ class LabUserController extends Controller
         return false;
     }
 
-    public function api_result_request($patient_id = 0 , $test_result)
+    public function api_result_request($patient_id = 0 , $test_result,$test_id)
     {
+        $pt = Patient_test::find($test_id);
+        $test = Test::where('is_api',1)->find($pt->test_id);
+        if(empty($test)){
+            return false;
+        }
+
         $patient = Patient::find($patient_id);
         if(empty($patient->id)){
             return false;

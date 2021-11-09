@@ -199,6 +199,7 @@ class PatientController extends Controller
                     $passenger['flight_date'] = $formData['flight_date'];
                     $passenger['flight_time'] = $formData['flight_time'];
                     $passenger['flight_no'] = $formData['flight_no'];
+                    $passenger['city'] = $formData['city'];
                     $passenger['booking_ref_no'] = $formData['booking_ref_no'];
                     $passenger['ticket_no'] = $formData['ticket_no'];
                     $passenger['updated_at'] = $this->date_time;
@@ -213,7 +214,7 @@ class PatientController extends Controller
 
                     $result = Patient_test::where('patient_id' , $patient_id)->where('test_id' , 760)->where('type' , 2)->get();
                     if(!empty($result[0]->id)){
-                        $this->api_update_request($patient_id);
+                        //$this->api_update_request($patient_id);
                     }
 
                 }

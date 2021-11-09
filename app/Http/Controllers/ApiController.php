@@ -26,7 +26,9 @@ class ApiController extends Controller
         $patient_tests = Patient_test::where('api_sent' , 3)->get();
         if(!empty($patient_tests[0])){
         	foreach($patient_tests as $key => $value){
-        		$this->api_request($value->patient_id);
+                if($value->test->is_api==1){
+                    $this->api_request($value->patient_id);
+                }
         	}
         }
         echo "success";
