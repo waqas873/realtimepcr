@@ -170,6 +170,8 @@ Route::group(['middleware' => ['web','admin']], function()
 
         Route::get('/api', 'Admin\ApiController@index');
         Route::get('/cancel-api-request/{id?}', 'Admin\ApiController@cancel_request');
+        Route::get('/send-api-request/{id?}', 'Admin\ApiController@send_request');
+        Route::post('/api-get-patients', 'Admin\ApiController@get_patients');
 
         Route::post('/get-patients', 'Admin\PatientController@get_patients');
         Route::post('/get-patient-tests', 'Admin\PatientController@get_patient_tests');

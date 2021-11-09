@@ -137,6 +137,41 @@
     ?>
 
 <div class="row">
+  <div class="col-sm-12">
+    <div class="page-title-box">
+      <div class="row align-items-center">
+        <div class="col-md-5">
+          
+        </div>
+        <div class="col-sm-7">
+          <div class="row emdatefilter">
+            <div class="col-sm-2 no_padd">
+              <p>Date Range</p>
+            </div>
+            <div class="col-sm-3 no_padd">
+              <input class="form-control inputs_with_bottom_border" type="date" id="from_date" name="from_date">
+            </div>
+            <div class="col-sm-1">
+              <p>To</p>
+            </div>
+            <div class="col-sm-3 no_padd">
+              <input class="form-control inputs_with_bottom_border" type="date" id="to_date" name="to_date">
+            </div>
+            <div class="col-sm-3">
+              <a href="javascript::" class="btn btn-success embsearch" id="by_date">Search</a>
+            </div>
+          </div>
+        </div>
+        <!-- end col -->
+      </div>
+      <!-- end row -->
+    </div>
+    <!-- end page-title-box -->
+  </div>
+</div>
+<!-- end page title -->
+
+<div class="row">
 <div class="col-xl-12">
 <div class="card">
 <div class="card-body">
@@ -155,7 +190,7 @@
                     <th scope="col">Action</th> -->
                 </tr>
             </thead>
-            <tbody>
+            {{--<tbody>
                 @if(!empty($pending))
                 @foreach($pending as $key=>$value)
                 <tr>
@@ -173,7 +208,7 @@
                 </tr>
                 @endforeach
                 @endif
-            </tbody>
+            </tbody>--}}
         </table>
     </div>
 

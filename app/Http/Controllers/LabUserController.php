@@ -257,13 +257,13 @@ class LabUserController extends Controller
                         if(!empty($formData['dropdown_value']) && $formData['dropdown_value']=="Detected")
                         {
                             $update['status'] = 1;
-                            if($result->api_cancelled == 0){
+                            if($result->api_sent == 3 && $result->api_cancelled == 0){
                                 $this->api_result_request($result->patient_id, "positive",$patient_test_id);
                             }
                         }
                         if(!empty($formData['dropdown_value']) && $formData['dropdown_value']=="Not Detected"){
                             $update['status'] = 2;
-                            if($result->api_cancelled == 0){
+                            if($result->api_sent == 3 && $result->api_cancelled == 0){
                                 $this->api_result_request($result->patient_id, "negative",$patient_test_id);
                             }
                         }
@@ -328,13 +328,13 @@ class LabUserController extends Controller
                             if(!empty($formData['dropdown_value']) && $formData['dropdown_value']=="Detected")
                             {
                                 $update['status'] = 1;
-                                if($result->api_cancelled == 0){
+                                if($result->api_sent == 3 && $result->api_cancelled == 0){
                                     $this->api_result_request($result->patient_id, "positive",$patient_test_id);
                                 }
                             }
                             if(!empty($formData['dropdown_value']) && $formData['dropdown_value']=="Not Detected"){
                                 $update['status'] = 2;
-                                if($result->api_cancelled == 0){
+                                if($result->api_sent == 3 && $result->api_cancelled == 0){
                                     $this->api_result_request($result->patient_id, "negative",$patient_test_id);
                                 }
                             }
