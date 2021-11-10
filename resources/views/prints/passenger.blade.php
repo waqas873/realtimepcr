@@ -381,6 +381,8 @@
                 </div>
             </div>
 
+            <?php if($result->patient_tests[0]->type==2){ ?>
+
             <div class="row mt-3 border-bottom border-2 border-dark mb-2" id="overseas-cmp">
                 <span class="col-sm-3 sec-label"> Passport# 
                 <span class="sec-label-ans border-bottom"><?php echo (!empty($result->passenger->passport_no)) ? $result->passenger->passport_no : 'Not Available'; ?></span>
@@ -434,6 +436,7 @@
                 </div>
                 <?php } ?>
             </div>
+            <?php } ?>
 
             <div class="dynamic-report-sec">
                 <?php

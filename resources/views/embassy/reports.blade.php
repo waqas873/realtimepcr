@@ -81,22 +81,6 @@
 </div>
 
 <div class="col-xl-3 col-md-6">
-<div class="card bg-info mini-stat text-white" style="background-color: orange !important;">
-<div class="p-3 mini-stat-desc">
-    <div class="clearfix">
-        <h4 class="mb-3 mt-0 float-right">{{$pending}}</h4>
-    </div>
-    <div> <span class="ml-2 ml22">Tests Pending</span>
-    </div>
-</div>
-<div class="p-3 p3_stat_btm">
-    <div class="float-right">
-        <a href="#" class="text-white-50"><i class="mdi mdi-buffer h5"></i></a>
-    </div>
-</div>
-</div>
-</div>
-<div class="col-xl-3 col-md-6">
 <div class="card bg-pink mini-stat text-white">
 <div class="p-3 mini-stat-desc">
     <div class="clearfix">
@@ -168,7 +152,6 @@
                       <select class="form-control inputs_with_bottom_border select2" id="test_status" name="test_status">
                           <option value="">Select Here</option>
                           <option value="all">All</option>
-                          <option value='0'>Awaiting Result</option>
                           <option value="1">Detected</option>
                           <option value="2">Not Detected</option>
                       </select>

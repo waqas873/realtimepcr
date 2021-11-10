@@ -31,19 +31,16 @@ class EmbassyController extends Controller
         $auth = Auth::user();
 
         $data['patients'] = Patient::where('is_deleted' , '0')->whereHas('patient_tests', function($q) use($auth){
-                $q->where('type' , 2)->whereBetween('api_sent', [1, 2])->where('api_cancelled' , 0)->where('test_id' , $auth->test_id)->where('status' ,'<=', 3)->whereDate('created_at', '>', Carbon::now()->subDays(30));
+                $q->where('type' , 2)->where('api_sent',2)->where('api_cancelled' , 0)->where('test_id' , $auth->test_id)->where('status' ,'<=', 3)->whereDate('created_at', '>', Carbon::now()->subDays(30));
             })->orderBy('id' , 'DESC')->get();
 
-        $data['pending'] = Patient_test::whereBetween('api_sent', [1, 2])->where([
-            ['type',2],['status',0],['api_cancelled',0],['test_id',$auth->test_id]
-        ])->whereDate('created_at', '>', Carbon::now()->subDays(30))->count();
-        $data['completed'] = Patient_test::whereBetween('api_sent', [1, 2])->whereBetween('status', [1, 2])->where([
+        $data['completed'] = Patient_test::where('api_sent', 2)->whereBetween('status', [1, 2])->where([
             ['type',2],['api_cancelled',0],['test_id',$auth->test_id]
         ])->whereDate('created_at', '>', Carbon::now()->subDays(30))->count();
-        $data['positive'] = Patient_test::whereBetween('api_sent', [1, 2])->where([
+        $data['positive'] = Patient_test::where('api_sent',2)->where([
             ['type',2],['api_cancelled',0],['status',1],['test_id',$auth->test_id]
         ])->whereDate('created_at', '>', Carbon::now()->subDays(30))->count();
-        $data['negative'] = Patient_test::whereBetween('api_sent', [1, 2])->where([
+        $data['negative'] = Patient_test::where('api_sent',2)->where([
             ['type',2],['api_cancelled',0],['status',2],['test_id',$auth->test_id]
         ])->whereDate('created_at', '>', Carbon::now()->subDays(30))->count();
 
@@ -75,7 +72,7 @@ class EmbassyController extends Controller
         $auth = Auth::user();
 
         $patients_count = Patient::where('is_deleted' , '0')->whereHas('patient_tests', function($q) use($auth){
-                $q->where('type' , 2)->whereBetween('api_sent', [1, 2])->where('api_cancelled' , 0)->where('status' ,'<=', 3)->where('test_id' , $auth->test_id);
+                $q->where('type' , 2)->where('api_sent',2)->where('api_cancelled' , 0)->where('status' ,'<=', 3)->where('test_id' , $auth->test_id);
             })->count();
         //dd($patients_count);
         $pt_arr = [];
@@ -106,7 +103,7 @@ class EmbassyController extends Controller
                 if(!empty($pt_arr['monthly'])){
                     $q->where([
                          ['type' , 2],['api_cancelled' , 0],['test_id',$pt_arr['test_id']],$pt_arr['status']
-                    ])->whereBetween('api_sent', [1, 2])->whereDate('created_at', '>', Carbon::now()->subDays(30));
+                    ])->where('api_sent',2)->whereDate('created_at', '>', Carbon::now()->subDays(30));
                 }
                 else{
                     $q->where([
@@ -193,7 +190,7 @@ class EmbassyController extends Controller
         $invoice = new Invoice;
 
         $result = $patient->whereHas('patient_tests', function($q){
-                $q->where('test_id' , 760)->where('api_cancelled' , 0)->whereBetween('api_sent', [1, 2]);
+                $q->where('test_id' , 760)->where('api_cancelled' , 0)->where('api_sent',2);
         });
 
         if(!empty($date)){
@@ -205,7 +202,7 @@ class EmbassyController extends Controller
 
         $result = $invoice->where('status' , 1);
         $result = $result->whereHas('patient_tests', function($q){
-                $q->where('test_id' , 760)->where('api_cancelled' , 0)->whereBetween('api_sent', [1, 2]);
+                $q->where('test_id' , 760)->where('api_cancelled' , 0)->where('api_sent', 2);
         });
         if(!empty($date)){
             $result = $result->where("created_at",'like','%'.$date.'%');
@@ -215,7 +212,7 @@ class EmbassyController extends Controller
 
         $result = $invoice->where('status' , 3)->orWhere('status' , 5);
         $result = $result->whereHas('patient_tests', function($q){
-                $q->where('test_id' , 760)->where('api_cancelled' , 0)->whereBetween('api_sent', [1, 2]);
+                $q->where('test_id' , 760)->where('api_cancelled' , 0)->where('api_sent', 2);
         });
         if(!empty($date)){
             $result = $result->where("created_at",'like','%'.$date.'%');
