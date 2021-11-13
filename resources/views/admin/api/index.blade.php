@@ -218,8 +218,8 @@
 </div>
 <!-- end row -->
 
-<!-- Comment by Raheel
-
+<!-- Comment by Raheel -->
+{{--
 <div class="row">
 <div class="col-xl-12">
 <div class="card">
@@ -254,9 +254,8 @@
 </div>
 </div>
 </div>
-<!-- end row -->
 
-<!-- <div class="row">
+<div class="row">
 <div class="col-xl-12">
 <div class="card">
 <div class="card-body">
@@ -321,10 +320,8 @@
 </div>
 </div>
 </div>
-<!-- end row -->
 
-</div> 
-<!-- container fluid -->
+</div> --}}
 
 <script src="{{asset('assets/developer/admin/api.js')}}"></script>
 
