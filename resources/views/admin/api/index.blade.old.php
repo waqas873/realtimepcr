@@ -42,13 +42,13 @@
 </div> 
 <!-- end page title -->
 
-
+{{--}}
 <div class="row">
 <div class="col-xl-3 col-md-6">
 <div class="card bg-primary mini-stat text-white">
 <div class="p-3 mini-stat-desc">
     <div class="clearfix">
-        <!-- <h4 class="mb-3 mt-0 float-right">{{count($sent)}}</h4> -->
+        <h4 class="mb-3 mt-0 float-right">{{count($sent)}}</h4>
     </div>
     <div>
         <span class="ml-2 ml22">Patient Details Send</span>
@@ -67,7 +67,7 @@
 <div class="card bg-info mini-stat text-white" style="background-color: orange !important;">
 <div class="p-3 mini-stat-desc">
     <div class="clearfix">
-        <!-- <h4 class="mb-3 mt-0 float-right">{{count($pending)}}</h4> -->
+        <h4 class="mb-3 mt-0 float-right">{{count($pending)}}</h4>
     </div>
     <div> <span class="ml-2 ml22">Pending Patients Reports</span>
     </div>
@@ -83,7 +83,7 @@
 <div class="card bg-pink mini-stat text-white">
 <div class="p-3 mini-stat-desc">
     <div class="clearfix">
-        <!-- <h4 class="mb-3 mt-0 float-right">{{count($total)}}</h4> -->
+        <h4 class="mb-3 mt-0 float-right">{{count($total)}}</h4>
     </div>
     <div> <span class="ml-2 ml22">Complete Records Send</span>
     </div>
@@ -100,8 +100,7 @@
 
 <div class="col-xl-3 col-md-6">
 <div class="card bg-success mini-stat text-white">
-
-<!-- <div class="p-3 mini-stat-desc">
+<div class="p-3 mini-stat-desc">
     <div class="clearfix">
         <input placeholder="Enter Patient ID to Cancel Records from API" class="" style="
     width: 100%;
@@ -124,7 +123,7 @@
     border-radius: 0px 0px 5px 5px;
     color: white;
 ">
-</div> -->
+</div>
 
 
 </div>
@@ -219,6 +218,110 @@
 </div>
 <!-- end row -->
 
+<!-- Comment by Raheel
+
+<div class="row">
+<div class="col-xl-12">
+<div class="card">
+<div class="card-body">
+    <h4 class="mt-0 header-title mb-4">Test Results send today</h4>
+    <div class="table-responsive">
+        <table class="table table-hover" id="datatable2">
+            <thead>
+                <tr>
+                    <th scope="col">Registration Date</th>
+                    <th scope="col">Patient ID</th>
+                    <th scope="col">Invoice ID</th>
+                    <th scope="col">Patient Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if(!empty($results_sent))
+                @foreach($results_sent as $key=>$value)
+                <tr>
+                    <td scope="col">{{$value->patient->created_at}}</td>
+                    <td scope="col">#{{$value->patient->id}}</td>
+                    <td scope="col">#{{$value->invoice->unique_id}}</td>
+                    <td scope="col">{{ucwords($value->patient->name)}}</td>
+                </tr>
+                @endforeach
+                @endif
+            </tbody>
+        </table>
+    </div>
+
+</div>
+</div>
+</div>
+</div>
+<!-- end row -->
+
+<!-- <div class="row">
+<div class="col-xl-12">
+<div class="card">
+<div class="card-body">
+    <h4 class="mt-0 header-title mb-4">Queued/Records Waiting For Tests Results To Be Delivered</h4>
+    <div class="table-responsive">
+        <table class="table table-hover" id="datatable">
+            <thead>
+                <tr>
+                    <th scope="col">Registration Date</th>
+                    <th scope="col">Patient ID</th>
+                    <th scope="col">Invoice ID</th>
+                    <th scope="col">Patient Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td scope="col">Registration Date</td>
+                    <td scope="col">Patient ID</td>
+                    <td scope="col">Invoice ID</td>
+                    <td scope="col">Patient Name</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+</div>
+</div>
+</div> 
+
+<div class="row">
+<div class="col-xl-12">
+<div class="card">
+<div class="card-body">
+    <h4 class="mt-0 header-title mb-4">Successfully Send Records Today</h4>
+    <div class="table-responsive">
+        <table class="table table-hover" id="datatable3">
+            <thead>
+                <tr>
+                    <th scope="col">Registration Date</th>
+                    <th scope="col">Patient ID</th>
+                    <th scope="col">Invoice ID</th>
+                    <th scope="col">Patient Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if(!empty($total))
+                @foreach($total as $key=>$value)
+                <tr>
+                    <td scope="col">{{$value->patient->created_at}}</td>
+                    <td scope="col">#{{$value->patient->id}}</td>
+                    <td scope="col">#{{$value->invoice->unique_id}}</td>
+                    <td scope="col">{{ucwords($value->patient->name)}}</td>
+                </tr>
+                @endforeach
+                @endif
+            </tbody>
+        </table>
+    </div>
+
+</div>
+</div>
+</div>
+</div>
+<!-- end row -->
 
 </div> 
 <!-- container fluid -->

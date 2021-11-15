@@ -168,7 +168,7 @@ class LabUserController extends Controller
                 $single_field['kits'] = '<a href="" class="" data-toggle="modal" data-target="#kitView"> <span class="btn btn-light" style=""> 0 </span> Select Kit</a>';
                 $rut = !(empty($item->test->reporting_units->type))?$item->test->reporting_units->type:'';
                 $id = createBase64($item->id);
-                $action = '<div><a href="javascript::" rel="'.$item->test_id.'" class="btn btn-info btn-sm waves-effect waves-light assign_kit" id="'.$item->id.'" rut="'.$rut.'">Assign Kit</a></div>';
+                //$action = '<div><a href="javascript::" rel="'.$item->test_id.'" class="btn btn-info btn-sm waves-effect waves-light assign_kit" id="'.$item->id.'" rut="'.$rut.'">Assign Kit</a></div>';
                 $action .= ' <div><a href="'.$item->id.'" rel="'.$rut.'" class="btn btn-success btn-sm  waves-effect waves-light submit_reports" id="submit_report_'.$item->id.'">Submit Report</a></div>';
                 $action .= '<div class="btn-group">
                     <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>
