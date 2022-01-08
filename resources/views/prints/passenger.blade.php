@@ -34,8 +34,6 @@
             }
         }
     </script>
-
-
     <link rel="stylesheet" href="..\..\..\public\assets\plugins\particlejs\particle-style.css">
 
 
@@ -45,10 +43,9 @@
 
 </head>
 
-<body class="reports-body">
+<body class="">
+    
 
-    <div id="particles-js">
-    </div>
     <div class=" mbl-screen ">
         <button type="button " onclick="window.print() " class="btn btn-light btn-lg btn-block " id="clearedPayment ">Print / Convert to PDF</button>
     </div>
@@ -226,9 +223,29 @@
             </div>
         </div>
         <?php } ?>
-        <div class="container mb-5" id="print_section">
-            <img src="https://pcr.realtimepcr.pk/assets/images/pcr-logo.png" alt="logo" class="watermark-logo">
-            <div class="row" style="padding: 5px;">
+     </div>
+        <div class="container mb-5 border-0" id="print_section">
+            <?php
+    if (!empty($result->patient_tests)) {
+        foreach ($result->patient_tests as $pt) {
+            $ptr = $pt->patient_test_results;
+    ?>
+
+    <?php if ($pt->status == 0) { ?>
+
+        <div class="d-flex flex-stack justify-content-center fs-1 text-warning">
+        Waiting for Result
+        </div>
+        <div class="d-flex flex-stack justify-content-center fs-6">Your Result will be automatically Updated please check back later</div>
+    <div class="d-flex flex-stack justify-content-center">
+        <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+        <lottie-player src="https://assets5.lottiefiles.com/private_files/lf30_tcfbycgg.json"  background="transparent"  speed="1"  style="width: 100%; height: auto;"  loop autoplay></lottie-player>
+    </div>
+        <?php } else { ?>
+
+            
+            <img src="https://pcr.realtimepcr.pk/assets/images/pcr-logo.png" alt="logo" class="watermark-logo">                 
+            <div class="row component" style="padding: 5px; color: #fff; background-color: #000;">
                 <div class="col-sm-4 border-right">
                     ID: # <b>
 
@@ -263,7 +280,6 @@
                     ?>
                 </div>
             </div>
-
             <div class="row component" style="border: none;">
 
                 <div class="col-sm-2 border-right">
@@ -354,8 +370,7 @@
 
                 </div>
             </div>
-
-            <div class="row border-bottom" id="patient-cmp">
+            <div class="row border-bottom component" id="patient-cmp">
                 <span class="col-sm-6 sec-label"> Patient Name: 
                 <span class="sec-label-ans border-bottom border-2 border-primary text-primary"><?php echo (!empty($result->patient->name)) ? ucwords($result->patient->name) : 'None'; ?>
                     (<?php
@@ -380,10 +395,8 @@
                     <span class="sec-label-ans border-bottom border-2 border-primary text-primary"><?php echo (!empty($result->patient->contact_no)) ? $result->patient->contact_no : ''; ?></span>
                 </div>
             </div>
-
-            <?php if($result->patient_tests[0]->type==2){ ?>
-
-            <div class="row mt-3 border-bottom border-2 border-dark mb-2" id="overseas-cmp">
+            {{-- <?php if($result->patient_tests[0]->type==2){ ?> --}}
+            <div class="row component mt-3 border-bottom border-2 border-dark mb-2" id="overseas-cmp">
                 <span class="col-sm-3 sec-label"> Passport# 
                 <span class="sec-label-ans border-bottom"><?php echo (!empty($result->passenger->passport_no)) ? $result->passenger->passport_no : 'Not Available'; ?></span>
                 </span>
@@ -436,8 +449,7 @@
                 </div>
                 <?php } ?>
             </div>
-            <?php } ?>
-
+            {{-- <?php } ?> --}}
             <div class="dynamic-report-sec">
                 <?php
         if (!empty($result->patient_tests)) {
@@ -838,11 +850,11 @@
                 </div>
 
             </div>
+
+            <?php } ?>
+                    <?php } ?>
+                    <?php } ?>
         </div>
-
-
-        <script src="https://pcr.realtimepcr.pk/assets/plugins/particlejs/particles.js "></script>
-        <script src="https://pcr.realtimepcr.pk/assets/plugins/particlejs/app.js "></script>
         </div>
 </body>
 

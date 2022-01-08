@@ -484,7 +484,7 @@
               <div class="form-group invoice-inputs">
                 <label for="" class="col-form-label pformlabel">Invoice / Sample Time</label>
                 <div class="">
-                  <input type="text" class="form-control datetimepicker" name="invoice_date_time">
+                  <input type="text" class="form-control datetimepicker" name="invoice_date_time" disabled>
                 </div>
 
               </div>
